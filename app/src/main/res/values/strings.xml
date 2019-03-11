@@ -1,6 +1,28 @@
 <resources>
     <string name="app_name">WeRoom</string>
+    <string name="facebook_app_id">343614792929445</string>
+    <string name="fb_login_protocol_scheme">fb343614792929445</string>
+    <string name="button_login">LOG IN</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat Password</string>
+    <string name="button_signup">SIGN UP</string>
+    <string name="refer_to_login">Already have an existing account? Log in Here!</string>
+    <string name="refer_to_signup">New User? Register Here!</string>
+    <string name="empty_fields">Empty Fields!</string>
+    <string name="title_activity_login">Sign in</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

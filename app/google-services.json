@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "462352669563-jo1gvg68g9nfqnt13celi7b87em21gop.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.itcom202.weroom",
+            "certificate_hash": "38603bac0c516d1d3298066c83aa4db6e5f1b24c"
+          }
+        },
+        {
           "client_id": "462352669563-hlb7h1rc5sulqbavbim33a966rvvamt6.apps.googleusercontent.com",
           "client_type": 3
         }
