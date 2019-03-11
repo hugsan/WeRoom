@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "462352669563",
+    "firebase_url": "https://weroom-fa6fe.firebaseio.com",
+    "project_id": "weroom-fa6fe",
+    "storage_bucket": "weroom-fa6fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462352669563:android:1842635c2644d77b",
+        "android_client_info": {
+          "package_name": "com.itcom202.weroom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "462352669563-sh326a93hj9r2hc2gnlhv2upr2r6i3iu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.itcom202.weroom",
+            "certificate_hash": "e7c0359138a32e433a7c486cf823b52a9816a7a3"
+          }
+        },
+        {
+          "client_id": "462352669563-hlb7h1rc5sulqbavbim33a966rvvamt6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPjxwgyLkQqvtzF4edws8lxvRG6-4imsc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "462352669563-hlb7h1rc5sulqbavbim33a966rvvamt6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
