@@ -1,13 +1,13 @@
 package com.itcom202.weroom;
 
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class UserActivity extends AppCompatActivity {
+public class UserActivity extends SingleFragmentActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
+    protected Fragment createFragment() {
+        return new AccountCreationFragment();
     }
 }
