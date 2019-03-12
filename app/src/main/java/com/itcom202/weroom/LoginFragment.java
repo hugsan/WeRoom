@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,22 +76,25 @@ public class LoginFragment extends Fragment {
         mReferSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent I = new Intent(getActivity(), SingupFragment.class);
-                startActivity(I);
+                Fragment nextFragment = new SingupFragment();
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, nextFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mLoginEmail.length()==0) {
+                if (mLoginEmail.getText().toString().length()==0) {
                     mLoginEmail.setError("Provide your Email first!");
                     mLoginEmail.requestFocus();
-                } else if (mLoginPasswd.length()==0) {
+                } else if (mLoginPasswd.getText().toString().length()==0) {
                     mLoginPasswd.setError("Enter Password!");
                     mLoginPasswd.requestFocus();
-                } else if (mLoginEmail.length()==0&& mLoginPasswd.length()==0) {
+                } else if (mLoginEmail.getText().toString().length()==0&& mLoginPasswd.getText().toString().length()==0) {
                     Toast.makeText(getActivity(), "Fields Empty!", Toast.LENGTH_SHORT).show();
-                } else if (!(mLoginEmail.length()==0 && mLoginPasswd.length()==0)) {
+                } else if (!(mLoginEmail.getText().toString().length()==0 && mLoginPasswd.getText().toString().length()==0)) {
                     firebaseAuth.signInWithEmailAndPassword(mLoginEmail.getText().toString(), mLoginPasswd.getText().toString())
                             .addOnCompleteListener(getActivity(), new OnCompleteListener() {
                         @Override
@@ -129,6 +133,7 @@ public class LoginFragment extends Fragment {
                 // App code
             }
         });
+
 
 
 
