@@ -1,35 +1,35 @@
 package com.itcom202.weroom;
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.transition.Fade;
-import android.transition.TransitionInflater;
-import android.transition.TransitionSet;
-import android.util.Base64;
-import android.util.Log;
+import android.content.SharedPreferences;
 
-import com.google.firebase.FirebaseApp;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+
+
+import android.os.Bundle;
+
+
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+
 
 public class MainActivity extends SingleFragmentActivity {
 
+    SharedPreferences mSettings;
+    SharedPreferences.Editor mPrefEditor;
 
     @Override
     protected Fragment createFragment() {
         return new SingupFragment();
     }
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
 
 
     }
+}
 
