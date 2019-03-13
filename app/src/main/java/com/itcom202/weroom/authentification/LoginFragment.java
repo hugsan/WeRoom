@@ -1,11 +1,10 @@
-package com.itcom202.weroom;
+package com.itcom202.weroom.authentification;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +34,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.itcom202.weroom.AccountCreationActivity;
+import com.itcom202.weroom.R;
 
 import java.util.Arrays;
 
@@ -42,16 +43,15 @@ import java.util.Arrays;
 public class LoginFragment extends Fragment {
     final private static String TAG = "LoginFragment";
     final private static int RC_SIGN_IN = 101;
-    CallbackManager mCallbackManager;
-    LoginButton mLoginButtonFb;
-    SignInButton mGoogleSign;
+    private CallbackManager mCallbackManager;
+    private LoginButton mLoginButtonFb;
+    private SignInButton mGoogleSign;
 
 
-    public EditText mLoginEmail, mLoginPasswd;
-    Button mButtonLogin;
-    TextView mReferSignup;
-    FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
+    private EditText mLoginEmail, mLoginPasswd;
+    private Button mButtonLogin;
+    private TextView mReferSignup;
+    private FirebaseAuth firebaseAuth;
 
     GoogleApiClient mGoogleApiClient;
     private static final String EMAIL = "email";
@@ -60,7 +60,7 @@ public class LoginFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-       mCallbackManager = CallbackManager.Factory.create();
+        mCallbackManager = CallbackManager.Factory.create();
 
     }
 
@@ -74,9 +74,8 @@ public class LoginFragment extends Fragment {
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        //
-        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
-                .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
+
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
                     @Override
                     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
@@ -84,8 +83,6 @@ public class LoginFragment extends Fragment {
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-        //
-
 
         firebaseAuth = FirebaseAuth.getInstance();
         mGoogleSign = v.findViewById(R.id.sign_in_google);
@@ -93,13 +90,13 @@ public class LoginFragment extends Fragment {
         mLoginPasswd = v.findViewById(R.id.passwordLogIn);
         mButtonLogin = v.findViewById(R.id.buttonLogIn);
         mReferSignup = v.findViewById(R.id.referSignUp);
-        authStateListener = new FirebaseAuth.AuthStateListener() {
+        FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     Toast.makeText(getActivity(), "User logged in ", Toast.LENGTH_SHORT).show();
-                    Intent I = new Intent(getActivity(), UserActivity.class);
+                    Intent I = new Intent(getActivity(), AccountCreationActivity.class);
                     startActivity(I);
                 } else {
                     Toast.makeText(getActivity(), "Login to continue", Toast.LENGTH_SHORT).show();
@@ -115,11 +112,7 @@ public class LoginFragment extends Fragment {
         mReferSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment nextFragment = new SingupFragment();
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, nextFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                startActivity(SignActivity.newIntent(getActivity()));
             }
         });
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +134,7 @@ public class LoginFragment extends Fragment {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(getActivity(), "Not sucessfull", Toast.LENGTH_SHORT).show();
                             } else {
-                                startActivity(new Intent(getActivity(), UserActivity.class));
+                                startActivity(new Intent(getActivity(), AccountCreationActivity.class));
                             }
                         }
                     });
@@ -172,11 +165,6 @@ public class LoginFragment extends Fragment {
                 // App code
             }
         });
-
-
-
-
-
         return v;
     }
 
@@ -222,11 +210,7 @@ public class LoginFragment extends Fragment {
                                     Toast.LENGTH_SHORT).show();
                         }
                         else{
-                            Fragment nextFragment = new AccountCreationFragment();
-                            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.fragment_container, nextFragment);
-                            fragmentTransaction.addToBackStack(null);
-                            fragmentTransaction.commit();
+                            startActivity(AccountCreationActivity.newIntent(getActivity()));
                         }
                     }
                 });
