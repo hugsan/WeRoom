@@ -11,6 +11,8 @@
     <string name="refer_to_signup">New User? Register Here!</string>
     <string name="empty_fields">Empty Fields!</string>
     <string name="title_activity_login">Sign in</string>
+    <!-- Strings related google ID server -->
+    <string name="google_credential">462352669563-jo1gvg68g9nfqnt13celi7b87em21gop.apps.googleusercontent.com</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

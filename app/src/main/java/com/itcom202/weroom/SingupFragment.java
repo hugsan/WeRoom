@@ -143,7 +143,7 @@ public class SingupFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
-
+        
         return v;
 
     }
