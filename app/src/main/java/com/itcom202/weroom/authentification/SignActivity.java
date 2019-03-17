@@ -16,6 +16,7 @@ public class SignActivity extends SingleFragmentActivity {
 
     public static Intent newIntent(Context myContext){
         Intent i = new Intent(myContext, SignActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         return i;
     }
 }

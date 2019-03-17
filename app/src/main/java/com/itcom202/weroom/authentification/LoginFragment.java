@@ -45,18 +45,17 @@ import java.util.Arrays;
 public class LoginFragment extends Fragment {
     final private static String TAG = "LoginFragment";
     final private static int RC_SIGN_IN = 101;
+    private static final String EMAIL = "email";
+
     private CallbackManager mCallbackManager;
     private LoginButton mLoginButtonFb;
     private SignInButton mGoogleSign;
-
-
     private EditText mLoginEmail, mLoginPasswd;
     private Button mButtonLogin;
     private TextView mReferSignup;
     private FirebaseAuth firebaseAuth;
 
     GoogleApiClient mGoogleApiClient;
-    private static final String EMAIL = "email";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,7 +78,7 @@ public class LoginFragment extends Fragment {
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
                     @Override
                     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+                        //TODO case where we cannot connect with google
                     }
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
