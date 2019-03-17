@@ -21,12 +21,12 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG,"User logged in: "+ firebaseAuth.getCurrentUser());
         //if there is no user logged in Firebase it starts LoginActivity
         if (firebaseAuth.getCurrentUser() == null){
-            Log.i(TAG,"We are not logged");
+            Log.i(TAG,"We are not logged as:");
             startActivity(LoginActivity.newIntent(this));
             finish();
         }//IF there is a user logged into Firebase it starts at AccountCreationActivity
         else{
-            Log.i(TAG,"We are logged");
+            Log.i(TAG,"We are logged"+ firebaseAuth.getCurrentUser().getEmail());
             startActivity(AccountCreationActivity.newIntent(this));
             finish();
         }

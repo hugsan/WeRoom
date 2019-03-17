@@ -18,6 +18,7 @@ import com.itcom202.weroom.authentification.LoginFragment;
 
 public class AccountCreationFragment extends Fragment {
     Button mLogoutButton;
+    FirebaseAuth mFirebaseAuth;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,10 +30,12 @@ public class AccountCreationFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.account_creation_fragment, container, false);
         mLogoutButton = v.findViewById(R.id.logout_button);
+        mFirebaseAuth = FirebaseAuth.getInstance();
         mLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try{
+                    mFirebaseAuth.signOut();
                     startActivity(LoginActivity.newIntent(getActivity()));
                 }catch (Exception e){
                     Toast.makeText(getActivity(), "Error on logout.", Toast.LENGTH_LONG).show();
