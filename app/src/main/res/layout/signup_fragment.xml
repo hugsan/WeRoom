@@ -1,23 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/blured2">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="340dp"
+        android:layout_height="77dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.81"
+        app:srcCompat="@drawable/or" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button_Fb"
+        android:layout_width="132dp"
+        android:layout_height="113dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:foreground="@drawable/facebook"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.834" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_google"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="142dp"
-        android:layout_marginTop="53dp"
-        android:layout_marginEnd="142dp"
-        android:layout_marginBottom="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSignUp"
+        android:layout_width="132dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:foreground="@drawable/google"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.844"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/repeatPassword" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.848" />
 
     <EditText
         android:id="@+id/emailSignUp"
@@ -27,6 +63,7 @@
         android:layout_marginTop="118dp"
         android:layout_marginEnd="99dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/gray"
         android:ems="10"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
@@ -45,6 +82,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="100dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/gray"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
@@ -63,6 +101,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="101dp"
         android:layout_marginBottom="438dp"
+        android:background="@drawable/gray"
         android:ems="10"
         android:hint="@string/repeat_password"
         android:inputType="textPassword"
@@ -75,12 +114,13 @@
 
     <Button
         android:id="@+id/buttonSignUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginTop="123dp"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="162dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="162dp"
-        android:layout_marginBottom="272dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/salmon"
         android:text="@string/action_sign_in_short"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,16 +129,20 @@
 
     <TextView
         android:id="@+id/referLogIn"
-        android:layout_width="wrap_content"
-        android:layout_height="27dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="55dp"
-        android:layout_marginBottom="229dp"
+        android:layout_width="412dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/salmon_bl"
+        android:gravity="center"
         android:text="@string/refer_to_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSignUp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>
