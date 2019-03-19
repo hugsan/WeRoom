@@ -1,21 +1,19 @@
 package com.itcom202.weroom.account.profiles;
 
-import android.provider.ContactsContract;
-
 public class Profile {
 
     private String name;
     private int age;
     private String gender;
-    private String nationality;
+    private String country;
 
 
 
-    public Profile (String name, int age, String gender, String nationality){
+    public Profile (String name, int age, String gender, String country){
         this.name = name;
         this.age = age;
         this.gender = gender;
-        this.nationality = nationality;
+        this.country = country;
     }
 
     public int getAge() {
@@ -41,11 +39,11 @@ public class Profile {
         this.gender = gender;
     }
 
-    public String getNationality() {
-        return nationality;
+    public String getCountry() {
+        return country;
     }
 
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
+    public void setCountry(String country) {
+        this.country = country;
     }
 }
