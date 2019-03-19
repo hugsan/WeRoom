@@ -24,7 +24,7 @@ import com.itcom202.weroom.R;
 
 class GoogleConnection {
     private static GoogleSignInOptions gso;
-    public static final int RC_SIGN_IN = 101;
+    static final int RC_SIGN_IN = 101;
 
     static GoogleApiClient create(Context context){
         if (gso == null){

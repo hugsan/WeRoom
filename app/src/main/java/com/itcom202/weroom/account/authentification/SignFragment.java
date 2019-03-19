@@ -30,6 +30,8 @@ import com.itcom202.weroom.R;
 import com.itcom202.weroom.AccountCreationActivity;
 import com.itcom202.weroom.account.profiles.Profile_Activity;
 
+import java.util.Objects;
+
 public class SignFragment extends Fragment {
 
     private static final String TAG = "SignFragment";
@@ -74,7 +76,7 @@ public class SignFragment extends Fragment {
                 if (mEmail.getText().toString().length() == 0) {
                     mEmail.setError("Provide your Email first!");
                     mEmail.requestFocus();
-                } else if (mPasswd.getText().toString().length() == 0) {
+                } else if (0 == mPasswd.getText().toString().length()) {
                     mPasswd.setError("Set your password!");
                     mPasswd.requestFocus();
                 } else if (!pwd1.equals(pwd2)) {
@@ -86,7 +88,7 @@ public class SignFragment extends Fragment {
                 } else if (!(mEmail.getText().toString().length() == 0 || pwd1.length() == 0 || pwd2.length() == 0))
                 {
                     mFirebaseAuth.createUserWithEmailAndPassword(mEmail.getText().toString(), mPasswd2.getText().toString())
-                            .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                            .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {

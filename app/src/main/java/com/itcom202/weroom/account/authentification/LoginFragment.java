@@ -40,6 +40,8 @@ import com.itcom202.weroom.AccountCreationActivity;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.Profile_Activity;
 
+import java.util.Objects;
+
 
 public class LoginFragment extends Fragment {
     final private static String TAG = "LoginFragment";
@@ -192,13 +194,13 @@ public class LoginFragment extends Fragment {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
+//                            FirebaseUser user = firebaseAuth.getCurrentUser();
 //                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
