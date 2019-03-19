@@ -12,7 +12,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.itcom202.weroom.authentification.LoginActivity;
+import com.itcom202.weroom.account.authentification.LoginActivity;
+import com.itcom202.weroom.account.profiles.Profile_Activity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -25,27 +26,6 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         Log.i(TAG,"User logged in: "+ firebaseAuth.getCurrentUser());
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-        myRef.setValue("Hello, World!");
-
-        // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Value is: " + value);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
         //if there is no user logged in Firebase it starts LoginActivity
         if (firebaseAuth.getCurrentUser() == null){
             Log.i(TAG,"We are not logged as:");
@@ -54,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         }//IF there is a user logged into Firebase it starts at AccountCreationActivity
         else{
             Log.i(TAG,"We are logged"+ firebaseAuth.getCurrentUser().getEmail());
-            startActivity(AccountCreationActivity.newIntent(this));
+            startActivity(Profile_Activity.newIntent(this));
             finish();
         }
 

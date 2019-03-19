@@ -1,4 +1,4 @@
-package com.itcom202.weroom.authentification;
+package com.itcom202.weroom.account.authentification;
 
 import android.content.Context;
 import android.content.Intent;

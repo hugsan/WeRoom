@@ -1,4 +1,4 @@
-package com.itcom202.weroom.authentification;
+package com.itcom202.weroom.account.authentification;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,8 +38,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.itcom202.weroom.AccountCreationActivity;
 import com.itcom202.weroom.R;
-
-import java.util.Arrays;
+import com.itcom202.weroom.account.profiles.Profile_Activity;
 
 
 public class LoginFragment extends Fragment {
@@ -90,19 +89,19 @@ public class LoginFragment extends Fragment {
         mLoginPasswd = v.findViewById(R.id.passwordLogIn);
         mButtonLogin = v.findViewById(R.id.buttonLogIn);
         mReferSignup = v.findViewById(R.id.referSignUp);
-        FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    Toast.makeText(getActivity(), "User logged in ", Toast.LENGTH_SHORT).show();
-                    Intent I = new Intent(getActivity(), AccountCreationActivity.class);
-                    startActivity(I);
-                } else {
-                    Toast.makeText(getActivity(), "Login to continue", Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
+//        FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                FirebaseUser user = firebaseAuth.getCurrentUser();
+//                if (user != null) {
+//                    Toast.makeText(getActivity(), "User logged in ", Toast.LENGTH_SHORT).show();
+//                    Intent I = new Intent(getActivity(), Profile_Activity.class);
+//                    startActivity(I);
+//                } else {
+//                    Toast.makeText(getActivity(), "Login to continue", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        };
         mGoogleSign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,7 +133,7 @@ public class LoginFragment extends Fragment {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(getActivity(), "Not sucessfull", Toast.LENGTH_SHORT).show();
                             } else {
-                                startActivity(new Intent(getActivity(), AccountCreationActivity.class));
+                                startActivity(new Intent(getActivity(), Profile_Activity.class));
                             }
                         }
                     });
@@ -155,7 +154,7 @@ public class LoginFragment extends Fragment {
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
-                startActivity(AccountCreationActivity.newIntent(getActivity()));
+                startActivity(Profile_Activity.newIntent(getActivity()));
             }
 
             @Override
@@ -244,7 +243,7 @@ public class LoginFragment extends Fragment {
                                     Toast.LENGTH_SHORT).show();
                         }
                         else{
-                            startActivity(AccountCreationActivity.newIntent(getActivity()));
+                            startActivity(Profile_Activity.newIntent(getActivity()));
                         }
                     }
                 });

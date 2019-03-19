@@ -1,4 +1,4 @@
-package com.itcom202.weroom.authentification;
+package com.itcom202.weroom.account.authentification;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.AccountCreationActivity;
+import com.itcom202.weroom.account.profiles.Profile_Activity;
 
 public class SignFragment extends Fragment {
 
@@ -70,7 +71,7 @@ public class SignFragment extends Fragment {
                                                     .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
                                                         public void onComplete(@NonNull Task<GetTokenResult> task) {
                                                             if (task.isSuccessful()) {
-                                                                startActivity(AccountCreationActivity.newIntent(getActivity()));
+                                                                startActivity(Profile_Activity.newIntent(getActivity()));
 
                                                             } else {
                                                                 Toast.makeText(getActivity().getApplicationContext(),
