@@ -1,15 +1,15 @@
 package com.itcom202.weroom.account.profiles;
 
 public class Profile {
-    public String getPotato() {
-        return potato;
+    public String getName() {
+        return name;
     }
 
-    public void setPotato(String potato) {
-        this.potato = potato;
+    public void setName(String name) {
+        this.name= name;
     }
 
-    private String potato;
+    private String name;
 
     public int getAge() {
         return age;
@@ -22,7 +22,7 @@ public class Profile {
     private int age;
 
     public Profile (String name, int age){
-        this.potato = name;
+        this.name = name;
         this.age = age;
     }
 
