@@ -7,10 +7,11 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.ButtonBarLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,6 +21,11 @@ import com.itcom202.weroom.R;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -32,6 +38,8 @@ public class ProfileFragment extends Fragment {
     private EditText mAge;
     private Button mCreateProfile;
     private ImageButton mButtonProfilePhoto;
+    private Spinner mGender;
+    private Spinner mCountry;
 
     private ImageView mProfilePhoto;
 
@@ -51,12 +59,59 @@ public class ProfileFragment extends Fragment {
         mAge = v.findViewById(R.id.age);
         mProfilePhoto = v.findViewById(R.id.profilePhoto);
         mCreateProfile = v.findViewById(R.id.createprofile);
+        mGender = v.findViewById(R.id.spinnerGender);
+        mCountry = v.findViewById(R.id.spinnerCountry);
+
+        mGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        mCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        String[] locales = Locale.getISOCountries();
+        List<String> countries = new ArrayList<>();
+        countries.add("Select Country");
+
+
+
+        for (String countryCode : locales) {
+
+            Locale obj = new Locale("", countryCode);
+
+            countries.add(obj.getDisplayCountry());
+
+        }
+        //Collections.sort(countries);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item, countries);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mCountry.setAdapter(adapter);
+
+
 
         mCreateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Profile myProfile =
-                        new Profile(mUserName.getText().toString(), Integer.parseInt(mAge.getText().toString()));
+                        new Profile(mUserName.getText().toString(), Integer.parseInt(mAge.getText().toString()),
+                                String.valueOf(mGender.getSelectedItem()), String.valueOf(mCountry.getSelectedItem()));
                 mDatabaseReference
                         .child(DataBasePath.USERS)
                         .child(mUser.getUid())
