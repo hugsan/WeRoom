@@ -1,16 +1,17 @@
 package com.itcom202.weroom.account.profiles;
 
-public class Profile {
-    public String getName() {
-        return name;
-    }
+import android.provider.ContactsContract;
 
-    public void setName(String name) {
-        this.name= name;
-    }
+public class Profile {
 
     private String name;
+    private int age;
 
+
+    public Profile (String name, int age){
+        this.name = name;
+        this.age = age;
+    }
     public int getAge() {
         return age;
     }
@@ -18,12 +19,12 @@ public class Profile {
     public void setAge(int age) {
         this.age = age;
     }
+    public String getName() {
+        return name;
+    }
 
-    private int age;
-
-    public Profile (String name, int age){
-        this.name = name;
-        this.age = age;
+    public void setName(String name) {
+        this.name= name;
     }
 
 
