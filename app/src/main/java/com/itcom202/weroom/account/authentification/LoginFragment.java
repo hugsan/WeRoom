@@ -99,7 +99,6 @@ public class LoginFragment extends Fragment {
         mReferSignup = v.findViewById(R.id.referSignUp);
         //Create the instances connection with Firebase.
         firebaseAuth = FirebaseAuth.getInstance();
-        //Buttons regarding to FB verification
         mLoginEmail = v.findViewById(R.id.emailLogIn);
         mLoginPasswd = v.findViewById(R.id.passwordLogIn);
         mButtonLogin = v.findViewById(R.id.buttonLogIn);
@@ -140,17 +139,16 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        mLoginButtonFb = v.findViewById(R.id.login_button_Fb);
-        mLoginButtonFb.setReadPermissions("email","public_profile");
-        mLoginButtonFb.setFragment(this);
+        mLoginButtonFb = FaceBookConnection.facebookLoginButtonCreate(v, this,firebaseAuth,getActivity());
 
-        mCallbackManager = CallbackManager.Factory.create();
+        /*mCallbackManager = CallbackManager.Factory.create();
         // Callback registration
         mLoginButtonFb.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
+                FaceBookConnection.handleFacebookAccessToken(loginResult.getAccessToken(),
+                        firebaseAuth,getActivity());
                 startActivity(Profile_Activity.newIntent(getActivity()));
             }
 
@@ -158,12 +156,13 @@ public class LoginFragment extends Fragment {
             public void onCancel() {
                 Log.d(TAG, "facebook:onCancel");
             }
-
+            //TODO condition when the user cancel facebook login?
             @Override
             public void onError(FacebookException error) {
+                //TODO notify properly the user when there was an error on the login with FB
                 Log.d(TAG, "facebook:onError", error);
             }
-        });
+        });*/
         return v;
     }
 
@@ -171,8 +170,8 @@ public class LoginFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
-
+        //        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        FaceBookConnection.getCallBackManager().onActivityResult(requestCode,resultCode,data);
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == GoogleConnection.RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -190,7 +189,7 @@ public class LoginFragment extends Fragment {
     }
 
 
-    private void handleFacebookAccessToken(AccessToken token) {
+   /* private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         firebaseAuth.signInWithCredential(credential)
