@@ -2,6 +2,7 @@ package com.itcom202.weroom.account.profiles;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -22,6 +23,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +81,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+
             }
 
             @Override
@@ -85,6 +89,8 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+
+
 
         String[] locales = Locale.getISOCountries();
         List<String> countries = new ArrayList<>();
@@ -99,24 +105,54 @@ public class ProfileFragment extends Fragment {
             countries.add(obj.getDisplayCountry());
 
         }
-        //Collections.sort(countries);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item, countries);
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_dropdown_item, countries);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mCountry.setAdapter(adapter);
+       // mCountry.setPrompt("Select your Country!");
+
 
 
 
         mCreateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Profile myProfile =
-                        new Profile(mUserName.getText().toString(), Integer.parseInt(mAge.getText().toString()),
-                                String.valueOf(mGender.getSelectedItem()), String.valueOf(mCountry.getSelectedItem()));
-                mDatabaseReference
-                        .child(DataBasePath.USERS)
-                        .child(mUser.getUid())
-                        .child(DataBasePath.PROFILE)
-                        .setValue(myProfile);
+
+                if(mUserName.getText().toString().equals("")){
+                   mUserName.setError("Please type your name!");
+                   mUserName.requestFocus();
+                }else if(mAge.getText().toString().isEmpty()){
+                    mAge.setError("Please type your age!");
+                    mAge.requestFocus();
+                }else if(Integer.parseInt(mAge.getText().toString())<15){
+                    mAge.setError("You should be at least 15!");
+                    mAge.requestFocus();
+                }else if(Integer.parseInt(mAge.getText().toString())>95){
+                    mAge.setError("You are too old! :)");
+                    mAge.requestFocus();
+                }else if(mGender.getSelectedItemPosition()==0) {
+                    TextView errorText = (TextView)mGender.getSelectedView();
+                    errorText.setError("");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    errorText.setText("Select your gender!");
+
+                }else if(mCountry.getSelectedItemPosition()==0) {
+                    TextView errorText = (TextView)mCountry.getSelectedView();
+                    errorText.setError("");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    errorText.setText("Select your country!");
+
+                }else {
+                    Profile myProfile =
+                            new Profile(mUserName.getText().toString(), Integer.parseInt(mAge.getText().toString()),
+                                    String.valueOf(mGender.getSelectedItem()), String.valueOf(mCountry.getSelectedItem()));
+                    mDatabaseReference
+                            .child(DataBasePath.USERS)
+                            .child(mUser.getUid())
+                            .child(DataBasePath.PROFILE)
+                            .setValue(myProfile);
+                }
             }
         });
 
