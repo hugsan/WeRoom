@@ -168,7 +168,6 @@ public class ProfileFragment extends Fragment {
         });
         mProfilePhoto = v.findViewById(R.id.profilePhoto);
         mProfilePhoto.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 pickFromGallery();
@@ -178,7 +177,6 @@ public class ProfileFragment extends Fragment {
 
         mButtonProfilePhoto = v.findViewById(R.id.buttonProfilePhoto);
         mButtonProfilePhoto.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 dispatchTakePictureIntent();
@@ -186,7 +184,6 @@ public class ProfileFragment extends Fragment {
         });
 
         return v;
-
     }
 
 
@@ -259,7 +256,6 @@ public class ProfileFragment extends Fragment {
         //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
         String[] mimeTypes = {"image/jpeg", "image/png"};
         intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
-        // Launching the Intent
         startActivityForResult(intent,GALLERY_REQUEST_CODE);
     }
 }
