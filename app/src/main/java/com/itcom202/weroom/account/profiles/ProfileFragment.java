@@ -1,7 +1,10 @@
 package com.itcom202.weroom.account.profiles;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -48,8 +51,8 @@ import static android.app.Activity.RESULT_OK;
 
 
 public class ProfileFragment extends Fragment {
-    public static final int RESULT_GALLERY = 0;
-
+    static final int REQUEST_IMAGE_CAPTURE = 0;
+    static final int GALLERY_REQUEST_CODE = 1;
 
     private static final String TAG = "ProfileFragment";
     private FirebaseAuth mFirebaseAuth;
@@ -65,13 +68,11 @@ public class ProfileFragment extends Fragment {
 
     private ImageView mProfilePhoto;
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.profile_fragment,container,false);
+        View v = inflater.inflate(R.layout.profile_fragment, container, false);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
@@ -96,7 +97,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        mCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        mCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -113,7 +114,6 @@ public class ProfileFragment extends Fragment {
         countries.add("Select Country");
 
 
-
         for (String countryCode : locales) {
 
             Locale obj = new Locale("", countryCode);
@@ -121,41 +121,40 @@ public class ProfileFragment extends Fragment {
             countries.add(obj.getDisplayCountry());
 
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_dropdown_item, countries);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, countries);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mCountry.setAdapter(adapter);
-
 
 
         mCreateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(mUserName.getText().toString().equals("")){
+                if (mUserName.getText().toString().equals("")) {
                     mUserName.setError("Please type your name!");
                     mUserName.requestFocus();
-                }else if(mAge.getText().toString().isEmpty()){
+                } else if (mAge.getText().toString().isEmpty()) {
                     mAge.setError("Please type your age!");
                     mAge.requestFocus();
-                }else if(Integer.parseInt(mAge.getText().toString())<15){
+                } else if (Integer.parseInt(mAge.getText().toString()) < 15) {
                     mAge.setError("You should be at least 15!");
                     mAge.requestFocus();
-                }else if(Integer.parseInt(mAge.getText().toString())>95){
+                } else if (Integer.parseInt(mAge.getText().toString()) > 95) {
                     mAge.setError("You are too old! :)");
                     mAge.requestFocus();
-                }else if(mGender.getSelectedItemPosition()==0) {
-                    TextView errorText = (TextView)mGender.getSelectedView();
+                } else if (mGender.getSelectedItemPosition() == 0) {
+                    TextView errorText = (TextView) mGender.getSelectedView();
                     errorText.setError("");
                     errorText.setTextColor(Color.RED);//just to highlight that this is an error
                     errorText.setText("Select your gender!");
 
-                }else if(mCountry.getSelectedItemPosition()==0) {
-                    TextView errorText = (TextView)mCountry.getSelectedView();
+                } else if (mCountry.getSelectedItemPosition() == 0) {
+                    TextView errorText = (TextView) mCountry.getSelectedView();
                     errorText.setError("");
                     errorText.setTextColor(Color.RED);//just to highlight that this is an error
                     errorText.setText("Select your country!");
 
-                }else {
+                } else {
                     Profile myProfile =
                             new Profile(mUserName.getText().toString(), Integer.parseInt(mAge.getText().toString()),
                                     String.valueOf(mGender.getSelectedItem()), String.valueOf(mCountry.getSelectedItem()));
@@ -168,21 +167,17 @@ public class ProfileFragment extends Fragment {
             }
         });
         mProfilePhoto = v.findViewById(R.id.profilePhoto);
-        mProfilePhoto.setOnClickListener(new View.OnClickListener(){
+        mProfilePhoto.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
-                Intent galleryIntent = new Intent(
-                        Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(galleryIntent , RESULT_GALLERY );
+                pickFromGallery();
             }
         });
 
 
         mButtonProfilePhoto = v.findViewById(R.id.buttonProfilePhoto);
-        mButtonProfilePhoto.setOnClickListener(new View.OnClickListener(){
+        mButtonProfilePhoto.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -193,32 +188,39 @@ public class ProfileFragment extends Fragment {
         return v;
 
     }
-    //hi
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+        Log.d(TAG,"request code: "+ requestCode);
+        Log.d(TAG,"result code: "+ resultCode);
+        if (resultCode == RESULT_OK){
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            mProfilePhoto.setImageBitmap(imageBitmap);
-            uploadFile(imageBitmap);
-        }
-//        switch (requestCode) {
-//            case ProfileFragment.RESULT_GALLERY :
-//                if (null != data) {
-////                    imageUri = data.getData();
-//                    //Do whatever that you desire here. or leave this blank
-//
-//                }
-//                break;
-//            default:
-//                break;
-//        }
+            switch (requestCode) {
+                case REQUEST_IMAGE_CAPTURE:
+                        Bitmap imageBitmap = (Bitmap) extras.get("data");
+                        mProfilePhoto.setImageBitmap(imageBitmap);
+                        uploadFile(imageBitmap);
+                    break;
 
+                case GALLERY_REQUEST_CODE:
+                    Uri selectedImage = data.getData();
+                    mProfilePhoto.setImageURI(selectedImage);
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                        uploadFile(bitmap);
+
+                    }catch (Exception e){
+                        Log.i(TAG, "Exception: "+ e);
+                    }
+                    break;
+
+
+            }
+
+        }else
+            Log.d(TAG,"Error on camera/Gallery");
     }
-
-    String currentPhotoPath;
     private void uploadFile(Bitmap bitmap) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReferenceFromUrl("gs://weroom-fa6fe.appspot.com");
@@ -235,57 +237,29 @@ public class ProfileFragment extends Fragment {
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                //Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                //sendMsg("" + downloadUrl, 2);
-                //Log.d("downloadUrl-->", "" + downloadUrl);
             }
         });
 
     }
-//    private File createImageFile() throws IOException {
-//        // Create an image file name
-//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-//        String imageFileName = "JPEG_" + timeStamp + "_";
-//        File storageDir = getExternalStorage(Environment.DIRECTORY_PICTURES);
-//        File image = File.createTempFile(
-//                imageFileName,  /* prefix */
-//                ".jpg",         /* suffix */
-//                storageDir      /* directory */
-//        );
-//
-//        // Save a file: path for use with ACTION_VIEW intents
-//        currentPhotoPath = image.getAbsolutePath();
-//        return image;
-//    }
-
-
-    static final int REQUEST_TAKE_PHOTO = 1;
 
     private void dispatchTakePictureIntent() {
 
-
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+       Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-
-//            // Create the File where the photo should go
-//            File photoFile = null;
-//            try {
-//                photoFile = createImageFile();
-//            } catch (IOException ex) {
-//                // Error occurred while creating the File
-//
-//            }
-//            // Continue only if the File was successfully created
-//            if (photoFile != null) {
-//                Uri photoURI = FileProvider.getUriForFile(getActivity(),
-//                        "com.example.android.fileprovider",
-//                        photoFile);
-//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-//                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-//            }
         }
+    }
+
+    private void pickFromGallery(){
+        //Create an Intent with action as ACTION_PICK
+        Intent intent=new Intent(Intent.ACTION_PICK);
+        // Sets the type as image/*. This ensures only components of type image are selected
+        intent.setType("image/*");
+        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
+        String[] mimeTypes = {"image/jpeg", "image/png"};
+        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
+        // Launching the Intent
+        startActivityForResult(intent,GALLERY_REQUEST_CODE);
     }
 }

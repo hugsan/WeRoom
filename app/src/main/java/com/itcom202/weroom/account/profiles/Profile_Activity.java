@@ -17,7 +17,7 @@ public class Profile_Activity extends SingleFragmentActivity {
     }
 
     public static Intent newIntent(Context myContext){
-        Intent i = new Intent(myContext, LoginActivity.class);
+        Intent i = new Intent(myContext, Profile_Activity.class);
         return i;
     }
 }
