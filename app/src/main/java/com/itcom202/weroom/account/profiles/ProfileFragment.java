@@ -223,7 +223,7 @@ public class ProfileFragment extends Fragment {
         StorageReference storageRef = storage.getReferenceFromUrl("gs://weroom-fa6fe.appspot.com");
         StorageReference mountainImagesRef = storageRef.child("images/" + mUser.getUid() + ".jpg");
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
         UploadTask uploadTask = mountainImagesRef.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
