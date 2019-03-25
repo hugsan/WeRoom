@@ -41,6 +41,7 @@
         <item>Male</item>
     </string-array>
     <string name="create_profile">Create</string>
+    <string name="description">Describe yourself using tags</string>
 
 
 </resources>

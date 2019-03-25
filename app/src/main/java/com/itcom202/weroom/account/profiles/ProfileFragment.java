@@ -34,6 +34,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.itcom202.weroom.R;
+import com.skyhope.materialtagview.TagView;
+import com.skyhope.materialtagview.enums.TagSeparator;
+
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -65,6 +68,7 @@ public class ProfileFragment extends Fragment {
     private Spinner mGender;
     private Spinner mCountry;
     private FirebaseStorage mFirebaseStorage;
+    private TagView mTag;
 
     private ImageView mProfilePhoto;
 
@@ -84,6 +88,12 @@ public class ProfileFragment extends Fragment {
         mCreateProfile = v.findViewById(R.id.createprofile);
         mGender = v.findViewById(R.id.spinnerGender);
         mCountry = v.findViewById(R.id.spinnerCountry);
+        mTag= v.findViewById(R.id.textTags);
+
+        mTag.setHint("Add tags about yourself");
+        mTag.addTagSeparator(TagSeparator.SPACE_SEPARATOR);
+        String[] tagList = new String[]{"Vegan", "Dog_Lover", "Outgoing"};
+        mTag.setTagList(tagList);
 
         mGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
