@@ -1,8 +1,7 @@
 package com.itcom202.weroom.account.profiles;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -13,8 +12,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.FileProvider;
-import android.support.v7.widget.ButtonBarLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +20,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
-import com.facebook.login.widget.ProfilePictureView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,7 +41,10 @@ import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -176,6 +175,7 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
+
         mProfilePhoto = v.findViewById(R.id.profilePhoto);
         mProfilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,12 +202,14 @@ public class ProfileFragment extends Fragment {
         Log.d(TAG,"request code: "+ requestCode);
         Log.d(TAG,"result code: "+ resultCode);
         if (resultCode == RESULT_OK){
-            Bundle extras = data.getExtras();
             switch (requestCode) {
                 case REQUEST_IMAGE_CAPTURE:
-                        Bitmap imageBitmap = (Bitmap) extras.get("data");
-                        mProfilePhoto.setImageBitmap(imageBitmap);
-                        uploadFile(imageBitmap);
+
+                    Bundle extras = data.getExtras();
+                    Bitmap imageBitmap = (Bitmap) extras.get("data");
+                    mProfilePhoto.setImageBitmap(imageBitmap);
+                    mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    //TODO: rotate picture to portrait
                     break;
 
                 case GALLERY_REQUEST_CODE:
@@ -216,9 +218,11 @@ public class ProfileFragment extends Fragment {
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
                         uploadFile(bitmap);
+                        mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
 
                     }catch (Exception e){
-                        Log.i(TAG, "Exception: "+ e);
+                        Log.d(TAG, "Exception Gallery: "+ e);
                     }
                     break;
 
@@ -268,4 +272,46 @@ public class ProfileFragment extends Fragment {
         intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
         startActivityForResult(intent,GALLERY_REQUEST_CODE);
     }
+    private void setPic() {
+        // Get the dimensions of the View
+        int targetW = mProfilePhoto.getWidth();
+        int targetH = mProfilePhoto.getHeight();
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
+        mProfilePhoto.setImageBitmap(bitmap);
+    }
+    String currentPhotoPath;
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+
 }
