@@ -38,6 +38,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -66,6 +67,7 @@ public class ProfileFragment extends Fragment {
     private ImageButton mButtonProfilePhoto;
     private Spinner mGender;
     private Spinner mCountry;
+    private Spinner mRole;
     private FirebaseStorage mFirebaseStorage;
     private TagView mTag;
 
@@ -87,6 +89,7 @@ public class ProfileFragment extends Fragment {
         mCreateProfile = v.findViewById(R.id.createprofile);
         mGender = v.findViewById(R.id.spinnerGender);
         mCountry = v.findViewById(R.id.spinnerCountry);
+        mRole = v.findViewById(R.id.spinnerRole);
         mTag= v.findViewById(R.id.textTags);
 
         mTag.setHint("Add tags about yourself");
@@ -94,33 +97,12 @@ public class ProfileFragment extends Fragment {
         String[] tagList = new String[]{"Vegan", "Dog_Lover", "Outgoing"};
         mTag.setTagList(tagList);
 
-        mGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        mCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         String[] locales = Locale.getISOCountries();
         List<String> countries = new ArrayList<>();
         countries.add("Select Country");
+
+
 
 
         for (String countryCode : locales) {
@@ -130,7 +112,7 @@ public class ProfileFragment extends Fragment {
             countries.add(obj.getDisplayCountry());
 
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, countries);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, countries);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mCountry.setAdapter(adapter);
 
@@ -154,19 +136,25 @@ public class ProfileFragment extends Fragment {
                 } else if (mGender.getSelectedItemPosition() == 0) {
                     TextView errorText = (TextView) mGender.getSelectedView();
                     errorText.setError("");
-                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    errorText.setTextColor(Color.RED);
                     errorText.setText("Select your gender!");
 
                 } else if (mCountry.getSelectedItemPosition() == 0) {
                     TextView errorText = (TextView) mCountry.getSelectedView();
                     errorText.setError("");
-                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    errorText.setTextColor(Color.RED);
                     errorText.setText("Select your country!");
 
-                } else {
+                } else if(mRole.getSelectedItemPosition() == 0){
+                    TextView errorText = (TextView) mRole.getSelectedView();
+                    errorText.setError("");
+                    errorText.setTextColor(Color.RED);
+                    errorText.setText("Select your role!");
+                }else {
                     Profile myProfile =
                             new Profile(mUserName.getText().toString(), Integer.parseInt(mAge.getText().toString()),
-                                    String.valueOf(mGender.getSelectedItem()), String.valueOf(mCountry.getSelectedItem()));
+                                    String.valueOf(mGender.getSelectedItem()), String.valueOf(mCountry.getSelectedItem()),
+                                    String.valueOf(mRole.getSelectedItem()));
                     mDatabaseReference
                             .child(DataBasePath.USERS)
                             .child(mUser.getUid())
@@ -195,6 +183,7 @@ public class ProfileFragment extends Fragment {
 
         return v;
     }
+
 
 
     @Override

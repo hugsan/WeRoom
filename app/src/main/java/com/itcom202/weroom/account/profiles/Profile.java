@@ -1,19 +1,25 @@
 package com.itcom202.weroom.account.profiles;
 
+import java.util.List;
+
 public class Profile {
 
     private String name;
     private int age;
     private String gender;
     private String country;
+    private String role;
+  //  private List<String> tags;
 
 
 
-    public Profile (String name, int age, String gender, String country){
+    public Profile (String name, int age, String gender, String country, String role){
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.country = country;
+        this.role = role;
+       // this.tags = tags;
     }
 
     public int getAge() {
@@ -46,4 +52,20 @@ public class Profile {
     public void setCountry(String country) {
         this.country = country;
     }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+//    public List<String> getTags() {
+//        return tags;
+//    }
+//
+//    public void setTags(List<String> tags) {
+//        this.tags = tags;
+//    }
 }

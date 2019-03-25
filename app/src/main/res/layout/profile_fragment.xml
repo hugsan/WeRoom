@@ -3,14 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="403dp"
-    android:layout_height="716dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 
     <ScrollView
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -25,7 +25,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="193dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -33,9 +33,9 @@
                     android:layout_width="143dp"
                     android:layout_height="182dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="0dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="197dp"
+                    android:layout_marginBottom="0dp"
                     android:adjustViewBounds="true"
                     android:cropToPadding="false"
                     android:scaleType="center"
@@ -54,7 +54,7 @@
                     android:layout_marginStart="37dp"
                     android:layout_marginTop="130dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="356dp"
+                    android:layout_marginBottom="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.704"
@@ -68,15 +68,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <EditText
                     android:id="@+id/username"
                     android:layout_width="200dp"
                     android:layout_height="40dp"
-                    android:layout_weight="1"
                     android:layout_marginTop="10dp"
+                    android:layout_weight="1"
                     android:ems="10"
                     android:hint="@string/hint_name"
                     android:inputType="textPersonName" />
@@ -102,24 +102,16 @@
                 <Spinner
                     android:id="@+id/spinnerGender"
                     android:layout_width="200dp"
-                    android:layout_height="30dp"
-
+                    android:layout_height="40dp"
                     android:layout_marginTop="10dp"
-
                     android:layout_marginBottom="8dp"
                     android:entries="@array/gender_array"
-
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.91"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.364" />
+                     />
 
                 <Spinner
                     android:id="@+id/spinnerCountry"
                     android:layout_width="200dp"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
 
                     android:layout_marginTop="10dp"
 
@@ -131,13 +123,20 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.444" />
 
+                <Spinner
+                    android:id="@+id/spinnerRole"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:entries="@array/role_array"
+                    />
+
                 <com.skyhope.materialtagview.TagView
                     android:id="@+id/textTags"
-                    android:layout_width="323dp"
+                    android:layout_width="220dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:hint="@string/description"
                     app:layout_constraintBottom_toBottomOf="parent"
