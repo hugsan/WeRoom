@@ -74,13 +74,13 @@ public class SignFragment extends Fragment {
                 String pwd1 = mPasswd.getText().toString();
                 String pwd2 = mPasswd2.getText().toString();
                 if (mEmail.getText().toString().length() == 0) {
-                    mEmail.setError("Provide your Email first!");
+                    mEmail.setError(String.valueOf(R.string.type_email));
                     mEmail.requestFocus();
                 } else if (0 == mPasswd.getText().toString().length()) {
-                    mPasswd.setError("Set your password!");
+                    mPasswd.setError(String.valueOf(R.string.set_passw));
                     mPasswd.requestFocus();
                 } else if (!pwd1.equals(pwd2)) {
-                    mPasswd.setError("The two passwords should be the same");
+                    mPasswd.setError(String.valueOf(R.string.same_passw));
                     mPasswd.requestFocus();
                     mPasswd2.requestFocus();
                 } else if (mEmail.getText().toString().length() == 0 || pwd1.length() == 0 || pwd2.length() == 0) {
@@ -108,14 +108,14 @@ public class SignFragment extends Fragment {
                                     } else {
                                         //TODO stuff i dont know yet!!!!
                                         Toast.makeText(getActivity().getApplicationContext(),
-                                                "SignUp unsuccessful: " + task.getException().getMessage(),
+                                                String.valueOf(R.string.signed_in) + task.getException().getMessage(),
                                                 Toast.LENGTH_SHORT).show();
                                     }
                                     }
                                 });
                 }
                 else {
-                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), String.valueOf(R.string.error), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -145,7 +145,7 @@ public class SignFragment extends Fragment {
                 GoogleConnection.firebaseAuthWithGoogle(account, getActivity(), mFirebaseAuth, getActivity());
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e);
+                Log.w(TAG, String.valueOf(R.string.google_fail), e);
                 // ...
                 //TODO when there is a problem to login with firebase from google
             }

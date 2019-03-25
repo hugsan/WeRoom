@@ -36,7 +36,7 @@ public class AccountCreationFragment extends Fragment {
                     mFirebaseAuth.signOut();
                     startActivity(LoginActivity.newIntent(getActivity()));
                 }catch (Exception e){
-                    Toast.makeText(getActivity(), "Error on logout.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), String.valueOf(R.string.error_logout), Toast.LENGTH_LONG).show();
                 }
             }
         });

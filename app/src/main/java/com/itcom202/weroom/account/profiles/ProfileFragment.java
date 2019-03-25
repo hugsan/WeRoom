@@ -92,15 +92,15 @@ public class ProfileFragment extends Fragment {
         mRole = v.findViewById(R.id.spinnerRole);
         mTag= v.findViewById(R.id.textTags);
 
-        mTag.setHint("Add tags about yourself");
+        mTag.setHint(String.valueOf(R.string.description));
         mTag.addTagSeparator(TagSeparator.SPACE_SEPARATOR);
-        String[] tagList = new String[]{"Vegan", "Dog_Lover", "Outgoing"};
+        String[] tagList = new String[]{String.valueOf(R.string.hint_1), String.valueOf(R.string.hint_2), String.valueOf(R.string.hint_3)};
         mTag.setTagList(tagList);
 
 
         String[] locales = Locale.getISOCountries();
         List<String> countries = new ArrayList<>();
-        countries.add("Select Country");
+        countries.add(String.valueOf(R.string.prompt_country));
 
 
 
@@ -122,34 +122,34 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
 
                 if (mUserName.getText().toString().equals("")) {
-                    mUserName.setError("Please type your name!");
+                    mUserName.setError(String.valueOf(R.string.type_name));
                     mUserName.requestFocus();
                 } else if (mAge.getText().toString().isEmpty()) {
-                    mAge.setError("Please type your age!");
+                    mAge.setError(String.valueOf(R.string.type_age));
                     mAge.requestFocus();
                 } else if (Integer.parseInt(mAge.getText().toString()) < 15) {
-                    mAge.setError("You should be at least 15!");
+                    mAge.setError(String.valueOf(R.string.too_young));
                     mAge.requestFocus();
                 } else if (Integer.parseInt(mAge.getText().toString()) > 95) {
-                    mAge.setError("You are too old! :)");
+                    mAge.setError(String.valueOf(R.string.too_old));
                     mAge.requestFocus();
                 } else if (mGender.getSelectedItemPosition() == 0) {
                     TextView errorText = (TextView) mGender.getSelectedView();
                     errorText.setError("");
                     errorText.setTextColor(Color.RED);
-                    errorText.setText("Select your gender!");
+                    errorText.setText(R.string.select_gender);
 
                 } else if (mCountry.getSelectedItemPosition() == 0) {
                     TextView errorText = (TextView) mCountry.getSelectedView();
                     errorText.setError("");
                     errorText.setTextColor(Color.RED);
-                    errorText.setText("Select your country!");
+                    errorText.setText(R.string.select_country);
 
                 } else if(mRole.getSelectedItemPosition() == 0){
                     TextView errorText = (TextView) mRole.getSelectedView();
                     errorText.setError("");
                     errorText.setTextColor(Color.RED);
-                    errorText.setText("Select your role!");
+                    errorText.setText(R.string.select_role);
                 }else {
                     Profile myProfile =
                             new Profile(mUserName.getText().toString(), Integer.parseInt(mAge.getText().toString()),
