@@ -1,5 +1,9 @@
 package com.itcom202.weroom.account.profiles;
 
+import com.itcom202.weroom.account.profiles.TagDescription.TagModel;
+
+import java.util.List;
+
 public class Profile {
 
     private String name;
@@ -7,15 +11,18 @@ public class Profile {
     private String gender;
     private String country;
     private String role;
+    private List<String> tags;
 
 
 
-    public Profile (String name, int age, String gender, String country, String role){
+    public Profile (String name, int age, String gender, String country, String role, List<String> tags){
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.country = country;
         this.role = role;
+        this.tags = tags;
+
     }
 
     public int getAge() {
@@ -57,4 +64,11 @@ public class Profile {
         this.role = role;
     }
 
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
 }
