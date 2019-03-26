@@ -281,7 +281,9 @@ public class TagView extends FlexboxLayout implements TagClickListener {
             case 6:
                 tagSeparator = TagSeparator.valueOf(TagSeparator.HASH_SEPARATOR.name()).getValue();
                 break;
-            //TODO: enter key to add
+            case 7:
+                tagSeparator = TagSeparator.valueOf(TagSeparator.ENTER_SEPARATOR.name()).getValue();
+                break;
         }
         return tagSeparator;
     }

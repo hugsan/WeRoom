@@ -90,7 +90,7 @@ public class ProfileFragment extends Fragment {
        mTag = v.findViewById(R.id.Tags);
 
         mTag.setHint(String.valueOf(R.string.description));
-        mTag.addTagSeparator(TagSeparator.SPACE_SEPARATOR);
+        mTag.addTagSeparator(TagSeparator.ENTER_SEPARATOR);
         String[] tagList = new String[]{getString(R.string.hint_1), getString(R.string.hint_2), getString(R.string.hint_3)};
         mTag.setTagList(tagList);
 

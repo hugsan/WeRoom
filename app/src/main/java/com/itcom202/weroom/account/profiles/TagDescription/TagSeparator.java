@@ -8,7 +8,8 @@ public enum TagSeparator {
     MINUS_SEPARATOR("-"),
     SPACE_SEPARATOR(" "),
     AT_SEPARATOR("@"),
-    HASH_SEPARATOR("#");
+    HASH_SEPARATOR("#"),
+    ENTER_SEPARATOR("\n");
 
     private final String name;
 

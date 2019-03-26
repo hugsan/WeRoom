@@ -14,6 +14,7 @@
             <enum name="SPACE_SEPARATOR" value="4" />
             <enum name="AT_SEPARATOR" value="5" />
             <enum name="HASH_SEPARATOR" value="6" />
+            <enum name="ENTER_SEPARATOR" value="7" />
         </attr>
     </declare-styleable>
 </resources>
