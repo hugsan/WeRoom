@@ -1,5 +1,6 @@
 package com.itcom202.weroom.account.profiles;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,10 +12,12 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
@@ -32,6 +35,7 @@ import com.itcom202.weroom.account.profiles.TagDescription.TagModel;
 import com.itcom202.weroom.account.profiles.TagDescription.TagSeparator;
 import com.itcom202.weroom.account.profiles.TagDescription.TagView;
 
+
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -40,6 +44,7 @@ import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -68,10 +73,13 @@ public class ProfileFragment extends Fragment {
     private Spinner mRole;
     private FirebaseStorage mFirebaseStorage;
     private TagView mTag;
+    private File mPhotoFile;
     private TagModel model;
     private List<String> tags = new ArrayList<>();
 
     private ImageView mProfilePhoto;
+
+    private String currentPhotoPath;
 
 
     @Nullable
@@ -203,9 +211,10 @@ public class ProfileFragment extends Fragment {
             switch (requestCode) {
                 case REQUEST_IMAGE_CAPTURE:
 
-                    Bundle extras = data.getExtras();
-                    Bitmap imageBitmap = (Bitmap) extras.get("data");
-                    mProfilePhoto.setImageBitmap(imageBitmap);
+                    BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+                    Bitmap image = BitmapFactory.decodeFile(mPhotoFile.getPath(),bmOptions);
+                    mProfilePhoto.setImageBitmap(image);
+                    uploadFile(image);
                     mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     //TODO: rotate picture to portrait
                     break;
@@ -227,9 +236,10 @@ public class ProfileFragment extends Fragment {
 
             }
 
-        }else
-            Log.d(TAG,"Error on camera/Gallery");
+        } else
+            Log.d(TAG, "Error on camera/Gallery");
     }
+
     private void uploadFile(Bitmap bitmap) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReferenceFromUrl("gs://weroom-fa6fe.appspot.com");
@@ -241,7 +251,7 @@ public class ProfileFragment extends Fragment {
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                Log.d(TAG,"Exception: "+ exception);
+                Log.d(TAG, "Exception: " + exception);
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -253,22 +263,37 @@ public class ProfileFragment extends Fragment {
 
     private void dispatchTakePictureIntent() {
 
-       Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            // Create the File where the photo should go
+            mPhotoFile = null;
+            try {
+                mPhotoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+
+            }
+            // Continue only if the File was successfully created
+            if (mPhotoFile  != null) {
+                Uri photoURI = FileProvider.getUriForFile(getActivity(),
+                        "com.itcom202.weroom.fileprovider",
+                        mPhotoFile );
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
         }
     }
 
-    private void pickFromGallery(){
+    private void pickFromGallery() {
         //Create an Intent with action as ACTION_PICK
-        Intent intent=new Intent(Intent.ACTION_PICK);
+        Intent intent = new Intent(Intent.ACTION_PICK);
         // Sets the type as image/*. This ensures only components of type image are selected
         intent.setType("image/*");
         //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
         String[] mimeTypes = {"image/jpeg", "image/png"};
-        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
-        startActivityForResult(intent,GALLERY_REQUEST_CODE);
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+        startActivityForResult(intent, GALLERY_REQUEST_CODE);
     }
     private void setPic() {
         // Get the dimensions of the View
@@ -293,7 +318,7 @@ public class ProfileFragment extends Fragment {
         Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
         mProfilePhoto.setImageBitmap(bitmap);
     }
-    String currentPhotoPath;
+  //  String currentPhotoPath;
 
     private File createImageFile() throws IOException {
         // Create an image file name
@@ -301,14 +326,22 @@ public class ProfileFragment extends Fragment {
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
+                imageFileName,      /* prefix */
+                ".jpg",       /* suffix */
+                storageDir          /* directory */
         );
 
         // Save a file: path for use with ACTION_VIEW intents
         currentPhotoPath = image.getAbsolutePath();
         return image;
+    }
+
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(currentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        getActivity().sendBroadcast(mediaScanIntent);
     }
 
 
