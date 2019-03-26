@@ -145,7 +145,7 @@ public class SignFragment extends Fragment {
                 GoogleConnection.firebaseAuthWithGoogle(account, getActivity(), mFirebaseAuth, getActivity());
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                Log.w(TAG, String.valueOf(R.string.google_fail), e);
+                Log.w(TAG, getString(R.string.google_fail), e);
                 // ...
                 //TODO when there is a problem to login with firebase from google
             }

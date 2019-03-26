@@ -89,7 +89,7 @@ public class ProfileFragment extends Fragment {
         mRole = v.findViewById(R.id.spinnerRole);
        mTag = v.findViewById(R.id.Tags);
 
-        mTag.setHint(String.valueOf(R.string.description));
+        mTag.setHint(getString(R.string.description));
         mTag.addTagSeparator(TagSeparator.ENTER_SEPARATOR);
         String[] tagList = new String[]{getString(R.string.hint_1), getString(R.string.hint_2), getString(R.string.hint_3)};
         mTag.setTagList(tagList);
@@ -100,7 +100,7 @@ public class ProfileFragment extends Fragment {
 
         String[] locales = Locale.getISOCountries();
         List<String> countries = new ArrayList<>();
-        countries.add(String.valueOf(R.string.prompt_country));
+        countries.add(getString(R.string.prompt_country));
 
 
 
@@ -122,16 +122,16 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
 
                 if (mUserName.getText().toString().equals("")) {
-                    mUserName.setError(String.valueOf(R.string.type_name));
+                    mUserName.setError(getString(R.string.type_name));
                     mUserName.requestFocus();
                 } else if (mAge.getText().toString().isEmpty()) {
-                    mAge.setError(String.valueOf(R.string.type_age));
+                    mAge.setError(getString(R.string.type_age));
                     mAge.requestFocus();
                 } else if (Integer.parseInt(mAge.getText().toString()) < 15) {
-                    mAge.setError(String.valueOf(R.string.too_young));
+                    mAge.setError(getString(R.string.too_young));
                     mAge.requestFocus();
                 } else if (Integer.parseInt(mAge.getText().toString()) > 95) {
-                    mAge.setError(String.valueOf(R.string.too_old));
+                    mAge.setError(getString(R.string.too_old));
                     mAge.requestFocus();
                 } else if (mGender.getSelectedItemPosition() == 0) {
                     TextView errorText = (TextView) mGender.getSelectedView();
