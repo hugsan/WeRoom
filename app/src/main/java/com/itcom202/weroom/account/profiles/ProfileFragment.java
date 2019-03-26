@@ -1,6 +1,5 @@
 package com.itcom202.weroom.account.profiles;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
@@ -30,15 +28,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.itcom202.weroom.R;
-import com.skyhope.materialtagview.TagView;
-import com.skyhope.materialtagview.enums.TagSeparator;
+import com.itcom202.weroom.account.profiles.TagDescription.TagSeparator;
+import com.itcom202.weroom.account.profiles.TagDescription.TagView;
 
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -90,12 +87,15 @@ public class ProfileFragment extends Fragment {
         mGender = v.findViewById(R.id.spinnerGender);
         mCountry = v.findViewById(R.id.spinnerCountry);
         mRole = v.findViewById(R.id.spinnerRole);
-        mTag= v.findViewById(R.id.textTags);
+       mTag = v.findViewById(R.id.Tags);
 
         mTag.setHint(String.valueOf(R.string.description));
         mTag.addTagSeparator(TagSeparator.SPACE_SEPARATOR);
-        String[] tagList = new String[]{String.valueOf(R.string.hint_1), String.valueOf(R.string.hint_2), String.valueOf(R.string.hint_3)};
+        String[] tagList = new String[]{getString(R.string.hint_1), getString(R.string.hint_2), getString(R.string.hint_3)};
         mTag.setTagList(tagList);
+
+
+
 
 
         String[] locales = Locale.getISOCountries();
@@ -160,6 +160,11 @@ public class ProfileFragment extends Fragment {
                             .child(mUser.getUid())
                             .child(DataBasePath.PROFILE)
                             .setValue(myProfile);
+
+                    for(com.itcom202.weroom.account.profiles.TagDescription.TagModel model:  mTag.getSelectedTags()){
+                        Log.i(TAG, "Tag strings: " + model.getTagText());
+                    }
+
                 }
             }
         });

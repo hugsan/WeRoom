@@ -132,8 +132,8 @@
                     android:entries="@array/role_array"
                     />
 
-                <com.skyhope.materialtagview.TagView
-                    android:id="@+id/textTags"
+                <com.itcom202.weroom.account.profiles.TagDescription.TagView
+                    android:id="@+id/Tags"
                     android:layout_width="220dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
