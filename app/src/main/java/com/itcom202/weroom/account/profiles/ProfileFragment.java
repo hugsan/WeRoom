@@ -318,7 +318,7 @@ public class ProfileFragment extends Fragment {
         Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
         mProfilePhoto.setImageBitmap(bitmap);
     }
-    String currentPhotoPath;
+  //  String currentPhotoPath;
 
     private File createImageFile() throws IOException {
         // Create an image file name
