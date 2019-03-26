@@ -168,7 +168,7 @@ public class ProfileFragment extends Fragment {
                     Profile myProfile =
                             new Profile(mUserName.getText().toString(), Integer.parseInt(mAge.getText().toString()),
                                     String.valueOf(mGender.getSelectedItem()), String.valueOf(mCountry.getSelectedItem()),
-                                    String.valueOf(mRole.getSelectedItem()),tags);
+                                    String.valueOf(mRole.getSelectedItem()), tags);
                     mDatabaseReference
                             .child(DataBasePath.USERS)
                             .child(mUser.getUid())
