@@ -44,6 +44,7 @@
     <string name="empty_field">The field is empty.</string>
     <string name="not_succ">Not successful</string>
     <string name="error">Error</string>
+    <string name="forgot_passw">Forgot password?</string>
 
     <!-- strings related to profile fragment -->
     <string name="hint_age">Age</string>
@@ -75,5 +76,7 @@
     <!-- Tags -->
     <string name="empty_tag">You cannot add empty tags.</string>
 
+    <!-- Strings related to ForgetPasswordFragment -->
+    <string name="invalid_email">Invalid password</string>
 
 </resources>

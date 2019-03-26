@@ -55,6 +55,7 @@ public class LoginFragment extends Fragment {
     private Button mButtonLogin;
     private TextView mReferSignup;
     private FirebaseAuth firebaseAuth;
+    private TextView mForgotPassword;
 
     GoogleApiClient mGoogleApiClient;
 
@@ -84,6 +85,7 @@ public class LoginFragment extends Fragment {
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();*/
+
         mGoogleApiClient = GoogleConnection.create(getActivity());
         mGoogleSign = v.findViewById(R.id.sign_in_google);
         mGoogleSign.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +105,14 @@ public class LoginFragment extends Fragment {
         mLoginEmail = v.findViewById(R.id.emailLogIn);
         mLoginPasswd = v.findViewById(R.id.passwordLogIn);
         mButtonLogin = v.findViewById(R.id.buttonLogIn);
+        mForgotPassword = v.findViewById(R.id.forgotPass);
+
+        mForgotPassword.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(ForgotPasswordActivity.newIntent(getActivity()));
+            }
+        });
 
         mReferSignup.setOnClickListener(new View.OnClickListener() {
             @Override

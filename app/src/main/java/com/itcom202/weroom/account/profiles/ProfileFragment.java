@@ -74,7 +74,6 @@ public class ProfileFragment extends Fragment {
     private FirebaseStorage mFirebaseStorage;
     private TagView mTag;
     private File mPhotoFile;
-    private TagModel model;
     private List<String> tags = new ArrayList<>();
 
     private ImageView mProfilePhoto;
@@ -99,6 +98,7 @@ public class ProfileFragment extends Fragment {
         mCountry = v.findViewById(R.id.spinnerCountry);
         mRole = v.findViewById(R.id.spinnerRole);
         mTag = v.findViewById(R.id.Tags);
+
 
         mTag.setHint(getString(R.string.description));
         mTag.addTagSeparator(TagSeparator.ENTER_SEPARATOR);

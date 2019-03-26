@@ -9,7 +9,7 @@ import com.itcom202.weroom.SingleFragmentActivity;
 public class SignActivity extends SingleFragmentActivity {
 
 
-    @Override
+      @Override
     protected Fragment createFragment() {
         return new SignFragment();
     }
