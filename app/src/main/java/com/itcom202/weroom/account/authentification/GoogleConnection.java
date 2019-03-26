@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.itcom202.weroom.AccountCreationActivity;
 import com.itcom202.weroom.R;
+import com.itcom202.weroom.account.profiles.Profile_Activity;
 
 class GoogleConnection {
     private static GoogleSignInOptions gso;
@@ -54,7 +55,7 @@ class GoogleConnection {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d("Main", "signInWithCredential:onComplete:" + task.isSuccessful());
-
+//
                         if (!task.isSuccessful()) {
                             Log.w("MainAcitivyt", "signInWithCredential", task.getException());
                             Toast.makeText(activity, "Authentication failed.",
@@ -62,7 +63,7 @@ class GoogleConnection {
                         }
                         else{
                             // This line has been changed.
-                            activity.startActivity(AccountCreationActivity.newIntent(activity));
+                            activity.startActivity(Profile_Activity.newIntent(activity));
                         }
                     }
                 });

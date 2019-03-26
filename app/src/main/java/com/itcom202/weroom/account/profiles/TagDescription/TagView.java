@@ -294,17 +294,20 @@ public class TagView extends FlexboxLayout implements TagClickListener {
      * @param text It takes String and create a mode {@link TagModel}
      */
     private void addTag(String text, boolean isFromList) {
-        if (text == null) {
-            text = EMPTY_STRING;
+        if (text.equals("")) {
+            //text = EMPTY_STRING;
+            Toast.makeText(getContext(), R.string.empty_tag,
+                    Toast.LENGTH_SHORT).show();
+        }else {
+
+            TagModel model = new TagModel();
+            model.setTagText(text);
+            model.setFromList(isFromList);
+
+            mTagList.add(model);
+
+            addTagInView();
         }
-
-        TagModel model = new TagModel();
-        model.setTagText(text);
-        model.setFromList(isFromList);
-
-        mTagList.add(model);
-
-        addTagInView();
     }
 
     /**

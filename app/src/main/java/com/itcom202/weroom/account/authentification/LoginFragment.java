@@ -94,6 +94,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivityForResult(GoogleConnection.signInIntent(mGoogleApiClient), GoogleConnection.RC_SIGN_IN);
+
             }
         });
         mReferSignup = v.findViewById(R.id.referSignUp);
@@ -114,10 +115,10 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (mLoginEmail.getText().toString().length()==0) {
-                    mLoginEmail.setError(String.valueOf(R.string.type_email));
+                    mLoginEmail.setError(getString(R.string.type_email));
                     mLoginEmail.requestFocus();
                 } else if (mLoginPasswd.getText().toString().length()==0) {
-                    mLoginPasswd.setError(String.valueOf(R.string.enter_passw));
+                    mLoginPasswd.setError(getString(R.string.enter_passw));
                     mLoginPasswd.requestFocus();
                 } else if (mLoginEmail.getText().toString().length()==0&& mLoginPasswd.getText().toString().length()==0) {
                     Toast.makeText(getActivity(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show();
@@ -179,6 +180,8 @@ public class LoginFragment extends Fragment {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 GoogleConnection.firebaseAuthWithGoogle(account, getActivity(), firebaseAuth, getActivity());
+                startActivity(new Intent(getActivity(), Profile_Activity.class));
+
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);

@@ -72,6 +72,8 @@
     <string name="hint_1">Outgoing</string>
     <string name="hint_2">Cat Person</string>
     <string name="hint_3">Vegan</string>
+    <!-- Tags -->
+    <string name="empty_tag">You cannot add empty tags.</string>
 
 
 </resources>
