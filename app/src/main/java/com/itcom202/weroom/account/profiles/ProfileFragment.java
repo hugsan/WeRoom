@@ -31,15 +31,16 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.itcom202.weroom.R;
-import com.skyhope.materialtagview.TagView;
-import com.skyhope.materialtagview.enums.TagSeparator;
+import com.itcom202.weroom.account.profiles.TagDescription.TagModel;
+import com.itcom202.weroom.account.profiles.TagDescription.TagSeparator;
+import com.itcom202.weroom.account.profiles.TagDescription.TagView;
+
 
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -73,6 +74,9 @@ public class ProfileFragment extends Fragment {
     private FirebaseStorage mFirebaseStorage;
     private TagView mTag;
     private File mPhotoFile;
+    private TagModel model;
+    private List<String> tags = new ArrayList<>();
+
     private ImageView mProfilePhoto;
 
     private String currentPhotoPath;
@@ -94,17 +98,22 @@ public class ProfileFragment extends Fragment {
         mGender = v.findViewById(R.id.spinnerGender);
         mCountry = v.findViewById(R.id.spinnerCountry);
         mRole = v.findViewById(R.id.spinnerRole);
-        mTag = v.findViewById(R.id.textTags);
+        mTag = v.findViewById(R.id.Tags);
 
-        mTag.setHint("Add tags about yourself");
-        mTag.addTagSeparator(TagSeparator.SPACE_SEPARATOR);
-        String[] tagList = new String[]{"Vegan", "Dog_Lover", "Outgoing"};
+        mTag.setHint(getString(R.string.description));
+        mTag.addTagSeparator(TagSeparator.ENTER_SEPARATOR);
+        String[] tagList = new String[]{getString(R.string.hint_1), getString(R.string.hint_2), getString(R.string.hint_3)};
         mTag.setTagList(tagList);
+
+
+
 
 
         String[] locales = Locale.getISOCountries();
         List<String> countries = new ArrayList<>();
-        countries.add("Select Country");
+        countries.add(getString(R.string.prompt_country));
+
+
 
 
         for (String countryCode : locales) {
@@ -114,7 +123,7 @@ public class ProfileFragment extends Fragment {
             countries.add(obj.getDisplayCountry());
 
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, countries);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, countries);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mCountry.setAdapter(adapter);
 
@@ -124,44 +133,50 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
 
                 if (mUserName.getText().toString().equals("")) {
-                    mUserName.setError("Please type your name!");
+                    mUserName.setError(getString(R.string.type_name));
                     mUserName.requestFocus();
                 } else if (mAge.getText().toString().isEmpty()) {
-                    mAge.setError("Please type your age!");
+                    mAge.setError(getString(R.string.type_age));
                     mAge.requestFocus();
                 } else if (Integer.parseInt(mAge.getText().toString()) < 15) {
-                    mAge.setError("You should be at least 15!");
+                    mAge.setError(getString(R.string.too_young));
                     mAge.requestFocus();
                 } else if (Integer.parseInt(mAge.getText().toString()) > 95) {
-                    mAge.setError("You are too old! :)");
+                    mAge.setError(getString(R.string.too_old));
                     mAge.requestFocus();
                 } else if (mGender.getSelectedItemPosition() == 0) {
                     TextView errorText = (TextView) mGender.getSelectedView();
                     errorText.setError("");
                     errorText.setTextColor(Color.RED);
-                    errorText.setText("Select your gender!");
+                    errorText.setText(R.string.select_gender);
 
                 } else if (mCountry.getSelectedItemPosition() == 0) {
                     TextView errorText = (TextView) mCountry.getSelectedView();
                     errorText.setError("");
                     errorText.setTextColor(Color.RED);
-                    errorText.setText("Select your country!");
+                    errorText.setText(R.string.select_country);
 
-                } else if (mRole.getSelectedItemPosition() == 0) {
+                } else if(mRole.getSelectedItemPosition() == 0){
                     TextView errorText = (TextView) mRole.getSelectedView();
                     errorText.setError("");
                     errorText.setTextColor(Color.RED);
-                    errorText.setText("Select your role!");
-                } else {
+                    errorText.setText(R.string.select_role);
+                }else {
+                    for(TagModel model:  mTag.getSelectedTags()){
+                        tags.add(model.getTagText());
+                    }
                     Profile myProfile =
                             new Profile(mUserName.getText().toString(), Integer.parseInt(mAge.getText().toString()),
                                     String.valueOf(mGender.getSelectedItem()), String.valueOf(mCountry.getSelectedItem()),
-                                    String.valueOf(mRole.getSelectedItem()));
+                                    String.valueOf(mRole.getSelectedItem()),tags);
                     mDatabaseReference
                             .child(DataBasePath.USERS)
                             .child(mUser.getUid())
                             .child(DataBasePath.PROFILE)
                             .setValue(myProfile);
+
+                    Log.i(TAG, tags.toString());
+
                 }
             }
         });
@@ -187,11 +202,12 @@ public class ProfileFragment extends Fragment {
     }
 
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d(TAG, "request code: " + requestCode);
-        Log.d(TAG, "result code: " + resultCode);
-        if (resultCode == RESULT_OK) {
+        Log.d(TAG,"request code: "+ requestCode);
+        Log.d(TAG,"result code: "+ resultCode);
+        if (resultCode == RESULT_OK){
             switch (requestCode) {
                 case REQUEST_IMAGE_CAPTURE:
 
@@ -212,8 +228,8 @@ public class ProfileFragment extends Fragment {
                         mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
 
-                    } catch (Exception e) {
-                        Log.d(TAG, "Exception Gallery: " + e);
+                    }catch (Exception e){
+                        Log.d(TAG, "Exception Gallery: "+ e);
                     }
                     break;
 
@@ -279,7 +295,6 @@ public class ProfileFragment extends Fragment {
         intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
         startActivityForResult(intent, GALLERY_REQUEST_CODE);
     }
-////////////////////////////
     private void setPic() {
         // Get the dimensions of the View
         int targetW = mProfilePhoto.getWidth();
@@ -293,7 +308,7 @@ public class ProfileFragment extends Fragment {
         int photoH = bmOptions.outHeight;
 
         // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
 
         // Decode the image file into a Bitmap sized to fill the View
         bmOptions.inJustDecodeBounds = false;
@@ -303,7 +318,7 @@ public class ProfileFragment extends Fragment {
         Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
         mProfilePhoto.setImageBitmap(bitmap);
     }
-/////////////////////////////
+    String currentPhotoPath;
 
     private File createImageFile() throws IOException {
         // Create an image file name
@@ -331,4 +346,3 @@ public class ProfileFragment extends Fragment {
 
 
 }
-

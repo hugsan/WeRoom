@@ -114,27 +114,27 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (mLoginEmail.getText().toString().length()==0) {
-                    mLoginEmail.setError("Provide your Email first!");
+                    mLoginEmail.setError(String.valueOf(R.string.type_email));
                     mLoginEmail.requestFocus();
                 } else if (mLoginPasswd.getText().toString().length()==0) {
-                    mLoginPasswd.setError("Enter Password!");
+                    mLoginPasswd.setError(String.valueOf(R.string.enter_passw));
                     mLoginPasswd.requestFocus();
                 } else if (mLoginEmail.getText().toString().length()==0&& mLoginPasswd.getText().toString().length()==0) {
-                    Toast.makeText(getActivity(), "Fields Empty!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show();
                 } else if (!(mLoginEmail.getText().toString().length()==0 && mLoginPasswd.getText().toString().length()==0)) {
                     firebaseAuth.signInWithEmailAndPassword(mLoginEmail.getText().toString(), mLoginPasswd.getText().toString())
                             .addOnCompleteListener(getActivity(), new OnCompleteListener() {
                         @Override
                         public void onComplete(@NonNull Task task) {
                             if (!task.isSuccessful()) {
-                                Toast.makeText(getActivity(), "Not sucessfull", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(),getString(R.string.not_succ), Toast.LENGTH_SHORT).show();
                             } else {
                                 startActivity(new Intent(getActivity(), Profile_Activity.class));
                             }
                         }
                     });
                 } else {
-                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.error), Toast.LENGTH_SHORT).show();
                 }
             }
         });

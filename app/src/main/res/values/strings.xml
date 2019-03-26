@@ -1,4 +1,8 @@
 <resources>
+    <!-- Strings related to account creation fragment -->
+    <string name="error_logout">Error on log out</string>
+
+    <!-- Strings related to Sign in -->
     <string name="app_name">WeRoom</string>
     <string name="facebook_app_id">343614792929445</string>
     <string name="fb_login_protocol_scheme">fb343614792929445</string>
@@ -10,7 +14,13 @@
     <string name="refer_to_login">Already have an existing account? Log in Here!</string>
     <string name="refer_to_signup">New User? Register Here!</string>
     <string name="empty_fields">Empty Fields!</string>
+
+    <!-- Strings related to the Sign up fragment -->
     <string name="title_activity_login">Sign in</string>
+    <string name="set_passw">Set your password</string>
+    <string name="same_passw">The two passwords have to be the same.</string>
+    <string name="signed_in">Sing in successful: </string>
+    <string name="google_fail">Google sign in failed!</string>
 
     <!-- Strings related google ID server -->
     <string name="google_credential">462352669563-jo1gvg68g9nfqnt13celi7b87em21gop.apps.googleusercontent.com</string>
@@ -29,12 +39,17 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="type_email">Type your email first!</string>
+    <string name="enter_passw">Enter your password!</string>
+    <string name="empty_field">The field is empty.</string>
+    <string name="not_succ">Not successful</string>
+    <string name="error">Error</string>
 
-    <!-- strings related to common profile info -->
+    <!-- strings related to profile fragment -->
     <string name="hint_age">Age</string>
     <string name="hint_name">Name</string>
     <string name="prompt_gender">Select a Gender</string>
-    <string name="prompt_country">Select your Country</string>
+    <string name="prompt_country">Select a Country</string>
     <string-array name="gender_array">
         <item>Select Gender</item>
         <item>Female</item>
@@ -45,8 +60,18 @@
         <item>Landlord</item>
         <item>Tenant</item>
     </string-array>
-    <string name="create_profile">Create</string>
+    <string name="create_profile">Create profile</string>
     <string name="description">Describe yourself using tags</string>
+    <string name="select_gender">Select your gender!</string>
+    <string name="select_country">Select your country!</string>
+    <string name="select_role">Select your role!</string>
+    <string name="type_name">Please type your name!</string>
+    <string name="type_age">Please type your age!</string>
+    <string name="too_young">You should be at least 18.</string>
+    <string name="too_old">You are too old. :)</string>
+    <string name="hint_1">Outgoing</string>
+    <string name="hint_2">Cat Person</string>
+    <string name="hint_3">Vegan</string>
 
 
 </resources>
