@@ -24,49 +24,22 @@
                 tools:layout_editor_absoluteY="0dp">
 
                 <Spinner
-                    android:id="@+id/socialLandlord"
-                    android:layout_width="275dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/browser_actions_title_color"
-                    android:popupBackground="@color/browser_actions_bg_grey"
-                    android:spinnerMode="dropdown"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.066"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/landlordOccupation" />
-
-                <Spinner
-                    android:id="@+id/landlordOccupation"
-                    android:layout_width="275dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/browser_actions_title_color"
-                    android:popupBackground="@color/browser_actions_bg_grey"
-                    android:spinnerMode="dropdown"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.075"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/smokingFriendly" />
-
-                <Spinner
                     android:id="@+id/smokingFriendly"
                     android:layout_width="275dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@color/browser_actions_title_color"
                     android:popupBackground="@color/browser_actions_bg_grey"
                     android:spinnerMode="dropdown"
+                    app:layout_constraintBottom_toTopOf="@+id/confirm"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.075"
+                    app:layout_constraintHorizontal_bias="0.066"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/petFriendly" />
+                    app:layout_constraintTop_toBottomOf="@+id/petFriendly"
+                    app:layout_constraintVertical_bias="0.237" />
 
                 <TextView
                     android:id="@+id/textView8"
@@ -401,13 +374,12 @@
                     android:layout_width="166dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="48dp"
                     android:layout_marginEnd="8dp"
                     android:text="@string/confirm"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.493"
+                    app:layout_constraintHorizontal_bias="0.454"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/socialLandlord" />
+                    tools:layout_editor_absoluteY="962dp" />
 
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
