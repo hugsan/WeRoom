@@ -92,17 +92,12 @@
     <string name="furnished">Furnished</string>
     <string name="min">Min.</string>
     <string name="max">Max.</string>
-    <string name="max">Max.</string>
-    <string name="min">Min.</string>
-    <string name="min">Min.</string>
-    <string name="max">Max.</string>
     <string name="social_tenant">Social Tenant?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="don_t_care">Don\'t Care</string>
     <string name="do_you_allow_smoking">Do you allow smoking?</string>
     <string name="what_kind_of_tenant_are_you_loking_for">What kind of tenant are you loking for?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+
 
 </resources>
