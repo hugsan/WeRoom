@@ -121,7 +121,6 @@ public class ProfileFragment extends Fragment {
             Locale obj = new Locale("", countryCode);
 
             countries.add(obj.getDisplayCountry());
-
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, countries);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

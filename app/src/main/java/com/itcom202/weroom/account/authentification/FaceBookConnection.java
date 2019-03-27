@@ -1,7 +1,7 @@
 package com.itcom202.weroom.account.authentification;
 
 import android.app.Activity;
-import android.content.Context;
+
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
