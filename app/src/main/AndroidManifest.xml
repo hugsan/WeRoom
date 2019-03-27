@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".account.authentification.ForgotPasswordActivity"></activity>
+        <activity android:name=".ProfileLandlord"></activity>
+        <activity android:name=".account.authentification.ForgotPasswordActivity" />
         <activity android:name=".account.profiles.Profile_Activity" />
         <activity android:name=".account.authentification.SignActivity" />
         <activity android:name=".account.authentification.LoginActivity" />

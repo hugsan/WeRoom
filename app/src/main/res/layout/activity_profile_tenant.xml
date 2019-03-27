@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".account.profiles.ProfileTenant">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp">
+
+                <Spinner
+                    android:id="@+id/socialLandlord"
+                    android:layout_width="275dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/browser_actions_title_color"
+                    android:popupBackground="@color/browser_actions_bg_grey"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.066"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/landlordOccupation" />
+
+                <Spinner
+                    android:id="@+id/landlordOccupation"
+                    android:layout_width="275dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/browser_actions_title_color"
+                    android:popupBackground="@color/browser_actions_bg_grey"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.075"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/smokingFriendly" />
+
+                <Spinner
+                    android:id="@+id/smokingFriendly"
+                    android:layout_width="275dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/browser_actions_title_color"
+                    android:popupBackground="@color/browser_actions_bg_grey"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.075"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/petFriendly" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/what_are_you_looking_for"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Spinner
+                    android:id="@+id/chooseCity"
+                    android:layout_width="275dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="72dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/browser_actions_title_color"
+                    android:popupBackground="@color/browser_actions_bg_grey"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <SeekBar
+                    android:id="@+id/radiusCenter"
+                    android:layout_width="271dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="56dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.032"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/chooseCity" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/radius_from_center"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toTopOf="@+id/radiusCenter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.014"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/chooseCity"
+                    app:layout_constraintVertical_bias="0.619" />
+
+                <Spinner
+                    android:id="@+id/periodRenting"
+                    android:layout_width="275dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="56dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/browser_actions_title_color"
+                    android:popupBackground="@color/browser_actions_bg_grey"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.066"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/radiusCenter" />
+
+                <EditText
+                    android:id="@+id/depositMin"
+                    android:layout_width="71dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="36dp"
+                    android:layout_marginEnd="52dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/min"
+                    android:inputType="number"
+                    app:layout_constraintEnd_toStartOf="@+id/depositMax"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/periodRenting" />
+
+                <EditText
+                    android:id="@+id/depositMax"
+                    android:layout_width="71dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="36dp"
+                    android:layout_marginEnd="116dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/max"
+                    android:inputType="number"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/periodRenting" />
+
+                <EditText
+                    android:id="@+id/rentMin"
+                    android:layout_width="71dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="52dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/min"
+                    android:inputType="number"
+                    app:layout_constraintEnd_toStartOf="@+id/rentMax"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/textView4"
+                    app:layout_constraintTop_toBottomOf="@+id/depositMin" />
+
+                <EditText
+                    android:id="@+id/rentMax"
+                    android:layout_width="71dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="116dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/max"
+                    android:inputType="number"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/depositMax" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="48dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/deposit"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/depositMin"
+                    app:layout_constraintHorizontal_bias="0.36"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/periodRenting" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/rent"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/rentMin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/_5km"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/textView13"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/radiusCenter" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="128dp"
+                    android:text="@string/_50km"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/radiusCenter" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/preffered_age_of_landlord"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.008"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rentMin" />
+
+                <EditText
+                    android:id="@+id/ageMinL"
+                    android:layout_width="71dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="52dp"
+                    android:ems="10"
+                    android:hint="@string/min"
+                    android:inputType="number"
+                    app:layout_constraintEnd_toStartOf="@+id/ageMaxL"
+                    app:layout_constraintHorizontal_bias="0.654"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rentMin"
+                    android:autofillHints="" />
+
+                <EditText
+                    android:id="@+id/ageMaxL"
+                    android:layout_width="71dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="52dp"
+                    android:layout_marginEnd="120dp"
+                    android:ems="10"
+                    android:hint="@string/max"
+                    android:inputType="number"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rentMax"
+                    android:autofillHints="" />
+
+                <Spinner
+                    android:id="@+id/gender"
+                    android:layout_width="275dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/browser_actions_title_color"
+                    android:popupBackground="@color/browser_actions_bg_grey"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.066"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ageMinL" />
+
+                <Spinner
+                    android:id="@+id/nationality"
+                    android:layout_width="275dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/browser_actions_title_color"
+                    android:popupBackground="@color/browser_actions_bg_grey"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.075"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/gender" />
+
+                <Spinner
+                    android:id="@+id/petFriendly"
+                    android:layout_width="275dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="132dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/browser_actions_title_color"
+                    android:popupBackground="@color/browser_actions_bg_grey"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.066"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/nationality" />
+
+                <CheckBox
+                    android:id="@+id/furnished"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/furnished"
+                    app:layout_constraintEnd_toStartOf="@+id/handicap"
+                    app:layout_constraintHorizontal_bias="0.148"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/nationality" />
+
+                <CheckBox
+                    android:id="@+id/internet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/internet"
+                    app:layout_constraintBottom_toTopOf="@+id/petFriendly"
+                    app:layout_constraintEnd_toStartOf="@+id/laundry"
+                    app:layout_constraintHorizontal_bias="0.209"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/furnished"
+                    app:layout_constraintVertical_bias="0.454" />
+
+                <CheckBox
+                    android:id="@+id/handicap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="128dp"
+                    android:text="@string/handicap_friendly"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/nationality" />
+
+                <CheckBox
+                    android:id="@+id/laundry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="188dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/laundry"
+                    app:layout_constraintBottom_toTopOf="@+id/petFriendly"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/handicap" />
+
+                <Button
+                    android:id="@+id/confirm"
+                    android:layout_width="166dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="48dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/confirm"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.493"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/socialLandlord" />
+
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
