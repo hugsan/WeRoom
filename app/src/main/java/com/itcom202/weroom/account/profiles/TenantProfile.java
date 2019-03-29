@@ -1,17 +1,19 @@
 package com.itcom202.weroom.account.profiles;
 
+import android.util.Log;
+
 import java.util.InputMismatchException;
 
 public class TenantProfile {
-    public static final int LESS_THAN_THREE_MONTH = 1;
-    public static final int THREE_TO_SIX_MONTH = 2;
-    public static final int SIX_TO_TWELVE_MONTH = 3;
-    public static final int OVER_TWELVE_MONTH = 4;
+    public static final int LESS_THAN_THREE_MONTH = 0;
+    public static final int THREE_TO_SIX_MONTH = 1;
+    public static final int SIX_TO_TWELVE_MONTH = 2;
+    public static final int OVER_TWELVE_MONTH = 3;
     public static final char FEMALE = 'F';
     public static final char MALE = 'M';
     public static final String YES = "Yes";
     public static final String NO = "No";
-    public static final String I_DONT_CARE = "Do not Care<";
+    public static final String I_DONT_CARE = "Do not Care";
 
     public static class Builder{
         private String mUserUid;
@@ -69,8 +71,10 @@ public class TenantProfile {
             return this;
         }
         public Builder withLandlordAgeRange(int min, int max){
-            if (min > max || min <= 15)
-                throw new InputMismatchException("Wrong landlor age range");
+            if (min > max || min <= 15){
+                Log.d("Tortuga", "min: "+ min + "max: "+ max);
+                throw new InputMismatchException("Wrong landlord age range");
+            }
             mMinLandlordAge = min;
             mMaxLandlordAge = max;
             return this;

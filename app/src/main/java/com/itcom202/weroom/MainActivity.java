@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.itcom202.weroom.account.authentification.LoginActivity;
+import com.itcom202.weroom.account.profiles.ProfileTenantActivity;
 import com.itcom202.weroom.account.profiles.Profile_Activity;
 
 
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         }//IF there is a user logged into Firebase it starts at AccountCreationActivity
         else{
             Log.i(TAG,"We are logged"+ firebaseAuth.getCurrentUser().getEmail());
-            startActivity(LoginActivity.newIntent(this));
+            startActivity(ProfileTenantActivity.newIntent(this));
             finish();
         }
 

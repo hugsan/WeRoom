@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -62,7 +63,7 @@ public class ProfileTenantFragment extends Fragment {
         mSmoking = v.findViewById(R.id.spinnerSmoking);
         mChooseCity = v.findViewById(R.id.spinnerChooseCity);
         mPeriodRenting = v.findViewById(R.id.spinnerPeriodRenting);
-        mLandlordGender = v.findViewById(R.id.spinnerGender);
+        mLandlordGender = v.findViewById(R.id.spinnerGenderLL);
         mPetFriendly = v.findViewById(R.id.spinnerPetFriendly);
         mIsFurnished = v.findViewById(R.id.furnished);
         mHasInternet = v.findViewById(R.id.internet);
@@ -101,23 +102,52 @@ public class ProfileTenantFragment extends Fragment {
             public void onClick(View v) {
                 String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                Log.d("Tortuga", String.valueOf(mSmoking.getSelectedItem()));
-                TenantProfile newInput = new TenantProfile.Builder(userID)
-                        .withLandlordNationallity(String.valueOf(mLandlordNation.getSelectedItem()))
-                        .isSmokingFriendly(String.valueOf(mSmoking.getSelectedItem()))
-                        .withCity(String.valueOf(mChooseCity.getSelectedItem()))
-                        .withRentingPeriod(mPeriodRenting.getSelectedItemPosition())
-                        .withLandlordGender(("Female".equals(String.valueOf(mLandlordGender.getSelectedItem()))) ? 'F' : 'M')
-                        .isPetFriendly(String.valueOf(mPetFriendly.getSelectedItem()))
-                        .isFurnished(mIsFurnished.isChecked())
-                        .hasInternet(mHasInternet.isChecked())
-                        .isHandicapFriendly(mHandicap.isChecked())
-                        .hasLaundry(mHasLaundry.isChecked())
-                        .withDepositRange(Integer.parseInt(mDepositMin.getText().toString()), Integer.parseInt(mDepositMax.getText().toString()))
-                        .withRentRange(Integer.parseInt(mRentMin.getText().toString()), Integer.parseInt(mRentMax.getText().toString()))
-                        .withLandlordAgeRange(Integer.parseInt(mLandlordAgeMin.getText().toString()), Integer.parseInt(mLandlordAgeMax.getText().toString()))
-                        .distanceFromCenter(mDistanceFromCenterValue)
-                        .build();
+
+
+
+
+                if (checkNullFields(mDepositMin) & checkNullFields(mDepositMax) &
+                        checkNullFields(mRentMin) & checkNullFields(mRentMax)){
+                    if (mLandlordAgeMin.getText().toString().length()==0)
+                    {
+
+                        mLandlordAgeMin.setText("16");
+
+                    }
+                    if (Integer.parseInt(mLandlordAgeMin.getText().toString()) < 16)
+                    {
+                        mLandlordAgeMin.setError(getString(R.string.min_age));
+                        mLandlordAgeMin.requestFocus();
+                        mLandlordAgeMin.setText("16");
+                    }
+                    if (mLandlordAgeMax.getText().toString().length()==0)
+                    {
+                        mLandlordAgeMax.setText("120");
+                    }
+                    if (Integer.parseInt(mLandlordAgeMax.getText().toString()) > 120)
+                    {
+                        mLandlordAgeMax.setError(getString(R.string.max_age));
+                        mLandlordAgeMax.requestFocus();
+                        mLandlordAgeMax.setText("120");
+                    }
+                    TenantProfile newInput = new TenantProfile.Builder(userID)
+                            .withLandlordNationallity(String.valueOf(mLandlordNation.getSelectedItem()))
+                            .isSmokingFriendly(String.valueOf(mSmoking.getSelectedItem()))
+                            .withCity(String.valueOf(mChooseCity.getSelectedItem()))
+                            .withRentingPeriod(mPeriodRenting.getSelectedItemPosition())
+                            .withLandlordGender(("Female".equals(String.valueOf(mLandlordGender.getSelectedItem()))) ? 'F' : 'M')
+                            .isPetFriendly(String.valueOf(mPetFriendly.getSelectedItem()))
+                            .isFurnished(mIsFurnished.isChecked())
+                            .hasInternet(mHasInternet.isChecked())
+                            .isHandicapFriendly(mHandicap.isChecked())
+                            .hasLaundry(mHasLaundry.isChecked())
+                            .withDepositRange(Integer.parseInt(mDepositMin.getText().toString()), Integer.parseInt(mDepositMax.getText().toString()))
+                            .withRentRange(Integer.parseInt(mRentMin.getText().toString()), Integer.parseInt(mRentMax.getText().toString()))
+                            .withLandlordAgeRange(Integer.parseInt(mLandlordAgeMin.getText().toString()), Integer.parseInt(mLandlordAgeMax.getText().toString()))
+                            .distanceFromCenter(mDistanceFromCenterValue)
+                            .build();
+                }
+
 
 
 
@@ -156,5 +186,13 @@ public class ProfileTenantFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         return adapter;
     }
+    private boolean checkNullFields(EditText tv){
+            if (tv.getText().toString().equals("")){
+                tv.setError(getString(R.string.requiered_field));
+                tv.requestFocus();
+                return false;
+            }
+            return true;
 
+        }
 }

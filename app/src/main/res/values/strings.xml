@@ -73,6 +73,9 @@
     <string name="hint_1">Outgoing</string>
     <string name="hint_2">Cat Person</string>
     <string name="hint_3">Vegan</string>
+    <string name="requiered_field">Requiered field</string>
+    <string name="min_age">Minimum age is 16</string>
+    <string name="max_age">Maximum age is 120</string>
     <!-- Tags -->
     <string name="empty_tag">You cannot add empty tags.</string>
 
