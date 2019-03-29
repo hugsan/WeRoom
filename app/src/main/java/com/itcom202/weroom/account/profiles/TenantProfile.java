@@ -26,7 +26,7 @@ public class TenantProfile {
         private int mMaxRent;
         private int mMinLandlordAge;
         private int mMaxLandlordAge;
-        private char mLandlordGender;
+        private String mLandlordGender;
         private String mCity; //CHECK this, we might change this regading to the google API
         private boolean mFurnished;
         private boolean mHandicap;
@@ -80,7 +80,7 @@ public class TenantProfile {
             return this;
         }
         public Builder withLandlordGender(char gender){
-            mLandlordGender = gender;
+            mLandlordGender = String.valueOf(gender);
             return this;
         }
         public Builder withCity(String city){
@@ -148,7 +148,7 @@ public class TenantProfile {
     private int mMaxRent;
     private int mMinLandlordAge;
     private int mMaxLandlordAge;
-    private char mLandlordGender;
+    private String mLandlordGender;
     private String mCity; //CHECK this, we might change this regading to the google API
     private Boolean mFurnished;
     private Boolean mHandicap;
@@ -239,11 +239,11 @@ public class TenantProfile {
         mMaxLandlordAge = maxLandlordAge;
     }
 
-    public char getLandlordGender() {
+    public String getLandlordGender() {
         return mLandlordGender;
     }
 
-    public void setLandlordGender(char landlordGender) {
+    public void setLandlordGender(String landlordGender) {
         mLandlordGender = landlordGender;
     }
 

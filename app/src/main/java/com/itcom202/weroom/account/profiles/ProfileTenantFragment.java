@@ -22,12 +22,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.authentification.ForgotPasswordActivity;
+import com.itcom202.weroom.account.profiles.SeekBar.BubbleSeekBar;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class ProfileTenantFragment extends Fragment {
+    private static final String TAG = "ProfileTenantFragment";
+
     private Spinner mSmoking;
     private Spinner mChooseCity;
     private Spinner mPeriodRenting;
@@ -44,7 +47,7 @@ public class ProfileTenantFragment extends Fragment {
     private EditText mRentMax;
     private EditText mLandlordAgeMin;
     private EditText mLandlordAgeMax;
-    private SeekBar  mDistanceFromCenter;
+    private BubbleSeekBar  mDistanceFromCenter;
     private Button mConfirm;
 
     private int mDistanceFromCenterValue;
@@ -82,27 +85,30 @@ public class ProfileTenantFragment extends Fragment {
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
-        mDistanceFromCenter.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+        mDistanceFromCenter.setOnProgressChangedListener(new BubbleSeekBar.OnProgressChangedListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress,
-                                          boolean fromUser) {
+            public void onProgressChanged(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat, boolean fromUser) {
                 mDistanceFromCenterValue = progress;
+
+
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+            public void getProgressOnActionUp(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat) {
+                Log.i(TAG, "km: " + progress);
+
             }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
+            public void getProgressOnFinally(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat, boolean fromUser) {
+
             }
         });
         mConfirm.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-
 
 
 
@@ -146,21 +152,14 @@ public class ProfileTenantFragment extends Fragment {
                             .withLandlordAgeRange(Integer.parseInt(mLandlordAgeMin.getText().toString()), Integer.parseInt(mLandlordAgeMax.getText().toString()))
                             .distanceFromCenter(mDistanceFromCenterValue)
                             .build();
+
+                    mDatabaseReference
+                            .child(DataBasePath.USERS.getValue())
+                            .child(userID)
+                            .child(DataBasePath.PROFILE.getValue())
+                            .child(DataBasePath.TENANT.getValue())
+                            .setValue(newInput);
                 }
-
-
-
-
-
-
-
-               /* mDatabaseReference
-                        .child(DataBasePath.USERS.getValue())
-                        .child(userID)
-                        .child(DataBasePath.PROFILE.getValue())
-                        .child(DataBasePath.TENANT.getValue())
-                        .setValue(newTenant);*/
-
 
             }
         });
