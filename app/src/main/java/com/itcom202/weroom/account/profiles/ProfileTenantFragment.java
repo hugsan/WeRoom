@@ -7,14 +7,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.authentification.ForgotPasswordActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class ProfileTenantFragment extends Fragment {
     private Spinner mSmoking;
@@ -39,11 +45,31 @@ public class ProfileTenantFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.profile_tenant_fragment, null,false);
+        mLandlordNation = v.findViewById(R.id.spinnerNationalityLL);
 
-        mSmoking = v.findViewById(R.id.smokingFriendly);
+
+
+        mLandlordNation.setAdapter(countryAdapter());
 
 
 
         return v;
+    }
+    private SpinnerAdapter countryAdapter(){
+        String[] locales = Locale.getISOCountries();
+        List<String> countries = new ArrayList<>();
+        countries.add(getString(R.string.prompt_country));
+
+
+
+        for (String countryCode : locales) {
+
+            Locale obj = new Locale("", countryCode);
+
+            countries.add(obj.getDisplayCountry());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, countries);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        return adapter;
     }
 }

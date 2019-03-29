@@ -79,25 +79,48 @@
     <!-- Strings related to ForgetPasswordFragment -->
     <string name="invalid_email">Invalid password</string>
     <string name="confirm">Confirm</string>
+
+    <!-- Strings related to ProfileTenantFragment -->
     <string name="laundry">Laundry</string>
     <string name="handicap_friendly">Handicap Friendly</string>
-    <string name="preffered_age_of_landlord">Preffered age of Landlord</string>
+    <string name="preferred_age_of_landlord">Preferred age of Landlord</string>
     <string name="_50km">50km</string>
     <string name="_5km">5km</string>
     <string name="rent">Rent</string>
     <string name="deposit">Deposit</string>
-    <string name="what_are_you_looking_for">What are you looking for?</string>
+    <string name="looking_for">What are you looking for?</string>
     <string name="radius_from_center">Radius from center</string>
     <string name="internet">Internet</string>
     <string name="furnished">Furnished</string>
     <string name="min">Min.</string>
     <string name="max">Max.</string>
+    <string-array name="rending_period_array">
+        <item>Period of renting</item>
+        <item>0 – 3 Months </item>
+        <item>3 – 6 Months </item>
+        <item>6 – 12 Months </item>
+        <item>12+ Months </item>
+    </string-array>
+    <string-array name="smoke_friendly">
+        <item>Smoking Friendly</item>
+        <item>Yes </item>
+        <item>No </item>
+        <item>Do not Care</item>
+    </string-array>
+    <string-array name="pet_friendly">
+        <item>Pet Friendly</item>
+        <item>Yes </item>
+        <item>No </item>
+        <item>Do not Care </item>
+    </string-array>
+
+    <!-- Strings related to ProfileLandlordFragment -->
     <string name="social_tenant">Social Tenant?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="don_t_care">Don\'t Care</string>
-    <string name="do_you_allow_smoking">Do you allow smoking?</string>
-    <string name="what_kind_of_tenant_are_you_loking_for">What kind of tenant are you loking for?</string>
+    <string name="allow_smoking">Do you allow smoking?</string>
+    <string name="kind_of_tenant">What kind of tenant are you looking for?</string>
 
 
 </resources>

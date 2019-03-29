@@ -86,15 +86,16 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
-                android:text="@string/do_you_allow_smoking"
+                android:text="@string/allow_smoking"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.032"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/occupation" />
+                app:layout_constraintTop_toBottomOf="@+id/occupation"
+                tools:text="Do you allow smoking?" />
 
             <Spinner
-                android:id="@+id/gender"
+                android:id="@+id/spinnerGenderLL"
                 android:layout_width="275dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
@@ -106,10 +107,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.066"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nationality" />
+                app:layout_constraintTop_toBottomOf="@+id/spinnerNationalityLL" />
 
             <Spinner
-                android:id="@+id/nationality"
+                android:id="@+id/spinnerNationalityLL"
                 android:layout_width="275dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
@@ -136,7 +137,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.066"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/gender" />
+                app:layout_constraintTop_toBottomOf="@+id/spinnerGenderLL" />
 
             <TextView
                 android:id="@+id/textView"
@@ -145,11 +146,12 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="28dp"
                 android:layout_marginEnd="8dp"
-                android:text="@string/what_kind_of_tenant_are_you_loking_for"
+                android:text="@string/kind_of_tenant"
                 android:textSize="22sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="What kind of Tenant are you looking for?" />
 
             <EditText
                 android:id="@+id/ageMaxT"
@@ -162,7 +164,7 @@
                 android:hint="@string/max"
                 android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nationality" />
+                app:layout_constraintTop_toBottomOf="@+id/spinnerNationalityLL" />
 
             <EditText
                 android:id="@+id/ageMinT"
@@ -170,12 +172,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="88dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/min"
                 android:inputType="number"
-                app:layout_constraintEnd_toStartOf="@+id/ageMaxL"
-                app:layout_constraintHorizontal_bias="0.654"
+                app:layout_constraintEnd_toStartOf="@+id/ageMaxT"
+                app:layout_constraintHorizontal_bias="0.148"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -186,12 +189,13 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="164dp"
                 android:layout_marginEnd="8dp"
-                android:text="@string/preffered_age_of_landlord"
+                android:text="@string/preferred_age_of_landlord"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.034"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Preferred age of Tenant" />
 
             <RadioGroup
                 android:id="@+id/radioGroup"

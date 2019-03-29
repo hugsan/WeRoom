@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -40,6 +41,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
@@ -109,10 +111,9 @@ public class ProfileFragment extends Fragment {
 
 
 
-        String[] locales = Locale.getISOCountries();
+       /* String[] locales = Locale.getISOCountries();
         List<String> countries = new ArrayList<>();
         countries.add(getString(R.string.prompt_country));
-
 
 
 
@@ -123,8 +124,8 @@ public class ProfileFragment extends Fragment {
             countries.add(obj.getDisplayCountry());
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, countries);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mCountry.setAdapter(adapter);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);*/
+        mCountry.setAdapter(countryAdapter());
 
 
         mCreateProfile.setOnClickListener(new View.OnClickListener() {
@@ -348,6 +349,21 @@ public class ProfileFragment extends Fragment {
         mediaScanIntent.setData(contentUri);
         getActivity().sendBroadcast(mediaScanIntent);
     }
+    private SpinnerAdapter countryAdapter(){
+        String[] locales = Locale.getISOCountries();
+        List<String> countries = new ArrayList<>();
+        countries.add(getString(R.string.prompt_country));
 
 
+
+        for (String countryCode : locales) {
+
+            Locale obj = new Locale("", countryCode);
+
+            countries.add(obj.getDisplayCountry());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, countries);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        return adapter;
+    }
 }
