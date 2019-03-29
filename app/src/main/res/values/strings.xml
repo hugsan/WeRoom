@@ -95,20 +95,17 @@
     <string name="min">Min.</string>
     <string name="max">Max.</string>
     <string-array name="rending_period_array">
-        <item>Period of renting</item>
         <item>0 – 3 Months </item>
         <item>3 – 6 Months </item>
         <item>6 – 12 Months </item>
         <item>12+ Months </item>
     </string-array>
     <string-array name="smoke_friendly">
-        <item>Smoking Friendly</item>
         <item>Yes </item>
         <item>No </item>
         <item>Do not Care</item>
     </string-array>
     <string-array name="pet_friendly">
-        <item>Pet Friendly</item>
         <item>Yes </item>
         <item>No </item>
         <item>Do not Care </item>

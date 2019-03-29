@@ -9,9 +9,9 @@ public class TenantProfile {
     public static final int OVER_TWELVE_MONTH = 4;
     public static final char FEMALE = 'F';
     public static final char MALE = 'M';
-    public static final byte YES = 1;
-    public static final byte NO = 2;
-    public static final byte I_DONT_CARE = 3;
+    public static final String YES = "Yes";
+    public static final String NO = "No";
+    public static final String I_DONT_CARE = "Do not Care<";
 
     public static class Builder{
         private String mUserUid;
@@ -30,13 +30,13 @@ public class TenantProfile {
         private boolean mHandicap;
         private boolean mInternet;
         private boolean mLaundry;
-        private byte mPetFriendly;
-        private byte mSmokeFriendly;
+        private String mPetFriendly;
+        private String mSmokeFriendly;
 
         public Builder (String userUid){
             this.mUserUid = userUid;
         }
-        public Builder withNationallity(String nation){
+        public Builder withLandlordNationallity(String nation){
             mNationallity = nation;
             return this;
         }
@@ -99,14 +99,14 @@ public class TenantProfile {
             mLaundry = l;
             return this;
         }
-        public Builder isPetFriendly(byte p){
-            if (p != YES && p != NO && p != I_DONT_CARE)
+        public Builder isPetFriendly(String p){
+            if (!p.equals(YES) && !p.equals(NO) && !p.equals(I_DONT_CARE))
                 throw new InputMismatchException("Wrong answer");
             mPetFriendly = p;
             return this;
         }
-        public Builder isSmokingFriendly(byte s){
-            if (s != YES && s != NO && s != I_DONT_CARE)
+        public Builder isSmokingFriendly(String s){
+            if (!s.equals(YES) && !s.equals(NO)&& !s.equals(I_DONT_CARE) )
                 throw new InputMismatchException("Wrong answer");
             mSmokeFriendly = s;
             return this;
@@ -150,8 +150,8 @@ public class TenantProfile {
     private Boolean mHandicap;
     private Boolean mInternet;
     private Boolean mLaundry;
-    private byte mPetFriendly;
-    private byte mSmokeFriendly;
+    private String mPetFriendly;
+    private String mSmokeFriendly;
 
     private TenantProfile(){}
 
@@ -283,19 +283,19 @@ public class TenantProfile {
         mLaundry = laundry;
     }
 
-    public byte getPetFriendly() {
+    public String getPetFriendly() {
         return mPetFriendly;
     }
 
-    public void setPetFriendly(byte petFriendly) {
+    public void setPetFriendly(String petFriendly) {
         mPetFriendly = petFriendly;
     }
 
-    public byte getSmokeFriendly() {
+    public String getSmokeFriendly() {
         return mSmokeFriendly;
     }
 
-    public void setSmokeFriendly(byte smokeFriendly) {
+    public void setSmokeFriendly(String smokeFriendly) {
         mSmokeFriendly = smokeFriendly;
     }
 }
