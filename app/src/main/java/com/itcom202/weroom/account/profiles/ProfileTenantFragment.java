@@ -41,12 +41,7 @@ public class ProfileTenantFragment extends Fragment {
         View v = inflater.inflate(R.layout.profile_tenant_fragment, null,false);
 
         mSmoking = v.findViewById(R.id.smokingFriendly);
-        mSmoking.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                startActivity(ForgotPasswordActivity.newIntent(getActivity()));
-            }
-        });
+
 
 
         return v;

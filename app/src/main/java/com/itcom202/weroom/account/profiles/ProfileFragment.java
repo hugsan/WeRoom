@@ -174,7 +174,13 @@ public class ProfileFragment extends Fragment {
                             .child(DataBasePath.PROFILE)
                             .setValue(myProfile);
 
-                    Log.i(TAG, tags.toString());
+                    String[] role = getActivity().getResources().getStringArray(R.array.role_array);
+                    Log.d(TAG,"Value of Spinner: "+String.valueOf(mRole.getSelectedItemId()) + "Value of Array of roles: "+role[1] + role[2]);
+                    if (mRole.getSelectedItemId() == 1){
+                        //TODO go to landlordprofile Fragment
+                    }else if (mRole.getSelectedItemId() == 2){
+                        startActivity(ProfileTenantActivity.newIntent(getActivity()));
+                    }
 
                 }
             }

@@ -23,6 +23,7 @@
         <activity android:name=".account.profiles.Profile_Activity" />
         <activity android:name=".account.authentification.SignActivity" />
         <activity android:name=".account.authentification.LoginActivity" />
+        <activity android:name=".account.profiles.ProfileTenantActivity" />
         <activity android:name=".AccountCreationActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
