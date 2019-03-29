@@ -170,9 +170,9 @@ public class ProfileFragment extends Fragment {
                                     String.valueOf(mGender.getSelectedItem()), String.valueOf(mCountry.getSelectedItem()),
                                     String.valueOf(mRole.getSelectedItem()), tags);
                     mDatabaseReference
-                            .child(DataBasePath.USERS)
+                            .child(DataBasePath.USERS.getValue())
                             .child(mUser.getUid())
-                            .child(DataBasePath.PROFILE)
+                            .child(DataBasePath.PROFILE.getValue())
                             .setValue(myProfile);
 
                     String[] role = getActivity().getResources().getStringArray(R.array.role_array);

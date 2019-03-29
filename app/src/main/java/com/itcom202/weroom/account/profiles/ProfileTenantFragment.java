@@ -15,6 +15,9 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.authentification.ForgotPasswordActivity;
 
@@ -34,12 +37,15 @@ public class ProfileTenantFragment extends Fragment {
     private CheckBox mHandicap;
     private CheckBox mHasLaundry;
     private EditText mDepositMin;
-    private EditText mDespotiMax;
+    private EditText mDepositMax;
     private EditText mRentMin;
+    private EditText mRentMax;
     private EditText mLandlordAgeMin;
     private EditText mLandlordAgeMax;
     private SeekBar  mDistanceFromCenter;
     private Button mConfirm;
+
+    private DatabaseReference mDatabaseReference;
 
     @Nullable
     @Override
@@ -50,6 +56,49 @@ public class ProfileTenantFragment extends Fragment {
 
 
         mLandlordNation.setAdapter(countryAdapter());
+        mSmoking = v.findViewById(R.id.spinnerSmoking);
+        mChooseCity = v.findViewById(R.id.spinnerChooseCity);
+        mPeriodRenting = v.findViewById(R.id.spinnerPeriodRenting);
+        mLandlordGender = v.findViewById(R.id.spinnerGender);
+        mLandlordNation = v.findViewById(R.id.spinnerNationalityLL);
+        mPetFriendly = v.findViewById(R.id.spinnerPetFriendly);
+        mIsFurnished = v.findViewById(R.id.furnished);
+        mHasInternet = v.findViewById(R.id.internet);
+        mHandicap = v.findViewById(R.id.handicap);
+        mHasLaundry = v.findViewById(R.id.laundry);
+        mDepositMin = v.findViewById(R.id.depositMin);
+        mDepositMax = v.findViewById(R.id.depositMax);
+        mRentMin = v.findViewById(R.id.rentMin);
+        mRentMax = v.findViewById(R.id.rentMax);
+        mLandlordAgeMin = v.findViewById(R.id.ageMinL);
+        mLandlordAgeMax = v.findViewById(R.id.ageMaxL);
+        mDistanceFromCenter = v.findViewById(R.id.radiusCenter);
+        mConfirm = v.findViewById(R.id.confirm);
+
+
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+
+        mConfirm.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                /*String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                TenantProfile newTenant = new TenantProfile.Builder(userID)*/
+
+
+
+
+
+
+               /* mDatabaseReference
+                        .child(DataBasePath.USERS.getValue())
+                        .child(userID)
+                        .child(DataBasePath.PROFILE.getValue())
+                        .child(DataBasePath.TENANT.getValue())
+                        .setValue(newTenant);*/
+
+
+            }
+        });
 
 
 

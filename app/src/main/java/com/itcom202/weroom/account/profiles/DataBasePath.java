@@ -1,9 +1,19 @@
 package com.itcom202.weroom.account.profiles;
 
-public class DataBasePath {
+public enum DataBasePath {
 
-    //TODO THIS IS An ENUM
-    public static final String USERS = "users";
-    public static final String PROFILE = "profile";
+    USERS("users"),
+    PROFILE("profile"),
+    TENANT("tenant");
+
+    private final String name;
+
+    DataBasePath(String s) {
+        name = s;
+    }
+
+    public String getValue() {
+        return name;
+    }
 
 }
