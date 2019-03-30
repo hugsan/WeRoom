@@ -21,7 +21,7 @@
             tools:background="@android:color/background_light">
 
             <Button
-                android:id="@+id/confirm2"
+                android:id="@+id/confirmtenantprofile"
                 android:layout_width="166dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -31,7 +31,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.537"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/smoking" />
+                app:layout_constraintTop_toBottomOf="@+id/socialgroup" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -49,7 +49,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <RadioGroup
-                android:id="@+id/smoking"
+                android:id="@+id/socialgroup"
                 android:layout_width="203dp"
                 android:layout_height="121dp"
                 android:layout_marginStart="8dp"
@@ -58,7 +58,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.156"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+                app:layout_constraintTop_toBottomOf="@+id/smokinggroup">
 
                 <RadioButton
                     android:id="@+id/radioButtonYes1"
@@ -108,12 +108,18 @@
                 android:id="@+id/spinnerGenderLL"
                 android:layout_width="275dp"
                 android:layout_height="40dp"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="98dp"
+                android:layout_marginBottom="16dp"
                 android:background="@color/common_google_signin_btn_text_light_default"
                 android:entries="@array/gender_array"
                 android:popupBackground="@color/browser_actions_text_color"
                 android:spinnerMode="dropdown"
-                tools:layout_editor_absoluteX="38dp"
-                tools:layout_editor_absoluteY="208dp" />
+                app:layout_constraintBottom_toTopOf="@+id/occupation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ageMaxT" />
 
             <Spinner
                 android:id="@+id/spinnerNationalityLL"
@@ -181,19 +187,14 @@
                 android:id="@+id/ageMinT"
                 android:layout_width="71dp"
                 android:layout_height="36dp"
-                android:layout_marginStart="88dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
                 android:autofillHints=""
                 android:background="@color/common_google_signin_btn_text_light_default"
                 android:ems="10"
                 android:hint="@string/min"
                 android:inputType="number"
                 android:textColor="@color/black"
-                app:layout_constraintEnd_toStartOf="@+id/ageMaxT"
-                app:layout_constraintHorizontal_bias="0.551"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                tools:layout_editor_absoluteX="131dp"
+                tools:layout_editor_absoluteY="159dp" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -212,7 +213,7 @@
                 tools:text="Preferred age of Tenant" />
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/smokinggroup"
                 android:layout_width="203dp"
                 android:layout_height="121dp"
                 android:layout_marginStart="8dp"
@@ -258,7 +259,7 @@
         android:id="@+id/imageView3"
         android:layout_width="413dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/BottomField"
+        android:src="@drawable/bottomfield"
         app:layout_constraintBottom_toBottomOf="@+id/scrollView"
         app:layout_constraintStart_toStartOf="parent" />
 

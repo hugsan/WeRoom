@@ -109,22 +109,23 @@ public class ProfileTenantFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                boolean noError = true;
 
-
-
+                //checking if deposit and rent are not nulls
                 if (checkNullFields(mDepositMin) & checkNullFields(mDepositMax) &
                         checkNullFields(mRentMin) & checkNullFields(mRentMax)){
+                    //Checking if for landlord age values.
                     if (mLandlordAgeMin.getText().toString().length()==0)
                     {
 
                         mLandlordAgeMin.setText("16");
-
                     }
                     if (Integer.parseInt(mLandlordAgeMin.getText().toString()) < 16)
                     {
                         mLandlordAgeMin.setError(getString(R.string.min_age));
                         mLandlordAgeMin.requestFocus();
                         mLandlordAgeMin.setText("16");
+                        noError = false;
                     }
                     if (mLandlordAgeMax.getText().toString().length()==0)
                     {
@@ -135,30 +136,38 @@ public class ProfileTenantFragment extends Fragment {
                         mLandlordAgeMax.setError(getString(R.string.max_age));
                         mLandlordAgeMax.requestFocus();
                         mLandlordAgeMax.setText("120");
+                        noError = false;
                     }
-                    TenantProfile newInput = new TenantProfile.Builder(userID)
-                            .withLandlordNationallity(String.valueOf(mLandlordNation.getSelectedItem()))
-                            .isSmokingFriendly(String.valueOf(mSmoking.getSelectedItem()))
-                            .withCity(String.valueOf(mChooseCity.getSelectedItem()))
-                            .withRentingPeriod(mPeriodRenting.getSelectedItemPosition())
-                            .withLandlordGender(("Female".equals(String.valueOf(mLandlordGender.getSelectedItem()))) ? 'F' : 'M')
-                            .isPetFriendly(String.valueOf(mPetFriendly.getSelectedItem()))
-                            .isFurnished(mIsFurnished.isChecked())
-                            .hasInternet(mHasInternet.isChecked())
-                            .isHandicapFriendly(mHandicap.isChecked())
-                            .hasLaundry(mHasLaundry.isChecked())
-                            .withDepositRange(Integer.parseInt(mDepositMin.getText().toString()), Integer.parseInt(mDepositMax.getText().toString()))
-                            .withRentRange(Integer.parseInt(mRentMin.getText().toString()), Integer.parseInt(mRentMax.getText().toString()))
-                            .withLandlordAgeRange(Integer.parseInt(mLandlordAgeMin.getText().toString()), Integer.parseInt(mLandlordAgeMax.getText().toString()))
-                            .distanceFromCenter(mDistanceFromCenterValue)
-                            .build();
+                    //checking if the min is smaller than Max, otherwise show to user.
+                    if (minMaxFieldCheck(mRentMin,mRentMax))
+                        noError = false;
+                    if (minMaxFieldCheck(mDepositMin,mDepositMax))
+                        noError = false;
+                    if (noError){
+                        TenantProfile newInput = new TenantProfile.Builder(userID)
+                                .withLandlordNationallity(String.valueOf(mLandlordNation.getSelectedItem()))
+                                .isSmokingFriendly(String.valueOf(mSmoking.getSelectedItem()))
+                                .withCity(String.valueOf(mChooseCity.getSelectedItem()))
+                                .withRentingPeriod(mPeriodRenting.getSelectedItemPosition())
+                                .withLandlordGender(("Female".equals(String.valueOf(mLandlordGender.getSelectedItem()))) ? 'F' : 'M')
+                                .isPetFriendly(String.valueOf(mPetFriendly.getSelectedItem()))
+                                .isFurnished(mIsFurnished.isChecked())
+                                .hasInternet(mHasInternet.isChecked())
+                                .isHandicapFriendly(mHandicap.isChecked())
+                                .hasLaundry(mHasLaundry.isChecked())
+                                .withDepositRange(Integer.parseInt(mDepositMin.getText().toString()), Integer.parseInt(mDepositMax.getText().toString()))
+                                .withRentRange(Integer.parseInt(mRentMin.getText().toString()), Integer.parseInt(mRentMax.getText().toString()))
+                                .withLandlordAgeRange(Integer.parseInt(mLandlordAgeMin.getText().toString()), Integer.parseInt(mLandlordAgeMax.getText().toString()))
+                                .distanceFromCenter(mDistanceFromCenterValue)
+                                .build();
+                        mDatabaseReference
+                                .child(DataBasePath.USERS.getValue())
+                                .child(userID)
+                                .child(DataBasePath.PROFILE.getValue())
+                                .child(DataBasePath.TENANT.getValue())
+                                .setValue(newInput);
+                    }
 
-                    mDatabaseReference
-                            .child(DataBasePath.USERS.getValue())
-                            .child(userID)
-                            .child(DataBasePath.PROFILE.getValue())
-                            .child(DataBasePath.TENANT.getValue())
-                            .setValue(newInput);
                 }
 
             }
@@ -193,5 +202,15 @@ public class ProfileTenantFragment extends Fragment {
             }
             return true;
 
+    }
+    private boolean minMaxFieldCheck(EditText min, EditText max){
+        if (Integer.parseInt((min.getText().toString())) > Integer.parseInt(max.getText().toString())){
+            min.setError(getString(R.string.wrong_min));
+            min.requestFocus();
+            max.setError(getString(R.string.wrong_max));
+            max.requestFocus();
+            return false;
         }
+        return true;
+    }
 }

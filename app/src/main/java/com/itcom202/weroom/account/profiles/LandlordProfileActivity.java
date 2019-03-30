@@ -11,6 +11,7 @@ public class LandlordProfileActivity extends SingleFragmentActivity {
     protected Fragment createFragment() {
         return new LandlordProfileFragment();
     }
+
     public static Intent newIntent(Context myContext){
         Intent i = new Intent(myContext, LandlordProfileActivity.class);
         return i;

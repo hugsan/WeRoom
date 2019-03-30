@@ -31,7 +31,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.537"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/smoking" />
+                app:layout_constraintTop_toBottomOf="@+id/socialgroup" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -49,7 +49,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <RadioGroup
-                android:id="@+id/smoking"
+                android:id="@+id/socialgroup"
                 android:layout_width="203dp"
                 android:layout_height="121dp"
                 android:layout_marginStart="8dp"
@@ -58,7 +58,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.156"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+                app:layout_constraintTop_toBottomOf="@+id/smokinggroup">
 
                 <RadioButton
                     android:id="@+id/radioButtonYes1"
@@ -212,7 +212,7 @@
                 tools:text="Preferred age of Tenant" />
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/smokinggroup"
                 android:layout_width="203dp"
                 android:layout_height="121dp"
                 android:layout_marginStart="8dp"
@@ -258,7 +258,7 @@
         android:id="@+id/imageView3"
         android:layout_width="413dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/BottomField"
+        android:src="@drawable/bottomfield"
         app:layout_constraintBottom_toBottomOf="@+id/scrollView"
         app:layout_constraintStart_toStartOf="parent" />
 

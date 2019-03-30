@@ -76,6 +76,8 @@
     <string name="requiered_field">Requiered field</string>
     <string name="min_age">Minimum age is 16</string>
     <string name="max_age">Maximum age is 120</string>
+    <string name="wrong_min">Wrong min value</string>
+    <string name="wrong_max">Wrong max value</string>
     <!-- Tags -->
     <string name="empty_tag">You cannot add empty tags.</string>
 

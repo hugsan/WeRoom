@@ -72,7 +72,6 @@ public class TenantProfile {
         }
         public Builder withLandlordAgeRange(int min, int max){
             if (min > max || min <= 15){
-                Log.d("Tortuga", "min: "+ min + "max: "+ max);
                 throw new InputMismatchException("Wrong landlord age range");
             }
             mMinLandlordAge = min;
