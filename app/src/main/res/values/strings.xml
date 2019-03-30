@@ -121,6 +121,15 @@
     <string name="don_t_care">Don\'t Care</string>
     <string name="allow_smoking">Do you allow smoking?</string>
     <string name="kind_of_tenant">What kind of tenant are you looking for?</string>
+    <string-array name="occupation">
+        <item>Occupation</item>
+        <item>Student </item>
+        <item>Working </item>
+        <item>Do not care </item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
