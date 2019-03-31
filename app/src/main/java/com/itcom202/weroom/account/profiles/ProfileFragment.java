@@ -144,11 +144,11 @@ public class ProfileFragment extends Fragment {
                 } else if (Integer.parseInt(mAge.getText().toString()) > 95) {
                     mAge.setError(getString(R.string.too_old));
                     mAge.requestFocus();
-                } else if (mGender.getSelectedItemPosition() == 0) {
+               /* } else if (mGender.getSelectedItemPosition() == 0) {
                     TextView errorText = (TextView) mGender.getSelectedView();
                     errorText.setError("");
                     errorText.setTextColor(Color.RED);
-                    errorText.setText(R.string.select_gender);
+                    errorText.setText(R.string.select_gender);*/
 
                 } else if (mCountry.getSelectedItemPosition() == 0) {
                     TextView errorText = (TextView) mCountry.getSelectedView();
@@ -156,11 +156,11 @@ public class ProfileFragment extends Fragment {
                     errorText.setTextColor(Color.RED);
                     errorText.setText(R.string.select_country);
 
-                } else if(mRole.getSelectedItemPosition() == 0){
+                /*} else if(mRole.getSelectedItemPosition() == 0){
                     TextView errorText = (TextView) mRole.getSelectedView();
                     errorText.setError("");
                     errorText.setTextColor(Color.RED);
-                    errorText.setText(R.string.select_role);
+                    errorText.setText(R.string.select_role);*/
                 }else {
                     for(TagModel model:  mTag.getSelectedTags()){
                         tags.add(model.getTagText());
@@ -176,10 +176,9 @@ public class ProfileFragment extends Fragment {
                             .setValue(myProfile);
 
                     String[] role = getActivity().getResources().getStringArray(R.array.role_array);
-                    Log.d(TAG,"Value of Spinner: "+String.valueOf(mRole.getSelectedItemId()) + "Value of Array of roles: "+role[1] + role[2]);
-                    if (mRole.getSelectedItemId() == 1){
+                    if (mRole.getSelectedItemId() == 0){
                         startActivity(LandlordProfileActivity.newIntent(getActivity()));
-                    }else if (mRole.getSelectedItemId() == 2){
+                    }else if (mRole.getSelectedItemId() == 1){
                         startActivity(ProfileTenantActivity.newIntent(getActivity()));
                     }
 

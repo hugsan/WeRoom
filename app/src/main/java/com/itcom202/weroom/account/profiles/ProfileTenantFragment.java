@@ -12,21 +12,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.itcom202.weroom.R;
-import com.itcom202.weroom.account.authentification.ForgotPasswordActivity;
 import com.itcom202.weroom.account.profiles.SeekBar.BubbleSeekBar;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import com.google.android.libraries.places.api.Places;
 
 public class ProfileTenantFragment extends Fragment {
     private static final String TAG = "ProfileTenantFragment";
@@ -160,6 +159,7 @@ public class ProfileTenantFragment extends Fragment {
                                 .withLandlordAgeRange(Integer.parseInt(mLandlordAgeMin.getText().toString()), Integer.parseInt(mLandlordAgeMax.getText().toString()))
                                 .distanceFromCenter(mDistanceFromCenterValue)
                                 .build();
+
                         mDatabaseReference
                                 .child(DataBasePath.USERS.getValue())
                                 .child(userID)
@@ -209,8 +209,8 @@ public class ProfileTenantFragment extends Fragment {
             min.requestFocus();
             max.setError(getString(R.string.wrong_max));
             max.requestFocus();
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 }

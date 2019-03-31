@@ -61,7 +61,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/smokinggroup">
 
                 <RadioButton
-                    android:id="@+id/radioButtonYes1"
+                    android:id="@+id/radiossocialyes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -70,7 +70,7 @@
                     android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
                 <RadioButton
-                    android:id="@+id/radioButtonNo1"
+                    android:id="@+id/radiosocialno"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -79,11 +79,12 @@
                     android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
                 <RadioButton
-                    android:id="@+id/radioButtonDc1"
+                    android:id="@+id/radiosocialidc"
                     android:layout_width="172dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="@color/black"
+                    android:checked="true"
                     android:text="@string/don_t_care"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused" />
             </RadioGroup>
@@ -187,14 +188,20 @@
                 android:id="@+id/ageMinT"
                 android:layout_width="71dp"
                 android:layout_height="36dp"
+                android:layout_marginStart="131dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="43dp"
+                android:layout_marginBottom="13dp"
                 android:autofillHints=""
                 android:background="@color/common_google_signin_btn_text_light_default"
                 android:ems="10"
                 android:hint="@string/min"
                 android:inputType="number"
                 android:textColor="@color/black"
-                tools:layout_editor_absoluteX="131dp"
-                tools:layout_editor_absoluteY="159dp" />
+                app:layout_constraintBottom_toTopOf="@+id/spinnerGenderLL"
+                app:layout_constraintEnd_toStartOf="@+id/ageMaxT"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -225,7 +232,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/occupation">
 
                 <RadioButton
-                    android:id="@+id/radioButtonYes"
+                    android:id="@+id/radiosmokeyes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -234,7 +241,7 @@
                     android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
                 <RadioButton
-                    android:id="@+id/radioButtonNo"
+                    android:id="@+id/radiosmokeno"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -243,11 +250,12 @@
                     android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
                 <RadioButton
-                    android:id="@+id/radioButtonCare"
+                    android:id="@+id/radiosmokeidc"
                     android:layout_width="172dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="@color/black"
+                    android:checked="true"
                     android:text="@string/don_t_care"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused" />
             </RadioGroup>

@@ -3,6 +3,9 @@ package com.itcom202.weroom.account.profiles;
 import java.util.InputMismatchException;
 
 public class LandlordProfile {
+    public static final String YES = "Yes";
+    public static final String NO = "No";
+    public static final String I_DONT_CARE = "Do not Care";
 
     public static class Builder{
         private String sUserID;
@@ -13,9 +16,7 @@ public class LandlordProfile {
         private String sTenantOccupation;
         private String sAllowTenantSmoking;
         private String sSocialTenant;
-        public static final String YES = "Yes";
-        public static final String NO = "No";
-        public static final String I_DONT_CARE = "Do not Care";
+
 
         public Builder(String id){sUserID = id;}
         public Builder withTenantNationallity(String nation){

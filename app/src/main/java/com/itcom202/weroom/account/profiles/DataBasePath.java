@@ -4,6 +4,7 @@ public enum DataBasePath {
 
     USERS("users"),
     PROFILE("profile"),
+    LANDLORD("landlord"),
     TENANT("tenant");
 
     private final String name;

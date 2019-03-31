@@ -52,12 +52,10 @@
     <string name="prompt_gender">Select a Gender</string>
     <string name="prompt_country">Select a Country</string>
     <string-array name="gender_array">
-        <item>Select Gender</item>
         <item>Female</item>
         <item>Male</item>
     </string-array>
     <string-array name="role_array">
-        <item>Select Role</item>
         <item>Landlord</item>
         <item>Tenant</item>
     </string-array>
@@ -124,7 +122,6 @@
     <string name="allow_smoking">Do you allow smoking?</string>
     <string name="kind_of_tenant">What kind of tenant are you looking for?</string>
     <string-array name="occupation">
-        <item>Occupation</item>
         <item>Student </item>
         <item>Working </item>
         <item>Do not care </item>
