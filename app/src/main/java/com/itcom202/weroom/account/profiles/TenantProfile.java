@@ -1,7 +1,5 @@
 package com.itcom202.weroom.account.profiles;
 
-import android.util.Log;
-
 import java.util.InputMismatchException;
 
 public class TenantProfile {
@@ -16,124 +14,132 @@ public class TenantProfile {
     public static final String I_DONT_CARE = "Do not Care";
 
     public static class Builder{
-        private String mUserUid;
-        private String mNationallity;
-        private int mDistanceCenter;
-        private int mPeriodOfRent;
-        private int mMinDeposit;
-        private int mMAxDeposit;
-        private int mMinRent;
-        private int mMaxRent;
-        private int mMinLandlordAge;
-        private int mMaxLandlordAge;
-        private String mLandlordGender;
-        private String mCity; //CHECK this, we might change this regading to the google API
-        private boolean mFurnished;
-        private boolean mHandicap;
-        private boolean mInternet;
-        private boolean mLaundry;
-        private String mPetFriendly;
-        private String mSmokeFriendly;
+        private String sUserUid;
+        private String sNationallity;
+        private int sDistanceCenter;
+        private int sPeriodOfRent;
+        private int sMinDeposit;
+        private int sMaxDeposit;
+        private int sMinRent;
+        private int sMaxRent;
+        private int sMinLandlordAge;
+        private int sMaxLandlordAge;
+        private String sLandlordGender;
+        private String sCity; //CHECK this, we might change this regading to the google API
+        private double sCityLatitude;
+        private double sCityLongitude;
+        private boolean sFurnished;
+        private boolean sHandicap;
+        private boolean sInternet;
+        private boolean sLaundry;
+        private String sPetFriendly;
+        private String sSmokeFriendly;
 
         public Builder (String userUid){
-            this.mUserUid = userUid;
+            this.sUserUid = userUid;
         }
         public Builder withLandlordNationallity(String nation){
-            mNationallity = nation;
+            sNationallity = nation;
+
             return this;
         }
         public Builder distanceFromCenter(int distance){
             if (distance < 0 )
                 throw new InputMismatchException("Wrong distance");
 
-            mDistanceCenter = distance;
+            sDistanceCenter = distance;
             return this;
         }
         public Builder withRentingPeriod(int period){
             if (period != LESS_THAN_THREE_MONTH && period != THREE_TO_SIX_MONTH &&
             period != SIX_TO_TWELVE_MONTH && period != OVER_TWELVE_MONTH)
                 throw new InputMismatchException("Wrong period time");
-            mPeriodOfRent = period;
+            sPeriodOfRent = period;
             return this;
         }
         public Builder withDepositRange(int min, int max){
             if (min > max)
                 throw new InputMismatchException("wrong deposit input");
-            mMinDeposit = min;
-            mMAxDeposit = max;
+            sMinDeposit = min;
+            sMaxDeposit = max;
             return this;
         }
         public Builder withRentRange(int min, int max){
             if (min > max)
                 throw new InputMismatchException("Wrong rent input");
-            mMinRent = min;
-            mMaxRent = max;
+            sMinRent = min;
+            sMaxRent = max;
             return this;
         }
         public Builder withLandlordAgeRange(int min, int max){
             if (min > max || min <= 15){
                 throw new InputMismatchException("Wrong landlord age range");
             }
-            mMinLandlordAge = min;
-            mMaxLandlordAge = max;
+            sMinLandlordAge = min;
+            sMaxLandlordAge = max;
             return this;
         }
         public Builder withLandlordGender(char gender){
-            mLandlordGender = String.valueOf(gender);
+            sLandlordGender = String.valueOf(gender);
             return this;
         }
-        public Builder withCity(String city){
-            mCity = city;
+        public Builder withCity(String city, double latitude, double longitude){
+            sCity = city;
+            sCityLatitude = latitude;
+            sCityLongitude = longitude;
             return this;
         }
         public Builder isFurnished(boolean f){
-            mFurnished = f;
+            sFurnished = f;
             return this;
         }
         public Builder isHandicapFriendly(boolean h){
-            mHandicap = h;
+            sHandicap = h;
             return this;
         }
         public Builder hasInternet(boolean i){
-            mInternet = i;
+            sInternet = i;
             return this;
         }
         public Builder hasLaundry(boolean l){
-            mLaundry = l;
+            sLaundry = l;
             return this;
         }
         public Builder isPetFriendly(String p){
             if (!p.equals(YES) && !p.equals(NO) && !p.equals(I_DONT_CARE))
                 throw new InputMismatchException("Wrong answer");
-            mPetFriendly = p;
+            sPetFriendly = p;
             return this;
         }
         public Builder isSmokingFriendly(String s){
             if (!s.equals(YES) && !s.equals(NO)&& !s.equals(I_DONT_CARE) )
                 throw new InputMismatchException("Wrong answer");
-            mSmokeFriendly = s;
+            sSmokeFriendly = s;
             return this;
         }
         public TenantProfile build(){
             TenantProfile t = new TenantProfile();
-            t.mUserUid = this.mUserUid;
-            t.mNationallity = this.mNationallity;
-            t.mDistanceCenter = this.mDistanceCenter;
-            t.mPeriodOfRent = this.mPeriodOfRent;
-            t.mMinDeposit = this.mMinDeposit;
-            t.mMAxDeposit = this.mMAxDeposit;
-            t.mMinRent = this.mMinRent;
-            t.mMaxRent = this.mMaxRent;
-            t.mMinLandlordAge = this.mMinLandlordAge;
-            t.mMaxLandlordAge = this.mMaxLandlordAge;
-            t.mLandlordGender = this.mLandlordGender;
-            t.mCity = this.mCity;
-            t.mFurnished = this.mFurnished;
-            t.mHandicap = this.mHandicap;
-            t.mInternet = this.mInternet;
-            t.mLaundry = this.mLaundry;
-            t.mPetFriendly = this.mPetFriendly;
-            t.mSmokeFriendly = this.mSmokeFriendly;
+            t.mUserUid = this.sUserUid;
+            t.mNationallity = this.sNationallity;
+            t.mDistanceCenter = this.sDistanceCenter;
+            t.mPeriodOfRent = this.sPeriodOfRent;
+            t.mMinDeposit = this.sMinDeposit;
+            t.mMAxDeposit = this.sMaxDeposit;
+            t.mMinRent = this.sMinRent;
+            t.mMaxRent = this.sMaxRent;
+            t.mMinLandlordAge = this.sMinLandlordAge;
+            t.mMaxLandlordAge = this.sMaxLandlordAge;
+            t.mLandlordGender = this.sLandlordGender;
+            t.mCity = this.sCity;
+            t.mFurnished = this.sFurnished;
+            t.mHandicap = this.sHandicap;
+            t.mInternet = this.sInternet;
+            t.mLaundry = this.sLaundry;
+            t.mPetFriendly = this.sPetFriendly;
+            t.mSmokeFriendly = this.sSmokeFriendly;
+            t.mCity = this.sCity;
+            t.mLatitude = this.sCityLatitude;
+            t.mLongitude = this.sCityLongitude;
             return t;
         }
     }
@@ -149,6 +155,27 @@ public class TenantProfile {
     private int mMaxLandlordAge;
     private String mLandlordGender;
     private String mCity; //CHECK this, we might change this regading to the google API
+    private double mLatitude;
+    private double mLongitude;
+
+    public double getsCityLatitude() {
+        return sCityLatitude;
+    }
+
+    public void setsCityLatitude(double sCityLatitude) {
+        this.sCityLatitude = sCityLatitude;
+    }
+
+    public double getsCityLongitude() {
+        return sCityLongitude;
+    }
+
+    public void setsCityLongitude(double sCityLongitude) {
+        this.sCityLongitude = sCityLongitude;
+    }
+
+    private double sCityLatitude;
+    private double sCityLongitude;
     private Boolean mFurnished;
     private Boolean mHandicap;
     private Boolean mInternet;

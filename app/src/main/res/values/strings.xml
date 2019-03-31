@@ -93,6 +93,7 @@
     <string name="furnished">Furnished</string>
     <string name="min">Min.</string>
     <string name="max">Max.</string>
+    <string name="choose_city">Choose a city where you want to live</string>
     <string-array name="rending_period_array">
         <item>0 – 3 Months </item>
         <item>3 – 6 Months </item>

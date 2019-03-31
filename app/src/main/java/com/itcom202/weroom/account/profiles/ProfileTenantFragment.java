@@ -14,8 +14,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
@@ -34,13 +36,7 @@ import java.util.Locale;
 import com.google.android.libraries.places.api.Places;
 // Add import statements for the new library.
 import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.android.gms.common.api.Status;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.TypeFilter;
-import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
-import com.google.android.libraries.places.api.Places;
+
 
 
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -68,6 +64,9 @@ public class ProfileTenantFragment extends Fragment {
     private Button mConfirm;
 
     private int mDistanceFromCenterValue;
+    private String mCityName;
+    private double mCityLatitude;
+    private double mCityLongitude;
 
     private DatabaseReference mDatabaseReference;
 
@@ -116,20 +115,21 @@ public class ProfileTenantFragment extends Fragment {
         autocompleteFragment.setTypeFilter(TypeFilter.CITIES);
 
         // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.LAT_LNG, Place.Field.NAME));
 
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
-                // TODO: Get info about the selected place.
                 //txtView.setText(place.getName()+","+place.getId());
-                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getLatLng());
+                mCityName = place.getName();
+                mCityLatitude = place.getLatLng().latitude;
+                mCityLongitude = place.getLatLng().longitude;
             }
 
             @Override
             public void onError(Status status) {
-                // TODO: Handle the error.
                 Log.i(TAG, "An error occurred: " + status);
             }
         });
@@ -187,6 +187,11 @@ public class ProfileTenantFragment extends Fragment {
                         mLandlordAgeMax.setText("120");
                         noError = false;
                     }
+
+                    if (mCityName == null){
+                        Toast.makeText(getActivity(), String.valueOf(R.string.choose_city), Toast.LENGTH_LONG).show();
+                        noError = false;
+                    }
                     //checking if the min is smaller than Max, otherwise show to user.
                     if (minMaxFieldCheck(mRentMin,mRentMax))
                         noError = false;
@@ -196,7 +201,7 @@ public class ProfileTenantFragment extends Fragment {
                         TenantProfile newInput = new TenantProfile.Builder(userID)
                                 .withLandlordNationallity(String.valueOf(mLandlordNation.getSelectedItem()))
                                 .isSmokingFriendly(String.valueOf(mSmoking.getSelectedItem()))
-                                .withCity(String.valueOf(mChooseCity.getSelectedItem()))
+                                .withCity(mCityName, mCityLatitude, mCityLongitude)
                                 .withRentingPeriod(mPeriodRenting.getSelectedItemPosition())
                                 .withLandlordGender(("Female".equals(String.valueOf(mLandlordGender.getSelectedItem()))) ? 'F' : 'M')
                                 .isPetFriendly(String.valueOf(mPetFriendly.getSelectedItem()))
