@@ -17,7 +17,6 @@ import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
@@ -38,14 +37,12 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
 
-
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class ProfileTenantFragment extends Fragment {
     private static final String TAG = "ProfileTenantFragment";
 
     private Spinner mSmoking;
-    private Spinner mChooseCity;
     private Spinner mPeriodRenting;
     private Spinner mLandlordGender;
     private Spinner mLandlordNation;
@@ -64,7 +61,9 @@ public class ProfileTenantFragment extends Fragment {
     private Button mConfirm;
 
     private int mDistanceFromCenterValue;
-    private String mCityName;
+
+    private String mChoosenCityName;
+    private String mChoosenCityId;
     private double mCityLatitude;
     private double mCityLongitude;
 
@@ -79,7 +78,6 @@ public class ProfileTenantFragment extends Fragment {
 
         mLandlordNation = v.findViewById(R.id.spinnerNationalityLL);
         mSmoking = v.findViewById(R.id.spinnerSmoking);
-        mChooseCity = v.findViewById(R.id.spinnerChooseCity);
         mPeriodRenting = v.findViewById(R.id.spinnerPeriodRenting);
         mLandlordGender = v.findViewById(R.id.spinnerGenderLL);
         mPetFriendly = v.findViewById(R.id.spinnerPetFriendly);
@@ -123,9 +121,13 @@ public class ProfileTenantFragment extends Fragment {
             public void onPlaceSelected(Place place) {
                 //txtView.setText(place.getName()+","+place.getId());
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getLatLng());
-                mCityName = place.getName();
-                mCityLatitude = place.getLatLng().latitude;
+
+
+                mChoosenCityName = place.getName();
+                mChoosenCityId = place.getId();
                 mCityLongitude = place.getLatLng().longitude;
+                mCityLatitude = place.getLatLng().latitude;
+
             }
 
             @Override
@@ -188,8 +190,8 @@ public class ProfileTenantFragment extends Fragment {
                         noError = false;
                     }
 
-                    if (mCityName == null){
-                        Toast.makeText(getActivity(), String.valueOf(R.string.choose_city), Toast.LENGTH_LONG).show();
+                    if (mChoosenCityName == null){
+                        Toast.makeText(getActivity(), getString(R.string.choose_city), Toast.LENGTH_LONG).show();
                         noError = false;
                     }
                     //checking if the min is smaller than Max, otherwise show to user.
@@ -201,7 +203,7 @@ public class ProfileTenantFragment extends Fragment {
                         TenantProfile newInput = new TenantProfile.Builder(userID)
                                 .withLandlordNationallity(String.valueOf(mLandlordNation.getSelectedItem()))
                                 .isSmokingFriendly(String.valueOf(mSmoking.getSelectedItem()))
-                                .withCity(mCityName, mCityLatitude, mCityLongitude)
+                                .withCity(mChoosenCityId, mChoosenCityName, mCityLatitude, mCityLongitude)
                                 .withRentingPeriod(mPeriodRenting.getSelectedItemPosition())
                                 .withLandlordGender(("Female".equals(String.valueOf(mLandlordGender.getSelectedItem()))) ? 'F' : 'M')
                                 .isPetFriendly(String.valueOf(mPetFriendly.getSelectedItem()))

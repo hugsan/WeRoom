@@ -25,9 +25,10 @@ public class TenantProfile {
         private int sMinLandlordAge;
         private int sMaxLandlordAge;
         private String sLandlordGender;
-        private String sCity; //CHECK this, we might change this regading to the google API
-        private double sCityLatitude;
-        private double sCityLongitude;
+        private String sChossenCityName;
+        private String sChoosenCityID;
+        private double sLatitudeCity;
+        private double sLongitudeCity;
         private boolean sFurnished;
         private boolean sHandicap;
         private boolean sInternet;
@@ -83,10 +84,11 @@ public class TenantProfile {
             sLandlordGender = String.valueOf(gender);
             return this;
         }
-        public Builder withCity(String city, double latitude, double longitude){
-            sCity = city;
-            sCityLatitude = latitude;
-            sCityLongitude = longitude;
+        public Builder withCity(String id, String name, double latitude, double longitude){
+            sChoosenCityID = id;
+            sChossenCityName = name;
+            sLongitudeCity = longitude;
+            sLatitudeCity = latitude;
             return this;
         }
         public Builder isFurnished(boolean f){
@@ -130,16 +132,16 @@ public class TenantProfile {
             t.mMinLandlordAge = this.sMinLandlordAge;
             t.mMaxLandlordAge = this.sMaxLandlordAge;
             t.mLandlordGender = this.sLandlordGender;
-            t.mCity = this.sCity;
             t.mFurnished = this.sFurnished;
             t.mHandicap = this.sHandicap;
             t.mInternet = this.sInternet;
             t.mLaundry = this.sLaundry;
             t.mPetFriendly = this.sPetFriendly;
             t.mSmokeFriendly = this.sSmokeFriendly;
-            t.mCity = this.sCity;
-            t.mLatitude = this.sCityLatitude;
-            t.mLongitude = this.sCityLongitude;
+            t.mChoosenCityname = this.sChossenCityName;
+            t.mChoosenCityId = this.sChoosenCityID;
+            t.mCityLatitude = this.sLatitudeCity;
+            t.mCityLongitude = this.sLongitudeCity;
             return t;
         }
     }
@@ -154,34 +156,20 @@ public class TenantProfile {
     private int mMinLandlordAge;
     private int mMaxLandlordAge;
     private String mLandlordGender;
-    private String mCity; //CHECK this, we might change this regading to the google API
-    private double mLatitude;
-    private double mLongitude;
-
-    public double getsCityLatitude() {
-        return sCityLatitude;
-    }
-
-    public void setsCityLatitude(double sCityLatitude) {
-        this.sCityLatitude = sCityLatitude;
-    }
-
-    public double getsCityLongitude() {
-        return sCityLongitude;
-    }
-
-    public void setsCityLongitude(double sCityLongitude) {
-        this.sCityLongitude = sCityLongitude;
-    }
-
-    private double sCityLatitude;
-    private double sCityLongitude;
+    private String mChoosenCityname;
+    private String mChoosenCityId;
+    private double mCityLatitude;
+    private double mCityLongitude;
     private Boolean mFurnished;
     private Boolean mHandicap;
     private Boolean mInternet;
     private Boolean mLaundry;
     private String mPetFriendly;
     private String mSmokeFriendly;
+
+
+
+
 
     private TenantProfile(){}
 
@@ -273,14 +261,6 @@ public class TenantProfile {
         mLandlordGender = landlordGender;
     }
 
-    public String getCity() {
-        return mCity;
-    }
-
-    public void setCity(String city) {
-        mCity = city;
-    }
-
     public Boolean getFurnished() {
         return mFurnished;
     }
@@ -327,5 +307,36 @@ public class TenantProfile {
 
     public void setSmokeFriendly(String smokeFriendly) {
         mSmokeFriendly = smokeFriendly;
+    }
+    public String getChoosenCityname() {
+        return mChoosenCityname;
+    }
+
+    public void setChoosenCityname(String choosenCityname) {
+        mChoosenCityname = choosenCityname;
+    }
+
+    public String getChoosenCityId() {
+        return mChoosenCityId;
+    }
+
+    public void setChoosenCityId(String choosenCityId) {
+        mChoosenCityId = choosenCityId;
+    }
+
+    public double getCityLatitude() {
+        return mCityLatitude;
+    }
+
+    public void setCityLatitude(double cityLatitude) {
+        mCityLatitude = cityLatitude;
+    }
+
+    public double getCityLongitude() {
+        return mCityLongitude;
+    }
+
+    public void setCityLongitude(double cityLongitude) {
+        mCityLongitude = cityLongitude;
     }
 }
