@@ -60,37 +60,44 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="What are you looking for?" />
 
-                <Spinner
-                    android:id="@+id/spinnerChooseCity"
-                    android:layout_width="275dp"
-                    android:layout_height="40dp"
+                <android.support.v7.widget.CardView
+                    android:id="@+id/idCardView"
+                    android:layout_width="395dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="92dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/common_google_signin_btn_text_light_default"
-                    android:popupBackground="@color/browser_actions_text_color"
-                    android:spinnerMode="dropdown"
+                    android:layout_marginEnd="11dp"
+                    app:cardCornerRadius="4dp"
+                    app:layout_constraintBottom_toTopOf="@+id/confirm"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.35"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.136">
+
+                    <fragment
+                        android:id="@+id/autocomplete_fragment"
+                        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </android.support.v7.widget.CardView>
 
                 <com.itcom202.weroom.account.profiles.SeekBar.BubbleSeekBar
                     android:id="@+id/radiusCenter"
                     android:layout_width="271dp"
                     android:layout_height="44dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="36dp"
+                    android:layout_marginTop="100dp"
                     android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.33"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinnerChooseCity" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
                 <TextView
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="19dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
@@ -100,10 +107,10 @@
                     android:textSize="14sp"
                     app:layout_constraintBottom_toTopOf="@+id/radiusCenter"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.153"
+                    app:layout_constraintHorizontal_bias="0.149"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinnerChooseCity"
-                    app:layout_constraintVertical_bias="0.19" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView8"
+                    app:layout_constraintVertical_bias="0.983" />
 
                 <Spinner
                     android:id="@+id/spinnerPeriodRenting"
@@ -125,18 +132,13 @@
                     android:id="@+id/depositMin"
                     android:layout_width="71dp"
                     android:layout_height="39dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="52dp"
                     android:autofillHints=""
                     android:background="@color/common_google_signin_btn_text_light_default"
                     android:ems="10"
                     android:hint="@string/min"
                     android:inputType="number"
-                    app:layout_constraintEnd_toStartOf="@+id/depositMax"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinnerPeriodRenting" />
+                    tools:layout_editor_absoluteX="133dp"
+                    tools:layout_editor_absoluteY="288dp" />
 
                 <EditText
                     android:id="@+id/depositMax"

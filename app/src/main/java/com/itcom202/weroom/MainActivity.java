@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.itcom202.weroom.account.authentification.LoginActivity;
 import com.itcom202.weroom.account.profiles.ProfileTenantActivity;
 import com.itcom202.weroom.account.profiles.Profile_Activity;
+import com.itcom202.weroom.account.profiles.TestActivity;
 
 
 public class MainActivity extends AppCompatActivity {

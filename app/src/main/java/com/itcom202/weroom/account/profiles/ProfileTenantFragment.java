@@ -15,6 +15,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -22,10 +27,23 @@ import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.SeekBar.BubbleSeekBar;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
 import com.google.android.libraries.places.api.Places;
+// Add import statements for the new library.
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.android.libraries.places.api.Places;
+
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class ProfileTenantFragment extends Fragment {
     private static final String TAG = "ProfileTenantFragment";
@@ -60,7 +78,6 @@ public class ProfileTenantFragment extends Fragment {
         View v = inflater.inflate(R.layout.profile_tenant_fragment, null,false);
 
 
-
         mLandlordNation = v.findViewById(R.id.spinnerNationalityLL);
         mSmoking = v.findViewById(R.id.spinnerSmoking);
         mChooseCity = v.findViewById(R.id.spinnerChooseCity);
@@ -83,6 +100,39 @@ public class ProfileTenantFragment extends Fragment {
         mLandlordNation.setAdapter(countryAdapter());
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+
+        // Initialize Places.
+        Places.initialize(getApplicationContext(), getString(R.string.google_cloud_api_key));
+
+        // Create a new Places client instance.
+        PlacesClient placesClient = Places.createClient(getActivity());
+
+        // Initialize the AutocompleteSupportFragment.
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+
+
+        autocompleteFragment.setTypeFilter(TypeFilter.CITIES);
+
+        // Specify the types of place data to return.
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+
+        // Set up a PlaceSelectionListener to handle the response.
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: Get info about the selected place.
+                //txtView.setText(place.getName()+","+place.getId());
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
 
 
         mDistanceFromCenter.setOnProgressChangedListener(new BubbleSeekBar.OnProgressChangedListener() {
