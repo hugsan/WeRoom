@@ -47,7 +47,7 @@ public class LandlordProfileFragment extends Fragment {
         View v = inflater.inflate(R.layout.profile_landlord_fragment, null,false);
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        mTenantNation = v.findViewById(R.id.spinnerNationalityLL);
+        mTenantNation = v.findViewById(R.id.spinnerNationalityLL2);
         mTenantMinAge = v.findViewById(R.id.ageMinT);
         mTenantMaxAge = v.findViewById(R.id.ageMaxT);
         mTenantGender = v.findViewById(R.id.spinnerGenderLL);

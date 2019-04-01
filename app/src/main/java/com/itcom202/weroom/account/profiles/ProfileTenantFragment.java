@@ -235,6 +235,7 @@ public class ProfileTenantFragment extends Fragment {
         return v;
     }
     private SpinnerAdapter countryAdapter(){
+
         String[] locales = Locale.getISOCountries();
         List<String> countries = new ArrayList<>();
         countries.add(getString(R.string.prompt_country));
@@ -247,8 +248,11 @@ public class ProfileTenantFragment extends Fragment {
 
             countries.add(obj.getDisplayCountry());
         }
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, countries);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
         return adapter;
     }
     private boolean checkNullFields(EditText tv){

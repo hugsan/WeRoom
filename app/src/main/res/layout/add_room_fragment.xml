@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/postRoom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/post_room"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                tools:layout_marginLeft="50dp" />
+
+            <TextView
+                android:id="@+id/numberOfPictures"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/max_number_pictures"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imageOne"
+                    android:layout_width="92dp"
+                    android:layout_height="147dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
+                    app:srcCompat="@drawable/addpicture" />
+
+                <ImageButton
+                    android:id="@+id/imageTwo"
+                    android:layout_width="97dp"
+                    android:layout_height="147dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/addpicture" />
+
+                <ImageButton
+                    android:id="@+id/imageThree"
+                    android:layout_width="97dp"
+                    android:layout_height="147dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/addpicture" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/rentMonth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/rent_month"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/rentInput"
+                android:layout_width="173dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:autofillHints=""
+                android:background="@color/quantum_grey400"
+                android:ems="10"
+                android:hint="DKK"
+                android:inputType="number"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/deposit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:text="@string/deposit_room"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/rentInput2"
+                android:layout_width="173dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:background="@color/quantum_grey400"
+                android:ems="10"
+                android:hint="DKK"
+                android:inputType="number"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/rentPeriod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:text="@string/rent_period"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="229dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:background="@color/quantum_grey400"
+                android:entries="@array/rending_period_array"
+                android:popupBackground="@color/quantum_grey400"
+                android:spinnerMode="dropdown" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:text="@string/address"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <fragment
+                android:id="@+id/autocomplete_fragment2"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                android:layout_width="228dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp" />
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapView"
+                android:layout_width="323dp"
+                android:layout_height="112dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp" />
+
+            <TextView
+                android:id="@+id/roomSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:text="@string/size_room"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/sizeInput"
+                android:layout_width="173dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:background="@color/quantum_grey400"
+                android:ems="10"
+                android:hint="m2"
+                android:inputType="number"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/floor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:text="@string/floor"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/floorInput"
+                android:layout_width="176dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:background="@color/quantum_grey400"
+                android:ems="10"
+                android:inputType="number"
+                android:textColor="@color/black"
+                tools:text=" " />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/checkFurnished"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/black"
+                    android:text="Furnished"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxInternet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/black"
+                    android:text="Internet"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxArea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/black"
+                    android:text="Common Area"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/checkBoxLaundry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/black"
+                    android:text="Laundry"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxHandicap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="70dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/black"
+                    android:text="Handicap Friendly"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:text="@string/description"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/descriptionField"
+                android:layout_width="match_parent"
+                android:layout_height="129dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:background="@color/quantum_grey400"
+                android:ems="10"
+                android:hint="Describe your room..."
+                android:inputType="textPersonName"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/postRoomButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="70dp"
+                android:background="#FF5A60"
+                android:text="@string/post"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerPetFriendly" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/white"
+                app:srcCompat="@drawable/bottomfield" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

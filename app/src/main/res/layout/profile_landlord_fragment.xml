@@ -1,45 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:background="@android:color/background_light"
     tools:context=".account.profiles.LandlordProfileActivity">
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        android:layout_height="match_parent">
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:background="@android:color/background_light">
-
-            <Button
-                android:id="@+id/confirmtenantprofile"
-                android:layout_width="166dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="#FF5A60"
-                android:text="@string/confirm"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.537"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/socialgroup" />
+            android:background="@color/white"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/kind_of_tenant"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="22sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="What kind of Tenant are you looking for?" />
+
+            <Spinner
+                android:id="@+id/spinnerNationalityLL2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:background="@color/quantum_grey400"
+                android:popupBackground="@color/browser_actions_text_color"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.25"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/preferred_age_of_landlord"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.122"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Preferred age of Tenant" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/ageMinT2"
+                    android:layout_width="9dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="135dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_weight="1"
+                    android:autofillHints=""
+                    android:background="@color/quantum_grey400"
+                    android:ems="10"
+                    android:hint="@string/min"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toTopOf="@+id/spinnerGenderLL"
+                    app:layout_constraintEnd_toStartOf="@+id/ageMaxT"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                <EditText
+                    android:id="@+id/ageMaxT2"
+                    android:layout_width="9dp"
+                    android:layout_height="36dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_weight="1"
+                    android:autofillHints=""
+                    android:background="@color/quantum_grey400"
+                    android:ems="10"
+                    android:hint="@string/max"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinnerNationalityLL" />
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/spinnerGenderLL2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="0dp"
+                android:background="@color/quantum_grey400"
+                android:entries="@array/gender_array"
+                android:popupBackground="@color/quantum_grey400"
+                android:spinnerMode="dropdown"
+                app:layout_constraintBottom_toTopOf="@+id/occupation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ageMaxT" />
+
+            <Spinner
+                android:id="@+id/occupation2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:background="@color/quantum_grey400"
+                android:entries="@array/occupation"
+                android:popupBackground="@color/quantum_grey400"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.25"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerGenderLL" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/allow_smoking"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.12"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/occupation"
+                tools:text="Do you allow smoking?" />
+
+            <RadioGroup
+                android:id="@+id/smokinggroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/radiosmokeyes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/black"
+                    android:text="@string/yes"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+
+                <RadioButton
+                    android:id="@+id/radiosmokeno"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/black"
+                    android:text="@string/no"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+
+                <RadioButton
+                    android:id="@+id/radiosmokeidc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/black"
+                    android:checked="true"
+                    android:text="@string/don_t_care"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
                 android:layout_height="17dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="468dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="50dp"
                 android:text="@string/social_tenant"
                 android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:textSize="14sp"
@@ -50,20 +217,16 @@
 
             <RadioGroup
                 android:id="@+id/socialgroup"
-                android:layout_width="203dp"
-                android:layout_height="121dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.156"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/smokinggroup">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <RadioButton
                     android:id="@+id/radiossocialyes"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
                     android:layout_weight="1"
                     android:buttonTint="@color/black"
                     android:text="@string/yes"
@@ -71,8 +234,11 @@
 
                 <RadioButton
                     android:id="@+id/radiosocialno"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
                     android:layout_weight="1"
                     android:buttonTint="@color/black"
                     android:text="@string/no"
@@ -80,195 +246,42 @@
 
                 <RadioButton
                     android:id="@+id/radiosocialidc"
-                    android:layout_width="172dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
                     android:layout_weight="1"
                     android:buttonTint="@color/black"
                     android:checked="true"
                     android:text="@string/don_t_care"
                     android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+
             </RadioGroup>
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/confirmtenantprofile"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/allow_smoking"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textSize="14sp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="80dp"
+                android:background="#FF5A60"
+                android:text="@string/confirm"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.12"
+                app:layout_constraintHorizontal_bias="0.537"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/occupation"
-                tools:text="Do you allow smoking?" />
+                app:layout_constraintTop_toBottomOf="@+id/socialgroup" />
 
-            <Spinner
-                android:id="@+id/spinnerGenderLL"
-                android:layout_width="275dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="38dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="98dp"
-                android:layout_marginBottom="16dp"
-                android:background="@color/common_google_signin_btn_text_light_default"
-                android:entries="@array/gender_array"
-                android:popupBackground="@color/browser_actions_text_color"
-                android:spinnerMode="dropdown"
-                app:layout_constraintBottom_toTopOf="@+id/occupation"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ageMaxT" />
-
-            <Spinner
-                android:id="@+id/spinnerNationalityLL"
-                android:layout_width="275dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="80dp"
-                android:layout_marginEnd="8dp"
-                android:background="@color/common_google_signin_btn_text_light_default"
-                android:popupBackground="@color/browser_actions_text_color"
-                android:spinnerMode="dropdown"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.25"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
-
-            <Spinner
-                android:id="@+id/occupation"
-                android:layout_width="275dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:background="@color/common_google_signin_btn_text_light_default"
-                android:entries="@array/occupation"
-                android:popupBackground="@color/browser_actions_text_color"
-                android:spinnerMode="dropdown"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.25"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerGenderLL" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="320dp"
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/kind_of_tenant"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textSize="22sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="What kind of Tenant are you looking for?" />
-
-            <EditText
-                android:id="@+id/ageMaxT"
-                android:layout_width="71dp"
-                android:layout_height="36dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="96dp"
-                android:autofillHints=""
-                android:background="@color/common_google_signin_btn_text_light_default"
-                android:ems="10"
-                android:hint="@string/max"
-                android:inputType="number"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerNationalityLL" />
-
-            <EditText
-                android:id="@+id/ageMinT"
-                android:layout_width="71dp"
-                android:layout_height="36dp"
-                android:layout_marginStart="131dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="43dp"
-                android:layout_marginBottom="13dp"
-                android:autofillHints=""
-                android:background="@color/common_google_signin_btn_text_light_default"
-                android:ems="10"
-                android:hint="@string/min"
-                android:inputType="number"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toTopOf="@+id/spinnerGenderLL"
-                app:layout_constraintEnd_toStartOf="@+id/ageMaxT"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="132dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/preferred_age_of_landlord"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.122"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Preferred age of Tenant" />
-
-            <RadioGroup
-                android:id="@+id/smokinggroup"
-                android:layout_width="203dp"
-                android:layout_height="121dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.156"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/occupation">
-
-                <RadioButton
-                    android:id="@+id/radiosmokeyes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:buttonTint="@color/black"
-                    android:text="@string/yes"
-                    android:textColor="@color/common_google_signin_btn_text_dark_focused" />
-
-                <RadioButton
-                    android:id="@+id/radiosmokeno"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:buttonTint="@color/black"
-                    android:text="@string/no"
-                    android:textColor="@color/common_google_signin_btn_text_dark_focused" />
-
-                <RadioButton
-                    android:id="@+id/radiosmokeidc"
-                    android:layout_width="172dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:buttonTint="@color/black"
-                    android:checked="true"
-                    android:text="@string/don_t_care"
-                    android:textColor="@color/common_google_signin_btn_text_dark_focused" />
-            </RadioGroup>
-
-        </android.support.constraint.ConstraintLayout>
+                android:layout_marginTop="10dp"
+                android:src="@drawable/bottomfield"
+                app:layout_constraintBottom_toBottomOf="@+id/scrollView"
+                app:layout_constraintStart_toStartOf="parent" />
+        </LinearLayout>
     </ScrollView>
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="413dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/bottomfield"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollView"
-        app:layout_constraintStart_toStartOf="parent" />
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
