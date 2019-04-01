@@ -57,7 +57,7 @@ public class ProfileTenantFragment extends Fragment {
     private EditText mRentMax;
     private EditText mLandlordAgeMin;
     private EditText mLandlordAgeMax;
-    private BubbleSeekBar  mDistanceFromCenter;
+    private BubbleSeekBar mDistanceFromCenter;
     private Button mConfirm;
 
     private int mDistanceFromCenterValue;
