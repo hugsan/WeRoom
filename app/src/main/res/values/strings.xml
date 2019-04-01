@@ -79,7 +79,6 @@
     <string name="smoke_friendly">Smoke Friendly?</string>
 
 
-
     <!-- Tags -->
     <string name="empty_tag">You cannot add empty tags.</string>
 
@@ -146,8 +145,6 @@
     <string name="floor">Floor</string>
     <string name="describe_room">Description</string>
     <string name="post">Post Room</string>
-
-
 
 
     <!-- TODO: Remove or change this placeholder text -->

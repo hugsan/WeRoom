@@ -76,7 +76,7 @@ public class ProfileTenantFragment extends Fragment {
         View v = inflater.inflate(R.layout.profile_tenant_fragment, null,false);
 
 
-        mLandlordNation = v.findViewById(R.id.spinnerNationalityLL);
+        mLandlordNation = v.findViewById(R.id.spinnerNationalityLL3);
         mSmoking = v.findViewById(R.id.spinnerSmoking);
         mPeriodRenting = v.findViewById(R.id.spinnerPeriodRenting);
         mLandlordGender = v.findViewById(R.id.spinnerGenderLL);
@@ -137,7 +137,7 @@ public class ProfileTenantFragment extends Fragment {
         });
 
 
-        mDistanceFromCenter.setOnProgressChangedListener(new BubbleSeekBar.OnProgressChangedListener() {
+            mDistanceFromCenter.setOnProgressChangedListener(new BubbleSeekBar.OnProgressChangedListener() {
             @Override
             public void onProgressChanged(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat, boolean fromUser) {
                 mDistanceFromCenterValue = progress;
