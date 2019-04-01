@@ -191,31 +191,6 @@
                 android:inputType="number"
                 android:textColor="@color/black" />
 
-            <TextView
-                android:id="@+id/floor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:text="@string/floor"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/floorInput"
-                android:layout_width="176dp"
-                android:layout_height="38dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:autofillHints=""
-                android:background="@color/quantum_grey400"
-                android:ems="10"
-                android:inputType="number"
-                android:textColor="@color/black"
-                tools:text=" " />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -269,17 +244,6 @@
                     android:layout_weight="1"
                     android:buttonTint="@color/black"
                     android:text="Laundry"
-                    android:textColor="@color/black" />
-
-                <CheckBox
-                    android:id="@+id/checkBoxHandicap"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="70dp"
-                    android:layout_weight="1"
-                    android:buttonTint="@color/black"
-                    android:text="Handicap Friendly"
                     android:textColor="@color/black" />
 
             </LinearLayout>
