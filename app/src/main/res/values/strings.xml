@@ -48,6 +48,7 @@
     <string name="prompt_gender">Select a Gender</string>
     <string name="prompt_country">Select a Country</string>
     <string-array name="gender_array">
+        <item>Choose One</item>
         <item>Female</item>
         <item>Male</item>
     </string-array>
@@ -72,6 +73,13 @@
     <string name="max_age">Maximum age is 120</string>
     <string name="wrong_min">Wrong min value</string>
     <string name="wrong_max">Wrong max value</string>
+    <string name="age_of_ll">Preferred age of Landlord</string>
+    <string name="nationality_of_ll">Preferred Nationality of Landlord</string>
+    <string name="pet_friendly">Pet Friendly?</string>
+    <string name="smoke_friendly">Smoke Friendly?</string>
+
+
+
     <!-- Tags -->
     <string name="empty_tag">You cannot add empty tags.</string>
 
@@ -102,11 +110,13 @@
         <item>12+ Months </item>
     </string-array>
     <string-array name="smoke_friendly">
+        <item>Choose One </item>
         <item>Yes </item>
         <item>No </item>
         <item>Do not Care</item>
     </string-array>
     <string-array name="pet_friendly">
+        <item>Choose One </item>
         <item>Yes </item>
         <item>No </item>
         <item>Do not Care </item>

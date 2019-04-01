@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,170 +8,194 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:orientation="vertical">
 
-            <android.support.constraint.ConstraintLayout
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/looking_for"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.336"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="What are you looking for?" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="50dp"
+                android:text="City"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/idCardView"
+                android:layout_width="352dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:background="@color/white"
+                app:cardCornerRadius="4dp"
+                app:layout_constraintBottom_toTopOf="@+id/confirm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.136">
+
+                <fragment
+                    android:id="@+id/autocomplete_fragment"
+                    android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp" />
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="19dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/radius_from_center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/radiusCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.149"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8"
+                app:layout_constraintVertical_bias="0.983" />
+
+            <com.itcom202.weroom.account.profiles.SeekBar.BubbleSeekBar
+                android:id="@+id/radiusCenter2"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.33"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/browser_actions_bg_grey"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="0dp">
-
-                <Spinner
-                    android:id="@+id/spinnerSmoking"
-                    android:layout_width="275dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@color/quantum_grey400"
-                    android:entries="@array/smoke_friendly"
-                    android:popupBackground="@color/quantum_grey400"
-                    android:spinnerMode="dropdown"
-                    app:layout_constraintBottom_toTopOf="@+id/confirm"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.3"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinnerPetFriendly"
-                    app:layout_constraintVertical_bias="0.136" />
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/textView20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
-                    android:text="@string/looking_for"
+                    android:text="@string/_5km"
                     android:textColor="@color/black"
-                    android:textSize="24sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.336"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="What are you looking for?" />
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/idCardView"
-                    android:layout_width="395dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="11dp"
-                    app:cardCornerRadius="4dp"
-                    app:layout_constraintBottom_toTopOf="@+id/confirm"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.136">
-
-                    <fragment
-                        android:id="@+id/autocomplete_fragment"
-                        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </android.support.v7.widget.CardView>
-
-                <com.itcom202.weroom.account.profiles.SeekBar.BubbleSeekBar
-                    android:id="@+id/radiusCenter"
-                    android:layout_width="271dp"
-                    android:layout_height="44dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="100dp"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.33"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="19dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/radius_from_center"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toTopOf="@+id/radiusCenter"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.149"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView8"
-                    app:layout_constraintVertical_bias="0.983" />
-
-                <Spinner
-                    android:id="@+id/spinnerPeriodRenting"
-                    android:layout_width="275dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="44dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/quantum_grey400"
-                    android:entries="@array/rending_period_array"
-                    android:popupBackground="@color/quantum_grey400"
-                    android:spinnerMode="dropdown"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.35"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@+id/textView13"
+                    app:layout_constraintHorizontal_bias="0.187"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/radiusCenter" />
 
-                <EditText
-                    android:id="@+id/depositMin"
-                    android:layout_width="71dp"
-                    android:layout_height="39dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="52dp"
-                    android:layout_marginBottom="8dp"
-                    android:autofillHints=""
-                    android:background="@color/quantum_grey400"
-                    android:ems="10"
-                    android:hint="@string/min"
-                    android:inputType="number"
-                    app:layout_constraintBottom_toTopOf="@+id/rentMin"
-                    app:layout_constraintEnd_toStartOf="@+id/depositMax"
-                    app:layout_constraintStart_toEndOf="@+id/textView10"
-                    app:layout_constraintTop_toBottomOf="@+id/spinnerPeriodRenting" />
-
-                <EditText
-                    android:id="@+id/depositMax"
-                    android:layout_width="71dp"
-                    android:layout_height="39dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="84dp"
-                    android:layout_marginBottom="8dp"
-                    android:autofillHints=""
-                    android:background="@color/quantum_grey400"
-                    android:ems="10"
-                    android:hint="@string/max"
-                    android:inputType="number"
-                    app:layout_constraintBottom_toTopOf="@+id/rentMax"
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="225dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
+                    android:text="@string/_50km"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinnerPeriodRenting" />
+                    app:layout_constraintTop_toBottomOf="@+id/radiusCenter" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/rent_period"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/radiusCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.149"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8"
+                app:layout_constraintVertical_bias="0.983" />
+
+            <Spinner
+                android:id="@+id/spinnerPeriodRenting2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:background="@color/quantum_grey400"
+                android:entries="@array/rending_period_array"
+                android:popupBackground="@color/quantum_grey400"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.35"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radiusCenter" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/rent"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/textView14"
+                app:layout_constraintEnd_toStartOf="@+id/rentMin"
+                app:layout_constraintHorizontal_bias="0.827"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/rentMin"
-                    android:layout_width="71dp"
+                    android:id="@+id/rentMin2"
+                    android:layout_width="96dp"
                     android:layout_height="39dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="52dp"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="10dp"
                     android:autofillHints=""
                     android:background="@color/quantum_grey400"
                     android:ems="10"
@@ -184,13 +208,12 @@
                     app:layout_constraintTop_toBottomOf="@+id/depositMin" />
 
                 <EditText
-                    android:id="@+id/rentMax"
-                    android:layout_width="71dp"
+                    android:id="@+id/rentMax2"
+                    android:layout_width="96dp"
                     android:layout_height="39dp"
-                    android:layout_marginStart="252dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="28dp"
+                    android:layout_marginStart="65dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
                     android:autofillHints=""
                     android:background="@color/quantum_grey400"
                     android:ems="10"
@@ -202,92 +225,90 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/depositMax" />
 
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="36dp"
-                    android:layout_marginBottom="28dp"
-                    android:text="@string/deposit"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toTopOf="@+id/textView11"
-                    app:layout_constraintEnd_toStartOf="@+id/depositMin"
-                    app:layout_constraintStart_toStartOf="parent"
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/deposit"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/textView11"
+                app:layout_constraintEnd_toStartOf="@+id/depositMin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerPeriodRenting" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/depositMin2"
+                    android:layout_width="96dp"
+                    android:layout_height="39dp"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="10dp"
+                    android:autofillHints=""
+                    android:background="@color/quantum_grey400"
+                    android:ems="10"
+                    android:hint="@string/min"
+                    android:inputType="number"
+                    app:layout_constraintBottom_toTopOf="@+id/rentMin"
+                    app:layout_constraintEnd_toStartOf="@+id/depositMax"
+                    app:layout_constraintStart_toEndOf="@+id/textView10"
                     app:layout_constraintTop_toBottomOf="@+id/spinnerPeriodRenting" />
 
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="38dp"
-                    android:text="@string/rent"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toTopOf="@+id/textView14"
-                    app:layout_constraintEnd_toStartOf="@+id/rentMin"
-                    app:layout_constraintHorizontal_bias="0.827"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView10" />
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/_5km"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toStartOf="@+id/textView13"
-                    app:layout_constraintHorizontal_bias="0.187"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/radiusCenter" />
-
-                <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="128dp"
-                    android:text="@string/_50km"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
+                <EditText
+                    android:id="@+id/depositMax2"
+                    android:layout_width="96dp"
+                    android:layout_height="39dp"
+                    android:layout_marginStart="65dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
+                    android:autofillHints=""
+                    android:background="@color/quantum_grey400"
+                    android:ems="10"
+                    android:hint="@string/max"
+                    android:inputType="number"
+                    app:layout_constraintBottom_toTopOf="@+id/rentMax"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/radiusCenter" />
+                    app:layout_constraintTop_toBottomOf="@+id/spinnerPeriodRenting" />
+            </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/preferred_age_of_landlord"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.188"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rentMin"
-                    tools:text="Preferred age of Landlord" />
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/preferred_age_of_landlord"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.188"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rentMin"
+                tools:text="Preferred age of Landlord" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/ageMinL"
-                    android:layout_width="71dp"
+                    android:id="@+id/ageMinL2"
+                    android:layout_width="99dp"
                     android:layout_height="39dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="10dp"
                     android:autofillHints=""
                     android:background="@color/quantum_grey400"
                     android:ems="10"
@@ -300,13 +321,12 @@
                     app:layout_constraintTop_toBottomOf="@+id/rentMin" />
 
                 <EditText
-                    android:id="@+id/ageMaxL"
-                    android:layout_width="71dp"
+                    android:id="@+id/ageMaxL2"
+                    android:layout_width="99dp"
                     android:layout_height="39dp"
-                    android:layout_marginStart="47dp"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginEnd="84dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="65dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
                     android:autofillHints=""
                     android:background="@color/quantum_grey400"
                     android:ems="10"
@@ -316,77 +336,97 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/ageMinL"
                     app:layout_constraintTop_toBottomOf="@+id/rentMax" />
+            </LinearLayout>
 
-                <Spinner
-                    android:id="@+id/spinnerGenderLL"
-                    android:layout_width="275dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/quantum_grey400"
-                    android:entries="@array/gender_array"
-                    android:popupBackground="@color/quantum_grey400"
-                    android:spinnerMode="dropdown"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.341"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ageMinL" />
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/preferred_age_of_landlord"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.188"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rentMin" />
 
-                <Spinner
-                    android:id="@+id/spinnerNationalityLL"
-                    android:layout_width="275dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/quantum_grey400"
-                    android:popupBackground="@color/quantum_grey400"
-                    android:spinnerMode="dropdown"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.35"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinnerGenderLL" />
+            <Spinner
+                android:id="@+id/spinnerGenderLL3"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:background="@color/quantum_grey400"
+                android:entries="@array/gender_array"
+                android:popupBackground="@color/quantum_grey400"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.341"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ageMinL" />
 
-                <Spinner
-                    android:id="@+id/spinnerPetFriendly"
-                    android:layout_width="275dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="104dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/quantum_grey400"
-                    android:entries="@array/pet_friendly"
-                    android:popupBackground="@color/quantum_grey400"
-                    android:spinnerMode="dropdown"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.3"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinnerNationalityLL" />
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/nationality_of_ll"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.188"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rentMin" />
+
+            <Spinner
+                android:id="@+id/spinnerNationalityLL3"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:background="@color/quantum_grey400"
+                android:popupBackground="@color/quantum_grey400"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.35"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerGenderLL" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
                 <CheckBox
-                    android:id="@+id/furnished"
+                    android:id="@+id/furnished2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
+                    android:buttonTint="@color/black"
                     android:text="@string/furnished"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toStartOf="@+id/handicap"
                     app:layout_constraintHorizontal_bias="0.612"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinnerNationalityLL"
-                    android:buttonTint="@color/black" />
+                    app:layout_constraintTop_toBottomOf="@+id/spinnerNationalityLL" />
 
                 <CheckBox
-                    android:id="@+id/internet"
+                    android:id="@+id/internet2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:buttonTint="@color/black"
                     android:text="@string/internet"
                     android:textColor="@color/black"
                     app:layout_constraintBottom_toTopOf="@+id/spinnerPetFriendly"
@@ -394,63 +434,130 @@
                     app:layout_constraintHorizontal_bias="0.544"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/furnished"
-                    app:layout_constraintVertical_bias="0.343"
-                    android:buttonTint="@color/black" />
+                    app:layout_constraintVertical_bias="0.343" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
                 <CheckBox
-                    android:id="@+id/handicap"
+                    android:id="@+id/handicap2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="92dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
+                    android:buttonTint="@color/black"
                     android:text="@string/handicap_friendly"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinnerNationalityLL"
-                    android:buttonTint="@color/black" />
+                    app:layout_constraintTop_toBottomOf="@+id/spinnerNationalityLL" />
 
                 <CheckBox
-                    android:id="@+id/laundry"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/laundry2"
+                    android:layout_width="83dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="152dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="8dp"
+                    android:buttonTint="@color/black"
                     android:text="@string/laundry"
                     android:textColor="@color/black"
                     app:layout_constraintBottom_toTopOf="@+id/spinnerPetFriendly"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/handicap"
-                    app:layout_constraintVertical_bias="0.375"
-                    android:buttonTint="@color/black" />
+                    app:layout_constraintVertical_bias="0.375" />
+            </LinearLayout>
 
-                <Button
-                    android:id="@+id/confirm"
-                    android:layout_width="166dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="60dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="#FF5A60"
-                    android:text="@string/confirm"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.497"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinnerPetFriendly" />
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/pet_friendly"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.188"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rentMin" />
 
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/confirm"
-                    app:srcCompat="@drawable/bottomfield" />
+            <Spinner
+                android:id="@+id/spinnerPetFriendly2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:background="@color/quantum_grey400"
+                android:entries="@array/pet_friendly"
+                android:popupBackground="@color/quantum_grey400"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerNationalityLL" />
 
-            </android.support.constraint.ConstraintLayout>
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/smoke_friendly"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.188"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rentMin" />
+
+            <Spinner
+                android:id="@+id/spinnerSmoking2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:background="@color/quantum_grey400"
+                android:entries="@array/smoke_friendly"
+                android:popupBackground="@color/quantum_grey400"
+                android:spinnerMode="dropdown"
+                app:layout_constraintBottom_toTopOf="@+id/confirm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerPetFriendly"
+                app:layout_constraintVertical_bias="0.136" />
+
+            <Button
+                android:id="@+id/confirm3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="80dp"
+                android:background="#FF5A60"
+                android:text="@string/confirm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerPetFriendly" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/confirm"
+                app:srcCompat="@drawable/bottomfield" />
         </LinearLayout>
     </ScrollView>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
