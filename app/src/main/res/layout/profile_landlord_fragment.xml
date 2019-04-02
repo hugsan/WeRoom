@@ -34,7 +34,7 @@
                 tools:text="What kind of Tenant are you looking for?" />
 
             <Spinner
-                android:id="@+id/spinnerNationalityLL2"
+                android:id="@+id/spinnerNationalityLLlandlordfragment"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginStart="50dp"
@@ -70,7 +70,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/ageMinT2"
+                    android:id="@+id/ageMinT"
                     android:layout_width="9dp"
                     android:layout_height="36dp"
                     android:layout_marginStart="135dp"
@@ -91,7 +91,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
                 <EditText
-                    android:id="@+id/ageMaxT2"
+                    android:id="@+id/ageMaxT"
                     android:layout_width="9dp"
                     android:layout_height="36dp"
                     android:layout_marginLeft="10dp"
@@ -105,11 +105,11 @@
                     android:inputType="number"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinnerNationalityLL" />
+                    app:layout_constraintTop_toBottomOf="@+id/spinnerNationalityLLtenantfragment" />
             </LinearLayout>
 
             <Spinner
-                android:id="@+id/spinnerGenderLL2"
+                android:id="@+id/spinnerGenderLL"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginStart="50dp"
@@ -126,7 +126,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/ageMaxT" />
 
             <Spinner
-                android:id="@+id/occupation2"
+                android:id="@+id/occupation"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginStart="50dp"

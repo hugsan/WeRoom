@@ -76,7 +76,7 @@ public class ProfileTenantFragment extends Fragment {
         View v = inflater.inflate(R.layout.profile_tenant_fragment, null,false);
 
 
-        mLandlordNation = v.findViewById(R.id.spinnerNationalityLL3);
+        mLandlordNation = v.findViewById(R.id.spinnerNationalityLLtenantfragment);
         mSmoking = v.findViewById(R.id.spinnerSmoking);
         mPeriodRenting = v.findViewById(R.id.spinnerPeriodRenting);
         mLandlordGender = v.findViewById(R.id.spinnerGenderLL);

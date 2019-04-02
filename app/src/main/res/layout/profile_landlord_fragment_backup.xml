@@ -116,7 +116,7 @@
                 tools:layout_editor_absoluteY="208dp" />
 
             <Spinner
-                android:id="@+id/spinnerNationalityLL"
+                android:id="@+id/spinnerNationalityLLtenantfragment"
                 android:layout_width="275dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
@@ -175,7 +175,7 @@
                 android:inputType="number"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerNationalityLL" />
+                app:layout_constraintTop_toBottomOf="@+id/spinnerNationalityLLtenantfragment" />
 
             <EditText
                 android:id="@+id/ageMinT"
