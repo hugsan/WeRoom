@@ -101,7 +101,7 @@ public class ProfileFragment extends Fragment {
         mGender = v.findViewById(R.id.spinnerGender);
         mCountry = v.findViewById(R.id.spinnerCountry);
         mRole = v.findViewById(R.id.spinnerRole);
-        mTag = v.findViewById(R.id.Tags);
+        mTag = v.findViewById(R.id.tags);
 
 
         mTag.setHint(getString(R.string.description));

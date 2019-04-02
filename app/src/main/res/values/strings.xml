@@ -12,6 +12,8 @@
     <string name="refer_to_login">Already have an existing account? Log in Here!</string>
     <string name="refer_to_signup">New User? Register Here!</string>
     <string name="empty_fields">Empty Fields!</string>
+    <string name="login_textfield">Login</string>
+
 
     <!-- Strings related to the Sign up fragment -->
     <string name="title_activity_login">Sign in</string>
