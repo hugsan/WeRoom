@@ -15,7 +15,7 @@ public class RoomPosted {
         private int sSize;
         private boolean sFurnished;
         private boolean sInternet;
-        private boolean sComonAreas;
+        private boolean sCommonAreas;
         private boolean sLaundry;
         private int sRoomNumber;
 
@@ -27,6 +27,8 @@ public class RoomPosted {
             return this;
         }
         public Builder withDeposit(int deposit){
+            if (deposit < 0)
+                throw new InputMismatchException("Wrong deposit");
             sDeposit = deposit;
             return this;
         }
@@ -56,7 +58,7 @@ public class RoomPosted {
             return this;
         }
         public Builder hasCommonAreas(boolean commonAreas){
-            sComonAreas = commonAreas;
+            sCommonAreas = commonAreas;
             return this;
         }
         public Builder hasLaundry(boolean laundry){
@@ -75,7 +77,7 @@ public class RoomPosted {
             r.mSize = sSize;
             r.mFurnished = sFurnished;
             r.mInternet = sInternet;
-            r.mComonAreas = sComonAreas;
+            r.mComonAreas = sCommonAreas;
             r.mLaundry = sLaundry;
             r.mRoomNumber = sRoomNumber;
             return r;

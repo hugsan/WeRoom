@@ -43,31 +43,20 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/imageOne"
+                    android:id="@+id/takeroompicture"
                     android:layout_width="92dp"
                     android:layout_height="147dp"
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="10dp"
                     app:srcCompat="@drawable/addpicture" />
 
-                <ImageButton
-                    android:id="@+id/imageTwo"
-                    android:layout_width="97dp"
-                    android:layout_height="147dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
+                <ImageView
+                    android:id="@+id/picturepreview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/addpicture" />
+                    tools:srcCompat="@tools:sample/avatars" />
 
-                <ImageButton
-                    android:id="@+id/imageThree"
-                    android:layout_width="97dp"
-                    android:layout_height="147dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="50dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/addpicture" />
             </LinearLayout>
 
             <TextView
@@ -92,7 +81,6 @@
                 android:hint="DKK"
                 android:inputType="number"
                 android:textColor="@color/black" />
-
             <TextView
                 android:id="@+id/deposit"
                 android:layout_width="match_parent"
@@ -105,7 +93,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/rentInput2"
+                android:id="@+id/depositroom"
                 android:layout_width="173dp"
                 android:layout_height="38dp"
                 android:layout_marginStart="50dp"
@@ -150,18 +138,33 @@
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
-            <fragment
-                android:id="@+id/autocomplete_fragment2"
-                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-                android:layout_width="228dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="10dp" />
-
-            <com.google.android.gms.maps.MapView
-                android:id="@+id/mapView"
+            <android.support.v7.widget.CardView
+                android:id="@+id/idCardView"
                 android:layout_width="323dp"
-                android:layout_height="112dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="11dp"
+                app:cardCornerRadius="4dp"
+                app:layout_constraintBottom_toTopOf="@+id/confirm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.136">
+
+                <fragment
+                    android:id="@+id/autocomplete_fragment"
+                    android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </android.support.v7.widget.CardView>
+
+            <fragment
+                android:id="@+id/showmapfragment"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                android:layout_width="330dp"
+                android:layout_height="330dp"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp" />

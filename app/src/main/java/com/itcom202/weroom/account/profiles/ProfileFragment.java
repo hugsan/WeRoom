@@ -172,13 +172,13 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
-        final Fragment  demi = this;
+        final Fragment  thisFragment = this;
 
         mProfilePhoto = v.findViewById(R.id.profilePhoto);
         mProfilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pickFromGallery(getActivity(), demi);
+                pickFromGallery(getActivity(), thisFragment);
             }
         });
 
@@ -186,7 +186,7 @@ public class ProfileFragment extends Fragment {
         mButtonProfilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPhotoFile = Camera.dispatchTakePictureIntent(getActivity(),demi );
+                mPhotoFile = Camera.dispatchTakePictureIntent(getActivity(),thisFragment );
             }
         });
 
