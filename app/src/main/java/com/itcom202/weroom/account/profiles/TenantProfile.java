@@ -45,7 +45,7 @@ public class TenantProfile {
             return this;
         }
         public Builder distanceFromCenter(int distance){
-            if (distance < 0 )
+            if (distance < 0 || distance > 50)
                 throw new InputMismatchException("Wrong distance");
 
             sDistanceCenter = distance;

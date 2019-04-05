@@ -32,6 +32,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.itcom202.weroom.CameraGallery.Camera;
+import com.itcom202.weroom.CameraGallery.PictureUploader;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.TagDescription.TagModel;
 import com.itcom202.weroom.account.profiles.TagDescription.TagSeparator;
@@ -83,6 +84,8 @@ public class ProfileFragment extends Fragment {
     private List<String> tags = new ArrayList<>();
 
     private ImageView mProfilePhoto;
+
+    private List<PictureUploader> uploadPictures = new ArrayList<>();
 
 
     @Nullable
@@ -162,6 +165,7 @@ public class ProfileFragment extends Fragment {
                             .child(DataBasePath.PROFILE.getValue())
                             .setValue(myProfile);
 
+                    uploadFile(uploadPictures);
                     String[] role = getActivity().getResources().getStringArray(R.array.role_array);
                     if (mRole.getSelectedItemId() == 0){
                         startActivity(LandlordProfileActivity.newIntent(getActivity()));
@@ -206,7 +210,8 @@ public class ProfileFragment extends Fragment {
                     BitmapFactory.Options bmOptions = new BitmapFactory.Options();
                     Bitmap image = BitmapFactory.decodeFile(mPhotoFile.getPath(),bmOptions);
                     mProfilePhoto.setImageBitmap(image);
-                    uploadFile(image);
+                    uploadPictures.add(new PictureUploader(image, "profile"));
+                    //uploadFile(image, "profile");
                     mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     //TODO: rotate picture to portrait
                     break;
@@ -216,7 +221,8 @@ public class ProfileFragment extends Fragment {
                     mProfilePhoto.setImageURI(selectedImage);
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-                        uploadFile(bitmap);
+                        //uploadFile(bitmap, "profile");
+                        uploadPictures.add(new PictureUploader(bitmap,"profile"));
                         mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     }catch (Exception e){
                         Log.d(TAG, "Exception Gallery: "+ e);
@@ -227,62 +233,6 @@ public class ProfileFragment extends Fragment {
             Log.d(TAG, "Error on camera/Gallery");
     }
 
-//    private void uploadFile(Bitmap bitmap) {
-//        FirebaseStorage storage = FirebaseStorage.getInstance();
-//        StorageReference storageRef = storage.getReferenceFromUrl("gs://weroom-fa6fe.appspot.com");
-//        StorageReference mountainImagesRef = storageRef.child("images/" + mUser.getUid() + ".jpg");
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-//        byte[] data = baos.toByteArray();
-//        UploadTask uploadTask = mountainImagesRef.putBytes(data);
-//        uploadTask.addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception exception) {
-//                Log.d(TAG, "Exception: " + exception);
-//            }
-//        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//            }
-//        });
-//
-//
-//    }
-
-//    private void dispatchTakePictureIntent() {
-//
-//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        // Ensure that there's a camera activity to handle the intent
-//        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-//            // Create the File where the photo should go
-//            mPhotoFile = null;
-//            try {
-//                mPhotoFile = Camera.createImageFile();
-//            } catch (IOException ex) {
-//                // Error occurred while creating the File
-//
-//            }
-//            // Continue only if the File was successfully created
-//            if (mPhotoFile  != null) {
-//                Uri photoURI = FileProvider.getUriForFile(getActivity(),
-//                        "com.itcom202.weroom.fileprovider",
-//                        mPhotoFile );
-//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-//                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-//            }
-//        }
-//    }
-
-//    private void pickFromGallery() {
-//        //Create an Intent with action as ACTION_PICK
-//        Intent intent = new Intent(Intent.ACTION_PICK);
-//        // Sets the type as image/*. This ensures only components of type image are selected
-//        intent.setType("image/*");
-//        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
-//        String[] mimeTypes = {"image/jpeg", "image/png"};
-//        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-//        startActivityForResult(intent, GALLERY_REQUEST_CODE);
-//    }
     private void setPic() {
         // Get the dimensions of the View
         int targetW = mProfilePhoto.getWidth();
@@ -306,30 +256,6 @@ public class ProfileFragment extends Fragment {
         Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
         mProfilePhoto.setImageBitmap(bitmap);
     }
-
-//    private File createImageFile() throws IOException {
-//        // Create an image file name
-//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-//        String imageFileName = "JPEG_" + timeStamp + "_";
-//        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-//        File image = File.createTempFile(
-//                imageFileName,      /* prefix */
-//                ".jpg",       /* suffix */
-//                storageDir          /* directory */
-//        );
-//
-//        // Save a file: path for use with ACTION_VIEW intents
-//        currentPhotoPath = image.getAbsolutePath();
-//        return image;
-//    }
-
-//    private void galleryAddPic() {
-//        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//        File f = new File(currentPhotoPath);
-//        Uri contentUri = Uri.fromFile(f);
-//        mediaScanIntent.setData(contentUri);
-//        getActivity().sendBroadcast(mediaScanIntent);
-//    }
 
 
     private SpinnerAdapter countryAdapter(){

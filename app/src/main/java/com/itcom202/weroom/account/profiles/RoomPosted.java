@@ -18,12 +18,17 @@ public class RoomPosted {
         private boolean sCommonAreas;
         private boolean sLaundry;
         private int sRoomNumber;
+        private String sDescription;
 
         public Builder(int roomNumber){
             sRoomNumber = roomNumber;
         }
         public Builder withRent(int rent){
             sRent = rent;
+            return this;
+        }
+        public Builder withDescription(String s){
+            sDescription = s;
             return this;
         }
         public Builder withDeposit(int deposit){
@@ -80,6 +85,7 @@ public class RoomPosted {
             r.mComonAreas = sCommonAreas;
             r.mLaundry = sLaundry;
             r.mRoomNumber = sRoomNumber;
+            r.mDescription = sDescription;
             return r;
         }
 
@@ -102,7 +108,17 @@ public class RoomPosted {
     private boolean mLaundry;
     private int mRoomNumber;
 
+    private String mDescription;
+
     private RoomPosted(){}
+
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public void setDescription(String description) {
+        mDescription = description;
+    }
 
     public int getRent() {
         return mRent;

@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import static android.support.v4.app.ActivityCompat.startActivityForResult;
 
@@ -91,26 +92,51 @@ public class Camera {
         activity.sendBroadcast(mediaScanIntent);
     }
 
-    public static void uploadFile(Bitmap bitmap) {
+    public static void uploadFile(Bitmap[] bitmap, String[] pictureName ) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReferenceFromUrl("gs://weroom-fa6fe.appspot.com");
-        StorageReference mountainImagesRef = storageRef.child("images/" + mUser.getUid() + ".jpg");
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
-        UploadTask uploadTask = mountainImagesRef.putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Log.d(TAG, "Exception: " + exception);
+        for (int i = 0 ; i < bitmap.length; i++){
+            if (bitmap[i] != null && pictureName[i] != null){
+                StorageReference mountainImagesRef = storageRef.child("images/" + mUser.getUid()+ "/" +pictureName[i]+ ".jpg");
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap[i].compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] data = baos.toByteArray();
+                UploadTask uploadTask = mountainImagesRef.putBytes(data);
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Log.d(TAG, "Exception: " + exception);
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    }
+                });
             }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-            }
-        });
+        }
 
 
+    } public static void uploadFile(List<PictureUploader> pictures) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReferenceFromUrl("gs://weroom-fa6fe.appspot.com");
+        for (PictureUploader p : pictures) {
+            if (p.getPicture() != null && p.getPicturName() != null) {
+                StorageReference mountainImagesRef = storageRef.child("images/" + mUser.getUid() + "/" + p.getPicturName() + ".jpg");
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                p.getPicture().compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] data = baos.toByteArray();
+                UploadTask uploadTask = mountainImagesRef.putBytes(data);
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Log.d(TAG, "Exception: " + exception);
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    }
+                });
+            }
+        }
     }
-
 }
