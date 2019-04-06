@@ -12,6 +12,7 @@ import com.itcom202.weroom.account.profiles.ProfileTenantActivity;
 import com.itcom202.weroom.account.profiles.Profile_Activity;
 import com.itcom202.weroom.account.profiles.RoomCreationActivity;
 import com.itcom202.weroom.account.profiles.RoomCreationFragment;
+import com.itcom202.weroom.match.MatchActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         }//IF there is a user logged into Firebase it starts at AccountCreationActivity
         else{
             Log.i(TAG,"We are logged"+ firebaseAuth.getCurrentUser().getEmail());
-            startActivity(RoomCreationActivity.newIntent(this));
+            startActivity(MatchActivity.newIntent(this));
             finish();
         }
 

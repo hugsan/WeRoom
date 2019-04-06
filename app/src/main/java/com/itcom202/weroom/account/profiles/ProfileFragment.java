@@ -1,38 +1,29 @@
 package com.itcom202.weroom.account.profiles;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.itcom202.weroom.CameraGallery.Camera;
-import com.itcom202.weroom.CameraGallery.PictureUploader;
+import com.itcom202.weroom.cameraGallery.Camera;
+import com.itcom202.weroom.cameraGallery.PictureUploader;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.TagDescription.TagModel;
 import com.itcom202.weroom.account.profiles.TagDescription.TagSeparator;
@@ -46,21 +37,16 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 
 import static android.app.Activity.RESULT_OK;
-import static com.itcom202.weroom.CameraGallery.Camera.currentPhotoPath;
-import static com.itcom202.weroom.CameraGallery.Camera.uploadFile;
-import static com.itcom202.weroom.CameraGallery.Gallery.pickFromGallery;
+import static com.itcom202.weroom.cameraGallery.Camera.currentPhotoPath;
+import static com.itcom202.weroom.cameraGallery.Camera.uploadFile;
+import static com.itcom202.weroom.cameraGallery.Gallery.pickFromGallery;
 
 
 public class ProfileFragment extends Fragment {

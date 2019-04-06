@@ -163,4 +163,23 @@
     <string name="google_cloud_api_key">AIzaSyDH4SglTZWSLqFwJLgH66qWSSxM3cfunEg</string>
     <string name="dkk">DKK</string>
 
+
+    <!-- for swiping test, delete me please -->
+    <string name="instructions">Please Swipe</string>
+    <string-array name="desserts">
+        <item>Cupcake</item>
+        <item>Donut</item>
+        <item>Eclair</item>
+        <item>Froyo</item>
+        <item>Gingerbread</item>
+        <item>Honeycomb</item>
+        <item>Ice Cream Sandwich</item>
+        <item>Jelly Bean</item>
+        <item>Kit Kat</item>
+        <item>Lollipop</item>
+        <item>Marshmallow</item>
+        <item>Nougat</item>
+    </string-array>
+
+
 </resources>

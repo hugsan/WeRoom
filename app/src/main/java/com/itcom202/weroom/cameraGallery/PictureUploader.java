@@ -1,4 +1,4 @@
-package com.itcom202.weroom.CameraGallery;
+package com.itcom202.weroom.cameraGallery;
 
 import android.graphics.Bitmap;
 

@@ -1,4 +1,4 @@
-package com.itcom202.weroom.CameraGallery;
+package com.itcom202.weroom.cameraGallery;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 
 import java.io.File;
 
-import static com.itcom202.weroom.CameraGallery.Camera.currentPhotoPath;
+import static com.itcom202.weroom.cameraGallery.Camera.currentPhotoPath;
 
 public class Gallery{
         public static void pickFromGallery(Activity activity, Fragment fragment) {

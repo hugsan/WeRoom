@@ -31,8 +31,8 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.itcom202.weroom.CameraGallery.Camera;
-import com.itcom202.weroom.CameraGallery.PictureUploader;
+import com.itcom202.weroom.cameraGallery.Camera;
+import com.itcom202.weroom.cameraGallery.PictureUploader;
 import com.itcom202.weroom.MapFragment;
 import com.itcom202.weroom.R;
 
@@ -43,7 +43,7 @@ import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static com.facebook.FacebookSdk.getApplicationContext;
-import static com.itcom202.weroom.CameraGallery.Camera.uploadFile;
+import static com.itcom202.weroom.cameraGallery.Camera.uploadFile;
 
 public class RoomCreationFragment extends Fragment {
     static final int REQUEST_IMAGE_CAPTURE = 0;
@@ -140,7 +140,6 @@ public class RoomCreationFragment extends Fragment {
         mConfirmRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("TORTUGA","value of mDeposit in integer: "+ String.valueOf(mPeriodRenting.getSelectedItem()));
                 //FIXME change 1 to create room 1, 2 or 3 for the users.
 
 

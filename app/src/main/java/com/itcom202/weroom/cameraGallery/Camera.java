@@ -1,18 +1,15 @@
-package com.itcom202.weroom.CameraGallery;
+package com.itcom202.weroom.cameraGallery;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
-import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -21,9 +18,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.itcom202.weroom.account.profiles.Profile;
-import com.itcom202.weroom.account.profiles.ProfileFragment;
-import com.itcom202.weroom.account.profiles.Profile_Activity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -31,8 +25,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import static android.support.v4.app.ActivityCompat.startActivityForResult;
 
 public class Camera {
     private static final int REQUEST_IMAGE_CAPTURE = 0 ;
