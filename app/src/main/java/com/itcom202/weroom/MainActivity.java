@@ -13,10 +13,11 @@ import com.itcom202.weroom.account.profiles.Profile_Activity;
 import com.itcom202.weroom.account.profiles.RoomCreationActivity;
 import com.itcom202.weroom.account.profiles.RoomCreationFragment;
 import com.itcom202.weroom.match.MatchActivity;
+import com.itcom202.weroom.swipe.SwipeActivity;
 
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "SwipeActivity";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         }//IF there is a user logged into Firebase it starts at AccountCreationActivity
         else{
             Log.i(TAG,"We are logged"+ firebaseAuth.getCurrentUser().getEmail());
-            startActivity(MatchActivity.newIntent(this));
+            startActivity(Profile_Activity.newIntent(this));
             finish();
         }
 

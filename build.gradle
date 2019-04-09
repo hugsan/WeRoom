@@ -5,6 +5,9 @@ buildscript {
         google()
         jcenter()
         mavenCentral()
+        //repository for swipe
+        maven { url 'https://jitpack.io' }
+
 
     }
     dependencies {
