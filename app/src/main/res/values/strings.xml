@@ -165,5 +165,9 @@
 
 
 
+    <!-- strings related to connection errors -->
+    <string name="connection_error_FB">Could not connect to Facebook</string>
+    <string name="connection_error_Google">Could not connect to Google</string>
+
 
 </resources>
