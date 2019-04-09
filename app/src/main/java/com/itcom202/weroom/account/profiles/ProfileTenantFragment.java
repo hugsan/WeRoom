@@ -35,6 +35,7 @@ import java.util.Locale;
 import com.google.android.libraries.places.api.Places;
 // Add import statements for the new library.
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.itcom202.weroom.swipe.SwipeActivity;
 
 
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -223,6 +224,7 @@ public class ProfileTenantFragment extends Fragment {
                                 .child(DataBasePath.PROFILE.getValue())
                                 .child(DataBasePath.TENANT.getValue())
                                 .setValue(newInput);
+                        startActivity(SwipeActivity.newIntent(getActivity()));
                     }
 
                 }

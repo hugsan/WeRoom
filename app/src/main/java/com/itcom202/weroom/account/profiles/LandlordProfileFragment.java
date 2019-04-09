@@ -17,16 +17,18 @@ import android.widget.SpinnerAdapter;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.itcom202.weroom.SingleFragment;
 import com.itcom202.weroom.account.profiles.LandlordProfile;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.itcom202.weroom.R;
+import com.itcom202.weroom.swipe.SwipeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class LandlordProfileFragment extends Fragment {
+public class LandlordProfileFragment extends SingleFragment {
 
     private Spinner mTenantNation;
     private EditText mTenantMinAge;
@@ -138,8 +140,7 @@ public class LandlordProfileFragment extends Fragment {
                             .child(DataBasePath.LANDLORD.getValue())
                             .setValue(newInput);
 
-
-
+                    changeFragment(new RoomCreationFragment());
                 }
 
             }

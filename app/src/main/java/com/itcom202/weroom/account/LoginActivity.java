@@ -1,10 +1,11 @@
-package com.itcom202.weroom.account.authentification;
+package com.itcom202.weroom.account;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import com.itcom202.weroom.SingleFragmentActivity;
+import com.itcom202.weroom.account.authentification.LoginFragment;
 
 public class LoginActivity extends SingleFragmentActivity {
 

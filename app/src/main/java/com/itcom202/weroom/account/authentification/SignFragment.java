@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.GoogleApi;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,12 +25,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 import com.itcom202.weroom.R;
-import com.itcom202.weroom.AccountCreationActivity;
-import com.itcom202.weroom.account.profiles.Profile_Activity;
+import com.itcom202.weroom.SingleFragment;
+import com.itcom202.weroom.account.profiles.ProfileFragment;
 
 import java.util.Objects;
 
-public class SignFragment extends Fragment {
+public class SignFragment extends SingleFragment {
 
     private static final String TAG = "SignFragment";
 
@@ -97,7 +95,7 @@ public class SignFragment extends Fragment {
                                                     .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
                                                         public void onComplete(@NonNull Task<GetTokenResult> task) {
                                                             if (task.isSuccessful()) {
-                                                                startActivity(Profile_Activity.newIntent(getActivity()));
+                                                                changeFragment(new ProfileFragment());
 
                                                             } else {
                                                                 Toast.makeText(getActivity().getApplicationContext(),
@@ -125,7 +123,7 @@ public class SignFragment extends Fragment {
         mReferSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(LoginActivity.newIntent(getActivity()));
+                changeFragment(new LoginFragment());
             }
         });
         return v;
@@ -142,7 +140,7 @@ public class SignFragment extends Fragment {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                GoogleConnection.firebaseAuthWithGoogle(account, getActivity(), mFirebaseAuth, getActivity());
+                GoogleConnection.firebaseAuthWithGoogle(account, getActivity(), mFirebaseAuth, getActivity(), this);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, getString(R.string.google_fail), e);
