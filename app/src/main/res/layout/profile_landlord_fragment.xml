@@ -276,9 +276,9 @@
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="61dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/bottomfield"
+                android:src="#CCFF5A60"
                 app:layout_constraintBottom_toBottomOf="@+id/scrollView"
                 app:layout_constraintStart_toStartOf="parent" />
         </LinearLayout>
