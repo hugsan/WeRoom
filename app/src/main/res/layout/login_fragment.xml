@@ -96,16 +96,16 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="100dp"
-        android:background="@drawable/salmon"
+        android:background="#FF5A60"
         android:text="@string/button_login"
         android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/referSignUp"
-        android:layout_width="413dp"
+        android:layout_width="match_parent"
         android:layout_height="61dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/salmon_bl"
+        android:background="#CCFF5A60"
         android:gravity="center"
         android:text="@string/refer_to_signup"
         android:textColor="@android:color/white" />

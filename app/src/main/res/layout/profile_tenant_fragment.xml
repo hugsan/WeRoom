@@ -440,14 +440,15 @@
 
                 <ImageView
                     android:id="@+id/imageView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="61dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="0dp"
+                    android:background="#CCFF5A60"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/confirm"
-                    app:srcCompat="@drawable/bottomfield" />
+                     />
 
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>

@@ -292,10 +292,10 @@
             <ImageButton
                 android:id="@+id/imageButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="61dp"
                 android:layout_marginTop="20dp"
-                android:background="@color/white"
-                app:srcCompat="@drawable/bottomfield" />
+                android:background="#CCFF5A60"
+                android:visibility="visible" />
 
         </LinearLayout>
     </ScrollView>

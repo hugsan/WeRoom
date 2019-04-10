@@ -169,8 +169,8 @@
             <ImageView
                 android:id="@+id/imageView7"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/bottomfield" />
+                android:layout_height="61dp"
+                android:background="#CCFF5A60" />
         </LinearLayout>
     </ScrollView>
 
