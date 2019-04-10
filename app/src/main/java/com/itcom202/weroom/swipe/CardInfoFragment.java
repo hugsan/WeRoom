@@ -28,10 +28,8 @@ public class CardInfoFragment extends Fragment {
             public void onClick(View v)
             {
                 AppCompatActivity activity = (AppCompatActivity) mButtonExit.getContext();
-                Fragment myFragment = new SwipeFragment();
                 activity.getSupportFragmentManager()
                         .popBackStackImmediate();
-
             }
         });
 
@@ -39,20 +37,4 @@ public class CardInfoFragment extends Fragment {
         return v;
     }
 
-
-    private static void replaceFragment (Fragment fragment){
-        String backStateName =  fragment.getClass().getName();
-        String fragmentTag = backStateName;
-
-        FragmentManager manager = fragment.getActivity().getSupportFragmentManager();
-        boolean fragmentPopped = manager.popBackStackImmediate (backStateName, 0);
-
-        if (!fragmentPopped && manager.findFragmentByTag(fragmentTag) == null){ //fragment not in back stack, create it.
-            FragmentTransaction ft = manager.beginTransaction();
-            ft.replace(R.id.fragment_container, fragment, fragmentTag);
-            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            ft.addToBackStack(backStateName);
-            ft.commit();
-        }
-    }
 }

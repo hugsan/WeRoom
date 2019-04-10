@@ -53,6 +53,7 @@ public class ProfileFragment extends Fragment {
     static final int REQUEST_IMAGE_CAPTURE = 0;
     static final int GALLERY_REQUEST_CODE = 1;
 
+    //TODO: Put textViews before each EditText with information what is the editText for
     private static final String TAG = "ProfileFragment";
     private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabaseReference;

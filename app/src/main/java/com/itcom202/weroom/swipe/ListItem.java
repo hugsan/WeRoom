@@ -21,6 +21,7 @@ public class ListItem extends RecyclerView.ViewHolder {
         //TODO: add information from Firebase-name, address etc + insert photo preview
         //TODO: make layout
       textView = itemView.findViewById(R.id.text);
+
       mPhoto = itemView.findViewById(R.id.photoCard);
       mPhoto.setOnClickListener(new View.OnClickListener() {
           @Override

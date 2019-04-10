@@ -138,7 +138,7 @@ public class LandlordProfileFragment extends Fragment {
                             .child(DataBasePath.PROFILE.getValue())
                             .child(DataBasePath.LANDLORD.getValue())
                             .setValue(newInput);
-
+                    startActivity(RoomCreationActivity.newIntent(getActivity()));
 
 
                 }

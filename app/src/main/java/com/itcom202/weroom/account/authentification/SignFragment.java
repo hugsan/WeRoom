@@ -35,7 +35,8 @@ import java.util.Objects;
 public class SignFragment extends Fragment {
 
     private static final String TAG = "SignFragment";
-
+    //FIXME: focus errors appear with string id
+    //TODO: make error toasts
     private  EditText mEmail, mPasswd, mPasswd2;
     private Button mButtonSignUp;
     private TextView mReferSignIn;
