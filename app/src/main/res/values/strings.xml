@@ -77,8 +77,8 @@
     <string name="wrong_max">Wrong max value</string>
     <string name="age_of_ll">Preferred age of Landlord</string>
     <string name="nationality_of_ll">Preferred Nationality of Landlord</string>
-    <string name="pet_friendly">Pet Friendly?</string>
-    <string name="smoke_friendly">Smoke Friendly?</string>
+    <string name="pet_friendly">Pet Friendly</string>
+    <string name="smoke_friendly">Smoke Friendly</string>
 
 
     <!-- Tags -->
@@ -88,7 +88,7 @@
     <string name="invalid_email">Invalid password</string>
     <string name="confirm">Confirm</string>
 
-    <!-- Strings related to ProfileTenantFragment -->
+    <!-- Strings related to ProfileTenantFragment & xml-->
     <string name="laundry">Laundry</string>
     <string name="handicap_friendly">Handicap Friendly</string>
     <string name="preferred_age_of_landlord">Preferred age of Landlord</string>
@@ -110,24 +110,17 @@
         <item>6 – 12 Months </item>
         <item>12+ Months </item>
     </string-array>
-    <string-array name="smoke_friendly">
-        <item>Choose One </item>
-        <item>Yes </item>
-        <item>No </item>
-        <item>Do not Care</item>
-    </string-array>
-    <string-array name="pet_friendly">
-        <item>Choose One </item>
-        <item>Yes </item>
-        <item>No </item>
-        <item>Do not Care </item>
-    </string-array>
+
+    <string name="choose_period">Choose the period of renting</string>
+
+
+
 
     <!-- Strings related to ProfileLandlordFragment -->
     <string name="social_tenant">Social Tenant?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="don_t_care">Don\'t Care</string>
+    <string name="don_t_care">Doesn\'t matter</string>
     <string name="allow_smoking">Do you allow smoking?</string>
     <string name="kind_of_tenant">What kind of tenant are you looking for?</string>
     <string-array name="occupation">
