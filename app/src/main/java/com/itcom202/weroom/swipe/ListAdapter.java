@@ -17,8 +17,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListItem> {
   @NonNull
   @Override
   public ListItem onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    return new ListItem(
-        LayoutInflater.from(parent.getContext()).inflate(R.layout.swipe_card, parent, false));
+    return new ListItem(LayoutInflater.from(parent.getContext()).inflate(R.layout.swipe_card, parent, false));
   }
 
   @Override
