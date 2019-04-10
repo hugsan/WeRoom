@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.itcom202.weroom.R;
 
 import java.util.ArrayList;
@@ -13,6 +15,8 @@ import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListItem> {
   private List<Integer> items = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
+  FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+  FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
   @NonNull
   @Override
@@ -22,7 +26,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListItem> {
 
   @Override
   public void onBindViewHolder(@NonNull ListItem holder, int position) {
-    holder.bind(items.get(position).intValue());
+//    holder.bind(items.get(position).intValue());
+    //  holder.bind();
   }
 
   @Override

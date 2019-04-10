@@ -137,7 +137,10 @@
                     android:layout_marginEnd="52dp"
                     android:layout_marginBottom="8dp"
                     android:autofillHints=""
-                    android:background="@color/quantum_grey400"
+                    android:background="@layout/rounded_border_edittext"
+                    android:textColorHint="@color/quantum_grey"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
                     android:ems="10"
                     android:hint="@string/min"
                     android:inputType="number"
@@ -154,7 +157,10 @@
                     android:layout_marginEnd="84dp"
                     android:layout_marginBottom="8dp"
                     android:autofillHints=""
-                    android:background="@color/quantum_grey400"
+                    android:background="@layout/rounded_border_edittext"
+                    android:textColorHint="@color/quantum_grey"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
                     android:ems="10"
                     android:hint="@string/max"
                     android:inputType="number"
@@ -171,13 +177,14 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="52dp"
-                    android:layout_marginBottom="4dp"
                     android:autofillHints=""
-                    android:background="@color/quantum_grey400"
+                    android:background="@layout/rounded_border_edittext"
                     android:ems="10"
                     android:hint="@string/min"
                     android:inputType="number"
-                    app:layout_constraintBottom_toTopOf="@+id/textView14"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColorHint="@color/quantum_grey"
                     app:layout_constraintEnd_toStartOf="@+id/rentMax"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -187,20 +194,16 @@
                     android:id="@+id/rentMax"
                     android:layout_width="71dp"
                     android:layout_height="39dp"
-                    android:layout_marginStart="252dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="28dp"
                     android:autofillHints=""
-                    android:background="@color/quantum_grey400"
+                    android:background="@layout/rounded_border_edittext"
                     android:ems="10"
                     android:hint="@string/max"
                     android:inputType="number"
-                    app:layout_constraintBottom_toTopOf="@+id/ageMaxL"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.025"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/depositMax" />
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColorHint="@color/quantum_grey"
+                    tools:layout_editor_absoluteX="254dp"
+                    tools:layout_editor_absoluteY="361dp" />
 
                 <TextView
                     android:id="@+id/textView10"
@@ -225,11 +228,9 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="28dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="38dp"
                     android:text="@string/rent"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    app:layout_constraintBottom_toTopOf="@+id/textView14"
                     app:layout_constraintEnd_toStartOf="@+id/rentMin"
                     app:layout_constraintHorizontal_bias="0.827"
                     app:layout_constraintStart_toStartOf="parent"
@@ -265,64 +266,11 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/radiusCenter" />
 
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/preferred_age_of_landlord"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.188"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rentMin"
-                    tools:text="Preferred age of Landlord" />
-
-                <EditText
-                    android:id="@+id/ageMinL"
-                    android:layout_width="71dp"
-                    android:layout_height="39dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginBottom="12dp"
-                    android:autofillHints=""
-                    android:background="@color/quantum_grey400"
-                    android:ems="10"
-                    android:hint="@string/min"
-                    android:inputType="number"
-                    app:layout_constraintBottom_toTopOf="@+id/spinnerGenderLL"
-                    app:layout_constraintEnd_toStartOf="@+id/ageMaxL"
-                    app:layout_constraintHorizontal_bias="0.734"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rentMin" />
-
-                <EditText
-                    android:id="@+id/ageMaxL"
-                    android:layout_width="71dp"
-                    android:layout_height="39dp"
-                    android:layout_marginStart="47dp"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginEnd="84dp"
-                    android:layout_marginBottom="8dp"
-                    android:autofillHints=""
-                    android:background="@color/quantum_grey400"
-                    android:ems="10"
-                    android:hint="@string/max"
-                    android:inputType="number"
-                    app:layout_constraintBottom_toTopOf="@+id/spinnerGenderLL"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/ageMinL"
-                    app:layout_constraintTop_toBottomOf="@+id/rentMax" />
-
                 <Spinner
                     android:id="@+id/spinnerGenderLL"
                     android:layout_width="275dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="8dp"
                     android:background="@color/quantum_grey400"
                     android:entries="@array/gender_array"
@@ -331,7 +279,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.341"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ageMinL" />
+                    tools:layout_editor_absoluteY="517dp" />
 
                 <Spinner
                     android:id="@+id/spinnerNationalityLLtenantfragment"
@@ -388,14 +336,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
+                    android:buttonTint="@color/black"
                     android:text="@string/furnished"
                     android:textColor="@color/black"
-                    app:layout_constraintEnd_toStartOf="@+id/handicap"
-                    app:layout_constraintHorizontal_bias="0.612"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinnerNationalityLLtenantfragment"
-                    android:buttonTint="@color/black" />
+                    app:layout_constraintTop_toBottomOf="@+id/spinnerNationalityLLtenantfragment" />
 
                 <CheckBox
                     android:id="@+id/internet"
@@ -416,31 +361,16 @@
                     android:buttonTint="@color/black" />
 
                 <CheckBox
-                    android:id="@+id/handicap"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="92dp"
-                    android:text="@string/handicap_friendly"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinnerNationalityLLtenantfragment"
-                    android:buttonTint="@color/black" />
-
-                <CheckBox
                     android:id="@+id/laundry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="152dp"
                     android:layout_marginBottom="8dp"
+                    android:buttonTint="@color/black"
                     android:text="@string/laundry"
                     android:textColor="@color/black"
                     app:layout_constraintBottom_toTopOf="@+id/spinnerPetFriendly"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/handicap"
-                    app:layout_constraintVertical_bias="0.375"
-                    android:buttonTint="@color/black" />
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <Button
                     android:id="@+id/confirm"

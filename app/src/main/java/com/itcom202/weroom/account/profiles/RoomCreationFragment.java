@@ -35,6 +35,7 @@ import com.itcom202.weroom.cameraGallery.Camera;
 import com.itcom202.weroom.cameraGallery.PictureUploader;
 import com.itcom202.weroom.MapFragment;
 import com.itcom202.weroom.R;
+import com.itcom202.weroom.swipe.SwipeActivity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -94,6 +95,8 @@ public class RoomCreationFragment extends Fragment {
         mLaundry = v.findViewById(R.id.checkBoxLaundry);
         mConfirmRoom = v.findViewById(R.id.postRoomButton);
         mProfilePhoto = v.findViewById(R.id.picturepreview);
+
+        //FIXME: the textView is saying 'describe with tags' but the editText is expecting a normal String input
         mRoomDescription = v.findViewById(R.id.descriptionField);
 
         final MapFragment mapFragment = new MapFragment();
@@ -142,6 +145,7 @@ public class RoomCreationFragment extends Fragment {
             public void onClick(View v) {
                 //FIXME change 1 to create room 1, 2 or 3 for the users.
 
+                startActivity(SwipeActivity.newIntent(getActivity()));
 
 
                 //TODO missing to verify all the entries before creating the RoomPosted and pushing it to firebase

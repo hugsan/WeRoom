@@ -48,65 +48,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
 
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="50dp"
-                android:text="@string/preferred_age_of_landlord"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.122"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Preferred age of Tenant" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/ageMinT"
-                    android:layout_width="9dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="135dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="50dp"
-                    android:layout_marginRight="0dp"
-                    android:layout_marginBottom="0dp"
-                    android:layout_weight="1"
-                    android:autofillHints=""
-                    android:background="@color/quantum_grey400"
-                    android:ems="10"
-                    android:hint="@string/min"
-                    android:inputType="number"
-                    android:textColor="@color/black"
-                    app:layout_constraintBottom_toTopOf="@+id/spinnerGenderLL"
-                    app:layout_constraintEnd_toStartOf="@+id/ageMaxT"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-                <EditText
-                    android:id="@+id/ageMaxT"
-                    android:layout_width="9dp"
-                    android:layout_height="36dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="50dp"
-                    android:layout_weight="1"
-                    android:autofillHints=""
-                    android:background="@color/quantum_grey400"
-                    android:ems="10"
-                    android:hint="@string/max"
-                    android:inputType="number"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinnerNationalityLLtenantfragment" />
-            </LinearLayout>
+                android:orientation="horizontal"/>
 
             <Spinner
                 android:id="@+id/spinnerGenderLL"

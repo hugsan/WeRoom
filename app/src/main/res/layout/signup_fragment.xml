@@ -129,13 +129,12 @@
 
     <TextView
         android:id="@+id/referLogIn"
-        android:layout_width="match_parent"
+        android:layout_width="412dp"
         android:layout_height="61dp"
-        android:layout_marginStart="0dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="0dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="0dp"
-        android:background="#CCFF5A60"
         android:gravity="center"
         android:text="@string/refer_to_login"
         app:layout_constraintBottom_toBottomOf="parent"
