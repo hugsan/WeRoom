@@ -40,6 +40,7 @@ public class SwipeFragment extends Fragment {
                     public void onItemSwiped() {
                         adapter.removeTopItem();
 
+
                     }
 
                     @Override
@@ -71,7 +72,7 @@ public class SwipeFragment extends Fragment {
                 }) {
                     @Override
                     public int getAllowedSwipeDirectionsMovementFlags(RecyclerView.ViewHolder viewHolder) {
-                        return ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT | ItemTouchHelper.UP;
+                        return ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT ;
                     }
                 };
         final ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeableTouchHelperCallback);
@@ -98,5 +99,12 @@ public class SwipeFragment extends Fragment {
         final CardInfoFragment cardInfoFragment = new CardInfoFragment();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, cardInfoFragment).commit();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        //update whatever your list
+        adapter.notifyDataSetChanged();
     }
 }

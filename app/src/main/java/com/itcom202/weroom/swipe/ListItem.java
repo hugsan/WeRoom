@@ -25,16 +25,9 @@ public class ListItem extends RecyclerView.ViewHolder {
       mPhoto.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-              Log.i("tortuga", "on clickkkk");
-
               AppCompatActivity activity = (AppCompatActivity) itemView.getContext();
               Fragment myFragment = new CardInfoFragment();
-              activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, myFragment).addToBackStack(null).commit();
-
-//              Fragment cardInfoFragment = new CardInfoFragment();
-//              FragmentTransaction transaction = SwipeFragment.thisFragment.getChildFragmentManager().beginTransaction();
-//              transaction.replace(R.id.fragment_container, cardInfoFragment)
-//                      .commit();
+              activity.getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, myFragment).addToBackStack(null).commit();
           }
       });
 
