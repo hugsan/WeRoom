@@ -2,6 +2,7 @@ package com.itcom202.weroom.account.authentification;
 
 import android.app.Activity;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -28,6 +29,7 @@ import java.util.Objects;
 class FaceBookConnection {
     private static final String TAG = "FaceBookConnection";
     private static CallbackManager mCallbackManager;
+    private static Activity context ;
 
 
     static void handleFacebookAccessToken(AccessToken token, FirebaseAuth firebaseAuth, final Activity context
@@ -75,6 +77,7 @@ class FaceBookConnection {
             @Override
             public void onError(FacebookException error) {
                 //TODO notify properly the user when there was an error on the login with FB
+                Toast.makeText(context, R.string.connection_error_FB, Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "facebook:onError", error);
             }
         });

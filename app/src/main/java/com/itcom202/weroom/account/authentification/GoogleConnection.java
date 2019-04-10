@@ -27,7 +27,7 @@ class GoogleConnection {
     private static GoogleSignInOptions gso;
     static final int RC_SIGN_IN = 101;
 
-    static GoogleApiClient create(Context context){
+    static GoogleApiClient create(final Context context){
         if (gso == null){
             gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     .requestIdToken(context.getResources().getString(R.string.default_web_client_id))
@@ -39,6 +39,7 @@ class GoogleConnection {
             @Override
             public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
                 //TODO case where we cannot connect with google
+                Toast.makeText(context, R.string.connection_error_Google, Toast.LENGTH_SHORT).show();
             }
         })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
