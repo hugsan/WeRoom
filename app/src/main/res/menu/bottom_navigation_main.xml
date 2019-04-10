@@ -8,7 +8,6 @@
         android:enabled="true"
         android:icon="@drawable/ic_profile"
         android:title="Profile"
-        android:showAsAcion="ifRoom"
         />
 
     <item
@@ -17,7 +16,6 @@
         android:enabled="true"
         android:icon="@drawable/ic_home"
         android:title="Home"
-        android:showAsAcion="ifRoom"
         />
 
     <item
@@ -26,7 +24,6 @@
         android:enabled="true"
         android:icon="@drawable/ic_chat"
         android:title="Chat"
-        android:showAsAcion="ifRoom"
         />
 
 

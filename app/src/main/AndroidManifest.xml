@@ -23,7 +23,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".Menu.NavigationBarFragment" />
-        <activity android:name=".match.MatchActivity" />
         <activity android:name=".account.profiles.RoomCreationActivity" />
         <activity android:name=".account.authentification.ForgotPasswordActivity" />
         <activity android:name=".account.profiles.Profile_Activity" />
@@ -31,6 +30,7 @@
         <activity android:name=".account.authentification.SignActivity" />
         <activity android:name=".account.authentification.LoginActivity" />
         <activity android:name=".account.profiles.ProfileTenantActivity" />
+        <activity android:name=".swipe.SwipeActivity"/>
         <activity android:name=".AccountCreationActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

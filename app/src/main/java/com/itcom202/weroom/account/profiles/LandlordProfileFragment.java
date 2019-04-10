@@ -1,5 +1,6 @@
 package com.itcom202.weroom.account.profiles;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,8 +30,8 @@ import java.util.Locale;
 public class LandlordProfileFragment extends Fragment {
 
     private Spinner mTenantNation;
-    private EditText mTenantMinAge;
-    private EditText mTenantMaxAge;
+//    private EditText mTenantMinAge;
+//    private EditText mTenantMaxAge;
     private Spinner mTenantGender;
     private Spinner mTenantOccupation;
     private RadioGroup mSocialGroup;
@@ -48,8 +49,8 @@ public class LandlordProfileFragment extends Fragment {
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mTenantNation = v.findViewById(R.id.spinnerNationalityLLlandlordfragment);
-        mTenantMinAge = v.findViewById(R.id.ageMinT);
-        mTenantMaxAge = v.findViewById(R.id.ageMaxT);
+//        mTenantMinAge = v.findViewById(R.id.ageMinT);
+//        mTenantMaxAge = v.findViewById(R.id.ageMaxT);
         mTenantGender = v.findViewById(R.id.spinnerGenderLL);
         mTenantOccupation = v.findViewById(R.id.occupation);
         mSocialGroup = v.findViewById(R.id.socialgroup);
@@ -97,35 +98,35 @@ public class LandlordProfileFragment extends Fragment {
                 String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                 boolean noError = true;
-                if (mTenantMinAge.getText().toString().length()==0)
-                {
-
-                    mTenantMinAge.setText("16");
-                }
-                if (Integer.parseInt(mTenantMinAge.getText().toString()) < 16)
-                {
-                    mTenantMinAge.setError(getString(R.string.min_age));
-                    mTenantMinAge.requestFocus();
-                    mTenantMinAge.setText("16");
-                    noError = false;
-                }
-                if (mTenantMaxAge.getText().toString().length()==0)
-                {
-                    mTenantMaxAge.setText("120");
-                }
-                if (Integer.parseInt(mTenantMaxAge.getText().toString()) > 120)
-                {
-                    mTenantMaxAge.setError(getString(R.string.max_age));
-                    mTenantMaxAge.requestFocus();
-                    mTenantMaxAge.setText("120");
-                    noError = false;
-                }
+//                if (mTenantMinAge.getText().toString().length()==0)
+//                {
+//
+//                    mTenantMinAge.setText("16");
+//                }
+//                if (Integer.parseInt(mTenantMinAge.getText().toString()) < 16)
+//                {
+//                    mTenantMinAge.setError(getString(R.string.min_age));
+//                    mTenantMinAge.requestFocus();
+//                    mTenantMinAge.setText("16");
+//                    noError = false;
+//                }
+//                if (mTenantMaxAge.getText().toString().length()==0)
+//                {
+//                    mTenantMaxAge.setText("120");
+//                }
+//                if (Integer.parseInt(mTenantMaxAge.getText().toString()) > 120)
+//                {
+//                    mTenantMaxAge.setError(getString(R.string.max_age));
+//                    mTenantMaxAge.requestFocus();
+//                    mTenantMaxAge.setText("120");
+//                    noError = false;
+//                }
 
 
                 if (noError){
                     LandlordProfile newInput = new LandlordProfile.Builder(userID)
                             .withTenantNationallity(String.valueOf(mTenantNation.getSelectedItem()))
-                            .withTenantAge(Integer.parseInt(mTenantMinAge.getText().toString()), Integer.parseInt(mTenantMaxAge.getText().toString()))
+//                            .withTenantAge(Integer.parseInt(mTenantMinAge.getText().toString()), Integer.parseInt(mTenantMaxAge.getText().toString()))
                             .withTenantGender(String.valueOf(mTenantGender.getSelectedItem()))
                             .withTenantOccupation(String.valueOf(mTenantOccupation.getSelectedItem()))
                             .tenantSocial(socialValue)
