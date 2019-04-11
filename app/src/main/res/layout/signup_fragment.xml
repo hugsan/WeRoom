@@ -120,7 +120,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="162dp"
         android:layout_marginBottom="8dp"
-        android:background="#FF5A60"
+        android:background="@drawable/drawable_custom_button"
         android:text="@string/action_sign_in_short"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
