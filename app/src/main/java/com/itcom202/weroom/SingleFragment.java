@@ -3,7 +3,7 @@ package com.itcom202.weroom;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
-public  class SingleFragment extends Fragment {
+public abstract class SingleFragment extends Fragment {
 
     public void changeFragment(Fragment fragment){
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
