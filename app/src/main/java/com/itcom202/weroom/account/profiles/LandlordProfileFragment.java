@@ -1,6 +1,5 @@
 package com.itcom202.weroom.account.profiles;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,16 +17,18 @@ import android.widget.SpinnerAdapter;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.itcom202.weroom.SingleFragment;
 import com.itcom202.weroom.account.profiles.LandlordProfile;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.itcom202.weroom.R;
+import com.itcom202.weroom.swipe.SwipeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class LandlordProfileFragment extends Fragment {
+public class LandlordProfileFragment extends SingleFragment {
 
     private Spinner mTenantNation;
 //    private EditText mTenantMinAge;
@@ -126,7 +127,7 @@ public class LandlordProfileFragment extends Fragment {
                 if (noError){
                     LandlordProfile newInput = new LandlordProfile.Builder(userID)
                             .withTenantNationallity(String.valueOf(mTenantNation.getSelectedItem()))
-//                            .withTenantAge(Integer.parseInt(mTenantMinAge.getText().toString()), Integer.parseInt(mTenantMaxAge.getText().toString()))
+                            //.withTenantAge(Integer.parseInt(mTenantMinAge.getText().toString()), Integer.parseInt(mTenantMaxAge.getText().toString()))
                             .withTenantGender(String.valueOf(mTenantGender.getSelectedItem()))
                             .withTenantOccupation(String.valueOf(mTenantOccupation.getSelectedItem()))
                             .tenantSocial(socialValue)
@@ -138,9 +139,8 @@ public class LandlordProfileFragment extends Fragment {
                             .child(DataBasePath.PROFILE.getValue())
                             .child(DataBasePath.LANDLORD.getValue())
                             .setValue(newInput);
-                    startActivity(RoomCreationActivity.newIntent(getActivity()));
 
-
+                    changeFragment(new RoomCreationFragment());
                 }
 
             }

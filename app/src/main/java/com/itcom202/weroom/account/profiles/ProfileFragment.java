@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.itcom202.weroom.SingleFragment;
 import com.itcom202.weroom.cameraGallery.Camera;
 import com.itcom202.weroom.cameraGallery.PictureUploader;
 import com.itcom202.weroom.R;
@@ -49,7 +50,7 @@ import static com.itcom202.weroom.cameraGallery.Camera.uploadFile;
 import static com.itcom202.weroom.cameraGallery.Gallery.pickFromGallery;
 
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends SingleFragment {
     static final int REQUEST_IMAGE_CAPTURE = 0;
     static final int GALLERY_REQUEST_CODE = 1;
 
@@ -155,9 +156,9 @@ public class ProfileFragment extends Fragment {
                     uploadFile(uploadPictures);
                     String[] role = getActivity().getResources().getStringArray(R.array.role_array);
                     if (mRole.getSelectedItemId() == 0){
-                        startActivity(LandlordProfileActivity.newIntent(getActivity()));
+                        changeFragment(new LandlordProfileFragment());
                     }else if (mRole.getSelectedItemId() == 1){
-                        startActivity(ProfileTenantActivity.newIntent(getActivity()));
+                        changeFragment(new ProfileTenantFragment());
                     }
 
                 }

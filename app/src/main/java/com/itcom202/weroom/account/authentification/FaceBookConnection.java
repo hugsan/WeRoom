@@ -22,7 +22,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.itcom202.weroom.R;
-import com.itcom202.weroom.account.profiles.Profile_Activity;
+import com.itcom202.weroom.SingleFragment;
+import com.itcom202.weroom.account.profiles.ProfileFragment;
 
 import java.util.Objects;
 
@@ -55,7 +56,7 @@ class FaceBookConnection {
                     }
                 });
     }
-    static LoginButton facebookLoginButtonCreate(View v, Fragment fragment, final FirebaseAuth firebaseAuth,
+    static LoginButton facebookLoginButtonCreate(View v, final Fragment fragment, final FirebaseAuth firebaseAuth,
                                                  final Activity activity) {
         LoginButton loginButtonFB = v.findViewById(R.id.login_button_Fb);
         loginButtonFB.setReadPermissions("email","public_profile");
@@ -66,7 +67,9 @@ class FaceBookConnection {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 FaceBookConnection.handleFacebookAccessToken(loginResult.getAccessToken(),
                         firebaseAuth,activity);
-                activity.startActivity(Profile_Activity.newIntent(activity));
+
+                ((SingleFragment)fragment).changeFragment(new ProfileFragment());
+                //activity.startActivity(Profile_Activity.newIntent(activity));
             }
 
             @Override

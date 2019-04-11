@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -19,35 +21,36 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.itcom202.weroom.AccountCreationActivity;
 import com.itcom202.weroom.R;
-import com.itcom202.weroom.account.profiles.Profile_Activity;
+import com.itcom202.weroom.SingleFragment;
+import com.itcom202.weroom.account.profiles.ProfileFragment;
 
 class GoogleConnection {
     private static GoogleSignInOptions gso;
+    private static GoogleApiClient sGoogleApiClient;
     static final int RC_SIGN_IN = 101;
 
-    static GoogleApiClient create(final Context context){
-        if (gso == null){
+    static GoogleApiClient create(Context context){
+        if (sGoogleApiClient == null) {
             gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     .requestIdToken(context.getResources().getString(R.string.default_web_client_id))
                     .requestEmail()
                     .build();
-        }
 
-        return  new GoogleApiClient.Builder(context).enableAutoManage((FragmentActivity)context, new GoogleApiClient.OnConnectionFailedListener() {
-            @Override
-            public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                //TODO case where we cannot connect with google
-                Toast.makeText(context, R.string.connection_error_Google, Toast.LENGTH_SHORT).show();
-            }
-        })
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
+            sGoogleApiClient = new GoogleApiClient.Builder(context).enableAutoManage((FragmentActivity) context, new GoogleApiClient.OnConnectionFailedListener() {
+                @Override
+                public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                    //TODO case where we cannot connect with google
+                }
+            })
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
+        }
+        return sGoogleApiClient;
     }
 
     static void firebaseAuthWithGoogle(GoogleSignInAccount acct, final Context activity,
-                                       FirebaseAuth firebaseAuth, Activity calledActivity) {
+                                       FirebaseAuth firebaseAuth, final Activity calledActivity, final Fragment fragment) {
         Log.d("MainACtivity", "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -63,8 +66,19 @@ class GoogleConnection {
                                     Toast.LENGTH_SHORT).show();
                         }
                         else{
-                            // This line has been changed.
-                            activity.startActivity(Profile_Activity.newIntent(activity));
+                            ((SingleFragment)fragment).changeFragment(new ProfileFragment());
+                            /*Fragment newFragment = new ProfileFragment();
+                            FragmentTransaction transaction = fragment.getFragmentManager().beginTransaction();
+
+
+                            // Replace whatever is in the fragment_container view with this fragment,
+                            // and add the transaction to the back stack
+                            transaction.replace(R.id.fragment_container, newFragment);
+                            transaction.addToBackStack(null);
+
+                            // Commit the transaction
+                            transaction.commit();
+                            activity.startActivity(Profile_Activity.newIntent(activity));*/
                         }
                     }
                 });

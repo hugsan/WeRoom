@@ -31,6 +31,7 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.itcom202.weroom.SingleFragment;
 import com.itcom202.weroom.cameraGallery.Camera;
 import com.itcom202.weroom.cameraGallery.PictureUploader;
 import com.itcom202.weroom.MapFragment;
@@ -46,7 +47,7 @@ import static android.app.Activity.RESULT_OK;
 import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.itcom202.weroom.cameraGallery.Camera.uploadFile;
 
-public class RoomCreationFragment extends Fragment {
+public class RoomCreationFragment extends SingleFragment {
     static final int REQUEST_IMAGE_CAPTURE = 0;
     static final int GALLERY_REQUEST_CODE = 1;
 
@@ -135,6 +136,7 @@ public class RoomCreationFragment extends Fragment {
 
             @Override
             public void onError(Status status) {
+                //TODO implement on error message
                 Log.i(TAG, "An error occurred: " + status);
             }
         });
@@ -169,6 +171,7 @@ public class RoomCreationFragment extends Fragment {
                         .child(DataBasePath.ROOM.getValue())
                         .setValue(input);
                 uploadFile(mPictureUploaders);
+                startActivity(SwipeActivity.newIntent(getActivity()));
             }
         });
 

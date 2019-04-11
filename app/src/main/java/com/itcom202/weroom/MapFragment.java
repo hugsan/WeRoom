@@ -28,7 +28,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mapView.onCreate(savedInstanceState);
 
 
-
         mapView.getMapAsync(this);
 
 
@@ -45,6 +44,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         map.getUiSettings().setCompassEnabled(false);
         map.getUiSettings().setIndoorLevelPickerEnabled(false);
         map.getUiSettings().setZoomControlsEnabled(true);
+
 
 
 

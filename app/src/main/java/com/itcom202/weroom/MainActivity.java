@@ -7,12 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.itcom202.weroom.account.authentification.LoginActivity;
-import com.itcom202.weroom.account.authentification.SignActivity;
-import com.itcom202.weroom.account.profiles.ProfileTenantActivity;
-import com.itcom202.weroom.account.profiles.Profile_Activity;
-import com.itcom202.weroom.account.profiles.RoomCreationActivity;
-import com.itcom202.weroom.account.profiles.RoomCreationFragment;
+
+import com.itcom202.weroom.account.LoginActivity;
 import com.itcom202.weroom.swipe.SwipeActivity;
 
 
@@ -29,12 +25,12 @@ public class MainActivity extends AppCompatActivity {
         //if there is no user logged in Firebase it starts LoginActivity
         if (firebaseAuth.getCurrentUser() == null){
             Log.i(TAG,"We are not logged as:");
-            startActivity(SignActivity.newIntent(this));
+            startActivity(LoginActivity.newIntent(this));
             finish();
         }//IF there is a user logged into Firebase it starts at AccountCreationActivity
         else{
             Log.i(TAG,"We are logged"+ firebaseAuth.getCurrentUser().getEmail());
-            startActivity(ProfileTenantActivity.newIntent(this));
+            startActivity(SwipeActivity.newIntent(this));
             finish();
         }
 

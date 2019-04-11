@@ -11,8 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.itcom202.weroom.account.authentification.LoginActivity;
-import com.itcom202.weroom.account.authentification.LoginFragment;
+import com.itcom202.weroom.account.LoginActivity;
 
 public class AccountCreationFragment extends Fragment {
     Button mLogoutButton;
