@@ -11,11 +11,11 @@ public class TenantProfile {
     public static final char MALE = 'M';
     public static final String YES = "Yes";
     public static final String NO = "No";
-    public static final String I_DONT_CARE = "Do not Care";
+    public static final String I_DONT_CARE = "Does not matter";
 
     public static class Builder{
         private String sUserUid;
-        private String sNationallity;
+        private String sNationality;
         private int sDistanceCenter;
         private int sPeriodOfRent;
         private int sMinDeposit;
@@ -25,14 +25,13 @@ public class TenantProfile {
         private int sMinLandlordAge;
         private int sMaxLandlordAge;
         private String sLandlordGender;
-        private String sChossenCityName;
-        private String sChoosenCityID;
+        private String sChosenCityName;
+        private String sChosenCityID;
         private double sLatitudeCity;
         private double sLongitudeCity;
-        private boolean sFurnished;
-        private boolean sHandicap;
-        private boolean sInternet;
-        private boolean sLaundry;
+        private String sFurnished;
+        private String sInternet;
+        private String sLaundry;
         private String sPetFriendly;
         private String sSmokeFriendly;
 
@@ -40,7 +39,7 @@ public class TenantProfile {
             this.sUserUid = userUid;
         }
         public Builder withLandlordNationallity(String nation){
-            sNationallity = nation;
+            sNationality = nation;
 
             return this;
         }
@@ -85,44 +84,47 @@ public class TenantProfile {
             return this;
         }
         public Builder withCity(String id, String name, double latitude, double longitude){
-            sChoosenCityID = id;
-            sChossenCityName = name;
+            sChosenCityID = id;
+            sChosenCityName = name;
             sLongitudeCity = longitude;
             sLatitudeCity = latitude;
             return this;
         }
-        public Builder isFurnished(boolean f){
+        public Builder isFurnished(String f){
+//            if (!f.equals(YES) && !f.equals(NO)&& !f.equals(I_DONT_CARE) )
+//                throw new InputMismatchException("Wrong answer - furnished");
             sFurnished = f;
             return this;
         }
-        public Builder isHandicapFriendly(boolean h){
-            sHandicap = h;
-            return this;
-        }
-        public Builder hasInternet(boolean i){
+
+        public Builder hasInternet(String i){
+//            if (!i.equals(YES) && !i.equals(NO)&& !i.equals(I_DONT_CARE) )
+//                throw new InputMismatchException("Wrong answer - internet");
             sInternet = i;
             return this;
         }
-        public Builder hasLaundry(boolean l){
+        public Builder hasLaundry(String l){
+//            if (!l.equals(YES) && !l.equals(NO)&& !l.equals(I_DONT_CARE) )
+//                throw new InputMismatchException("Wrong answer - laundry");
             sLaundry = l;
             return this;
         }
         public Builder isPetFriendly(String p){
-            if (!p.equals(YES) && !p.equals(NO) && !p.equals(I_DONT_CARE))
-                throw new InputMismatchException("Wrong answer");
+//            if (!p.equals(YES) && !p.equals(NO) && !p.equals(I_DONT_CARE))
+//                throw new InputMismatchException("Wrong answer - pet friendly");
             sPetFriendly = p;
             return this;
         }
         public Builder isSmokingFriendly(String s){
-            if (!s.equals(YES) && !s.equals(NO)&& !s.equals(I_DONT_CARE) )
-                throw new InputMismatchException("Wrong answer");
+//            if (!s.equals(YES) && !s.equals(NO)&& !s.equals(I_DONT_CARE) )
+//                throw new InputMismatchException("Wrong answer - smoking friendly");
             sSmokeFriendly = s;
             return this;
         }
         public TenantProfile build(){
             TenantProfile t = new TenantProfile();
             t.mUserUid = this.sUserUid;
-            t.mNationallity = this.sNationallity;
+            t.mNationallity = this.sNationality;
             t.mDistanceCenter = this.sDistanceCenter;
             t.mPeriodOfRent = this.sPeriodOfRent;
             t.mMinDeposit = this.sMinDeposit;
@@ -133,13 +135,12 @@ public class TenantProfile {
             t.mMaxLandlordAge = this.sMaxLandlordAge;
             t.mLandlordGender = this.sLandlordGender;
             t.mFurnished = this.sFurnished;
-            t.mHandicap = this.sHandicap;
             t.mInternet = this.sInternet;
             t.mLaundry = this.sLaundry;
             t.mPetFriendly = this.sPetFriendly;
             t.mSmokeFriendly = this.sSmokeFriendly;
-            t.mChoosenCityname = this.sChossenCityName;
-            t.mChoosenCityId = this.sChoosenCityID;
+            t.mChoosenCityname = this.sChosenCityName;
+            t.mChoosenCityId = this.sChosenCityID;
             t.mCityLatitude = this.sLatitudeCity;
             t.mCityLongitude = this.sLongitudeCity;
             return t;
@@ -160,10 +161,10 @@ public class TenantProfile {
     private String mChoosenCityId;
     private double mCityLatitude;
     private double mCityLongitude;
-    private Boolean mFurnished;
-    private Boolean mHandicap;
-    private Boolean mInternet;
-    private Boolean mLaundry;
+    private String mFurnished;
+    private String mHandicap;
+    private String mInternet;
+    private String mLaundry;
     private String mPetFriendly;
     private String mSmokeFriendly;
 
@@ -261,36 +262,28 @@ public class TenantProfile {
         mLandlordGender = landlordGender;
     }
 
-    public Boolean getFurnished() {
+    public String getmFurnished() {
         return mFurnished;
     }
 
-    public void setFurnished(Boolean furnished) {
-        mFurnished = furnished;
+    public void setmFurnished(String mFurnished) {
+        this.mFurnished = mFurnished;
     }
 
-    public Boolean getHandicap() {
-        return mHandicap;
-    }
-
-    public void setHandicap(Boolean handicap) {
-        mHandicap = handicap;
-    }
-
-    public Boolean getInternet() {
+    public String getmInternet() {
         return mInternet;
     }
 
-    public void setInternet(Boolean internet) {
-        mInternet = internet;
+    public void setmInternet(String mInternet) {
+        this.mInternet = mInternet;
     }
 
-    public Boolean getLaundry() {
+    public String getmLaundry() {
         return mLaundry;
     }
 
-    public void setLaundry(Boolean laundry) {
-        mLaundry = laundry;
+    public void setmLaundry(String mLaundry) {
+        this.mLaundry = mLaundry;
     }
 
     public String getPetFriendly() {

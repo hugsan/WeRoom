@@ -1,6 +1,7 @@
 package com.itcom202.weroom.account.profiles;
 
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
@@ -42,21 +45,21 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class ProfileTenantFragment extends Fragment {
     private static final String TAG = "ProfileTenantFragment";
 
-    private Spinner mSmoking;
     private Spinner mPeriodRenting;
-    private Spinner mLandlordGender;
-    private Spinner mLandlordNation;
-    private Spinner mPetFriendly;
-    private CheckBox mIsFurnished;
-    private CheckBox mHasInternet;
-    private CheckBox mHandicap;
-    private CheckBox mHasLaundry;
+    private RadioGroup mSmoking;
+    private RadioButton mSmokingDc;
+    private RadioGroup mPetFriendly;
+    private RadioButton mPetDc;
+    private RadioGroup mFurnished;
+    private RadioButton mFurnishedDc;
+    private RadioGroup mInternet;
+    private  RadioButton mInternetDc;
+    private RadioGroup mLaundry;
+    private RadioButton mLaundryDc;
     private EditText mDepositMin;
     private EditText mDepositMax;
     private EditText mRentMin;
     private EditText mRentMax;
-    private EditText mLandlordAgeMin;
-    private EditText mLandlordAgeMax;
     private BubbleSeekBar mDistanceFromCenter;
     private Button mConfirm;
 
@@ -73,28 +76,30 @@ public class ProfileTenantFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.profile_tenant_fragment, null,false);
+        View v = inflater.inflate(R.layout.tenant_profile_fragment, null,false);
 
 
-        mLandlordNation = v.findViewById(R.id.spinnerNationalityLLtenantfragment);
-        mSmoking = v.findViewById(R.id.spinnerSmoking);
-        mPeriodRenting = v.findViewById(R.id.spinnerPeriodRenting);
-        mLandlordGender = v.findViewById(R.id.spinnerGenderLL);
-        mPetFriendly = v.findViewById(R.id.spinnerPetFriendly);
-        mIsFurnished = v.findViewById(R.id.furnished);
-        mHasInternet = v.findViewById(R.id.internet);
-        mHandicap = v.findViewById(R.id.handicap);
-        mHasLaundry = v.findViewById(R.id.laundry);
-        mDepositMin = v.findViewById(R.id.depositMin);
-        mDepositMax = v.findViewById(R.id.depositMax);
-        mRentMin = v.findViewById(R.id.rentMin);
-        mRentMax = v.findViewById(R.id.rentMax);
-        mLandlordAgeMin = v.findViewById(R.id.ageMinL);
-        mLandlordAgeMax = v.findViewById(R.id.ageMaxL);
-        mDistanceFromCenter = v.findViewById(R.id.radiusCenter);
-        mConfirm = v.findViewById(R.id.confirm);
+        //mLandlordNation = v.findViewById(R.id.spinnerNationalityLLtenantfragment);
+        mSmoking = v.findViewById(R.id.radioGroupSmokeFriendly_tenantProfile);
+        mPeriodRenting = v.findViewById(R.id.spinnerPeriodRenting_tenantProfile);
+        //mLandlordGender = v.findViewById(R.id.spinnerGenderLL);
+        mPetFriendly = v.findViewById(R.id.radioGroupPetFriendly_tenantProfile);
+        mFurnished = v.findViewById(R.id.radioGroupFurnished_tenantProfile);
+        mInternet = v.findViewById(R.id.radioGroupInternet_tenantProfile);
+        mLaundry = v.findViewById(R.id.radioGroupLaundry_tenantProfile);
+        mDepositMin = v.findViewById(R.id.depositMin_tenantProfile);
+        mDepositMax = v.findViewById(R.id.depositMax_tenantProfile);
+        mRentMin = v.findViewById(R.id.rentMin_tenantProfile);
+        mRentMax = v.findViewById(R.id.rentMax_tenantProfile);
+        mDistanceFromCenter = v.findViewById(R.id.radiusCenter_tenantProfile);
+        mConfirm = v.findViewById(R.id.confirmButton_tenantProfile);
+        mSmokingDc =v.findViewById(R.id.rbDCSMoke_tenantProfile);
+        mPetDc = v.findViewById(R.id.rbDCPet_tenantProfile);
+        mLaundryDc = v.findViewById(R.id.rbDCLaundry_tenantProfile);
+        mInternetDc = v.findViewById(R.id.rbDCInternet_tenantProfile);
+        mFurnishedDc = v.findViewById(R.id.rbDCFurnished_tenantProfile);
 
-        mLandlordNation.setAdapter(countryAdapter());
+        //mLandlordNation.setAdapter(countryAdapter());
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -156,6 +161,7 @@ public class ProfileTenantFragment extends Fragment {
 
             }
         });
+
         mConfirm.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -165,31 +171,24 @@ public class ProfileTenantFragment extends Fragment {
                 //checking if deposit and rent are not nulls
                 if (checkNullFields(mDepositMin) & checkNullFields(mDepositMax) &
                         checkNullFields(mRentMin) & checkNullFields(mRentMax)){
-                    //Checking if for landlord age values.
-                    if (mLandlordAgeMin.getText().toString().length()==0)
-                    {
-
-                        mLandlordAgeMin.setText("16");
-                    }
-                    if (Integer.parseInt(mLandlordAgeMin.getText().toString()) < 16)
-                    {
-                        mLandlordAgeMin.setError(getString(R.string.min_age));
-                        mLandlordAgeMin.requestFocus();
-                        mLandlordAgeMin.setText("16");
-                        noError = false;
-                    }
-                    if (mLandlordAgeMax.getText().toString().length()==0)
-                    {
-                        mLandlordAgeMax.setText("120");
-                    }
-                    if (Integer.parseInt(mLandlordAgeMax.getText().toString()) > 120)
-                    {
-                        mLandlordAgeMax.setError(getString(R.string.max_age));
-                        mLandlordAgeMax.requestFocus();
-                        mLandlordAgeMax.setText("120");
-                        noError = false;
+                    if(!String.valueOf(mSmoking.getCheckedRadioButtonId()).equals("Yes") &&
+                            !String.valueOf(mSmoking.getCheckedRadioButtonId()).equals("No") )
+                        mSmokingDc.setChecked(true);
+                    if(!String.valueOf(mPetFriendly.getCheckedRadioButtonId()).equals("Yes") &&
+                            !String.valueOf(mPetFriendly.getCheckedRadioButtonId()).equals("No") )
+                        mPetDc.setChecked(true);
+                    if(!String.valueOf(mInternet.getCheckedRadioButtonId()).equals("Yes") &&
+                            !String.valueOf(mInternet.getCheckedRadioButtonId()).equals("No") )
+                        mInternetDc.setChecked(true);
+                    if(!String.valueOf(mLaundry.getCheckedRadioButtonId()).equals("Yes") &&
+                            !String.valueOf(mLaundry.getCheckedRadioButtonId()).equals("No") )
+                        mLaundryDc.setChecked(true);
+                    if(!String.valueOf(mFurnished.getCheckedRadioButtonId()).equals("Yes") &&
+                            !String.valueOf(mFurnished.getCheckedRadioButtonId()).equals("No") ) {
+                        mFurnishedDc.setChecked(true);
                     }
 
+                    System.out.println("aaaaa"+String.valueOf(mSmoking.getCheckedRadioButtonId()));
                     if (mChoosenCityName == null){
                         Toast.makeText(getActivity(), getString(R.string.choose_city), Toast.LENGTH_LONG).show();
                         noError = false;
@@ -199,21 +198,36 @@ public class ProfileTenantFragment extends Fragment {
                         noError = false;
                     if (minMaxFieldCheck(mDepositMin,mDepositMax))
                         noError = false;
+
                     if (noError){
+
+                        // get selected radio button from radioGroup
+//                        int selectedId = mSmoking.getCheckedRadioButtonId();
+//
+//                        // find the radiobutton by returned id
+//                         RadioButton radioSexButton = (RadioButton) v.findViewById(selectedId);
+//
+//
+//
+//                         Log.d(TAG,radioSexButton.getText().toString());
+//
+//                        RadioButton test = v.findViewById(mSmoking.getCheckedRadioButtonId());
+//                        Log.d(TAG, test.getText().toString());
+
+
                         TenantProfile newInput = new TenantProfile.Builder(userID)
-                                .withLandlordNationallity(String.valueOf(mLandlordNation.getSelectedItem()))
-                                .isSmokingFriendly(String.valueOf(mSmoking.getSelectedItem()))
+                                //.withLandlordNationallity(String.valueOf(mLandlordNation.getSelectedItem()))
+                               .isSmokingFriendly(String.valueOf(mSmoking.getCheckedRadioButtonId()))
                                 .withCity(mChoosenCityId, mChoosenCityName, mCityLatitude, mCityLongitude)
                                 .withRentingPeriod(mPeriodRenting.getSelectedItemPosition())
-                                .withLandlordGender(("Female".equals(String.valueOf(mLandlordGender.getSelectedItem()))) ? 'F' : 'M')
-                                .isPetFriendly(String.valueOf(mPetFriendly.getSelectedItem()))
-                                .isFurnished(mIsFurnished.isChecked())
-                                .hasInternet(mHasInternet.isChecked())
-                                .isHandicapFriendly(mHandicap.isChecked())
-                                .hasLaundry(mHasLaundry.isChecked())
+                               // .withLandlordGender(("Female".equals(String.valueOf(mLandlordGender.getSelectedItem()))) ? 'F' : 'M')
+                                .isPetFriendly(String.valueOf(mPetFriendly.getCheckedRadioButtonId()))
+                                .isFurnished(String.valueOf(mFurnished.getCheckedRadioButtonId()))
+                                .hasInternet(String.valueOf(mInternet.getCheckedRadioButtonId()))
+                                .hasLaundry(String.valueOf(mLaundry.getCheckedRadioButtonId()))
                                 .withDepositRange(Integer.parseInt(mDepositMin.getText().toString()), Integer.parseInt(mDepositMax.getText().toString()))
                                 .withRentRange(Integer.parseInt(mRentMin.getText().toString()), Integer.parseInt(mRentMax.getText().toString()))
-                                .withLandlordAgeRange(Integer.parseInt(mLandlordAgeMin.getText().toString()), Integer.parseInt(mLandlordAgeMax.getText().toString()))
+                                //.withLandlordAgeRange(Integer.parseInt(mLandlordAgeMin.getText().toString()), Integer.parseInt(mLandlordAgeMax.getText().toString()))
                                 .distanceFromCenter(mDistanceFromCenterValue)
                                 .build();
 
