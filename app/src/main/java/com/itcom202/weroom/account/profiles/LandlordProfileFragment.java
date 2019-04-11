@@ -31,8 +31,8 @@ import java.util.Locale;
 public class LandlordProfileFragment extends SingleFragment {
 
     private Spinner mTenantNation;
-    private EditText mTenantMinAge;
-    private EditText mTenantMaxAge;
+//    private EditText mTenantMinAge;
+//    private EditText mTenantMaxAge;
     private Spinner mTenantGender;
     private Spinner mTenantOccupation;
     private RadioGroup mSocialGroup;
@@ -50,8 +50,8 @@ public class LandlordProfileFragment extends SingleFragment {
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mTenantNation = v.findViewById(R.id.spinnerNationalityLLlandlordfragment);
-        mTenantMinAge = v.findViewById(R.id.ageMinT);
-        mTenantMaxAge = v.findViewById(R.id.ageMaxT);
+//        mTenantMinAge = v.findViewById(R.id.ageMinT);
+//        mTenantMaxAge = v.findViewById(R.id.ageMaxT);
         mTenantGender = v.findViewById(R.id.spinnerGenderLL);
         mTenantOccupation = v.findViewById(R.id.occupation);
         mSocialGroup = v.findViewById(R.id.socialgroup);
@@ -99,29 +99,29 @@ public class LandlordProfileFragment extends SingleFragment {
                 String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                 boolean noError = true;
-                if (mTenantMinAge.getText().toString().length()==0)
-                {
-
-                    mTenantMinAge.setText("16");
-                }
-                if (Integer.parseInt(mTenantMinAge.getText().toString()) < 16)
-                {
-                    mTenantMinAge.setError(getString(R.string.min_age));
-                    mTenantMinAge.requestFocus();
-                    mTenantMinAge.setText("16");
-                    noError = false;
-                }
-                if (mTenantMaxAge.getText().toString().length()==0)
-                {
-                    mTenantMaxAge.setText("120");
-                }
-                if (Integer.parseInt(mTenantMaxAge.getText().toString()) > 120)
-                {
-                    mTenantMaxAge.setError(getString(R.string.max_age));
-                    mTenantMaxAge.requestFocus();
-                    mTenantMaxAge.setText("120");
-                    noError = false;
-                }
+//                if (mTenantMinAge.getText().toString().length()==0)
+//                {
+//
+//                    mTenantMinAge.setText("16");
+//                }
+//                if (Integer.parseInt(mTenantMinAge.getText().toString()) < 16)
+//                {
+//                    mTenantMinAge.setError(getString(R.string.min_age));
+//                    mTenantMinAge.requestFocus();
+//                    mTenantMinAge.setText("16");
+//                    noError = false;
+//                }
+//                if (mTenantMaxAge.getText().toString().length()==0)
+//                {
+//                    mTenantMaxAge.setText("120");
+//                }
+//                if (Integer.parseInt(mTenantMaxAge.getText().toString()) > 120)
+//                {
+//                    mTenantMaxAge.setError(getString(R.string.max_age));
+//                    mTenantMaxAge.requestFocus();
+//                    mTenantMaxAge.setText("120");
+//                    noError = false;
+//                }
 
 
                 if (noError){

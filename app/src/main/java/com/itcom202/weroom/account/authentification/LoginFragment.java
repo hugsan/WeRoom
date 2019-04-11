@@ -44,6 +44,8 @@ public class LoginFragment extends SingleFragment {
 
     GoogleApiClient mGoogleApiClient;
 
+    //FIXME: Writing in the EditText is white on white background
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

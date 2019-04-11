@@ -96,6 +96,8 @@ public class RoomCreationFragment extends SingleFragment {
         mLaundry = v.findViewById(R.id.checkBoxLaundry);
         mConfirmRoom = v.findViewById(R.id.postRoomButton);
         mProfilePhoto = v.findViewById(R.id.picturepreview);
+
+        //FIXME: the textView is saying 'describe with tags' but the editText is expecting a normal String input
         mRoomDescription = v.findViewById(R.id.descriptionField);
 
         final MapFragment mapFragment = new MapFragment();
@@ -145,6 +147,7 @@ public class RoomCreationFragment extends SingleFragment {
             public void onClick(View v) {
                 //FIXME change 1 to create room 1, 2 or 3 for the users.
 
+                startActivity(SwipeActivity.newIntent(getActivity()));
 
 
                 //TODO missing to verify all the entries before creating the RoomPosted and pushing it to firebase
