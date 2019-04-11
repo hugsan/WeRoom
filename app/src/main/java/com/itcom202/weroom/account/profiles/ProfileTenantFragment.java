@@ -1,7 +1,6 @@
 package com.itcom202.weroom.account.profiles;
 
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -66,8 +64,8 @@ public class ProfileTenantFragment extends Fragment {
 
     private int mDistanceFromCenterValue;
 
-    private String mChoosenCityName;
-    private String mChoosenCityId;
+    private String mChosenCityName;
+    private String mChosenCityId;
     private double mCityLatitude;
     private double mCityLongitude;
 
@@ -80,10 +78,8 @@ public class ProfileTenantFragment extends Fragment {
         View v = inflater.inflate(R.layout.tenant_profile_fragment, null,false);
 
 
-        //mLandlordNation = v.findViewById(R.id.spinnerNationalityLLtenantfragment);
         mSmoking = v.findViewById(R.id.radioGroupSmokeFriendly_tenantProfile);
         mPeriodRenting = v.findViewById(R.id.spinnerPeriodRenting_tenantProfile);
-        //mLandlordGender = v.findViewById(R.id.spinnerGenderLL);
         mPetFriendly = v.findViewById(R.id.radioGroupPetFriendly_tenantProfile);
         mFurnished = v.findViewById(R.id.radioGroupFurnished_tenantProfile);
         mInternet = v.findViewById(R.id.radioGroupInternet_tenantProfile);
@@ -100,7 +96,7 @@ public class ProfileTenantFragment extends Fragment {
         mInternetDc = v.findViewById(R.id.rbDCInternet_tenantProfile);
         mFurnishedDc = v.findViewById(R.id.rbDCFurnished_tenantProfile);
 
-        //mLandlordNation.setAdapter(countryAdapter());
+
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -129,8 +125,8 @@ public class ProfileTenantFragment extends Fragment {
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getLatLng());
 
 
-                mChoosenCityName = place.getName();
-                mChoosenCityId = place.getId();
+                mChosenCityName = place.getName();
+                mChosenCityId = place.getId();
                 mCityLongitude = place.getLatLng().longitude;
                 mCityLatitude = place.getLatLng().latitude;
 
@@ -189,8 +185,7 @@ public class ProfileTenantFragment extends Fragment {
                         mFurnishedDc.setChecked(true);
                     }
 
-                    System.out.println("aaaaa"+String.valueOf(mSmoking.getCheckedRadioButtonId()));
-                    if (mChoosenCityName == null){
+                    if (mChosenCityName == null){
                         Toast.makeText(getActivity(), getString(R.string.choose_city), Toast.LENGTH_LONG).show();
                         noError = false;
                     }
@@ -217,18 +212,15 @@ public class ProfileTenantFragment extends Fragment {
 
 
                         TenantProfile newInput = new TenantProfile.Builder(userID)
-                                //.withLandlordNationallity(String.valueOf(mLandlordNation.getSelectedItem()))
                                .isSmokingFriendly(String.valueOf(mSmoking.getCheckedRadioButtonId()))
-                                .withCity(mChoosenCityId, mChoosenCityName, mCityLatitude, mCityLongitude)
+                                .withCity(mChosenCityId, mChosenCityName, mCityLatitude, mCityLongitude)
                                 .withRentingPeriod(mPeriodRenting.getSelectedItemPosition())
-                               // .withLandlordGender(("Female".equals(String.valueOf(mLandlordGender.getSelectedItem()))) ? 'F' : 'M')
                                 .isPetFriendly(String.valueOf(mPetFriendly.getCheckedRadioButtonId()))
                                 .isFurnished(String.valueOf(mFurnished.getCheckedRadioButtonId()))
                                 .hasInternet(String.valueOf(mInternet.getCheckedRadioButtonId()))
                                 .hasLaundry(String.valueOf(mLaundry.getCheckedRadioButtonId()))
                                 .withDepositRange(Integer.parseInt(mDepositMin.getText().toString()), Integer.parseInt(mDepositMax.getText().toString()))
                                 .withRentRange(Integer.parseInt(mRentMin.getText().toString()), Integer.parseInt(mRentMax.getText().toString()))
-                                //.withLandlordAgeRange(Integer.parseInt(mLandlordAgeMin.getText().toString()), Integer.parseInt(mLandlordAgeMax.getText().toString()))
                                 .distanceFromCenter(mDistanceFromCenterValue)
                                 .build();
 
@@ -250,27 +242,27 @@ public class ProfileTenantFragment extends Fragment {
 
         return v;
     }
-    private SpinnerAdapter countryAdapter(){
-
-        String[] locales = Locale.getISOCountries();
-        List<String> countries = new ArrayList<>();
-        countries.add(getString(R.string.prompt_country));
-
-
-
-        for (String countryCode : locales) {
-
-            Locale obj = new Locale("", countryCode);
-
-            countries.add(obj.getDisplayCountry());
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, countries);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-
-        return adapter;
-    }
+//    private SpinnerAdapter countryAdapter(){
+//
+//        String[] locales = Locale.getISOCountries();
+//        List<String> countries = new ArrayList<>();
+//        countries.add(getString(R.string.prompt_country));
+//
+//
+//
+//        for (String countryCode : locales) {
+//
+//            Locale obj = new Locale("", countryCode);
+//
+//            countries.add(obj.getDisplayCountry());
+//        }
+//
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, countries);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//
+//        return adapter;
+//    }
     private boolean checkNullFields(EditText tv){
             if (tv.getText().toString().equals("")){
                 tv.setError(getString(R.string.requiered_field));

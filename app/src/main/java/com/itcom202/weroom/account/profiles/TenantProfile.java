@@ -7,24 +7,18 @@ public class TenantProfile {
     public static final int THREE_TO_SIX_MONTH = 1;
     public static final int SIX_TO_TWELVE_MONTH = 2;
     public static final int OVER_TWELVE_MONTH = 3;
-    public static final char FEMALE = 'F';
-    public static final char MALE = 'M';
     public static final String YES = "Yes";
     public static final String NO = "No";
     public static final String I_DONT_CARE = "Does not matter";
 
     public static class Builder{
         private String sUserUid;
-        private String sNationality;
         private int sDistanceCenter;
         private int sPeriodOfRent;
         private int sMinDeposit;
         private int sMaxDeposit;
         private int sMinRent;
         private int sMaxRent;
-        private int sMinLandlordAge;
-        private int sMaxLandlordAge;
-        private String sLandlordGender;
         private String sChosenCityName;
         private String sChosenCityID;
         private double sLatitudeCity;
@@ -37,11 +31,6 @@ public class TenantProfile {
 
         public Builder (String userUid){
             this.sUserUid = userUid;
-        }
-        public Builder withLandlordNationallity(String nation){
-            sNationality = nation;
-
-            return this;
         }
         public Builder distanceFromCenter(int distance){
             if (distance < 0 || distance > 50)
@@ -71,18 +60,7 @@ public class TenantProfile {
             sMaxRent = max;
             return this;
         }
-        public Builder withLandlordAgeRange(int min, int max){
-            if (min > max || min <= 15){
-                throw new InputMismatchException("Wrong landlord age range");
-            }
-            sMinLandlordAge = min;
-            sMaxLandlordAge = max;
-            return this;
-        }
-        public Builder withLandlordGender(char gender){
-            sLandlordGender = String.valueOf(gender);
-            return this;
-        }
+
         public Builder withCity(String id, String name, double latitude, double longitude){
             sChosenCityID = id;
             sChosenCityName = name;
@@ -124,45 +102,36 @@ public class TenantProfile {
         public TenantProfile build(){
             TenantProfile t = new TenantProfile();
             t.mUserUid = this.sUserUid;
-            t.mNationallity = this.sNationality;
             t.mDistanceCenter = this.sDistanceCenter;
             t.mPeriodOfRent = this.sPeriodOfRent;
             t.mMinDeposit = this.sMinDeposit;
             t.mMAxDeposit = this.sMaxDeposit;
             t.mMinRent = this.sMinRent;
             t.mMaxRent = this.sMaxRent;
-            t.mMinLandlordAge = this.sMinLandlordAge;
-            t.mMaxLandlordAge = this.sMaxLandlordAge;
-            t.mLandlordGender = this.sLandlordGender;
             t.mFurnished = this.sFurnished;
             t.mInternet = this.sInternet;
             t.mLaundry = this.sLaundry;
             t.mPetFriendly = this.sPetFriendly;
             t.mSmokeFriendly = this.sSmokeFriendly;
-            t.mChoosenCityname = this.sChosenCityName;
-            t.mChoosenCityId = this.sChosenCityID;
+            t.mChosenCityname = this.sChosenCityName;
+            t.mChosenCityId = this.sChosenCityID;
             t.mCityLatitude = this.sLatitudeCity;
             t.mCityLongitude = this.sLongitudeCity;
             return t;
         }
     }
     private String mUserUid;
-    private String mNationallity;
     private int mDistanceCenter;
     private int mPeriodOfRent;
     private int mMinDeposit;
     private int mMAxDeposit;
     private int mMinRent;
     private int mMaxRent;
-    private int mMinLandlordAge;
-    private int mMaxLandlordAge;
-    private String mLandlordGender;
-    private String mChoosenCityname;
-    private String mChoosenCityId;
+    private String mChosenCityname;
+    private String mChosenCityId;
     private double mCityLatitude;
     private double mCityLongitude;
     private String mFurnished;
-    private String mHandicap;
     private String mInternet;
     private String mLaundry;
     private String mPetFriendly;
@@ -180,14 +149,6 @@ public class TenantProfile {
 
     public void setUserUid(String userUid) {
         mUserUid = userUid;
-    }
-
-    public String getNationallity() {
-        return mNationallity;
-    }
-
-    public void setNationallity(String nationallity) {
-        mNationallity = nationallity;
     }
 
     public int getDistanceCenter() {
@@ -238,30 +199,6 @@ public class TenantProfile {
         mMaxRent = maxRent;
     }
 
-    public int getMinLandlordAge() {
-        return mMinLandlordAge;
-    }
-
-    public void setMinLandlordAge(int minLandlordAge) {
-        mMinLandlordAge = minLandlordAge;
-    }
-
-    public int getMaxLandlordAge() {
-        return mMaxLandlordAge;
-    }
-
-    public void setMaxLandlordAge(int maxLandlordAge) {
-        mMaxLandlordAge = maxLandlordAge;
-    }
-
-    public String getLandlordGender() {
-        return mLandlordGender;
-    }
-
-    public void setLandlordGender(String landlordGender) {
-        mLandlordGender = landlordGender;
-    }
-
     public String getmFurnished() {
         return mFurnished;
     }
@@ -302,19 +239,19 @@ public class TenantProfile {
         mSmokeFriendly = smokeFriendly;
     }
     public String getChoosenCityname() {
-        return mChoosenCityname;
+        return mChosenCityname;
     }
 
     public void setChoosenCityname(String choosenCityname) {
-        mChoosenCityname = choosenCityname;
+        mChosenCityname = choosenCityname;
     }
 
     public String getChoosenCityId() {
-        return mChoosenCityId;
+        return mChosenCityId;
     }
 
     public void setChoosenCityId(String choosenCityId) {
-        mChoosenCityId = choosenCityId;
+        mChosenCityId = choosenCityId;
     }
 
     public double getCityLatitude() {
