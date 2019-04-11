@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -14,12 +17,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/profilePhoto"
-                android:layout_width="166dp"
-                android:layout_height="156dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="120dp"
                 android:layout_marginTop="50dp"
                 android:layout_marginEnd="120dp"
@@ -58,29 +61,31 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="50dp"
                 android:layout_weight="1"
-                android:background="@layout/rounded_border_edittext"
+                android:background="@drawable/custom_rounded_edittext"
                 android:cursorVisible="true"
                 android:ems="10"
                 android:hint="@string/hint_name"
                 android:inputType="textPersonName"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/quantum_grey" />
 
             <EditText
                 android:id="@+id/age"
                 android:layout_width="311dp"
-                android:layout_height="50dp"
-
+                android:layout_height="35dp"
                 android:layout_marginStart="50dp"
-
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
-                android:background="@layout/rounded_border_edittext"
+                android:background="@drawable/custom_rounded_edittext"
                 android:ems="10"
                 android:hint="@string/hint_age"
                 android:inputType="phone"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:textColor="@color/black"
+                android:textColorHint="@color/quantum_grey"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.91"
@@ -89,26 +94,13 @@
                 app:layout_constraintVertical_bias="0.274" />
 
             <Spinner
-                android:id="@+id/spinnerGender"
-                android:layout_width="311dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="50dp"
-                android:background="@color/quantum_grey400"
-                android:entries="@array/gender_array"
-                android:popupBackground="@color/quantum_grey400" />
-
-            <Spinner
                 android:id="@+id/spinnerCountry"
                 android:layout_width="311dp"
                 android:layout_height="40dp"
-
                 android:layout_marginStart="50dp"
-
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
-                android:background="@color/quantum_grey400"
+                android:background="@drawable/custom_spinners"
                 android:popupBackground="@color/quantum_grey400"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -118,6 +110,17 @@
                 app:layout_constraintVertical_bias="0.444" />
 
             <Spinner
+                android:id="@+id/spinnerGender"
+                android:layout_width="311dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                android:background="@drawable/custom_spinners"
+                android:entries="@array/gender_array"
+                android:popupBackground="@color/quantum_grey400" />
+
+            <Spinner
                 android:id="@+id/spinnerRole"
                 android:layout_width="311dp"
                 android:layout_height="40dp"
@@ -125,7 +128,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:layout_weight="1"
-                android:background="@color/quantum_grey400"
+                android:background="@drawable/custom_spinners"
                 android:entries="@array/role_array"
                 android:popupBackground="@color/quantum_grey400" />
 
@@ -151,13 +154,13 @@
 
             <Button
                 android:id="@+id/createprofile"
-                android:layout_width="269dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="80dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="80dp"
                 android:layout_marginBottom="20dp"
-                android:background="#FF5A60"
+                android:background="@drawable/drawable_custom_button"
                 android:text="@string/create_profile"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -171,7 +174,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
                 android:background="#CCFF5A60" />
+
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>
