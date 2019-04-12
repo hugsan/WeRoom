@@ -21,6 +21,7 @@
     <string name="same_passw">The two passwords have to be the same.</string>
     <string name="signed_in">Sing in successful: </string>
     <string name="google_fail">Google sign in failed!</string>
+    <string name="create_acc">Create Account</string>
 
 
     <!-- Strings related to login -->
