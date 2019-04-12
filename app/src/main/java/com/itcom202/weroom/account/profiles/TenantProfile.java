@@ -3,10 +3,10 @@ package com.itcom202.weroom.account.profiles;
 import java.util.InputMismatchException;
 
 public class TenantProfile {
-    public static final int LESS_THAN_THREE_MONTH = 0;
-    public static final int THREE_TO_SIX_MONTH = 1;
-    public static final int SIX_TO_TWELVE_MONTH = 2;
-    public static final int OVER_TWELVE_MONTH = 3;
+    public static final int LESS_THAN_THREE_MONTH = 1;
+    public static final int THREE_TO_SIX_MONTH = 2;
+    public static final int SIX_TO_TWELVE_MONTH = 3;
+    public static final int OVER_TWELVE_MONTH = 4;
     public static final String YES = "Yes";
     public static final String NO = "No";
     public static final String I_DONT_CARE = "Does not matter";
@@ -69,33 +69,33 @@ public class TenantProfile {
             return this;
         }
         public Builder isFurnished(String f){
-//            if (!f.equals(YES) && !f.equals(NO)&& !f.equals(I_DONT_CARE) )
-//                throw new InputMismatchException("Wrong answer - furnished");
+            if (!f.equals(YES) && !f.equals(NO)&& !f.equals(I_DONT_CARE) )
+                throw new InputMismatchException("Wrong answer - furnished");
             sFurnished = f;
             return this;
         }
 
         public Builder hasInternet(String i){
-//            if (!i.equals(YES) && !i.equals(NO)&& !i.equals(I_DONT_CARE) )
-//                throw new InputMismatchException("Wrong answer - internet");
+            if (!i.equals(YES) && !i.equals(NO)&& !i.equals(I_DONT_CARE) )
+                throw new InputMismatchException("Wrong answer - internet");
             sInternet = i;
             return this;
         }
         public Builder hasLaundry(String l){
-//            if (!l.equals(YES) && !l.equals(NO)&& !l.equals(I_DONT_CARE) )
-//                throw new InputMismatchException("Wrong answer - laundry");
+            if (!l.equals(YES) && !l.equals(NO)&& !l.equals(I_DONT_CARE) )
+                throw new InputMismatchException("Wrong answer - laundry");
             sLaundry = l;
             return this;
         }
         public Builder isPetFriendly(String p){
-//            if (!p.equals(YES) && !p.equals(NO) && !p.equals(I_DONT_CARE))
-//                throw new InputMismatchException("Wrong answer - pet friendly");
+            if (!p.equals(YES) && !p.equals(NO) && !p.equals(I_DONT_CARE))
+                throw new InputMismatchException("Wrong answer - pet friendly");
             sPetFriendly = p;
             return this;
         }
         public Builder isSmokingFriendly(String s){
-//            if (!s.equals(YES) && !s.equals(NO)&& !s.equals(I_DONT_CARE) )
-//                throw new InputMismatchException("Wrong answer - smoking friendly");
+            if (!s.equals(YES) && !s.equals(NO)&& !s.equals(I_DONT_CARE) )
+                throw new InputMismatchException("Wrong answer - smoking friendly");
             sSmokeFriendly = s;
             return this;
         }

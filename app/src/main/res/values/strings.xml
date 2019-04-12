@@ -50,7 +50,7 @@
     <string name="prompt_gender">Select a Gender</string>
     <string name="prompt_country">Select a Country</string>
     <string-array name="gender_array">
-        <item>Choose One</item>
+        <item>Select your gender</item>
         <item>Female</item>
         <item>Male</item>
     </string-array>
@@ -104,7 +104,7 @@
     <string name="max">Max.</string>
     <string name="choose_city">Choose a city where you want to live</string>
     <string-array name="rending_period_array">
-        <item>Choose One </item>
+        <item>Select period of renting</item>
         <item>0 – 3 Months </item>
         <item>3 – 6 Months </item>
         <item>6 – 12 Months </item>

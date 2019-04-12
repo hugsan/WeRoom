@@ -1,5 +1,6 @@
 package com.itcom202.weroom.account.profiles;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
@@ -46,15 +48,10 @@ public class ProfileTenantFragment extends Fragment {
 
     private Spinner mPeriodRenting;
     private RadioGroup mSmoking;
-    private RadioButton mSmokingDc;
     private RadioGroup mPetFriendly;
-    private RadioButton mPetDc;
     private RadioGroup mFurnished;
-    private RadioButton mFurnishedDc;
     private RadioGroup mInternet;
-    private  RadioButton mInternetDc;
     private RadioGroup mLaundry;
-    private RadioButton mLaundryDc;
     private EditText mDepositMin;
     private EditText mDepositMax;
     private EditText mRentMin;
@@ -68,6 +65,12 @@ public class ProfileTenantFragment extends Fragment {
     private String mChosenCityId;
     private double mCityLatitude;
     private double mCityLongitude;
+
+    private String smoke=null;
+    private String pet=null;
+    private String furnish=null;
+    private String laundry=null;
+    private String intenet=null;
 
     private DatabaseReference mDatabaseReference;
 
@@ -90,12 +93,6 @@ public class ProfileTenantFragment extends Fragment {
         mRentMax = v.findViewById(R.id.rentMax_tenantProfile);
         mDistanceFromCenter = v.findViewById(R.id.radiusCenter_tenantProfile);
         mConfirm = v.findViewById(R.id.confirmButton_tenantProfile);
-        mSmokingDc =v.findViewById(R.id.rbDCSMoke_tenantProfile);
-        mPetDc = v.findViewById(R.id.rbDCPet_tenantProfile);
-        mLaundryDc = v.findViewById(R.id.rbDCLaundry_tenantProfile);
-        mInternetDc = v.findViewById(R.id.rbDCInternet_tenantProfile);
-        mFurnishedDc = v.findViewById(R.id.rbDCFurnished_tenantProfile);
-
 
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
@@ -168,23 +165,6 @@ public class ProfileTenantFragment extends Fragment {
                 //checking if deposit and rent are not nulls
                 if (checkNullFields(mDepositMin) & checkNullFields(mDepositMax) &
                         checkNullFields(mRentMin) & checkNullFields(mRentMax)){
-                    if(!String.valueOf(mSmoking.getCheckedRadioButtonId()).equals("Yes") &&
-                            !String.valueOf(mSmoking.getCheckedRadioButtonId()).equals("No") )
-                        mSmokingDc.setChecked(true);
-                    if(!String.valueOf(mPetFriendly.getCheckedRadioButtonId()).equals("Yes") &&
-                            !String.valueOf(mPetFriendly.getCheckedRadioButtonId()).equals("No") )
-                        mPetDc.setChecked(true);
-                    if(!String.valueOf(mInternet.getCheckedRadioButtonId()).equals("Yes") &&
-                            !String.valueOf(mInternet.getCheckedRadioButtonId()).equals("No") )
-                        mInternetDc.setChecked(true);
-                    if(!String.valueOf(mLaundry.getCheckedRadioButtonId()).equals("Yes") &&
-                            !String.valueOf(mLaundry.getCheckedRadioButtonId()).equals("No") )
-                        mLaundryDc.setChecked(true);
-                    if(!String.valueOf(mFurnished.getCheckedRadioButtonId()).equals("Yes") &&
-                            !String.valueOf(mFurnished.getCheckedRadioButtonId()).equals("No") ) {
-                        mFurnishedDc.setChecked(true);
-                    }
-
                     if (mChosenCityName == null){
                         Toast.makeText(getActivity(), getString(R.string.choose_city), Toast.LENGTH_LONG).show();
                         noError = false;
@@ -194,31 +174,54 @@ public class ProfileTenantFragment extends Fragment {
                         noError = false;
                     if (minMaxFieldCheck(mDepositMin,mDepositMax))
                         noError = false;
+                    if(mPeriodRenting.getSelectedItemPosition()==0){
+                        noError=false;
+                        TextView errorText = (TextView) mPeriodRenting.getSelectedView();
+                        errorText.setError("");
+                        errorText.setTextColor(Color.RED);
+                        errorText.setText(R.string.choose_period);
+                    }
+                    if(String.valueOf(mSmoking.getCheckedRadioButtonId()).equals("2131296538"))
+                        smoke="Yes";
+                    else if(String.valueOf(mSmoking.getCheckedRadioButtonId()).equals("2131296533"))
+                        smoke="No";
+                    else smoke="Does not matter";
+
+                    if(String.valueOf(mPetFriendly.getCheckedRadioButtonId()).equals("2131296537"))
+                        pet="Yes";
+                    else if(String.valueOf(mPetFriendly.getCheckedRadioButtonId()).equals("2131296532"))
+                        pet="No";
+                    else pet="Does not matter";
+
+                    if(String.valueOf(mFurnished.getCheckedRadioButtonId()).equals("2131296534"))
+                        furnish="Yes";
+                    else if(String.valueOf(mFurnished.getCheckedRadioButtonId()).equals("2131296529"))
+                        furnish="No";
+                    else furnish="Does not matter";
+
+                    if(String.valueOf(mLaundry.getCheckedRadioButtonId()).equals("2131296536"))
+                        laundry="Yes";
+                    else if(String.valueOf(mLaundry.getCheckedRadioButtonId()).equals("2131296531"))
+                        laundry="No";
+                    else laundry="Does not matter";
+
+                    if(String.valueOf(mInternet.getCheckedRadioButtonId()).equals("2131296535"))
+                        intenet="Yes";
+                    else if(String.valueOf(mLaundry.getCheckedRadioButtonId()).equals("2131296530"))
+                        intenet="No";
+                    else intenet="Does not matter";
+
 
                     if (noError){
 
-                        // get selected radio button from radioGroup
-//                        int selectedId = mSmoking.getCheckedRadioButtonId();
-//
-//                        // find the radiobutton by returned id
-//                         RadioButton radioSexButton = (RadioButton) v.findViewById(selectedId);
-//
-//
-//
-//                         Log.d(TAG,radioSexButton.getText().toString());
-//
-//                        RadioButton test = v.findViewById(mSmoking.getCheckedRadioButtonId());
-//                        Log.d(TAG, test.getText().toString());
-
-
-                        TenantProfile newInput = new TenantProfile.Builder(userID)
-                               .isSmokingFriendly(String.valueOf(mSmoking.getCheckedRadioButtonId()))
+                         TenantProfile newInput = new TenantProfile.Builder(userID)
+                               .isSmokingFriendly(smoke)
                                 .withCity(mChosenCityId, mChosenCityName, mCityLatitude, mCityLongitude)
                                 .withRentingPeriod(mPeriodRenting.getSelectedItemPosition())
-                                .isPetFriendly(String.valueOf(mPetFriendly.getCheckedRadioButtonId()))
-                                .isFurnished(String.valueOf(mFurnished.getCheckedRadioButtonId()))
-                                .hasInternet(String.valueOf(mInternet.getCheckedRadioButtonId()))
-                                .hasLaundry(String.valueOf(mLaundry.getCheckedRadioButtonId()))
+                                .isPetFriendly(pet)
+                                .isFurnished(furnish)
+                                .hasInternet(intenet)
+                                .hasLaundry(laundry)
                                 .withDepositRange(Integer.parseInt(mDepositMin.getText().toString()), Integer.parseInt(mDepositMax.getText().toString()))
                                 .withRentRange(Integer.parseInt(mRentMin.getText().toString()), Integer.parseInt(mRentMax.getText().toString()))
                                 .distanceFromCenter(mDistanceFromCenterValue)
@@ -270,8 +273,8 @@ public class ProfileTenantFragment extends Fragment {
                 return false;
             }
             return true;
-
     }
+
     private boolean minMaxFieldCheck(EditText min, EditText max){
         if (Integer.parseInt((min.getText().toString())) > Integer.parseInt(max.getText().toString())){
             min.setError(getString(R.string.wrong_min));

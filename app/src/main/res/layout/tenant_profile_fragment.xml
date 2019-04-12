@@ -241,7 +241,8 @@
                         android:layout_marginEnd="5dp"
                         android:layout_weight="1"
                         android:text="@string/yes"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        app:buttonTint="#FF5A60"/>
 
                     <RadioButton
                         android:id="@+id/rbNoPet_tenantProfile"
@@ -250,7 +251,8 @@
                         android:layout_marginTop="30dp"
                         android:layout_weight="1"
                         android:text="@string/no"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        app:buttonTint="#FF5A60"/>
 
                     <RadioButton
                         android:id="@+id/rbDCPet_tenantProfile"
@@ -262,7 +264,9 @@
                         android:layout_weight="1"
                         android:text="@string/don_t_care"
                         android:textColor="@color/black"
-                        android:checked="true" />
+                        android:checked="true"
+                        app:buttonTint="#FF5A60"
+                         />
 
                 </RadioGroup>
             </LinearLayout>
@@ -298,6 +302,7 @@
                         android:layout_weight="1"
                         android:text="@string/yes"
                         android:textColor="@color/black"
+                        app:buttonTint="#FF5A60"
                          />
 
                     <RadioButton
@@ -307,7 +312,8 @@
                         android:layout_marginTop="30dp"
                         android:layout_weight="1"
                         android:text="@string/no"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        app:buttonTint="#FF5A60"/>
 
                     <RadioButton
                         android:id="@+id/rbDCSMoke_tenantProfile"
@@ -319,7 +325,9 @@
                         android:layout_weight="1"
                         android:text="@string/don_t_care"
                         android:textColor="@color/black"
-                        android:checked="true" />
+                        android:checked="true"
+                        app:buttonTint="#FF5A60"
+                         />
                 </RadioGroup>
             </LinearLayout>
 
@@ -356,7 +364,8 @@
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
                 android:text="@string/yes"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                app:buttonTint="#FF5A60"/>
 
             <RadioButton
                 android:id="@+id/rbNoFurnished_tenantProfile"
@@ -365,7 +374,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_weight="1"
                 android:text="@string/no"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                app:buttonTint="#FF5A60"/>
 
             <RadioButton
                 android:id="@+id/rbDCFurnished_tenantProfile"
@@ -377,7 +387,9 @@
                 android:layout_weight="1"
                 android:text="@string/don_t_care"
                 android:textColor="@color/black"
-                android:checked="true" />
+                android:checked="true"
+                app:buttonTint="#FF5A60"
+                 />
 
         </RadioGroup>
 
@@ -412,7 +424,8 @@
                         android:layout_marginEnd="5dp"
                         android:layout_weight="1"
                         android:text="@string/yes"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        app:buttonTint="#FF5A60"/>
 
                     <RadioButton
                         android:id="@+id/rbNoInternet_tenantProfile"
@@ -421,7 +434,8 @@
                         android:layout_marginTop="30dp"
                         android:layout_weight="1"
                         android:text="@string/no"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        app:buttonTint="#FF5A60"/>
 
                     <RadioButton
                         android:id="@+id/rbDCInternet_tenantProfile"
@@ -433,7 +447,9 @@
                         android:layout_weight="1"
                         android:text="@string/don_t_care"
                         android:textColor="@color/black"
-                        android:checked="true" />
+                        android:checked="true"
+                        app:buttonTint="#FF5A60"
+                        />
 
                 </RadioGroup>
             </LinearLayout>
@@ -467,7 +483,8 @@
                         android:layout_marginEnd="5dp"
                         android:layout_weight="1"
                         android:text="@string/yes"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        app:buttonTint="#FF5A60"/>
 
                     <RadioButton
                         android:id="@+id/rbNoLaundry_tenantProfile"
@@ -476,7 +493,8 @@
                         android:layout_marginTop="30dp"
                         android:layout_weight="1"
                         android:text="@string/no"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        app:buttonTint="#FF5A60"/>
 
                     <RadioButton
                         android:id="@+id/rbDCLaundry_tenantProfile"
@@ -488,7 +506,9 @@
                         android:layout_weight="1"
                         android:text="@string/don_t_care"
                         android:textColor="@color/black"
-                        android:checked="true" />
+                        android:checked="true"
+                        app:buttonTint="#FF5A60"
+                         />
 
                 </RadioGroup>
             </LinearLayout>
