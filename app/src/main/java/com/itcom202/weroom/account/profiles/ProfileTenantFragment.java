@@ -59,6 +59,10 @@ public class ProfileTenantFragment extends Fragment {
     private BubbleSeekBar mDistanceFromCenter;
     private Button mConfirm;
 
+    //FIXME: when there is a toast in the screen, all the selected radioButtons go to default
+    //if there is an error and consequently a setFocus() the selected radio buttons are not being changed
+    //FIXME: needs to be done to fit every screen
+
     private int mDistanceFromCenterValue;
 
     private String mChosenCityName;

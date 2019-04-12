@@ -7,16 +7,31 @@ import android.view.ViewGroup;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.itcom202.weroom.R;
+
+
+
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
+
+
+
+
+
+
 public class ListAdapter extends RecyclerView.Adapter<ListItem> {
-  private List<Integer> items = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
-  FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
-  FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+  //FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+  //FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
+ // private DatabaseReference mDatabaseReference;
+
+  private List<Integer> items = new ArrayList<>(Arrays.asList(0,1,2,3,4,5,6,7,8,9));
 
   @NonNull
   @Override
@@ -26,8 +41,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListItem> {
 
   @Override
   public void onBindViewHolder(@NonNull ListItem holder, int position) {
-//    holder.bind(items.get(position).intValue());
-    //  holder.bind();
+         holder.bind(items.get(position).intValue());
+     //   holder.bind(Integer.parseInt(mFirebaseUser.getEmail()));
   }
 
   @Override

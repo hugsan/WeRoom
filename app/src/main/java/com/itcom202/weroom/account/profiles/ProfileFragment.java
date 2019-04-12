@@ -101,7 +101,7 @@ public class ProfileFragment extends SingleFragment {
         mTag.setTagList(tagList);
 
 
-
+        //FIXME: color of text is white on white background
 
         mCountry.setAdapter(countryAdapter());
 
