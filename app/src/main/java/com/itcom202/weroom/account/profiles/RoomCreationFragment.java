@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.Places;
@@ -29,8 +30,12 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.itcom202.weroom.SingleFragment;
 import com.itcom202.weroom.cameraGallery.Camera;
 import com.itcom202.weroom.cameraGallery.PictureUploader;
@@ -164,12 +169,14 @@ public class RoomCreationFragment extends SingleFragment {
                         .withSize(Integer.parseInt(mRoomSize.getText().toString()))
                         .withDescription(mRoomDescription.getText().toString())
                         .build();
+
+
                 mDatabaseReference
-                        .child(DataBasePath.USERS.getValue())
+                        .child(DataBasePath.LANDLORD.getValue())
                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .child(DataBasePath.PROFILE.getValue())
                         .child(DataBasePath.ROOM.getValue())
                         .setValue(input);
+
                 uploadFile(mPictureUploaders);
                 startActivity(SwipeActivity.newIntent(getActivity()));
             }
@@ -225,5 +232,19 @@ public class RoomCreationFragment extends SingleFragment {
             Log.d(TAG, "Error on camera/Gallery");
     }
 
+  /*  private boolean roomExist(int i){
 
+       mDatabaseReference.child("games").addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(this@RealtimeDatabaseActivity,
+                "Database error: $databaseError.message", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val gamesList = dataSnapshot.children.mapNotNull { it.getValue<Game>(Game::class.java) }
+                gamesAdapter.setGames(gamesList)
+            }
+        })
+        return false;
+    }*/
 }

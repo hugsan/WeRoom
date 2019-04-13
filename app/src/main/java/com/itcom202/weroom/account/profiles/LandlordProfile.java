@@ -18,6 +18,7 @@ public class LandlordProfile {
         private String sSocialTenant;
 
 
+
         public Builder(String id){sUserID = id;}
         public Builder withTenantNationallity(String nation){
             sTenantNation = nation;
@@ -76,8 +77,36 @@ public class LandlordProfile {
     private String mTenantOccupation;
     private String mAllowTenantSmoking;
     private String mSocialTenant;
+    private RoomPosted mRoomOne;
+    private RoomPosted mRoomTwo;
+    private RoomPosted mRoomThree;
 
-    public LandlordProfile(){};
+    public LandlordProfile(){}
+
+    public RoomPosted getRoomOne() {
+        return mRoomOne;
+    }
+
+    public void setRoomOne(RoomPosted roomOne) {
+        mRoomOne = roomOne;
+    }
+
+    public RoomPosted getRoomTwo() {
+        return mRoomTwo;
+    }
+
+    public void setRoomTwo(RoomPosted roomTwo) {
+        mRoomTwo = roomTwo;
+    }
+
+    public RoomPosted getRoomThree() {
+        return mRoomThree;
+    }
+
+    public void setRoomThree(RoomPosted roomThree) {
+        mRoomThree = roomThree;
+    }
+
     public String getUserID() {
         return mUserID;
     }

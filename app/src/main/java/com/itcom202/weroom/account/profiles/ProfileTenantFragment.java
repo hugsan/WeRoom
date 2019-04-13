@@ -218,6 +218,21 @@ public class ProfileTenantFragment extends Fragment {
 
                     if (noError){
 
+                        // get selected radio button from radioGroup
+                        int selectedId = mSmoking.getCheckedRadioButtonId();
+//
+//                        // find the radiobutton by returned id
+                        RadioButton radioSexButton = v.findViewById(selectedId);
+//
+//
+//
+//                         Log.d(TAG,radioSexButton.getText().toString());
+//
+//                        RadioButton test = v.findViewById(mSmoking.getCheckedRadioButtonId());
+//                        Log.d(TAG, test.getText().toString());
+
+
+
                          TenantProfile newInput = new TenantProfile.Builder(userID)
                                .isSmokingFriendly(smoke)
                                 .withCity(mChosenCityId, mChosenCityName, mCityLatitude, mCityLongitude)
@@ -232,16 +247,12 @@ public class ProfileTenantFragment extends Fragment {
                                 .build();
 
                         mDatabaseReference
-                                .child(DataBasePath.USERS.getValue())
-                                .child(userID)
-                                .child(DataBasePath.PROFILE.getValue())
                                 .child(DataBasePath.TENANT.getValue())
+                                .child(userID)
                                 .setValue(newInput);
                         startActivity(SwipeActivity.newIntent(getActivity()));
                     }
-
                 }
-
             }
         });
 
