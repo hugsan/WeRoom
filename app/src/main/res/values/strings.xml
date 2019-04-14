@@ -108,6 +108,7 @@
     <string name="min">Min.</string>
     <string name="max">Max.</string>
     <string name="choose_city">Choose a city where you want to live</string>
+    <string name="only_3_rooms">You can only list three rooms</string>
     <string-array name="rending_period_array">
         <item>Select period of renting</item>
         <item>0 – 3 Months </item>
@@ -145,6 +146,7 @@
     <string name="floor">Floor</string>
     <string name="describe_room">Description</string>
     <string name="post">Post Room</string>
+    <string name="add_more_rooms">Add another room.</string>
     <string name="room_creation_failed">Could not create room</string>
 
 

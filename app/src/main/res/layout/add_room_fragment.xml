@@ -291,6 +291,20 @@
                 android:text="@string/post"
                  />
 
+            <Button
+                android:id="@+id/addMoreRooms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="70dp"
+                android:background="#FF5A60"
+                android:text="@string/add_more_rooms"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerPetFriendly" />
+
             <ImageButton
                 android:id="@+id/imageButton"
                 android:layout_width="match_parent"

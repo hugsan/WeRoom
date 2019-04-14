@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -71,6 +72,9 @@ public class RoomCreationFragment extends SingleFragment {
     private ImageButton mTakeRoomPicture;
     private File mPhotoFile;
     private ImageView mProfilePhoto;
+    private String mUserId;
+    private String mFreeRoom;
+    private Button mAddAnotherRoom;
 
 
     String mAddressID;
@@ -88,8 +92,10 @@ public class RoomCreationFragment extends SingleFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.add_room_fragment, null, false);
 
+        mUserId = FirebaseAuth.getInstance().getUid();
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        roomExist();
 
         mRent = v.findViewById(R.id.rentInput);
         mDeposit = v.findViewById(R.id.depositroom);
@@ -101,6 +107,7 @@ public class RoomCreationFragment extends SingleFragment {
         mLaundry = v.findViewById(R.id.checkBoxLaundry);
         mConfirmRoom = v.findViewById(R.id.postRoomButton);
         mProfilePhoto = v.findViewById(R.id.picturepreview);
+        mAddAnotherRoom = v.findViewById(R.id.addMoreRooms);
 
         mRoomDescription = v.findViewById(R.id.descriptionField);
 
@@ -149,42 +156,39 @@ public class RoomCreationFragment extends SingleFragment {
         mConfirmRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //FIXME change 1 to create room 1, 2 or 3 for the users.
 
-                startActivity(SwipeActivity.newIntent(getActivity()));
 
 
                 //TODO missing to verify all the entries before creating the RoomPosted and pushing it to firebase
 
-                RoomPosted input = new RoomPosted.Builder(1)
-                        .hasCommonAreas(mCommonArea.isChecked())
-                        .hasInternet(mInternet.isChecked())
-                        .hasLaundry(mLaundry.isChecked())
-                        .isFurnished(mFurnished.isChecked())
-                        .withAddress(mAddressID, mAddressName, mAddressLatitude, mAddressLongitude)
-                        .withDeposit(Integer.parseInt(mDeposit.getText().toString()))
-                        .withPeriodRenting(String.valueOf(mPeriodRenting.getSelectedItem()))
-                        .withRent(Integer.parseInt(mRent.getText().toString()))
-                        .withSize(Integer.parseInt(mRoomSize.getText().toString()))
-                        .withDescription(mRoomDescription.getText().toString())
-                        .build();
 
-
-                mDatabaseReference
-                        .child(DataBasePath.LANDLORD.getValue())
-                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .child(DataBasePath.ROOM.getValue())
-                        .setValue(input);
-
-                uploadFile(mPictureUploaders);
+                roomExist();
+                if (mFreeRoom != null){
+                    postRoom();
+                    uploadFile(mPictureUploaders);
+                }
                 startActivity(SwipeActivity.newIntent(getActivity()));
+
             }
         });
 
+        mAddAnotherRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                roomExist();
+                if (mFreeRoom != null){
+                    postRoom();
+                    uploadFile(mPictureUploaders);
+                    changeFragment(new RoomCreationFragment());
+                }else
+                {
+                    Toast.makeText(getActivity(), getString(R.string.only_3_rooms), Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
 
         final Fragment  thisFragment = this;
-
-
         mTakeRoomPicture = v.findViewById(R.id.takeroompicture);
         mTakeRoomPicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,19 +235,49 @@ public class RoomCreationFragment extends SingleFragment {
             Log.d(TAG, "Error on camera/Gallery");
     }
 
-  /*  private boolean roomExist(int i){
+    private void roomExist(){
 
-       mDatabaseReference.child("games").addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(databaseError: DatabaseError) {
-                Toast.makeText(this@RealtimeDatabaseActivity,
-                "Database error: $databaseError.message", Toast.LENGTH_SHORT).show()
+        DatabaseReference usersReference = mDatabaseReference.child(DataBasePath.LANDLORD.getValue());
+        Query event = usersReference.orderByKey().equalTo(mUserId);
+        event.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    if (!dataSnapshot.child(mUserId).child(DataBasePath.ROOM_ONE.getValue()).exists())
+                        mFreeRoom = DataBasePath.ROOM_ONE.getValue();
+                    else if (!dataSnapshot.child(mUserId).child(DataBasePath.ROOM_TWO.getValue()).exists())
+                        mFreeRoom = DataBasePath.ROOM_TWO.getValue();
+                    else if (!dataSnapshot.child(mUserId).child(DataBasePath.ROOM_THREE.getValue()).exists())
+                        mFreeRoom = DataBasePath.ROOM_THREE.getValue();
+                    else
+                        mFreeRoom = null;
+                }
+                else
+                    Log.i("TORTUGA", "DataSnapshot is null");
             }
-
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val gamesList = dataSnapshot.children.mapNotNull { it.getValue<Game>(Game::class.java) }
-                gamesAdapter.setGames(gamesList)
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.i("TORTUGA","ERROR with DatabaseError: "+databaseError);
             }
-        })
-        return false;
-    }*/
+        });
+    }
+    private void postRoom(){
+        RoomPosted input = new RoomPosted.Builder(1)
+                .hasCommonAreas(mCommonArea.isChecked())
+                .hasInternet(mInternet.isChecked())
+                .hasLaundry(mLaundry.isChecked())
+                .isFurnished(mFurnished.isChecked())
+                .withAddress(mAddressID, mAddressName, mAddressLatitude, mAddressLongitude)
+                .withDeposit(Integer.parseInt(mDeposit.getText().toString()))
+                .withPeriodRenting(String.valueOf(mPeriodRenting.getSelectedItem()))
+                .withRent(Integer.parseInt(mRent.getText().toString()))
+                .withSize(Integer.parseInt(mRoomSize.getText().toString()))
+                .withDescription(mRoomDescription.getText().toString())
+                .build();
+        mDatabaseReference
+                .child(DataBasePath.LANDLORD.getValue())
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(mFreeRoom)
+                .setValue(input);
+    }
 }

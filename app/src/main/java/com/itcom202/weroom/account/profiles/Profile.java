@@ -2,9 +2,10 @@ package com.itcom202.weroom.account.profiles;
 
 import com.itcom202.weroom.account.profiles.TagDescription.TagModel;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Profile {
+public class Profile implements Serializable {
 
     private String name;
     private int age;
@@ -24,6 +25,8 @@ public class Profile {
         this.tags = tags;
 
     }
+    //This constructor is needed to de-serialize the object from the FireBase database.
+    public Profile(){}
 
     public int getAge() {
         return age;

@@ -32,7 +32,6 @@
 
         <activity android:name=".swipe.SwipeActivity"/>
         <activity android:name=".account.LoginActivity"/>
-        <activity android:name=".AccountCreationActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

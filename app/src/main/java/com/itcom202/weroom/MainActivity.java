@@ -19,22 +19,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
         Log.i(TAG,"User logged in: "+ firebaseAuth.getCurrentUser());
 
+        //FirebaseAuth.getInstance().signOut();
         //if there is no user logged in Firebase it starts LoginActivity
         if (firebaseAuth.getCurrentUser() == null){
-            Log.i(TAG,"We are not logged as:");
-            startActivity(AccountCreationActivity.newIntent(this));
+            Log.i(TAG,"We are not logged");
+            startActivity(LoginActivity.newIntent(this));
             finish();
         }//IF there is a user logged into Firebase it starts at AccountCreationActivity
         else{
             Log.i(TAG,"We are logged"+ firebaseAuth.getCurrentUser().getEmail());
-            startActivity(AccountCreationActivity.newIntent(this));
+            startActivity(SwipeActivity.newIntent(this));
             finish();
         }
 
     }
+
+
 
 
 }
