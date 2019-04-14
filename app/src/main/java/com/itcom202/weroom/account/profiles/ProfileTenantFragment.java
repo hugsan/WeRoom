@@ -232,7 +232,7 @@ public class ProfileTenantFragment extends Fragment {
 //                        Log.d(TAG, test.getText().toString());
 
 
-
+                        
                          TenantProfile newInput = new TenantProfile.Builder(userID)
                                .isSmokingFriendly(smoke)
                                 .withCity(mChosenCityId, mChosenCityName, mCityLatitude, mCityLongitude)

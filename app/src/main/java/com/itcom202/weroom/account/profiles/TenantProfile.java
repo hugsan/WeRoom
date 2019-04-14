@@ -1,8 +1,9 @@
 package com.itcom202.weroom.account.profiles;
 
+import java.io.Serializable;
 import java.util.InputMismatchException;
 
-public class TenantProfile {
+public class TenantProfile implements Serializable {
     public static final int LESS_THAN_THREE_MONTH = 1;
     public static final int THREE_TO_SIX_MONTH = 2;
     public static final int SIX_TO_TWELVE_MONTH = 3;
@@ -140,8 +141,8 @@ public class TenantProfile {
 
 
 
-
-    private TenantProfile(){}
+    //public constructor needed so the fire base can de-serialize the object.
+    public TenantProfile(){}
 
     public String getUserUid() {
         return mUserUid;

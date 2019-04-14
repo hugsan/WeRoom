@@ -81,6 +81,7 @@ public class LandlordProfile {
     private RoomPosted mRoomTwo;
     private RoomPosted mRoomThree;
 
+    //public constructor needed to de-serialize the object when using firebase database.
     public LandlordProfile(){}
 
     public RoomPosted getRoomOne() {

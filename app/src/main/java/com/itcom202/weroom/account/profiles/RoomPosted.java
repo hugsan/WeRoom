@@ -1,8 +1,9 @@
 package com.itcom202.weroom.account.profiles;
 
+import java.io.Serializable;
 import java.util.InputMismatchException;
 
-public class RoomPosted {
+public class RoomPosted implements Serializable {
 
     public static class Builder{
         private int sRent;
@@ -109,8 +110,8 @@ public class RoomPosted {
     private int mRoomNumber;
 
     private String mDescription;
-
-    private RoomPosted(){}
+    //Constructor is public needed to de-serialize the object using firebase database
+    public RoomPosted(){}
 
     public String getDescription() {
         return mDescription;
