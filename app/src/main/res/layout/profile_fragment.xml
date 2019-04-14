@@ -76,7 +76,7 @@
                 android:layout_width="311dp"
                 android:layout_height="35dp"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="50dp"
                 android:background="@drawable/custom_rounded_edittext"
                 android:ems="10"
@@ -92,6 +92,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.274" />
+
+            <TextView
+                android:id="@+id/spinnerTextfieldNationality"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/nationality"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
             <Spinner
                 android:id="@+id/spinnerCountry"
@@ -110,6 +121,17 @@
                 app:layout_constraintVertical_bias="0.444"
                 />
 
+            <TextView
+                android:id="@+id/spinnerTextfieldGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/gender"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
             <Spinner
                 android:id="@+id/spinnerGender"
                 android:layout_width="311dp"
@@ -120,6 +142,17 @@
                 android:background="@drawable/custom_spinners"
                 android:entries="@array/gender_array"
                 android:popupBackground="@color/quantum_grey400" />
+
+            <TextView
+                android:id="@+id/spinnerTextfieldRole"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/role"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
             <Spinner
                 android:id="@+id/spinnerRole"
@@ -132,6 +165,17 @@
                 android:background="@drawable/custom_spinners"
                 android:entries="@array/role_array"
                 android:popupBackground="@color/quantum_grey400" />
+
+            <TextView
+                android:id="@+id/spinnerTextfieldTags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/tag_description"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
             <com.itcom202.weroom.account.profiles.TagDescription.TagView
                 android:id="@+id/tags"

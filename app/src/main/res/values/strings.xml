@@ -83,6 +83,11 @@
     <string name="nationality_of_ll">Preferred Nationality of Landlord</string>
     <string name="pet_friendly">Pet Friendly</string>
     <string name="smoke_friendly">Smoke Friendly</string>
+    <string name="nationality">Nationality</string>
+    <string name="gender">Gender</string>
+    <string name="role">Are you a Landlord or Tenant?</string>
+    <string name="tag_description">Describe yourself using Tags</string>
+    <string name="occupation">Occupation</string>
 
 
     <!-- Tags -->
@@ -126,7 +131,7 @@
     <string name="social_tenant">Social Tenant?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="don_t_care">Does not matter</string>
+    <string name="don_t_care">Don\'t Care</string>
     <string name="allow_smoking">Do you allow smoking?</string>
     <string name="kind_of_tenant">What kind of tenant are you looking for?</string>
     <string-array name="occupation">

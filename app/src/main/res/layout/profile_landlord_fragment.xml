@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -33,6 +33,17 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="What kind of Tenant are you looking for?" />
 
+            <TextView
+                android:id="@+id/spinnerTextfieldNationalityOfTenant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/nationality"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
             <Spinner
                 android:id="@+id/spinnerNationalityLLlandlordfragment"
                 android:layout_width="match_parent"
@@ -48,10 +59,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/textView11"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"/>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/gender"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
             <Spinner
                 android:id="@+id/spinnerGenderLL"
@@ -69,6 +86,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ageMaxT" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/occupation"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
             <Spinner
                 android:id="@+id/occupation"
@@ -211,7 +239,7 @@
                 android:layout_marginStart="80dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="80dp"
-                android:background="#FF5A60"
+                android:background="@drawable/drawable_custom_button"
                 android:text="@string/confirm"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.537"
@@ -229,4 +257,4 @@
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>

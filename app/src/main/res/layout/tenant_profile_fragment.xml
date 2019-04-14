@@ -19,12 +19,9 @@
 
             <TextView
                 android:id="@+id/textViewTitle_tenantProfile"
-                android:layout_width="315dp"
+                android:layout_width="401dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginTop="50dp"
                 android:text="@string/looking_for"
                 android:textAlignment="center"
                 android:textColor="@color/black"
@@ -32,18 +29,17 @@
 
             <android.support.v7.widget.CardView
                 android:id="@+id/idCardViewCities_tenantProfile"
-                android:layout_width="320dp"
+                android:layout_width="324dp"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="11dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="40dp"
                 app:cardCornerRadius="4dp">
 
                 <fragment
                     android:id="@+id/autocomplete_fragment"
                     android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-                    android:layout_width="322dp"
+                    android:layout_width="354dp"
                     android:layout_height="wrap_content" />
             </android.support.v7.widget.CardView>
 
@@ -51,10 +47,8 @@
                 android:id="@+id/textViewRadius_tenantProfile"
                 android:layout_width="131dp"
                 android:layout_height="19dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="40dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="0dp"
                 android:text="@string/radius_from_center"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
@@ -63,13 +57,13 @@
                 android:id="@+id/radiusCenter_tenantProfile"
                 android:layout_width="317dp"
                 android:layout_height="44dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="8dp" />
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp" />
 
             <LinearLayout
                 android:layout_width="338dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="40dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -102,7 +96,7 @@
                 android:id="@+id/textViewChoosePeriod_tenantProfile"
                 android:layout_width="190dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="40dp"
                 android:layout_marginTop="30dp"
                 android:text="@string/choose_period"
                 android:textColor="@color/black" />
@@ -111,9 +105,8 @@
                 android:id="@+id/spinnerPeriodRenting_tenantProfile"
                 android:layout_width="216dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="40dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="8dp"
                 android:background="@color/quantum_grey400"
                 android:entries="@array/rending_period_array"
                 android:popupBackground="@color/quantum_grey400"
@@ -126,47 +119,46 @@
 
                 <TextView
                     android:id="@+id/textViewDeposit"
-                    android:layout_width="wrap_content"
+                    android:layout_width="45dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="40dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1"
                     android:text="@string/deposit"
-                    android:textColor="@color/black"
-                    />
+                    android:textColor="@color/black" />
 
                 <EditText
                     android:id="@+id/depositMin_tenantProfile"
-                    android:layout_width="20dp"
+                    android:layout_width="64dp"
                     android:layout_height="39dp"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="30dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginEnd="52dp"
                     android:layout_marginBottom="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/custom_rounded_edittext"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
                     android:ems="10"
                     android:hint="@string/min"
                     android:inputType="number"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
                     android:textColorHint="@color/quantum_grey" />
 
                 <EditText
                     android:id="@+id/depositMax_tenantProfile"
-                    android:layout_width="20dp"
+                    android:layout_width="64dp"
                     android:layout_height="39dp"
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="30dp"
-                    android:layout_marginEnd="84dp"
+                    android:layout_marginEnd="50dp"
                     android:layout_marginBottom="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/custom_rounded_edittext"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
                     android:ems="10"
                     android:hint="@string/max"
                     android:inputType="number"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
                     android:textColorHint="@color/quantum_grey" />
 
             </LinearLayout>
@@ -178,47 +170,84 @@
 
                 <TextView
                     android:id="@+id/textViewRent_tenantProfile"
-                    android:layout_width="wrap_content"
+                    android:layout_width="45dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="30dp"
                     android:layout_weight="1"
                     android:text="@string/rent"
-                    android:textColor="@color/black"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="30dp"/>
+                    android:textColor="@color/black" />
 
                 <EditText
                     android:id="@+id/rentMin_tenantProfile"
-                    android:layout_width="20dp"
+                    android:layout_width="64dp"
                     android:layout_height="39dp"
-                    android:layout_marginStart="60dp"
+                    android:layout_marginStart="30dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginEnd="52dp"
                     android:layout_marginBottom="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/custom_rounded_edittext"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
                     android:ems="10"
                     android:hint="@string/min"
                     android:inputType="number"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
                     android:textColorHint="@color/quantum_grey" />
 
                 <EditText
                     android:id="@+id/rentMax_tenantProfile"
-                    android:layout_width="20dp"
+                    android:layout_width="64dp"
                     android:layout_height="39dp"
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="30dp"
-                    android:layout_marginEnd="84dp"
+                    android:layout_marginEnd="50dp"
                     android:layout_marginBottom="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/custom_rounded_edittext"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
                     android:ems="10"
                     android:hint="@string/max"
                     android:inputType="number"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
                     android:textColorHint="@color/quantum_grey" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/radioTextfieldYes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="145dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_weight="1"
+                    android:text="@string/yes"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/radioTextfieldNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="65dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_weight="1"
+                    android:text="@string/no"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/radioTextviewDC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_weight="1"
+                    android:text="@string/don_t_care"
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <LinearLayout
@@ -230,7 +259,7 @@
                     android:id="@+id/textViewPetFr_tenantProfile"
                     android:layout_width="99dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="40dp"
                     android:layout_marginTop="30dp"
                     android:text="@string/pet_friendly"
                     android:textColor="@color/black" />
@@ -243,18 +272,17 @@
 
                     <RadioButton
                         android:id="@+id/rbYesPet_tenantProfile"
-                        android:layout_width="wrap_content"
+                        android:layout_width="9dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="30dp"
-                        android:layout_marginEnd="5dp"
                         android:layout_weight="1"
                         android:buttonTint="@color/black"
                         android:textColor="@color/black" />
 
                     <RadioButton
                         android:id="@+id/rbNoPet_tenantProfile"
-                        android:layout_width="wrap_content"
+                        android:layout_width="9dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
                         android:layout_weight="1"
@@ -263,11 +291,10 @@
 
                     <RadioButton
                         android:id="@+id/rbDCPet_tenantProfile"
-                        android:layout_width="wrap_content"
+                        android:layout_width="9dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
                         android:layout_marginTop="30dp"
-                        android:layout_marginEnd="5dp"
+                        android:layout_marginEnd="40dp"
                         android:layout_weight="1"
                         android:buttonTint="@color/black"
                         android:checked="true"
@@ -284,9 +311,9 @@
 
                 <TextView
                     android:id="@+id/textViewSmokeFr_tenantProfile"
-                    android:layout_width="wrap_content"
+                    android:layout_width="99dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="40dp"
                     android:layout_marginTop="30dp"
                     android:text="@string/smoke_friendly"
                     android:textColor="@color/black" />
@@ -299,18 +326,17 @@
 
                     <RadioButton
                         android:id="@+id/rbYesSmoke_tenantProfile"
-                        android:layout_width="wrap_content"
+                        android:layout_width="9dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="30dp"
-                        android:layout_marginEnd="5dp"
                         android:layout_weight="1"
                         android:buttonTint="@color/black"
                         android:textColor="@color/black" />
 
                     <RadioButton
                         android:id="@+id/rbNoSmoke_tenantProfile"
-                        android:layout_width="wrap_content"
+                        android:layout_width="9dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
                         android:layout_weight="1"
@@ -319,11 +345,10 @@
 
                     <RadioButton
                         android:id="@+id/rbDCSMoke_tenantProfile"
-                        android:layout_width="wrap_content"
+                        android:layout_width="9dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
                         android:layout_marginTop="30dp"
-                        android:layout_marginEnd="5dp"
+                        android:layout_marginEnd="40dp"
                         android:layout_weight="1"
                         android:buttonTint="@color/black"
                         android:checked="true"
@@ -344,7 +369,7 @@
             android:id="@+id/textViewFurnished_tenantPRofile"
             android:layout_width="99dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="30dp"
             android:text="@string/furnished"
             android:textColor="@color/black" />
@@ -357,18 +382,17 @@
 
             <RadioButton
                 android:id="@+id/rbYesFurnished_tenantProfile"
-                android:layout_width="wrap_content"
+                android:layout_width="9dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginEnd="5dp"
                 android:layout_weight="1"
                 android:buttonTint="@color/black"
                 android:textColor="@color/black" />
 
             <RadioButton
                 android:id="@+id/rbNoFurnished_tenantProfile"
-                android:layout_width="wrap_content"
+                android:layout_width="9dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:layout_weight="1"
@@ -377,11 +401,10 @@
 
             <RadioButton
                 android:id="@+id/rbDCFurnished_tenantProfile"
-                android:layout_width="wrap_content"
+                android:layout_width="9dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginEnd="5dp"
+                android:layout_marginEnd="40dp"
                 android:layout_weight="1"
                 android:buttonTint="@color/black"
                 android:checked="true"
@@ -400,7 +423,7 @@
                     android:id="@+id/textViewInternet_tenantProfile"
                     android:layout_width="99dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="40dp"
                     android:layout_marginTop="30dp"
                     android:text="@string/internet"
                     android:textColor="@color/black" />
@@ -413,18 +436,17 @@
 
                     <RadioButton
                         android:id="@+id/rbYesInternet_tenantProfile"
-                        android:layout_width="wrap_content"
+                        android:layout_width="9dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="30dp"
-                        android:layout_marginEnd="5dp"
                         android:layout_weight="1"
                         android:buttonTint="@color/black"
                         android:textColor="@color/black" />
 
                     <RadioButton
                         android:id="@+id/rbNoInternet_tenantProfile"
-                        android:layout_width="wrap_content"
+                        android:layout_width="9dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
                         android:layout_weight="1"
@@ -433,16 +455,14 @@
 
                     <RadioButton
                         android:id="@+id/rbDCInternet_tenantProfile"
-                        android:layout_width="wrap_content"
+                        android:layout_width="9dp"
                         android:layout_height="wrap_content"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="5dp"
                         android:layout_marginTop="30dp"
-                        android:layout_marginEnd="5dp"
+                        android:layout_marginEnd="40dp"
                         android:layout_weight="1"
-                        android:text="@string/don_t_care"
-                        android:textColor="@color/black"
-                        android:checked="true" />
+                        android:buttonTint="@color/black"
+                        android:checked="true"
+                        android:textColor="@color/black" />
 
                 </RadioGroup>
             </LinearLayout>
@@ -456,7 +476,7 @@
                     android:id="@+id/textViewLaundry_tenantProfile"
                     android:layout_width="99dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="40dp"
                     android:layout_marginTop="30dp"
                     android:text="@string/laundry"
                     android:textColor="@color/black" />
@@ -469,18 +489,17 @@
 
                     <RadioButton
                         android:id="@+id/rbYesLaundry_tenantProfile"
-                        android:layout_width="wrap_content"
+                        android:layout_width="9dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="30dp"
-                        android:layout_marginEnd="5dp"
                         android:layout_weight="1"
                         android:buttonTint="@color/black"
                         android:textColor="@color/black" />
 
                     <RadioButton
                         android:id="@+id/rbNoLaundry_tenantProfile"
-                        android:layout_width="wrap_content"
+                        android:layout_width="9dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
                         android:layout_weight="1"
@@ -489,16 +508,14 @@
 
                     <RadioButton
                         android:id="@+id/rbDCLaundry_tenantProfile"
-                        android:layout_width="wrap_content"
+                        android:layout_width="9dp"
                         android:layout_height="wrap_content"
-                        android:buttonTint="@color/black"
-                        android:layout_marginStart="5dp"
                         android:layout_marginTop="30dp"
-                        android:layout_marginEnd="5dp"
+                        android:layout_marginEnd="40dp"
                         android:layout_weight="1"
-                        android:text="@string/don_t_care"
-                        android:textColor="@color/black"
-                        android:checked="true" />
+                        android:buttonTint="@color/black"
+                        android:checked="true"
+                        android:textColor="@color/black" />
 
                 </RadioGroup>
             </LinearLayout>

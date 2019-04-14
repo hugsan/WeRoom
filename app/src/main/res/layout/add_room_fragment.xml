@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,19 +19,21 @@
                 android:id="@+id/postRoom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="50dp"
                 android:text="@string/post_room"
                 android:textAlignment="viewStart"
                 android:textColor="@color/black"
-                android:textSize="30sp"
-                tools:layout_marginLeft="50dp" />
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/numberOfPictures"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="50dp"
                 android:text="@string/max_number_pictures"
                 android:textAlignment="viewStart"
                 android:textColor="@color/black"
@@ -48,14 +50,17 @@
                     android:layout_height="147dp"
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="10dp"
-                    app:srcCompat="@drawable/addpicture" />
+                    android:background="#FF5A60"
+                    android:src="@drawable/ic_add_a_photo_white_24dp" />
 
                 <ImageView
                     android:id="@+id/picturepreview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:layout_width="92dp"
+                    android:layout_height="147dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#FF5A60"
+                    app:srcCompat="@drawable/ic_add_a_photo_white_24dp" />
 
             </LinearLayout>
 
@@ -64,7 +69,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="50dp"
                 android:text="@string/rent_month"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
@@ -75,21 +81,24 @@
                 android:layout_height="38dp"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
                 android:autofillHints=""
-                android:background="@layout/rounded_border_edittext"
-                android:textColorHint="@color/quantum_grey"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
+                android:background="@drawable/custom_rounded_edittext"
                 android:ems="10"
                 android:hint="DKK"
                 android:inputType="number"
-                android:textColor="@color/black" />
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/quantum_grey" />
+
             <TextView
                 android:id="@+id/deposit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="50dp"
                 android:layout_weight="1"
                 android:text="@string/deposit_room"
                 android:textColor="@color/black"
@@ -101,23 +110,25 @@
                 android:layout_height="38dp"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
                 android:layout_weight="1"
                 android:autofillHints=""
-                android:background="@layout/rounded_border_edittext"
-                android:textColorHint="@color/quantum_grey"
+                android:background="@drawable/custom_rounded_edittext"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:ems="10"
                 android:hint="DKK"
                 android:inputType="number"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/quantum_grey" />
 
             <TextView
                 android:id="@+id/rentPeriod"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="50dp"
                 android:layout_weight="1"
                 android:text="@string/rent_period"
                 android:textColor="@color/black"
@@ -126,8 +137,10 @@
             <Spinner
                 android:id="@+id/PeriodRentingRoomFragment"
                 android:layout_width="229dp"
-                android:layout_height="wrap_content"
+                android:layout_height="33dp"
                 android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
                 android:background="@color/quantum_grey400"
                 android:entries="@array/rending_period_array"
                 android:popupBackground="@color/quantum_grey400"
@@ -138,7 +151,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="50dp"
                 android:layout_weight="1"
                 android:text="@string/address"
                 android:textColor="@color/black"
@@ -148,11 +162,10 @@
                 android:id="@+id/idCardView"
                 android:layout_width="323dp"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="11dp"
-                app:cardCornerRadius="4dp"
-                >
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                app:cardCornerRadius="4dp">
 
                 <fragment
                     android:id="@+id/autocomplete_fragment"
@@ -175,7 +188,7 @@
                 android:layout_width="169dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:text="@string/size_room"
                 android:textColor="@color/black"
@@ -190,7 +203,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:autofillHints=""
-                android:background="@layout/rounded_border_edittext"
+                android:background="@drawable/custom_rounded_edittext"
                 android:textColorHint="@color/quantum_grey"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -206,10 +219,10 @@
 
                 <CheckBox
                     android:id="@+id/checkFurnished"
-                    android:layout_width="wrap_content"
+                    android:layout_width="44dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="30dp"
                     android:layout_weight="1"
                     android:buttonTint="@color/black"
                     android:text="Furnished"
@@ -219,20 +232,11 @@
                     android:id="@+id/checkBoxInternet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="50dp"
                     android:layout_weight="1"
                     android:buttonTint="@color/black"
                     android:text="Internet"
-                    android:textColor="@color/black" />
-
-                <CheckBox
-                    android:id="@+id/checkBoxCommonArea"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:buttonTint="@color/black"
-                    android:text="Common Area"
                     android:textColor="@color/black" />
 
             </LinearLayout>
@@ -245,13 +249,24 @@
 
                 <CheckBox
                     android:id="@+id/checkBoxLaundry"
-                    android:layout_width="wrap_content"
+                    android:layout_width="8dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:buttonTint="@color/black"
                     android:text="Laundry"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxCommonArea"
+                    android:layout_width="44dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/black"
+                    android:text="Common Area"
                     android:textColor="@color/black" />
 
             </LinearLayout>
@@ -261,7 +276,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="50dp"
                 android:layout_weight="1"
                 android:text="@string/describe_room"
                 android:textColor="@color/black"
@@ -274,11 +290,14 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
-                android:background="@color/quantum_grey400"
+                android:background="@drawable/custom_rounded_edittext"
                 android:ems="10"
                 android:hint="Describe your room..."
                 android:inputType="textPersonName"
-                android:textColor="@color/black" />
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/quantum_grey" />
 
             <Button
                 android:id="@+id/postRoomButton"
@@ -287,9 +306,8 @@
                 android:layout_marginStart="70dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="70dp"
-                android:background="#FF5A60"
-                android:text="@string/post"
-                 />
+                android:background="@drawable/drawable_custom_button"
+                android:text="@string/post" />
 
             <Button
                 android:id="@+id/addMoreRooms"
@@ -316,4 +334,4 @@
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>
