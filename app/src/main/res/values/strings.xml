@@ -91,6 +91,7 @@
     <!-- Strings related to ForgetPasswordFragment -->
     <string name="invalid_email">Invalid password</string>
     <string name="confirm">Confirm</string>
+    <string name="infoForgotPass">Forgot Password?</string>
 
     <!-- Strings related to ProfileTenantFragment & xml-->
     <string name="laundry">Laundry</string>
