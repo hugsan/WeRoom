@@ -33,8 +33,6 @@ import java.util.Objects;
 public class SignFragment extends SingleFragment {
 
     private static final String TAG = "SignFragment";
-    //FIXME: focus errors appear with string id
-    //TODO: make error toasts
     private  EditText mEmail, mPasswd, mPasswd2;
     private Button mButtonSignUp;
     private TextView mReferSignIn;
@@ -73,13 +71,13 @@ public class SignFragment extends SingleFragment {
                 String pwd1 = mPasswd.getText().toString();
                 String pwd2 = mPasswd2.getText().toString();
                 if (mEmail.getText().toString().length() == 0) {
-                    mEmail.setError(String.valueOf(R.string.type_email));
+                    mEmail.setError(getString(R.string.type_email));
                     mEmail.requestFocus();
                 } else if (0 == mPasswd.getText().toString().length()) {
-                    mPasswd.setError(String.valueOf(R.string.set_passw));
+                    mPasswd.setError(getString(R.string.set_passw));
                     mPasswd.requestFocus();
                 } else if (!pwd1.equals(pwd2)) {
-                    mPasswd.setError(String.valueOf(R.string.same_passw));
+                    mPasswd.setError(getString(R.string.same_passw));
                     mPasswd.requestFocus();
                     mPasswd2.requestFocus();
                 } else if (mEmail.getText().toString().length() == 0 || pwd1.length() == 0 || pwd2.length() == 0) {
@@ -105,9 +103,9 @@ public class SignFragment extends SingleFragment {
                                                         }
                                                     });
                                     } else {
-                                        //TODO stuff i dont know yet!!!!
+                                        //TODO stuff i don't know yet!!!!
                                         Toast.makeText(getActivity().getApplicationContext(),
-                                                String.valueOf(R.string.signed_in) + task.getException().getMessage(),
+                                                String.valueOf(R.string.not_succ) + task.getException().getMessage(),
                                                 Toast.LENGTH_SHORT).show();
                                     }
                                     }
@@ -146,7 +144,7 @@ public class SignFragment extends SingleFragment {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, getString(R.string.google_fail), e);
                 // ...
-                //TODO when there is a problem to login with firebase from google
+                Toast.makeText(getActivity(), R.string.acc_creation_failed, Toast.LENGTH_SHORT).show();
             }
         }
     }

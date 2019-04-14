@@ -152,12 +152,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="11dp"
                 app:cardCornerRadius="4dp"
-                app:layout_constraintBottom_toTopOf="@+id/confirm"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.136">
+                >
 
                 <fragment
                     android:id="@+id/autocomplete_fragment"
@@ -268,7 +263,7 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:text="@string/description"
+                android:text="@string/describe_room"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
@@ -294,10 +289,7 @@
                 android:layout_marginEnd="70dp"
                 android:background="#FF5A60"
                 android:text="@string/post"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerPetFriendly" />
+                 />
 
             <Button
                 android:id="@+id/addMoreRooms"

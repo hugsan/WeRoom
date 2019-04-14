@@ -30,7 +30,7 @@ class GoogleConnection {
     private static GoogleApiClient sGoogleApiClient;
     static final int RC_SIGN_IN = 101;
 
-    static GoogleApiClient create(Context context){
+    static GoogleApiClient create(final Context context){
         if (sGoogleApiClient == null) {
             gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     .requestIdToken(context.getResources().getString(R.string.default_web_client_id))
@@ -40,7 +40,7 @@ class GoogleConnection {
             sGoogleApiClient = new GoogleApiClient.Builder(context).enableAutoManage((FragmentActivity) context, new GoogleApiClient.OnConnectionFailedListener() {
                 @Override
                 public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                    //TODO case where we cannot connect with google
+                    Toast.makeText(context, R.string.google_connection_failed, Toast.LENGTH_SHORT).show();
                 }
             })
                     .addApi(Auth.GOOGLE_SIGN_IN_API, gso)

@@ -109,7 +109,6 @@ public class RoomCreationFragment extends SingleFragment {
         mProfilePhoto = v.findViewById(R.id.picturepreview);
         mAddAnotherRoom = v.findViewById(R.id.addMoreRooms);
 
-        //FIXME: the textView is saying 'describe with tags' but the editText is expecting a normal String input
         mRoomDescription = v.findViewById(R.id.descriptionField);
 
         final MapFragment mapFragment = new MapFragment();
@@ -148,8 +147,8 @@ public class RoomCreationFragment extends SingleFragment {
 
             @Override
             public void onError(Status status) {
-                //TODO implement on error message
                 Log.i(TAG, "An error occurred: " + status);
+                Toast.makeText(getActivity(), R.string.room_creation_failed, Toast.LENGTH_SHORT).show();
             }
         });
 

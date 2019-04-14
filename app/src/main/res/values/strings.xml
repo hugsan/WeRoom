@@ -22,6 +22,7 @@
     <string name="signed_in">Sing in successful: </string>
     <string name="google_fail">Google sign in failed!</string>
     <string name="create_acc">Create Account</string>
+    <string name="acc_creation_failed">Account creation failed</string>
 
 
     <!-- Strings related to login -->
@@ -44,6 +45,8 @@
     <string name="not_succ">Not successful</string>
     <string name="error">Error</string>
     <string name="forgot_passw">Forgot password?</string>
+    <string name="facebook_disconnected">Facebook account disconnected</string>
+    <string name="google_connection_failed">Google connection failed</string>
 
     <!-- strings related to profile fragment -->
     <string name="hint_age">Age</string>
@@ -143,6 +146,7 @@
     <string name="describe_room">Description</string>
     <string name="post">Post Room</string>
     <string name="add_more_rooms">Add another room.</string>
+    <string name="room_creation_failed">Could not create room</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

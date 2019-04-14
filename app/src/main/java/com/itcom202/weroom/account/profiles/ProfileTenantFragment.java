@@ -9,13 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,10 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.SeekBar.BubbleSeekBar;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
 
 import com.google.android.libraries.places.api.Places;
 // Add import statements for the new library.
@@ -74,7 +69,7 @@ public class ProfileTenantFragment extends Fragment {
     private String pet=null;
     private String furnish=null;
     private String laundry=null;
-    private String intenet=null;
+    private String internet =null;
 
     private DatabaseReference mDatabaseReference;
 
@@ -210,10 +205,10 @@ public class ProfileTenantFragment extends Fragment {
                     else laundry="Does not matter";
 
                     if(String.valueOf(mInternet.getCheckedRadioButtonId()).equals("2131296535"))
-                        intenet="Yes";
+                        internet ="Yes";
                     else if(String.valueOf(mLaundry.getCheckedRadioButtonId()).equals("2131296530"))
-                        intenet="No";
-                    else intenet="Does not matter";
+                        internet ="No";
+                    else internet ="Does not matter";
 
 
                     if (noError){
@@ -239,7 +234,7 @@ public class ProfileTenantFragment extends Fragment {
                                 .withRentingPeriod(mPeriodRenting.getSelectedItemPosition())
                                 .isPetFriendly(pet)
                                 .isFurnished(furnish)
-                                .hasInternet(intenet)
+                                .hasInternet(internet)
                                 .hasLaundry(laundry)
                                 .withDepositRange(Integer.parseInt(mDepositMin.getText().toString()), Integer.parseInt(mDepositMax.getText().toString()))
                                 .withRentRange(Integer.parseInt(mRentMin.getText().toString()), Integer.parseInt(mRentMax.getText().toString()))
