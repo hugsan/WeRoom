@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         }//IF there is a user logged into Firebase it starts at AccountCreationActivity
         else{
             Log.i(TAG,"We are logged"+ firebaseAuth.getCurrentUser().getEmail());
-            startActivity(LoginActivity.newIntent(this));
+            startActivity(AccountCreationActivity.newIntent(this));
             finish();
         }
 

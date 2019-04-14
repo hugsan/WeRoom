@@ -30,7 +30,6 @@ import java.util.Objects;
 class FaceBookConnection {
     private static final String TAG = "FaceBookConnection";
     private static CallbackManager mCallbackManager;
-    private static Activity context ;
 
 
     static void handleFacebookAccessToken(AccessToken token, FirebaseAuth firebaseAuth, final Activity context
@@ -75,12 +74,12 @@ class FaceBookConnection {
             @Override
             public void onCancel() {
                 Log.d(TAG, "facebook:onCancel");
+                Toast.makeText(activity, R.string.facebook_disconnected, Toast.LENGTH_SHORT).show();
             }
-            //TODO condition when the user cancel facebook login?
+
             @Override
             public void onError(FacebookException error) {
-                //TODO notify properly the user when there was an error on the login with FB
-                Toast.makeText(context, R.string.connection_error_FB, Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, R.string.connection_error_FB, Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "facebook:onError", error);
             }
         });

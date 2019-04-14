@@ -44,7 +44,6 @@ public class LoginFragment extends SingleFragment {
 
     GoogleApiClient mGoogleApiClient;
 
-    //FIXME: Writing in the EditText is white on white background
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -148,7 +147,7 @@ public class LoginFragment extends SingleFragment {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
                 // ...
-                //TODO when there is a problem to login with firebase from google
+                Toast.makeText(getActivity(), R.string.google_connection_failed, Toast.LENGTH_SHORT).show();
             }
         }
     }
