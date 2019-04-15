@@ -122,7 +122,7 @@
         <item>12+ Months </item>
     </string-array>
 
-    <string name="choose_period">Choose the period of renting</string>
+    <string name="choose_period">Choose period of renting</string>
 
 
 
@@ -153,6 +153,11 @@
     <string name="post">Post Room</string>
     <string name="add_more_rooms">Add another room.</string>
     <string name="room_creation_failed">Could not create room</string>
+    <string name="type_rent">Please type rent</string>
+    <string name="type_deposit">Please type deposit</string>
+    <string name="type_address">Please type the address</string>
+    <string name="type_room_size">Please type the size of the room</string>
+    <string name="type_description_room">Please describe your room</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

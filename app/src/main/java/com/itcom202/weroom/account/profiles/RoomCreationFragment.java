@@ -4,6 +4,7 @@ package com.itcom202.weroom.account.profiles;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -22,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
@@ -156,10 +158,49 @@ public class RoomCreationFragment extends SingleFragment {
         mConfirmRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //FIXME change 1 to create room 1, 2 or 3 for the users.
+                if(mRent.length()==0){
+                    mRent.setError(getString(R.string.type_rent));
+                    mRent.requestFocus();
+                }
+                else if(mDeposit.length()==0){
+                    mDeposit.setError(getString(R.string.type_deposit));
+                    mDeposit.requestFocus();
+                }
+                else if(mPeriodRenting.getSelectedItemPosition()==0){
+                    TextView errorText = (TextView) mPeriodRenting.getSelectedView();
+                    errorText.setError("");
+                    errorText.setTextColor(Color.RED);
+                    errorText.setText(R.string.choose_period);
+                }
+                else if(mAddressName == null){
+                    Toast.makeText(getContext(), R.string.type_address, Toast.LENGTH_SHORT).show();
+                }
+                else if(mRoomSize.length()==0){
+                    mRoomSize.setError(getString(R.string.type_room_size));
+                    mRoomSize.requestFocus();
+                }
+                else if(mRoomDescription.length()==0){
+                    Toast.makeText(getContext(), R.string.type_description_room, Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    RoomPosted input = new RoomPosted.Builder(1)
+                            .hasCommonAreas(mCommonArea.isChecked())
+                            .hasInternet(mInternet.isChecked())
+                            .hasLaundry(mLaundry.isChecked())
+                            .isFurnished(mFurnished.isChecked())
+                            .withAddress(mAddressID, mAddressName, mAddressLatitude, mAddressLongitude)
+                            .withDeposit(Integer.parseInt(mDeposit.getText().toString()))
+                            .withPeriodRenting(String.valueOf(mPeriodRenting.getSelectedItem()))
+                            .withRent(Integer.parseInt(mRent.getText().toString()))
+                            .withSize(Integer.parseInt(mRoomSize.getText().toString()))
+                            .withDescription(mRoomDescription.getText().toString())
+                            .build();
 
 
 
-                //TODO missing to verify all the entries before creating the RoomPosted and pushing it to firebase
+
+
 
 
                 roomExist();
@@ -169,6 +210,15 @@ public class RoomCreationFragment extends SingleFragment {
                 }
                 startActivity(SwipeActivity.newIntent(getActivity()));
 
+                    mDatabaseReference
+                            .child(DataBasePath.LANDLORD.getValue())
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                           // .child(DataBasePath.ROOM.getValue())
+                            .setValue(input);
+
+                    uploadFile(mPictureUploaders);
+                    startActivity(SwipeActivity.newIntent(getActivity()));
+                }
             }
         });
 
@@ -189,6 +239,8 @@ public class RoomCreationFragment extends SingleFragment {
         });
 
         final Fragment  thisFragment = this;
+
+
         mTakeRoomPicture = v.findViewById(R.id.takeroompicture);
         mTakeRoomPicture.setOnClickListener(new View.OnClickListener() {
             @Override
