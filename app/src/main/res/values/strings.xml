@@ -125,8 +125,6 @@
     <string name="choose_period">Choose the period of renting</string>
 
 
-
-
     <!-- Strings related to ProfileLandlordFragment -->
     <string name="social_tenant">Social Tenant?</string>
     <string name="yes">Yes</string>
@@ -168,7 +166,6 @@
     <!-- Strings related google API server -->
     <string name="google_cloud_api_key">AIzaSyDH4SglTZWSLqFwJLgH66qWSSxM3cfunEg</string>
     <string name="dkk">DKK</string>
-
 
 
     <!-- strings related to connection errors -->

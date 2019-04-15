@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="40dp"
-    >
+    app:cardBackgroundColor="@color/white">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,9 +20,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-
-            android:layout_marginTop="130dp"
-            android:layout_marginEnd="54dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="35dp"
+            android:background="@drawable/custom_round_exit_button"
             android:gravity="top|end"
             app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
@@ -29,11 +30,49 @@
             android:id="@+id/textInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="343dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="288dp"
             android:gravity="center_horizontal"
             android:text="im here"
+            android:textColor="@color/black"
             android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_below="@+id/textInfo"
+            android:layout_marginTop="10dp"
+            android:text="TextView"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_below="@+id/textView8"
+            android:text="TextView"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="142dp"
+            android:layout_height="134dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="109dp"
+            android:layout_marginEnd="11dp"
+            app:srcCompat="@android:drawable/picture_frame" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="142dp"
+            android:layout_height="134dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="107dp"
+            android:layout_marginEnd="22dp"
+            android:layout_toStartOf="@+id/imageView4"
+            app:srcCompat="@android:drawable/picture_frame" />
 
 
     </RelativeLayout>
