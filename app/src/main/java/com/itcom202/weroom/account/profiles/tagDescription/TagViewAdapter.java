@@ -1,4 +1,4 @@
-package com.itcom202.weroom.account.profiles.TagDescription;
+package com.itcom202.weroom.account.profiles.tagDescription;
 
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;

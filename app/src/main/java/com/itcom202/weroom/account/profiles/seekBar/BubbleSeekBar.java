@@ -1,4 +1,4 @@
-package com.itcom202.weroom.account.profiles.SeekBar;
+package com.itcom202.weroom.account.profiles.seekBar;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -40,11 +40,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.math.BigDecimal;
 
-import static com.itcom202.weroom.account.profiles.SeekBar.BubbleUtils.dp2px;
-import static com.itcom202.weroom.account.profiles.SeekBar.BubbleSeekBar.TextPosition.BELOW_SECTION_MARK;
-import static com.itcom202.weroom.account.profiles.SeekBar.BubbleSeekBar.TextPosition.BOTTOM_SIDES;
-import static com.itcom202.weroom.account.profiles.SeekBar.BubbleSeekBar.TextPosition.SIDES;
-import static com.itcom202.weroom.account.profiles.SeekBar.BubbleUtils.sp2px;
+import static com.itcom202.weroom.account.profiles.seekBar.BubbleUtils.dp2px;
+import static com.itcom202.weroom.account.profiles.seekBar.BubbleSeekBar.TextPosition.BELOW_SECTION_MARK;
+import static com.itcom202.weroom.account.profiles.seekBar.BubbleSeekBar.TextPosition.BOTTOM_SIDES;
+import static com.itcom202.weroom.account.profiles.seekBar.BubbleSeekBar.TextPosition.SIDES;
+import static com.itcom202.weroom.account.profiles.seekBar.BubbleUtils.sp2px;
 
 /**
  * A beautiful and powerful Android custom seek bar, which has a bubble view with progress

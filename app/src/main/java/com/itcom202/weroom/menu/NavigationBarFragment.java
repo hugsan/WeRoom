@@ -1,4 +1,4 @@
-package com.itcom202.weroom.Menu;
+package com.itcom202.weroom.menu;
 
 import android.app.Activity;
 import android.os.Bundle;

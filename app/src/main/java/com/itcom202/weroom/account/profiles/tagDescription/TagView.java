@@ -1,4 +1,4 @@
-package com.itcom202.weroom.account.profiles.TagDescription;
+package com.itcom202.weroom.account.profiles.tagDescription;
 
 
 import android.content.Context;
@@ -23,17 +23,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.flexbox.AlignItems;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 import com.itcom202.weroom.R;
-import com.itcom202.weroom.account.profiles.TagDescription.TagViewAdapter;
-import com.itcom202.weroom.account.profiles.TagDescription.TagSeparator;
-import com.itcom202.weroom.account.profiles.TagDescription.TagClickListener;
-import com.itcom202.weroom.account.profiles.TagDescription.TagItemListener;
-import com.itcom202.weroom.account.profiles.TagDescription.TagModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;

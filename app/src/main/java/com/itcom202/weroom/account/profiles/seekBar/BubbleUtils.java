@@ -1,4 +1,4 @@
-package com.itcom202.weroom.account.profiles.SeekBar;
+package com.itcom202.weroom.account.profiles.seekBar;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Environment;

@@ -1,4 +1,4 @@
-package com.itcom202.weroom.account.profiles.TagDescription;
+package com.itcom202.weroom.account.profiles.tagDescription;
 
 
 public enum TagSeparator {

@@ -1,10 +1,10 @@
-package com.itcom202.weroom.account.profiles.SeekBar;
+package com.itcom202.weroom.account.profiles.seekBar;
 
 import android.support.annotation.ColorInt;
 import android.support.annotation.IntRange;
 
-import static com.itcom202.weroom.account.profiles.SeekBar.BubbleUtils.dp2px;
-import static com.itcom202.weroom.account.profiles.SeekBar.BubbleUtils.sp2px;
+import static com.itcom202.weroom.account.profiles.seekBar.BubbleUtils.dp2px;
+import static com.itcom202.weroom.account.profiles.seekBar.BubbleUtils.sp2px;
 
 /**
  * config BubbleSeekBar's attributes
