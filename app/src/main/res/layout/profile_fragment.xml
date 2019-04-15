@@ -133,15 +133,17 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
+
                 android:background="@drawable/custom_spinners"
                 android:popupBackground="@color/quantum_grey400"
+                android:textColor="@color/black"
+                android:theme="@style/Spinner"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.91"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.444"
-                android:textColor="@color/black"
                 />
 
             <TextView
@@ -188,6 +190,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/custom_spinners"
                 android:entries="@array/role_array"
+
                 android:popupBackground="@color/quantum_grey400"
                 />
 
