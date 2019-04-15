@@ -30,6 +30,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
@@ -141,7 +143,7 @@ public class RoomCreationFragment extends SingleFragment {
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
-                //txtView.setText(place.getName()+","+place.getId());
+               // txtView.setText(place.getName()+","+place.getId());
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getLatLng());
                 mapFragment.updateSite(place.getLatLng());
                 mAddressID = place.getId();
@@ -151,12 +153,15 @@ public class RoomCreationFragment extends SingleFragment {
 
             }
 
+
             @Override
             public void onError(Status status) {
                 Log.i(TAG, "An error occurred: " + status);
                 Toast.makeText(getActivity(), R.string.room_creation_failed, Toast.LENGTH_SHORT).show();
             }
         });
+
+
 
 
         mConfirmRoom.setOnClickListener(new View.OnClickListener() {

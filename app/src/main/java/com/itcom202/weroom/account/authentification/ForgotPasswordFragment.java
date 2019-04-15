@@ -35,7 +35,7 @@ public class ForgotPasswordFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FirebaseAuth auth = FirebaseAuth.getInstance();
-
+                if(!mEmailForgotPass.getText().toString().equals("")){
                     auth.sendPasswordResetEmail(mEmailForgotPass.getText().toString())
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -43,10 +43,11 @@ public class ForgotPasswordFragment extends Fragment {
                                     if (task.isSuccessful()) {
                                         Log.d(TAG, "Email sent.");
                                     }
-                                    else Toast.makeText(getActivity(), getString(R.string.invalid_email), Toast.LENGTH_SHORT).show();
+                                    else Toast.makeText(getContext(), getString(R.string.invalid_email), Toast.LENGTH_SHORT).show();
 
                                 }
                             });
+                }
 
             }
         });

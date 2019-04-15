@@ -1,23 +1,35 @@
 package com.itcom202.weroom;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     MapView mapView;
     GoogleMap map;
+    GooglePlayServicesUtil gps;
+  //  private FusedLocationProviderClient fusedLocationClient;
+    CameraUpdateFactory mCameraUpdateFactory;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -27,6 +39,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mapView = (MapView) v.findViewById(R.id.mapview);
         mapView.onCreate(savedInstanceState);
 
+//        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+//        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_CALENDAR)
+//                == PackageManager.PERMISSION_GRANTED) {
+//            // Permission is not granted
+//              fusedLocationClient.getLastLocation()
+//                .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+//                    @Override
+//                    public void onSuccess(Location location) {
+//                        // Got last known location. In some rare situations this can be null.
+//                        if (location != null) {
+//                            // Logic to handle location object
+//                        }
+//                    }
+//                });
+//        }else{Log.d("MapFragment", "Permissio not granted");}
 
         mapView.getMapAsync(this);
 
@@ -49,9 +76,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
 
 
+
     }
     public void updateSite(LatLng position){
-       // map.moveCamera(CameraUpdateFactory.newLatLng(position));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(position.latitude, position.longitude), 15));
+        map.moveCamera(CameraUpdateFactory.newLatLng(position));
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
         map.addMarker(new MarkerOptions().position(new LatLng( position.latitude, position.longitude)).title("Marker"));
 
@@ -81,5 +110,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         super.onLowMemory();
         mapView.onLowMemory();
     }
+
+
 
 }
