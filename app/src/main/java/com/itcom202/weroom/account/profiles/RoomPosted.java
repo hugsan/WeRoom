@@ -49,8 +49,8 @@ public class RoomPosted implements Serializable {
             return this;
         }
         public Builder withAddress(String id, String address, double latitude, double longitude ){
-            if(address.equals(""))
-                throw new InputMismatchException("wrong address");
+//            if(address.equals(""))
+    //            throw new InputMismatchException("wrong address");
             sAddressID = id;
             sCompleteAddress = address;
             sLatitude = latitude;

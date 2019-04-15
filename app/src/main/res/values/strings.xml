@@ -158,6 +158,9 @@
     <string name="type_address">Please type the address</string>
     <string name="type_room_size">Please type the size of the room</string>
     <string name="type_description_room">Please describe your room</string>
+    <string name="dialog_close">Close</string>
+    <string name="dialog_message">Your room has been posted. You can add up to three rooms.</string>
+    <string name="dialog_title">Room posted!</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
