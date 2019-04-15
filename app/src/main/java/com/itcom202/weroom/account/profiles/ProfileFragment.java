@@ -155,7 +155,7 @@ public class ProfileFragment extends SingleFragment {
                     uploadFile(uploadPictures);
                     String[] role = getActivity().getResources().getStringArray(R.array.role_array);
                     if (mRole.getSelectedItemId() == 0){
-                        changeFragment(new LandlordProfileFragment());
+                        changeFragment(new RoomCreationFragment());
                     }else if (mRole.getSelectedItemId() == 1){
                         changeFragment(new ProfileTenantFragment());
                     }

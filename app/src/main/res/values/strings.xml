@@ -122,7 +122,7 @@
         <item>12+ Months </item>
     </string-array>
 
-    <string name="choose_period">Choose the period of renting</string>
+    <string name="choose_period">Choose period of renting</string>
 
 
     <!-- Strings related to ProfileLandlordFragment -->
@@ -151,6 +151,14 @@
     <string name="post">Post Room</string>
     <string name="add_more_rooms">Add another room.</string>
     <string name="room_creation_failed">Could not create room</string>
+    <string name="type_rent">Please type rent</string>
+    <string name="type_deposit">Please type deposit</string>
+    <string name="type_address">Please type the address</string>
+    <string name="type_room_size">Please type the size of the room</string>
+    <string name="type_description_room">Please describe your room</string>
+    <string name="dialog_close">Close</string>
+    <string name="dialog_message">Your room has been posted. You can add up to three rooms.</string>
+    <string name="dialog_title">Room posted!</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
