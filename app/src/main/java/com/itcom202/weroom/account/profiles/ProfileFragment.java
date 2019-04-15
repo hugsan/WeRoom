@@ -25,7 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.itcom202.weroom.SingleFragment;
 import com.itcom202.weroom.cameraGallery.Camera;
-import com.itcom202.weroom.cameraGallery.PictureUploader;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.tagDescription.TagModel;
 import com.itcom202.weroom.account.profiles.tagDescription.TagSeparator;
@@ -72,8 +71,8 @@ public class ProfileFragment extends SingleFragment {
     private List<String> tags = new ArrayList<>();
 
     private ImageView mProfilePhoto;
+    private Bitmap mPicture;
 
-    private List<PictureUploader> uploadPictures = new ArrayList<>();
 
 
     @Nullable
@@ -169,7 +168,7 @@ public class ProfileFragment extends SingleFragment {
                     errorText.setTextColor(Color.RED);
                     errorText.setText(R.string.select_country);
 
-
+                //TODO make a condition to chect for mPicture(profile picture)
                 /*} else if(mRole.getSelectedItemPosition() == 0){
                     TextView errorText = (TextView) mRole.getSelectedView();
                     errorText.setError("");
@@ -182,13 +181,13 @@ public class ProfileFragment extends SingleFragment {
                     Profile myProfile =
                             new Profile(mUserName.getText().toString(), Integer.parseInt(mAge.getText().toString()),
                                     String.valueOf(mGender.getSelectedItem()), String.valueOf(mCountry.getSelectedItem()),
-                                    String.valueOf(mRole.getSelectedItem()), tags);
+                                    String.valueOf(mRole.getSelectedItem()), tags,
+                                    Camera.BitMapToString(mPicture));
                     mDatabaseReference
                             .child(DataBasePath.USERS.getValue())
                             .child(mUser.getUid())
                             .setValue(myProfile);
 
-                    uploadFile(uploadPictures);
                     String[] role = getActivity().getResources().getStringArray(R.array.role_array);
                     if (mRole.getSelectedItemId() == 0){
                         changeFragment(new LandlordProfileFragment());
@@ -229,12 +228,10 @@ public class ProfileFragment extends SingleFragment {
         if (resultCode == RESULT_OK){
             switch (requestCode) {
                 case REQUEST_IMAGE_CAPTURE:
-
                     BitmapFactory.Options bmOptions = new BitmapFactory.Options();
                     Bitmap image = BitmapFactory.decodeFile(mPhotoFile.getPath(),bmOptions);
                     mProfilePhoto.setImageBitmap(image);
-                    uploadPictures.add(new PictureUploader(image, "profile"));
-                    //uploadFile(image, "profile");
+                    mPicture = image;
                     mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     //TODO: rotate picture to portrait
                     break;
@@ -244,8 +241,7 @@ public class ProfileFragment extends SingleFragment {
                     mProfilePhoto.setImageURI(selectedImage);
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-                        //uploadFile(bitmap, "profile");
-                        uploadPictures.add(new PictureUploader(bitmap,"profile"));
+                        mPicture = bitmap;
                         mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     }catch (Exception e){
                         Log.d(TAG, "Exception Gallery: "+ e);

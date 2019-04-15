@@ -1,5 +1,10 @@
 package com.itcom202.weroom.account.profiles;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,13 +24,14 @@ public class Profile implements Serializable {
 
 
 
-    public Profile (String name, int age, String gender, String country, String role, List<String> tags){
+    public Profile (String name, int age, String gender, String country, String role, List<String> tags, String picture){
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.country = country;
         this.role = role;
         this.tags = tags;
+        this.profilePicture = picture;
 
     }
     //This constructor is needed to de-serialize the object from the FireBase database.
@@ -101,4 +107,5 @@ public class Profile implements Serializable {
     public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
     }
+
 }

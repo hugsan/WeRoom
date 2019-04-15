@@ -30,7 +30,7 @@ public class BubbleConfigBuilder {
     boolean showSectionText;
     int sectionTextSize;
     int sectionTextColor;
-    @BubbleSeekBar.TextPosition
+    @com.itcom202.weroom.account.profiles.seekBar.BubbleSeekBar.TextPosition
     int sectionTextPosition;
     int sectionTextInterval;
     boolean showThumbText;

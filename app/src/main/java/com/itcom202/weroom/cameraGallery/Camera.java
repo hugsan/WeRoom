@@ -3,12 +3,14 @@ package com.itcom202.weroom.cameraGallery;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
+import android.util.Base64;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -108,11 +110,13 @@ public class Camera {
         }
 
 
-    } public static void uploadFile(List<PictureUploader> pictures) {
+    }
+    /*public static void uploadFile(List<PictureUploader> pictures) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReferenceFromUrl("gs://weroom-fa6fe.appspot.com");
         for (PictureUploader p : pictures) {
             if (p.getPicture() != null && p.getPicturName() != null) {
+
                 StorageReference mountainImagesRef = storageRef.child("images/" + mUser.getUid() + "/" + p.getPicturName() + ".jpg");
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 p.getPicture().compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -130,5 +134,22 @@ public class Camera {
                 });
             }
         }
+    }*/
+    public static Bitmap StringToBitMap(String encodedString){
+        try{
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        }catch(Exception e){
+            e.getMessage();
+            return null;
+        }
+    }
+    public static String BitMapToString(Bitmap bitmap){
+        ByteArrayOutputStream ByteStream=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100, ByteStream);
+        byte [] b=ByteStream.toByteArray();
+        String temp=Base64.encodeToString(b, Base64.DEFAULT);
+        return temp;
     }
 }

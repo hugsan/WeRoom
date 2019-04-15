@@ -2,6 +2,7 @@ package com.itcom202.weroom.account.profiles;
 
 import java.io.Serializable;
 import java.util.InputMismatchException;
+import java.util.List;
 
 public class RoomPosted implements Serializable {
 
@@ -20,6 +21,7 @@ public class RoomPosted implements Serializable {
         private boolean sLaundry;
         private int sRoomNumber;
         private String sDescription;
+        private List<String> sPictures;
 
         public Builder(int roomNumber){
             sRoomNumber = roomNumber;
@@ -28,6 +30,12 @@ public class RoomPosted implements Serializable {
             if(rent<0)
                 throw new InputMismatchException("Wrong rent");
             sRent = rent;
+            return this;
+        }
+        public Builder withPictures(List<String> pictures){
+            if (pictures.size() < 3)
+                throw new IllegalArgumentException("Not enought pictures, at least 3 pictures are requiered");
+            this.sPictures = pictures;
             return this;
         }
         public Builder withDescription(String s){
@@ -95,6 +103,7 @@ public class RoomPosted implements Serializable {
             r.mLaundry = sLaundry;
             r.mRoomNumber = sRoomNumber;
             r.mDescription = sDescription;
+            r.mPictures = sPictures;
             return r;
         }
 
@@ -116,10 +125,21 @@ public class RoomPosted implements Serializable {
     private boolean mComonAreas;
     private boolean mLaundry;
     private int mRoomNumber;
-   private String mDescription;
+    private String mDescription;
+
+    private List<String> mPictures;
 
     //Constructor is public needed to de-serialize the object using firebase database
+
     public RoomPosted(){}
+
+    public List<String> getPictures() {
+        return mPictures;
+    }
+
+    public void setPictures(List<String> pictures) {
+        mPictures = pictures;
+    }
 
     public String getDescription() {
         return mDescription;

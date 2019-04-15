@@ -1,16 +1,12 @@
 package com.itcom202.weroom.account.profiles;
 
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,8 +26,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
@@ -46,7 +40,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.itcom202.weroom.SingleFragment;
 import com.itcom202.weroom.cameraGallery.Camera;
-import com.itcom202.weroom.cameraGallery.PictureUploader;
 import com.itcom202.weroom.MapFragment;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.swipe.SwipeActivity;
@@ -82,18 +75,15 @@ public class RoomCreationFragment extends SingleFragment {
     private String mUserId;
     private String mFreeRoom;
     private Button mAddAnotherRoom;
-    private PopUpMessage popUp = new PopUpMessage();
-
+    private PopUpMessage mPopUp = new PopUpMessage();
+    private List<String> mPictures = new ArrayList<>();
 
     String mAddressID;
     String mAddressName;
     double mAddressLatitude;
     double mAddressLongitude;
-    String[] pictureNames = {"room_one", "room_two", "room_three", "room_four", "room_five",
-            "room_six", "room_seven", "room_eight", "rom_nine", "room_teen"};
-    int pictureNameIndex = 0;
 
-    private List<PictureUploader> mPictureUploaders = new ArrayList<>();
+
 
     @Nullable
     @Override
@@ -211,12 +201,10 @@ public class RoomCreationFragment extends SingleFragment {
 
                 if (mFreeRoom != null){
                     postRoom();
-                    uploadFile(mPictureUploaders);
 
                 }
 
                 postRoom();
-                uploadFile(mPictureUploaders);
                 startActivity(SwipeActivity.newIntent(getActivity()));
                 }
             }
@@ -228,9 +216,8 @@ public class RoomCreationFragment extends SingleFragment {
                 roomExist();
                 if (mFreeRoom != null){
                     postRoom();
-                    uploadFile(mPictureUploaders);
 
-                    popUp.showDialog(getActivity());
+                    mPopUp.showDialog(getActivity());
 
                     changeFragment(new RoomCreationFragment());
 
@@ -266,10 +253,10 @@ public class RoomCreationFragment extends SingleFragment {
 
                     BitmapFactory.Options bmOptions = new BitmapFactory.Options();
                     Bitmap image = BitmapFactory.decodeFile(mPhotoFile.getPath(),bmOptions);
+                    mPictures.add(Camera.BitMapToString(image));
                     mProfilePhoto.setImageBitmap(image);
                     //uploadFile(image, "room_one");
-                    if (pictureNameIndex < pictureNames.length)
-                        mPictureUploaders.add(new PictureUploader(image,pictureNames[pictureNameIndex++]));
+
                     mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     //TODO: rotate picture to portrait
                     break;
@@ -280,8 +267,7 @@ public class RoomCreationFragment extends SingleFragment {
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
                         //uploadFile(bitmap,"room_one");
-                        if (pictureNameIndex < pictureNames.length)
-                            mPictureUploaders.add(new PictureUploader(bitmap,pictureNames[pictureNameIndex++]));
+                        mPictures.add(Camera.BitMapToString(bitmap));
                         mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     }catch (Exception e){
                         Log.d(TAG, "Exception Gallery: "+ e);
@@ -328,6 +314,7 @@ public class RoomCreationFragment extends SingleFragment {
             mDeposit.setError(getString(R.string.type_deposit));
             mDeposit.requestFocus();
         }
+        //TODO check that the user have atleast introduced 3 pictures for the room. (check the list mPictures.size > 3)
         else if(mPeriodRenting.getSelectedItemPosition()==0){
             TextView errorText = (TextView) mPeriodRenting.getSelectedView();
             errorText.setError("");
@@ -356,6 +343,7 @@ public class RoomCreationFragment extends SingleFragment {
                     .withRent(Integer.parseInt(mRent.getText().toString()))
                     .withSize(Integer.parseInt(mRoomSize.getText().toString()))
                     .withDescription(mRoomDescription.getText().toString())
+                    .withPictures(mPictures)
                     .build();
             mDatabaseReference
                     .child(DataBasePath.USERS.getValue())
