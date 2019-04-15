@@ -27,9 +27,9 @@ import com.itcom202.weroom.SingleFragment;
 import com.itcom202.weroom.cameraGallery.Camera;
 import com.itcom202.weroom.cameraGallery.PictureUploader;
 import com.itcom202.weroom.R;
-import com.itcom202.weroom.account.profiles.TagDescription.TagModel;
-import com.itcom202.weroom.account.profiles.TagDescription.TagSeparator;
-import com.itcom202.weroom.account.profiles.TagDescription.TagView;
+import com.itcom202.weroom.account.profiles.tagDescription.TagModel;
+import com.itcom202.weroom.account.profiles.tagDescription.TagSeparator;
+import com.itcom202.weroom.account.profiles.tagDescription.TagView;
 
 
 import android.widget.Button;
@@ -186,13 +186,12 @@ public class ProfileFragment extends SingleFragment {
                     mDatabaseReference
                             .child(DataBasePath.USERS.getValue())
                             .child(mUser.getUid())
-                            .child(DataBasePath.PROFILE.getValue())
                             .setValue(myProfile);
 
                     uploadFile(uploadPictures);
                     String[] role = getActivity().getResources().getStringArray(R.array.role_array);
                     if (mRole.getSelectedItemId() == 0){
-                        changeFragment(new RoomCreationFragment());
+                        changeFragment(new LandlordProfileFragment());
                     }else if (mRole.getSelectedItemId() == 1){
                         changeFragment(new ProfileTenantFragment());
                     }

@@ -198,7 +198,7 @@ public class RoomCreationFragment extends SingleFragment {
                             .hasInternet(mInternet.isChecked())
                             .hasLaundry(mLaundry.isChecked())
                             .isFurnished(mFurnished.isChecked())
-                           // .withAddress(mAddressID, mAddressName, mAddressLatitude, mAddressLongitude)
+                            .withAddress(mAddressID, mAddressName, mAddressLatitude, mAddressLongitude)
                             .withDeposit(Integer.parseInt(mDeposit.getText().toString()))
                             .withPeriodRenting(String.valueOf(mPeriodRenting.getSelectedItem()))
                             .withRent(Integer.parseInt(mRent.getText().toString()))
@@ -214,16 +214,10 @@ public class RoomCreationFragment extends SingleFragment {
                     uploadFile(mPictureUploaders);
 
                 }
+
+                postRoom();
+                uploadFile(mPictureUploaders);
                 startActivity(SwipeActivity.newIntent(getActivity()));
-
-                    mDatabaseReference
-                            .child(DataBasePath.LANDLORD.getValue())
-                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                          //  .child(DataBasePath.ROOM.getValue())
-                            .setValue(input);
-
-                    uploadFile(mPictureUploaders);
-                    startActivity(SwipeActivity.newIntent(getActivity()));
                 }
             }
         });
@@ -300,8 +294,10 @@ public class RoomCreationFragment extends SingleFragment {
 
     private void roomExist(){
 
-        DatabaseReference usersReference = mDatabaseReference.child(DataBasePath.LANDLORD.getValue());
-        Query event = usersReference.orderByKey().equalTo(mUserId);
+        Query event = mDatabaseReference
+                .child(DataBasePath.USERS.getValue())
+                .child(FirebaseAuth.getInstance().getUid())
+                .child(DataBasePath.LANDLORD.getValue());
         event.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -315,15 +311,14 @@ public class RoomCreationFragment extends SingleFragment {
                     else
                         mFreeRoom = null;
                 }
-                else
-                    Log.i("TORTUGA", "DataSnapshot is null");
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.i("TORTUGA","ERROR with DatabaseError: "+databaseError);
+                //TODO something when there is an error wiht the database query
             }
         });
     }
+    //FIXME Patrick will fix this, this method is not working properly, posting all the rooms in roomOne
     private void postRoom(){
         if(mRent.length()==0 || Integer.parseInt(mRent.getText().toString())<0){
             mRent.setError(getString(R.string.type_rent));
@@ -355,7 +350,7 @@ public class RoomCreationFragment extends SingleFragment {
                     .hasInternet(mInternet.isChecked())
                     .hasLaundry(mLaundry.isChecked())
                     .isFurnished(mFurnished.isChecked())
-                    // .withAddress(mAddressID, mAddressName, mAddressLatitude, mAddressLongitude)
+                    .withAddress(mAddressID, mAddressName, mAddressLatitude, mAddressLongitude)
                     .withDeposit(Integer.parseInt(mDeposit.getText().toString()))
                     .withPeriodRenting(String.valueOf(mPeriodRenting.getSelectedItem()))
                     .withRent(Integer.parseInt(mRent.getText().toString()))
@@ -363,8 +358,9 @@ public class RoomCreationFragment extends SingleFragment {
                     .withDescription(mRoomDescription.getText().toString())
                     .build();
             mDatabaseReference
+                    .child(DataBasePath.USERS.getValue())
+                    .child(FirebaseAuth.getInstance().getUid())
                     .child(DataBasePath.LANDLORD.getValue())
-                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                     .child(mFreeRoom)
                     .setValue(input);
         }
@@ -372,3 +368,4 @@ public class RoomCreationFragment extends SingleFragment {
 
 
 }
+

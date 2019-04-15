@@ -134,8 +134,9 @@ public class LandlordProfileFragment extends SingleFragment {
                             .canTenantSmoke(smokingValue)
                             .build();
                     mDatabaseReference
-                            .child(DataBasePath.LANDLORD.getValue())
+                            .child(DataBasePath.USERS.getValue())
                             .child(userID)
+                            .child(DataBasePath.LANDLORD.getValue())
                             .setValue(newInput);
 
                     changeFragment(new RoomCreationFragment());

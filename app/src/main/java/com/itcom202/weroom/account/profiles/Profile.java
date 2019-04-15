@@ -1,7 +1,5 @@
 package com.itcom202.weroom.account.profiles;
 
-import com.itcom202.weroom.account.profiles.TagDescription.TagModel;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,6 +11,11 @@ public class Profile implements Serializable {
     private String country;
     private String role;
     private List<String> tags;
+
+    private String profilePicture;
+    private TenantProfile tenant;
+    private LandlordProfile landlord;
+
 
 
 
@@ -73,5 +76,29 @@ public class Profile implements Serializable {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public TenantProfile getTenant() {
+        return tenant;
+    }
+
+    public void setTenant(TenantProfile tenant) {
+        this.tenant = tenant;
+    }
+
+    public LandlordProfile getLandlord() {
+        return landlord;
+    }
+
+    public void setLandlord(LandlordProfile landlord) {
+        this.landlord = landlord;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 }

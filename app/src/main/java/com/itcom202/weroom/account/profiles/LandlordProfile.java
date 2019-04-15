@@ -1,6 +1,8 @@
 package com.itcom202.weroom.account.profiles;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 
 public class LandlordProfile {
     public static final String YES = "Yes";
@@ -80,6 +82,18 @@ public class LandlordProfile {
     private RoomPosted mRoomOne;
     private RoomPosted mRoomTwo;
     private RoomPosted mRoomThree;
+    private List<String> mPictures = new ArrayList<>();
+
+    public boolean addPicture(String s){
+        List<String> pictures = getPictures();
+        if (pictures.size() == 10)
+            return false;
+        pictures.add(s);
+        return true;
+    }
+    public void removePicture(String s){
+        getPictures().remove(s);
+    }
 
     //public constructor needed to de-serialize the object when using firebase database.
     public LandlordProfile(){}
@@ -170,5 +184,13 @@ public class LandlordProfile {
 
     public void setSocialTenant(String socialTenant) {
         mSocialTenant = socialTenant;
+    }
+
+    public List<String> getPictures() {
+        return mPictures;
+    }
+
+    public void setPictures(List<String> pictures) {
+        mPictures = pictures;
     }
 }

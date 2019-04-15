@@ -53,7 +53,7 @@
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
-            <com.itcom202.weroom.account.profiles.SeekBar.BubbleSeekBar
+            <com.itcom202.weroom.account.profiles.seekBar.BubbleSeekBar
                 android:id="@+id/radiusCenter_tenantProfile"
                 android:layout_width="317dp"
                 android:layout_height="44dp"

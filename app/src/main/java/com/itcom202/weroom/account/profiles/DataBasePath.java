@@ -5,9 +5,9 @@ public enum DataBasePath {
     USERS("users"),
     PROFILE("profile"),
     LANDLORD("landlord"),
-    ROOM_ONE("room 1"),
-    ROOM_TWO("room 2"),
-    ROOM_THREE("room 3");
+    ROOM_ONE("mRoomOne"),
+    ROOM_TWO("mRoomTwo"),
+    ROOM_THREE("mRoomThree");
 
     private final String name;
 
