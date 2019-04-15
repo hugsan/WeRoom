@@ -159,7 +159,7 @@ public class RoomCreationFragment extends SingleFragment {
             @Override
             public void onClick(View v) {
                 //FIXME change 1 to create room 1, 2 or 3 for the users.
-                if(mRent.length()==0){
+                if(mRent.length()==0 || Integer.parseInt(mRent.getText().toString())<0){
                     mRent.setError(getString(R.string.type_rent));
                     mRent.requestFocus();
                 }
@@ -196,11 +196,6 @@ public class RoomCreationFragment extends SingleFragment {
                             .withSize(Integer.parseInt(mRoomSize.getText().toString()))
                             .withDescription(mRoomDescription.getText().toString())
                             .build();
-
-
-
-
-
 
 
                 roomExist();
@@ -319,7 +314,7 @@ public class RoomCreationFragment extends SingleFragment {
                 .hasInternet(mInternet.isChecked())
                 .hasLaundry(mLaundry.isChecked())
                 .isFurnished(mFurnished.isChecked())
-                .withAddress(mAddressID, mAddressName, mAddressLatitude, mAddressLongitude)
+                 .withAddress(mAddressID, mAddressName, mAddressLatitude, mAddressLongitude)
                 .withDeposit(Integer.parseInt(mDeposit.getText().toString()))
                 .withPeriodRenting(String.valueOf(mPeriodRenting.getSelectedItem()))
                 .withRent(Integer.parseInt(mRent.getText().toString()))

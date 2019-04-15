@@ -25,10 +25,14 @@ public class RoomPosted implements Serializable {
             sRoomNumber = roomNumber;
         }
         public Builder withRent(int rent){
+            if(rent<0)
+                throw new InputMismatchException("Wrong rent");
             sRent = rent;
             return this;
         }
         public Builder withDescription(String s){
+            if(s.equals(""))
+                throw new InputMismatchException("Wrong description");
             sDescription = s;
             return this;
         }
@@ -39,10 +43,14 @@ public class RoomPosted implements Serializable {
             return this;
         }
         public Builder withPeriodRenting(String period){
+            if(period.equals("Select period of renting"))
+                throw new InputMismatchException("Wrong period");
             sPeriodOfRenting = period;
             return this;
         }
         public Builder withAddress(String id, String address, double latitude, double longitude ){
+            if(address.equals(""))
+                throw new InputMismatchException("wrong address");
             sAddressID = id;
             sCompleteAddress = address;
             sLatitude = latitude;
@@ -108,8 +116,8 @@ public class RoomPosted implements Serializable {
     private boolean mComonAreas;
     private boolean mLaundry;
     private int mRoomNumber;
+   private String mDescription;
 
-    private String mDescription;
     //Constructor is public needed to de-serialize the object using firebase database
     public RoomPosted(){}
 
