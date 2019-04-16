@@ -37,11 +37,13 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 
 import static android.app.Activity.RESULT_OK;
@@ -80,6 +82,8 @@ public class ProfileFragment extends SingleFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.profile_fragment, container, false);
 
+      //  String[] genders={"Select your gender", "Female", "Male"};
+
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -92,6 +96,7 @@ public class ProfileFragment extends SingleFragment {
         mCountry = v.findViewById(R.id.spinnerCountry);
         mRole = v.findViewById(R.id.spinnerRole);
         mTag = v.findViewById(R.id.tags);
+
 
 
         mTag.setHint(getString(R.string.description));
@@ -144,7 +149,11 @@ public class ProfileFragment extends SingleFragment {
             @Override
             public void onClick(View v) {
 
-                if (mUserName.getText().toString().equals("")) {
+                 if(mPicture == null){
+                    Toast.makeText(getContext(), "Please add profile picture", Toast.LENGTH_SHORT).show();
+                 }
+
+                else if (mUserName.getText().toString().equals("")) {
                     mUserName.setError(getString(R.string.type_name));
                     mUserName.requestFocus();
                 } else if (mAge.getText().toString().isEmpty()) {
@@ -168,7 +177,6 @@ public class ProfileFragment extends SingleFragment {
                     errorText.setTextColor(Color.RED);
                     errorText.setText(R.string.select_country);
 
-                //TODO make a condition to chect for mPicture(profile picture)
                 /*} else if(mRole.getSelectedItemPosition() == 0){
                     TextView errorText = (TextView) mRole.getSelectedView();
                     errorText.setError("");
@@ -195,7 +203,7 @@ public class ProfileFragment extends SingleFragment {
                         changeFragment(new ProfileTenantFragment());
                     }
 
-                }
+                }//
             }
         });
         final Fragment  thisFragment = this;
@@ -218,7 +226,6 @@ public class ProfileFragment extends SingleFragment {
 
         return v;
     }
-
 
 
     @Override

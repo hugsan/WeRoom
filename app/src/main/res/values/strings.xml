@@ -180,5 +180,10 @@
     <string name="connection_error_FB">Could not connect to Facebook</string>
     <string name="connection_error_Google">Could not connect to Google</string>
 
+    <!-- strings related to the navigation bar -->
+    <string name="navigation_profile">Profile</string>
+    <string name="navigation_home">Home</string>
+    <string name="navigation_chat">Chat</string>
+
 
 </resources>
