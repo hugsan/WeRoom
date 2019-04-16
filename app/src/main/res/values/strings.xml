@@ -114,6 +114,7 @@
     <string name="max">Max.</string>
     <string name="choose_city">Choose a city where you want to live</string>
     <string name="only_3_rooms">You can only list three rooms</string>
+    <string name="city">City</string>
     <string-array name="rending_period_array">
         <item>Select period of renting</item>
         <item>0 – 3 Months </item>
@@ -159,6 +160,7 @@
     <string name="dialog_close">Close</string>
     <string name="dialog_message">Your room has been posted. You can add up to three rooms.</string>
     <string name="dialog_title">Room posted!</string>
+    <string name="minimum_pictures">(OBS! Minimum 3 Pictures)</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
