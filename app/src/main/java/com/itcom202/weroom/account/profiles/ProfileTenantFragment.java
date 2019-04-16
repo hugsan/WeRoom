@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -93,6 +94,19 @@ public class ProfileTenantFragment extends Fragment {
 
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+
+
+        mPeriodRenting.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView)view).setTextColor(Color.BLACK);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         // Initialize Places.
         Places.initialize(getApplicationContext(), getString(R.string.google_cloud_api_key));
