@@ -159,10 +159,10 @@ public class ProfileFragment extends SingleFragment {
                 } else if (mAge.getText().toString().isEmpty()) {
                     mAge.setError(getString(R.string.type_age));
                     mAge.requestFocus();
-                } else if (Integer.parseInt(mAge.getText().toString()) < 15) {
+                } else if (Integer.parseInt(mAge.getText().toString()) < 17) {
                     mAge.setError(getString(R.string.too_young));
                     mAge.requestFocus();
-                } else if (Integer.parseInt(mAge.getText().toString()) > 95) {
+                } else if (Integer.parseInt(mAge.getText().toString()) > 99) {
                     mAge.setError(getString(R.string.too_old));
                     mAge.requestFocus();
                /* } else if (mGender.getSelectedItemPosition() == 0) {

@@ -133,6 +133,7 @@
     <string name="don_t_care">Don\'t Care</string>
     <string name="allow_smoking">Do you allow smoking?</string>
     <string name="kind_of_tenant">What kind of tenant are you looking for?</string>
+    <string name="age_of_tenant">Preferred age of tenant</string>
     <string-array name="occupation">
         <item>Student </item>
         <item>Working </item>
