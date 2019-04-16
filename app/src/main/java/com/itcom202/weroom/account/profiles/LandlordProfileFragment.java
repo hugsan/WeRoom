@@ -163,7 +163,7 @@ public class LandlordProfileFragment extends SingleFragment {
                 if (noError){
                     LandlordProfile newInput = new LandlordProfile.Builder(userID)
                             .withTenantNationallity(String.valueOf(mTenantNation.getSelectedItem()))
-                            //.withTenantAge(Integer.parseInt(mTenantMinAge.getText().toString()), Integer.parseInt(mTenantMaxAge.getText().toString()))
+                            .withTenantAge(Integer.parseInt(mTenantMinAge.getText().toString()), Integer.parseInt(mTenantMaxAge.getText().toString()))
                             .withTenantGender(String.valueOf(mTenantGender.getSelectedItem()))
                             .withTenantOccupation(String.valueOf(mTenantOccupation.getSelectedItem()))
                             .tenantSocial(socialValue)
