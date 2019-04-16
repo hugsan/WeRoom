@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.itcom202.weroom.SingleFragment;
 import com.itcom202.weroom.cameraGallery.Camera;
@@ -46,7 +47,6 @@ import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 import static com.itcom202.weroom.cameraGallery.Camera.currentPhotoPath;
-import static com.itcom202.weroom.cameraGallery.Camera.uploadFile;
 import static com.itcom202.weroom.cameraGallery.Gallery.pickFromGallery;
 
 
@@ -56,8 +56,6 @@ public class ProfileFragment extends SingleFragment {
 
     private static final String TAG = "ProfileFragment";
     private FirebaseAuth mFirebaseAuth;
-    private DatabaseReference mDatabaseReference;
-    private FirebaseUser mUser;
     private EditText mUserName;
     private EditText mAge;
     private Button mCreateProfile;
@@ -65,7 +63,6 @@ public class ProfileFragment extends SingleFragment {
     private Spinner mGender;
     private Spinner mCountry;
     private Spinner mRole;
-    private FirebaseStorage mFirebaseStorage;
     private TagView mTag;
     private File mPhotoFile;
     private List<String> tags = new ArrayList<>();
@@ -81,9 +78,6 @@ public class ProfileFragment extends SingleFragment {
         View v = inflater.inflate(R.layout.profile_fragment, container, false);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
-        mFirebaseStorage = FirebaseStorage.getInstance();
 
         mUserName = v.findViewById(R.id.username);
         mAge = v.findViewById(R.id.age);
@@ -183,12 +177,13 @@ public class ProfileFragment extends SingleFragment {
                                     String.valueOf(mGender.getSelectedItem()), String.valueOf(mCountry.getSelectedItem()),
                                     String.valueOf(mRole.getSelectedItem()), tags,
                                     Camera.BitMapToString(mPicture));
-                    mDatabaseReference
-                            .child(DataBasePath.USERS.getValue())
-                            .child(mUser.getUid())
-                            .setValue(myProfile);
 
-                    String[] role = getActivity().getResources().getStringArray(R.array.role_array);
+
+                    // Access a Cloud Firestore instance from your Activity
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    db.collection(DataBasePath.USERS.getValue()).document(mFirebaseAuth.getUid())
+                            .set(myProfile);
+
                     if (mRole.getSelectedItemId() == 0){
                         changeFragment(new LandlordProfileFragment());
                     }else if (mRole.getSelectedItemId() == 1){
@@ -252,37 +247,11 @@ public class ProfileFragment extends SingleFragment {
             Log.d(TAG, "Error on camera/Gallery");
     }
 
-    private void setPic() {
-        // Get the dimensions of the View
-        int targetW = mProfilePhoto.getWidth();
-        int targetH = mProfilePhoto.getHeight();
-
-        // Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-
-        // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
-        // Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-        bmOptions.inPurgeable = true;
-
-        Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
-        mProfilePhoto.setImageBitmap(bitmap);
-    }
-
 
     private SpinnerAdapter countryAdapter(){
         String[] locales = Locale.getISOCountries();
         List<String> countries = new ArrayList<>();
         countries.add(getString(R.string.prompt_country));
-
-
 
         for (String countryCode : locales) {
 

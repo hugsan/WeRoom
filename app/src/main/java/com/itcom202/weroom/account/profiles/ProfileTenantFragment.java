@@ -25,6 +25,7 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.seekBar.BubbleSeekBar;
 
@@ -69,7 +70,6 @@ public class ProfileTenantFragment extends Fragment {
     private String laundry=null;
     private String internet =null;
 
-    private DatabaseReference mDatabaseReference;
 
 
     @Nullable
@@ -92,7 +92,6 @@ public class ProfileTenantFragment extends Fragment {
         mConfirm = v.findViewById(R.id.confirmButton_tenantProfile);
 
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
         // Initialize Places.
         Places.initialize(getApplicationContext(), getString(R.string.google_cloud_api_key));
@@ -213,20 +212,11 @@ public class ProfileTenantFragment extends Fragment {
 
                         // get selected radio button from radioGroup
                         int selectedId = mSmoking.getCheckedRadioButtonId();
-//
-//                        // find the radiobutton by returned id
+
+
                         RadioButton radioSexButton = v.findViewById(selectedId);
-//
-//
-//
-//                         Log.d(TAG,radioSexButton.getText().toString());
-//
-//                        RadioButton test = v.findViewById(mSmoking.getCheckedRadioButtonId());
-//                        Log.d(TAG, test.getText().toString());
 
-
-                        
-                         TenantProfile newInput = new TenantProfile.Builder(userID)
+                        TenantProfile newInput = new TenantProfile.Builder(userID)
                                .isSmokingFriendly(smoke)
                                 .withCity(mChosenCityId, mChosenCityName, mCityLatitude, mCityLongitude)
                                 .withRentingPeriod(mPeriodRenting.getSelectedItemPosition())
@@ -239,44 +229,21 @@ public class ProfileTenantFragment extends Fragment {
                                 .distanceFromCenter(mDistanceFromCenterValue)
                                 .build();
 
-                        mDatabaseReference
-                                .child(DataBasePath.USERS.getValue())
-                                .child(userID)
-                                .child(DataBasePath.PROFILE.getValue())
-                                .child(DataBasePath.TENANT.getValue())
-                                .setValue(newInput);
+
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                        db.collection(DataBasePath.USERS.getValue())
+                                .document(userID)
+                                .update(DataBasePath.TENANT.getValue(),newInput);
+
 
                         startActivity(SwipeActivity.newIntent(getActivity()));
                     }
                 }
             }
         });
-
-
-
         return v;
     }
-//    private SpinnerAdapter countryAdapter(){
-//
-//        String[] locales = Locale.getISOCountries();
-//        List<String> countries = new ArrayList<>();
-//        countries.add(getString(R.string.prompt_country));
-//
-//
-//
-//        for (String countryCode : locales) {
-//
-//            Locale obj = new Locale("", countryCode);
-//
-//            countries.add(obj.getDisplayCountry());
-//        }
-//
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, countries);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//
-//
-//        return adapter;
-//    }
     private boolean checkNullFields(EditText tv){
             if (tv.getText().toString().equals("")){
                 tv.setError(getString(R.string.requiered_field));

@@ -38,6 +38,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.itcom202.weroom.SingleFragment;
 import com.itcom202.weroom.cameraGallery.Camera;
 import com.itcom202.weroom.MapFragment;
@@ -47,7 +48,9 @@ import com.itcom202.weroom.swipe.SwipeActivity;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -345,12 +348,15 @@ public class RoomCreationFragment extends SingleFragment {
                     .withDescription(mRoomDescription.getText().toString())
                     .withPictures(mPictures)
                     .build();
-            mDatabaseReference
-                    .child(DataBasePath.USERS.getValue())
-                    .child(FirebaseAuth.getInstance().getUid())
-                    .child(DataBasePath.LANDLORD.getValue())
-                    .child(mFreeRoom)
-                    .setValue(input);
+
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+            mFreeRoom = "roomOne";
+
+            db.collection(DataBasePath.USERS.getValue())
+                    .document(FirebaseAuth.getInstance().getUid())
+                    .update(DataBasePath.LANDLORD.getValue()+"."+mFreeRoom,input);
+
         }
     }
 

@@ -3,36 +3,29 @@ package com.itcom202.weroom.account.profiles;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.itcom202.weroom.SingleFragment;
-import com.itcom202.weroom.account.profiles.LandlordProfile;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.itcom202.weroom.R;
-import com.itcom202.weroom.swipe.SwipeActivity;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class LandlordProfileFragment extends SingleFragment {
 
     private Spinner mTenantNation;
-//    private EditText mTenantMinAge;
-//    private EditText mTenantMaxAge;
     private Spinner mTenantGender;
     private Spinner mTenantOccupation;
     private RadioGroup mSocialGroup;
@@ -133,11 +126,12 @@ public class LandlordProfileFragment extends SingleFragment {
                             .tenantSocial(socialValue)
                             .canTenantSmoke(smokingValue)
                             .build();
-                    mDatabaseReference
-                            .child(DataBasePath.USERS.getValue())
-                            .child(userID)
-                            .child(DataBasePath.LANDLORD.getValue())
-                            .setValue(newInput);
+
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                    db.collection(DataBasePath.USERS.getValue())
+                            .document(userID)
+                            .update(DataBasePath.LANDLORD.getValue(),newInput);
 
                     changeFragment(new RoomCreationFragment());
                 }
