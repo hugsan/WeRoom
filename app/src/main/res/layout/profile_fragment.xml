@@ -135,7 +135,7 @@
                 android:layout_marginEnd="50dp"
 
                 android:background="@drawable/custom_spinners"
-                android:popupBackground="@color/quantum_grey400"
+                android:popupBackground="@color/quantum_grey700"
                 android:textColor="@color/black"
                 android:theme="@style/Spinner"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -143,8 +143,7 @@
                 app:layout_constraintHorizontal_bias="0.91"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.444"
-                />
+                app:layout_constraintVertical_bias="0.444" />
 
             <TextView
                 android:id="@+id/spinnerTextfieldGender"
@@ -166,8 +165,7 @@
                 android:layout_marginEnd="50dp"
                 android:background="@drawable/custom_spinners"
                 android:entries="@array/gender_array"
-                android:popupBackground="@color/quantum_grey400"
-                />
+                android:popupBackground="@color/quantum_grey700" />
 
             <TextView
                 android:id="@+id/spinnerTextfieldRole"
@@ -191,8 +189,7 @@
                 android:background="@drawable/custom_spinners"
                 android:entries="@array/role_array"
 
-                android:popupBackground="@color/quantum_grey400"
-                />
+                android:popupBackground="@color/quantum_grey700" />
 
             <TextView
                 android:id="@+id/spinnerTextfieldTags"
