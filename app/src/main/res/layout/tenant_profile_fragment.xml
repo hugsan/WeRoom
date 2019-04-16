@@ -2,6 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -27,13 +28,25 @@
                 android:textColor="@color/black"
                 android:textSize="24sp" />
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/city"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
             <android.support.v7.widget.CardView
                 android:id="@+id/idCardViewCities_tenantProfile"
                 android:layout_width="324dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="40dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="4dp">
 
                 <fragment
@@ -47,8 +60,9 @@
                 android:id="@+id/textViewRadius_tenantProfile"
                 android:layout_width="131dp"
                 android:layout_height="19dp"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="50dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="50dp"
                 android:text="@string/radius_from_center"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
@@ -57,22 +71,22 @@
                 android:id="@+id/radiusCenter_tenantProfile"
                 android:layout_width="317dp"
                 android:layout_height="44dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="10dp" />
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp" />
 
             <LinearLayout
                 android:layout_width="338dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView_5km"
                     android:layout_width="48dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="4dp"
-                    android:layout_marginEnd="8dp"
                     android:gravity="start"
                     android:text="@string/_5km"
                     android:textColor="@color/black"
@@ -96,8 +110,9 @@
                 android:id="@+id/textViewChoosePeriod_tenantProfile"
                 android:layout_width="190dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="50dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="50dp"
                 android:text="@string/choose_period"
                 android:textColor="@color/black" />
 
@@ -105,23 +120,25 @@
                 android:id="@+id/spinnerPeriodRenting_tenantProfile"
                 android:layout_width="216dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="50dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="50dp"
                 android:background="@drawable/custom_spinners"
                 android:entries="@array/rending_period_array"
-                android:popupBackground="@color/quantum_grey400"
+                android:popupBackground="@color/quantum_grey700"
                 android:spinnerMode="dropdown" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textViewDeposit"
                     android:layout_width="45dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1"
                     android:text="@string/deposit"
@@ -131,9 +148,8 @@
                     android:id="@+id/depositMin_tenantProfile"
                     android:layout_width="64dp"
                     android:layout_height="39dp"
-                    android:layout_marginStart="30dp"
                     android:layout_marginTop="30dp"
-                    android:layout_marginEnd="52dp"
+                    android:layout_marginEnd="40dp"
                     android:layout_marginBottom="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/custom_rounded_edittext"
@@ -142,13 +158,13 @@
                     android:inputType="number"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
+                    android:textColor="@color/black"
                     android:textColorHint="@color/quantum_grey" />
 
                 <EditText
                     android:id="@+id/depositMax_tenantProfile"
                     android:layout_width="64dp"
                     android:layout_height="39dp"
-                    android:layout_marginStart="0dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginEnd="50dp"
                     android:layout_marginBottom="8dp"
@@ -159,6 +175,7 @@
                     android:inputType="number"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
+                    android:textColor="@color/black"
                     android:textColorHint="@color/quantum_grey" />
 
             </LinearLayout>
@@ -166,13 +183,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textViewRent_tenantProfile"
                     android:layout_width="45dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1"
                     android:text="@string/rent"
@@ -182,9 +200,8 @@
                     android:id="@+id/rentMin_tenantProfile"
                     android:layout_width="64dp"
                     android:layout_height="39dp"
-                    android:layout_marginStart="30dp"
                     android:layout_marginTop="30dp"
-                    android:layout_marginEnd="52dp"
+                    android:layout_marginEnd="40dp"
                     android:layout_marginBottom="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/custom_rounded_edittext"
@@ -193,13 +210,13 @@
                     android:inputType="number"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
+                    android:textColor="@color/black"
                     android:textColorHint="@color/quantum_grey" />
 
                 <EditText
                     android:id="@+id/rentMax_tenantProfile"
                     android:layout_width="64dp"
                     android:layout_height="39dp"
-                    android:layout_marginStart="0dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginEnd="50dp"
                     android:layout_marginBottom="8dp"
@@ -210,6 +227,7 @@
                     android:inputType="number"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
+                    android:textColor="@color/black"
                     android:textColorHint="@color/quantum_grey" />
             </LinearLayout>
 

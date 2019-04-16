@@ -141,7 +141,7 @@ public class BubbleSeekBar extends View {
         super(context, attrs, defStyleAttr);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BubbleSeekBar, defStyleAttr, 0);
-        mMin = a.getFloat(R.styleable.BubbleSeekBar_bsb_min, 0.0f);
+        mMin = a.getFloat(R.styleable.BubbleSeekBar_bsb_min, 5.0f);
         mMax = a.getFloat(R.styleable.BubbleSeekBar_bsb_max, 50.0f);
         mProgress = a.getFloat(R.styleable.BubbleSeekBar_bsb_progress, mMin);
         isFloatType = a.getBoolean(R.styleable.BubbleSeekBar_bsb_is_float_type, false);

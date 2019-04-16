@@ -1,16 +1,21 @@
 package com.itcom202.weroom.account.profiles;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,6 +31,8 @@ import java.util.Map;
 public class LandlordProfileFragment extends SingleFragment {
 
     private Spinner mTenantNation;
+    private EditText mTenantMinAge;
+    private EditText mTenantMaxAge;
     private Spinner mTenantGender;
     private Spinner mTenantOccupation;
     private RadioGroup mSocialGroup;
@@ -43,14 +50,47 @@ public class LandlordProfileFragment extends SingleFragment {
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mTenantNation = v.findViewById(R.id.spinnerNationalityLLlandlordfragment);
-//        mTenantMinAge = v.findViewById(R.id.ageMinT);
-//        mTenantMaxAge = v.findViewById(R.id.ageMaxT);
+        mTenantMinAge = v.findViewById(R.id.ageMinT);
+        mTenantMaxAge = v.findViewById(R.id.ageMaxT);
         mTenantGender = v.findViewById(R.id.spinnerGenderLL);
         mTenantOccupation = v.findViewById(R.id.occupation);
         mSocialGroup = v.findViewById(R.id.socialgroup);
         mSmokingGroup = v.findViewById(R.id.smokinggroup);
         mConfirm = v.findViewById(R.id.confirmtenantprofile);
 
+        mTenantGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView)view).setTextColor(Color.BLACK);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        mTenantNation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView)view).setTextColor(Color.BLACK);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        mTenantOccupation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView)view).setTextColor(Color.BLACK);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         mSocialGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
@@ -92,35 +132,35 @@ public class LandlordProfileFragment extends SingleFragment {
                 String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                 boolean noError = true;
-//                if (mTenantMinAge.getText().toString().length()==0)
-//                {
-//
-//                    mTenantMinAge.setText("16");
-//                }
-//                if (Integer.parseInt(mTenantMinAge.getText().toString()) < 16)
-//                {
-//                    mTenantMinAge.setError(getString(R.string.min_age));
-//                    mTenantMinAge.requestFocus();
-//                    mTenantMinAge.setText("16");
-//                    noError = false;
-//                }
-//                if (mTenantMaxAge.getText().toString().length()==0)
-//                {
-//                    mTenantMaxAge.setText("120");
-//                }
-//                if (Integer.parseInt(mTenantMaxAge.getText().toString()) > 120)
-//                {
-//                    mTenantMaxAge.setError(getString(R.string.max_age));
-//                    mTenantMaxAge.requestFocus();
-//                    mTenantMaxAge.setText("120");
-//                    noError = false;
-//                }
+                if (mTenantMinAge.getText().toString().length()==0)
+                {
+
+                    mTenantMinAge.setText("18");
+                }
+                if (Integer.parseInt(mTenantMinAge.getText().toString()) < 16)
+                {
+                    mTenantMinAge.setError(getString(R.string.min_age));
+                    mTenantMinAge.requestFocus();
+                    mTenantMinAge.setText("18");
+                    noError = false;
+                }
+                if (mTenantMaxAge.getText().toString().length()==0)
+                {
+                    mTenantMaxAge.setText("99");
+                }
+                if (Integer.parseInt(mTenantMaxAge.getText().toString()) > 120)
+                {
+                    mTenantMaxAge.setError(getString(R.string.max_age));
+                    mTenantMaxAge.requestFocus();
+                    mTenantMaxAge.setText("99");
+                    noError = false;
+                }
 
 
                 if (noError){
                     LandlordProfile newInput = new LandlordProfile.Builder(userID)
                             .withTenantNationallity(String.valueOf(mTenantNation.getSelectedItem()))
-                            //.withTenantAge(Integer.parseInt(mTenantMinAge.getText().toString()), Integer.parseInt(mTenantMaxAge.getText().toString()))
+                            .withTenantAge(Integer.parseInt(mTenantMinAge.getText().toString()), Integer.parseInt(mTenantMaxAge.getText().toString()))
                             .withTenantGender(String.valueOf(mTenantGender.getSelectedItem()))
                             .withTenantOccupation(String.valueOf(mTenantOccupation.getSelectedItem()))
                             .tenantSocial(socialValue)

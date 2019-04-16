@@ -84,15 +84,6 @@ public class SwipeFragment extends Fragment {
                 .setTransYGap(0));
         recyclerView.setAdapter(adapter = new ListAdapter());
 
-        AppCompatButton button = v.findViewById(R.id.swipe);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                itemTouchHelper.swipe(recyclerView.findViewHolderForAdapterPosition(0), ItemTouchHelper.DOWN);
-            }
-        });
-
-
         return v;
     }
     public void goToInformationFragment(){

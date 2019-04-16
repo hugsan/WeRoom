@@ -25,7 +25,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="50dp"
                 android:text="@string/kind_of_tenant"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textColor="@color/black"
                 android:textSize="22sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.4"
@@ -52,7 +52,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:background="@drawable/custom_spinners"
-                android:popupBackground="@color/browser_actions_text_color"
+                android:popupBackground="@color/quantum_grey700"
                 android:spinnerMode="dropdown"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.25"
@@ -79,11 +79,61 @@
                 android:layout_marginBottom="0dp"
                 android:background="@drawable/custom_spinners"
                 android:entries="@array/gender_array"
-                android:popupBackground="@color/quantum_grey400"
+                android:popupBackground="@color/quantum_grey700"
                 android:spinnerMode="dropdown"
                 app:layout_constraintBottom_toTopOf="@+id/occupation"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/ageOfTenant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/age_of_tenant"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/ageMinT"
+                    android:layout_width="64dp"
+                    android:layout_height="39dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_rounded_edittext"
+                    android:ems="10"
+                    android:hint="@string/min"
+                    android:inputType="number"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/quantum_grey" />
+
+                <EditText
+                    android:id="@+id/ageMaxT"
+                    android:layout_width="64dp"
+                    android:layout_height="39dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="150dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_rounded_edittext"
+                    android:ems="10"
+                    android:hint="@string/max"
+                    android:inputType="number"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/quantum_grey" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textView10"
@@ -105,7 +155,7 @@
                 android:layout_marginEnd="50dp"
                 android:background="@drawable/custom_spinners"
                 android:entries="@array/occupation"
-                android:popupBackground="@color/quantum_grey400"
+                android:popupBackground="@color/quantum_grey700"
                 android:spinnerMode="dropdown"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.25"

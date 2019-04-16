@@ -114,6 +114,7 @@
     <string name="max">Max.</string>
     <string name="choose_city">Choose a city where you want to live</string>
     <string name="only_3_rooms">You can only list three rooms</string>
+    <string name="city">City</string>
     <string-array name="rending_period_array">
         <item>Select period of renting</item>
         <item>0 – 3 Months </item>
@@ -132,6 +133,7 @@
     <string name="don_t_care">Don\'t Care</string>
     <string name="allow_smoking">Do you allow smoking?</string>
     <string name="kind_of_tenant">What kind of tenant are you looking for?</string>
+    <string name="age_of_tenant">Preferred age of tenant</string>
     <string-array name="occupation">
         <item>Student </item>
         <item>Working </item>
@@ -159,6 +161,7 @@
     <string name="dialog_close">Close</string>
     <string name="dialog_message">Your room has been posted. You can add up to three rooms.</string>
     <string name="dialog_title">Room posted!</string>
+    <string name="minimum_pictures">(OBS! Minimum 3 Pictures)</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -179,6 +182,11 @@
     <!-- strings related to connection errors -->
     <string name="connection_error_FB">Could not connect to Facebook</string>
     <string name="connection_error_Google">Could not connect to Google</string>
+
+    <!-- strings related to the navigation bar -->
+    <string name="navigation_profile">Profile</string>
+    <string name="navigation_home">Home</string>
+    <string name="navigation_chat">Chat</string>
 
 
 </resources>

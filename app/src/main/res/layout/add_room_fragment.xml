@@ -39,28 +39,122 @@
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
+            <TextView
+                android:id="@+id/minimumPictures"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="50dp"
+                android:text="@string/minimum_pictures"
+                android:textColor="@color/quantum_grey800"
+                android:textStyle="italic" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/takeroompicture"
-                    android:layout_width="92dp"
-                    android:layout_height="147dp"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#FF5A60"
-                     />
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/picturepreview"
-                    android:layout_width="92dp"
-                    android:layout_height="147dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#FF5A60"
-                     />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/takeroompicture"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="50dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FF5A60"
+                            android:src="@drawable/ic_add_a_photo_white_24dp" />
+
+                        <ImageView
+                            android:id="@+id/picturepreview"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FF5A60" />
+
+                        <ImageView
+                            android:id="@+id/picturepreviewnr2"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FF5A60" />
+
+                        <ImageView
+                            android:id="@+id/picturepreviewnr3"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FF5A60" />
+
+                        <ImageView
+                            android:id="@+id/picturepreviewnr4"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FF5A60" />
+
+                        <ImageView
+                            android:id="@+id/picturepreviewnr5"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FF5A60" />
+
+                        <ImageView
+                            android:id="@+id/picturepreviewnr6"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FF5A60" />
+
+                        <ImageView
+                            android:id="@+id/picturepreviewnr7"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FF5A60" />
+
+                        <ImageView
+                            android:id="@+id/picturepreviewnr8"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FF5A60" />
+
+                        <ImageView
+                            android:id="@+id/picturepreviewnr9"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FF5A60" />
+
+                        <ImageView
+                            android:id="@+id/picturepreview10"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="50dp"
+                            android:background="#FF5A60" />
+                    </LinearLayout>
+                </HorizontalScrollView>
 
             </LinearLayout>
 
@@ -143,7 +237,7 @@
                 android:layout_marginEnd="50dp"
                 android:background="@drawable/custom_spinners"
                 android:entries="@array/rending_period_array"
-                android:popupBackground="@color/quantum_grey400"
+                android:popupBackground="@color/quantum_grey700"
                 android:spinnerMode="dropdown" />
 
             <TextView
@@ -292,8 +386,9 @@
                 android:layout_marginEnd="50dp"
                 android:background="@drawable/custom_rounded_edittext"
                 android:ems="10"
-                android:hint="Describe your room..."
-                android:inputType="textPersonName"
+                android:gravity="top"
+                android:hint="@string/type_description_room"
+                android:inputType="textMultiLine"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:textColor="@color/black"
@@ -316,7 +411,7 @@
                 android:layout_marginStart="70dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="70dp"
-                android:background="#FF5A60"
+                android:background="@drawable/drawable_custom_button"
                 android:text="@string/add_more_rooms"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
