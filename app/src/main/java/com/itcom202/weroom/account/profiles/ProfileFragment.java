@@ -2,13 +2,8 @@ package com.itcom202.weroom.account.profiles;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.StrictMode;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,36 +14,30 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.itcom202.weroom.SingleFragment;
-//import com.itcom202.weroom.cameraGallery.Camera;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.tagDescription.TagModel;
 import com.itcom202.weroom.account.profiles.tagDescription.TagSeparator;
 import com.itcom202.weroom.account.profiles.tagDescription.TagView;
 import com.itcom202.weroom.cameraGallery.ImagePicker;
+import com.itcom202.weroom.cameraGallery.PictureConversion;
+import com.itcom202.weroom.queries.ImageController;
 
 
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.File;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 
 import static android.app.Activity.RESULT_OK;
@@ -64,7 +53,8 @@ public class ProfileFragment extends SingleFragment {
     private Button mCreateProfile;
     private Spinner mGender;
     private Spinner mCountry;
-    public static Spinner mRole;
+    //TODO we need to fix this, we can not communicate values this way.
+    public static  Spinner mRole;
     private TagView mTag;
     private File mPhotoFile;
     private List<String> tags = new ArrayList<>();
@@ -74,13 +64,13 @@ public class ProfileFragment extends SingleFragment {
 
 
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.profile_fragment, container, false);
 
       //  String[] genders={"Select your gender", "Female", "Male"};
-
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         mUserName = v.findViewById(R.id.username);
@@ -180,18 +170,7 @@ public class ProfileFragment extends SingleFragment {
                     for(TagModel model:  mTag.getSelectedTags()){
                         tags.add(model.getTagText());
                     }
-                    Profile myProfile =
-                            new Profile(mUserName.getText().toString(), Integer.parseInt(mAge.getText().toString()),
-                                    String.valueOf(mGender.getSelectedItem()), String.valueOf(mCountry.getSelectedItem()),
-                                    String.valueOf(mRole.getSelectedItem()), tags,
-                                    String.valueOf(mPicture));
-
-
-                    // Access a Cloud Firestore instance from your Activity
-                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    db.collection(DataBasePath.USERS.getValue()).document(mFirebaseAuth.getUid())
-                            .set(myProfile);
-
+                    createProfile();
                     if (mRole.getSelectedItemId() == 0){
                         changeFragment(new LandlordProfileFragment());
                     }else if (mRole.getSelectedItemId() == 1){
@@ -252,4 +231,20 @@ public class ProfileFragment extends SingleFragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         return adapter;
     }
+    private void createProfile(){
+        Profile myProfile =
+                new Profile(mUserName.getText().toString(), Integer.parseInt(mAge.getText().toString()),
+                        String.valueOf(mGender.getSelectedItem()), String.valueOf(mCountry.getSelectedItem()),
+                        String.valueOf(mRole.getSelectedItem()), tags);
+
+        ImageController.setProfilePicture(FirebaseAuth.getInstance().getUid(),
+                mPicture);
+        // Access a Cloud Firestore instance from your Activity
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(DataBasePath.USERS.getValue()).document(mFirebaseAuth.getUid())
+                .set(myProfile);
+    }
+
+
+
 }

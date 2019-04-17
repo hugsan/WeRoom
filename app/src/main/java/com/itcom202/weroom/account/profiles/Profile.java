@@ -4,7 +4,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.itcom202.weroom.cameraGallery.PictureConversion;
+
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 
@@ -17,21 +24,20 @@ public class Profile implements Serializable {
     private String role;
     private List<String> tags;
 
-    private String profilePicture;
     private TenantProfile tenant;
     private LandlordProfile landlord;
 
 
 
 
-    public Profile (String name, int age, String gender, String country, String role, List<String> tags, String picture){
+
+    public Profile (String name, int age, String gender, String country, String role, List<String> tags){
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.country = country;
         this.role = role;
         this.tags = tags;
-        this.profilePicture = picture;
 
     }
     //This constructor is needed to de-serialize the object from the FireBase database.
@@ -100,12 +106,5 @@ public class Profile implements Serializable {
         this.landlord = landlord;
     }
 
-    public String getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
-    }
 
 }
