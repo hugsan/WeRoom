@@ -33,8 +33,8 @@ public class RoomPosted implements Serializable {
             return this;
         }
         public Builder withPictures(List<String> pictures){
-            if (pictures.size() < 3)
-                throw new IllegalArgumentException("Not enought pictures, at least 3 pictures are requiered");
+//            if (pictures.size() < 3)
+//                throw new IllegalArgumentException("Not enought pictures, at least 3 pictures are requiered");
             this.sPictures = pictures;
             return this;
         }

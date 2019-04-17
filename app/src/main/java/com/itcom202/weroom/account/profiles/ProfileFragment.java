@@ -30,6 +30,7 @@ import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.tagDescription.TagModel;
 import com.itcom202.weroom.account.profiles.tagDescription.TagSeparator;
 import com.itcom202.weroom.account.profiles.tagDescription.TagView;
+import com.itcom202.weroom.cameraGallery.ImagePicker;
 
 
 import android.widget.Button;
@@ -198,58 +199,72 @@ public class ProfileFragment extends SingleFragment {
                         changeFragment(new ProfileTenantFragment());
                     }
 
-                }//
+                }
             }
         });
-        final Fragment  thisFragment = this;
+        final Fragment thisFragment = this;
 
         mProfilePhoto = v.findViewById(R.id.profilePhoto);
         mProfilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pickFromGallery(getActivity(), thisFragment);
+//                pickFromGallery(getActivity(), thisFragment);
+                Intent chooseImageIntent = ImagePicker.getPickImageIntent(getActivity());
+                startActivityForResult(chooseImageIntent, 123);
             }
         });
 
-        mButtonProfilePhoto = v.findViewById(R.id.buttonProfilePhoto);
-        mButtonProfilePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPhotoFile = Camera.dispatchTakePictureIntent(getActivity(),thisFragment );
-            }
-        });
+//        mButtonProfilePhoto = v.findViewById(R.id.buttonProfilePhoto);
+//        mButtonProfilePhoto.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mPhotoFile = Camera.dispatchTakePictureIntent(getActivity(),thisFragment );
+//            }
+//        });
 
         return v;
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d(TAG,"request code: "+ requestCode);
         Log.d(TAG,"result code: "+ resultCode);
         if (resultCode == RESULT_OK){
-            switch (requestCode) {
-                case REQUEST_IMAGE_CAPTURE:
-                    BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-                    Bitmap image = BitmapFactory.decodeFile(mPhotoFile.getPath(),bmOptions);
-                    mProfilePhoto.setImageBitmap(image);
-                    mPicture = image;
+//            switch (requestCode) {
+//                case REQUEST_IMAGE_CAPTURE:
+//                    BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+//                    Bitmap image = BitmapFactory.decodeFile(mPhotoFile.getPath(),bmOptions);
+//                    mProfilePhoto.setImageBitmap(image);
+//                    mPicture = image;
+//                    mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//                    //TODO: rotate picture to portrait
+//                    break;
+//
+//                case GALLERY_REQUEST_CODE:
+//                    Uri selectedImage = data.getData();
+//                    mProfilePhoto.setImageURI(selectedImage);
+//                    try {
+//                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+//                        mPicture = bitmap;
+//                        mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//                    }catch (Exception e){
+//                        Log.d(TAG, "Exception Gallery: "+ e);
+//                    }
+//                    break;
+//            }
+            switch(requestCode) {
+                case 123:
+                    Bitmap bitmap = ImagePicker.getImageFromResult(getActivity(), resultCode, data);
+                    mProfilePhoto.setImageBitmap(bitmap);
+                    mPicture = bitmap;
                     mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    //TODO: rotate picture to portrait
+                    // TODO use bitmap
                     break;
-
-                case GALLERY_REQUEST_CODE:
-                    Uri selectedImage = data.getData();
-                    mProfilePhoto.setImageURI(selectedImage);
-                    try {
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-                        mPicture = bitmap;
-                        mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    }catch (Exception e){
-                        Log.d(TAG, "Exception Gallery: "+ e);
-                    }
+                default:
+                    super.onActivityResult(requestCode, resultCode, data);
                     break;
             }
+
         } else
             Log.d(TAG, "Error on camera/Gallery");
     }

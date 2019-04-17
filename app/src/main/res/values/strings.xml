@@ -88,13 +88,16 @@
     <string name="role">Are you a Landlord or Tenant?</string>
     <string name="tag_description">Describe yourself using Tags</string>
     <string name="occupation">Occupation</string>
+    
+    <!-- strings related to camera -->
+    <string name="add_photo">Add photo</string>
 
 
     <!-- Tags -->
     <string name="empty_tag">You cannot add empty tags.</string>
 
     <!-- Strings related to ForgetPasswordFragment -->
-    <string name="invalid_email">Invalid password</string>
+    <string name="invalid_email">Invalid email</string>
     <string name="confirm">Confirm</string>
     <string name="infoForgotPass">Forgot Password?</string>
 
@@ -187,6 +190,9 @@
     <string name="navigation_profile">Profile</string>
     <string name="navigation_home">Home</string>
     <string name="navigation_chat">Chat</string>
+
+    <!-- string regarding forgot password fragment -->
+    <string name="email_sent">Email sent</string>
 
 
 </resources>

@@ -42,12 +42,17 @@ public class ForgotPasswordFragment extends Fragment {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         Log.d(TAG, "Email sent.");
+                                        Toast.makeText(getActivity(), getString(R.string.email_sent), Toast.LENGTH_SHORT).show();
                                     }
-                                    else Toast.makeText(getContext(), getString(R.string.invalid_email), Toast.LENGTH_SHORT).show();
+                                    else {
+                                        Toast.makeText(getActivity(), getString(R.string.not_succ), Toast.LENGTH_SHORT).show();
+
+                                    }
 
                                 }
                             });
                 }
+                else Toast.makeText(getActivity(), getString(R.string.invalid_email), Toast.LENGTH_SHORT).show();
 
             }
         });

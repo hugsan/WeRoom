@@ -58,7 +58,6 @@ public class TagViewAdapter extends RecyclerView.Adapter<TagViewAdapter.TagViewH
     @Override
     public void onBindViewHolder(@NonNull TagViewAdapter.TagViewHolder tagViewHolder, int i) {
         String tag = mTagItemList.get(i);
-
         tagViewHolder.textViewTag.setTextColor(mTagTextColor);
 
         GradientDrawable drawable = (GradientDrawable) tagViewHolder.tagContainer.getBackground();

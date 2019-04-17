@@ -233,7 +233,7 @@ public class RoomCreationFragment extends SingleFragment {
                 if (mFreeRoom != null){
                     postRoom();
 
-                    mPopUp.showDialog(getActivity());
+                    mPopUp.showDialog(getActivity(),getString(R.string.dialog_message));
 
                     changeFragment(new RoomCreationFragment());
 

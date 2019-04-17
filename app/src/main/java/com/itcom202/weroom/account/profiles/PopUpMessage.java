@@ -12,14 +12,14 @@ import com.itcom202.weroom.R;
 public class PopUpMessage {
 
 
-    public void showDialog(Activity activity){
+    public void showDialog(Activity activity,String msg){
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.pop_up);
 
         TextView text =  dialog.findViewById(R.id.textViewDialogMsg);
-        text.setText(R.string.dialog_message);
+        text.setText(msg);
 
         Button dialogButton = dialog.findViewById(R.id.buttonClose);
         dialogButton.setOnClickListener(new View.OnClickListener() {
