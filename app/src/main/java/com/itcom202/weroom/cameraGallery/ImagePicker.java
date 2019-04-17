@@ -136,7 +136,7 @@ public class ImagePicker {
     private static int getRotation(Context context, Uri imageUri, boolean isCamera) {
         int rotation;
         if (isCamera) {
-            rotation = getRotationFromCamera(context, imageUri);
+            rotation = getRotationFromCamera(context, imageUri)-90;
         } else {
             rotation = getRotationFromGallery(context, imageUri);
         }
