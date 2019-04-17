@@ -25,7 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.itcom202.weroom.SingleFragment;
-import com.itcom202.weroom.cameraGallery.Camera;
+//import com.itcom202.weroom.cameraGallery.Camera;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.tagDescription.TagModel;
 import com.itcom202.weroom.account.profiles.tagDescription.TagSeparator;
@@ -49,20 +49,16 @@ import java.util.Objects;
 
 
 import static android.app.Activity.RESULT_OK;
-import static com.itcom202.weroom.cameraGallery.Camera.currentPhotoPath;
-import static com.itcom202.weroom.cameraGallery.Gallery.pickFromGallery;
 
 
 public class ProfileFragment extends SingleFragment {
-    static final int REQUEST_IMAGE_CAPTURE = 0;
-    static final int GALLERY_REQUEST_CODE = 1;
+    static final int REQUEST_CODE = 123;
 
     private static final String TAG = "ProfileFragment";
     private FirebaseAuth mFirebaseAuth;
     private EditText mUserName;
     private EditText mAge;
     private Button mCreateProfile;
-    private ImageButton mButtonProfilePhoto;
     private Spinner mGender;
     private Spinner mCountry;
     public static Spinner mRole;
@@ -185,7 +181,7 @@ public class ProfileFragment extends SingleFragment {
                             new Profile(mUserName.getText().toString(), Integer.parseInt(mAge.getText().toString()),
                                     String.valueOf(mGender.getSelectedItem()), String.valueOf(mCountry.getSelectedItem()),
                                     String.valueOf(mRole.getSelectedItem()), tags,
-                                    Camera.BitMapToString(mPicture));
+                                    String.valueOf(mPicture));
 
 
                     // Access a Cloud Firestore instance from your Activity
@@ -208,20 +204,10 @@ public class ProfileFragment extends SingleFragment {
         mProfilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                pickFromGallery(getActivity(), thisFragment);
                 Intent chooseImageIntent = ImagePicker.getPickImageIntent(getActivity());
-                startActivityForResult(chooseImageIntent, 123);
+                startActivityForResult(chooseImageIntent, REQUEST_CODE);
             }
         });
-
-//        mButtonProfilePhoto = v.findViewById(R.id.buttonProfilePhoto);
-//        mButtonProfilePhoto.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mPhotoFile = Camera.dispatchTakePictureIntent(getActivity(),thisFragment );
-//            }
-//        });
-
         return v;
     }
 
@@ -230,35 +216,12 @@ public class ProfileFragment extends SingleFragment {
         Log.d(TAG,"request code: "+ requestCode);
         Log.d(TAG,"result code: "+ resultCode);
         if (resultCode == RESULT_OK){
-//            switch (requestCode) {
-//                case REQUEST_IMAGE_CAPTURE:
-//                    BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-//                    Bitmap image = BitmapFactory.decodeFile(mPhotoFile.getPath(),bmOptions);
-//                    mProfilePhoto.setImageBitmap(image);
-//                    mPicture = image;
-//                    mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//                    //TODO: rotate picture to portrait
-//                    break;
-//
-//                case GALLERY_REQUEST_CODE:
-//                    Uri selectedImage = data.getData();
-//                    mProfilePhoto.setImageURI(selectedImage);
-//                    try {
-//                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-//                        mPicture = bitmap;
-//                        mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//                    }catch (Exception e){
-//                        Log.d(TAG, "Exception Gallery: "+ e);
-//                    }
-//                    break;
-//            }
             switch(requestCode) {
-                case 123:
+                case REQUEST_CODE:
                     Bitmap bitmap = ImagePicker.getImageFromResult(getActivity(), resultCode, data);
                     mProfilePhoto.setImageBitmap(bitmap);
                     mPicture = bitmap;
                     mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    // TODO use bitmap
                     break;
                 default:
                     super.onActivityResult(requestCode, resultCode, data);
