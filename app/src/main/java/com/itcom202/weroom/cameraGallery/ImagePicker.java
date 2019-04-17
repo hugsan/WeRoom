@@ -14,8 +14,10 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.media.ExifInterface;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.itcom202.weroom.R;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -70,6 +72,7 @@ public class ImagePicker {
                                             Intent imageReturnedIntent) {
         Log.d(TAG, "getImageFromResult, resultCode: " + resultCode);
         Bitmap bm = null;
+        ImageView imageView= new ImageView(context);
         File imageFile = getTempFile(context);
         if (resultCode == Activity.RESULT_OK) {
             Uri selectedImage;
@@ -77,6 +80,8 @@ public class ImagePicker {
                     imageReturnedIntent.getData() == null  ||
                     imageReturnedIntent.getData().toString().contains(imageFile.toString()));
             if (isCamera) {     /** CAMERA **/
+
+
                 selectedImage = Uri.fromFile(imageFile);
             } else {            /** ALBUM **/
                 selectedImage = imageReturnedIntent.getData();
@@ -133,10 +138,12 @@ public class ImagePicker {
     }
 
 
+
     private static int getRotation(Context context, Uri imageUri, boolean isCamera) {
         int rotation;
+
         if (isCamera) {
-            rotation = getRotationFromCamera(context, imageUri)-90;
+            rotation = getRotationFromCamera(context, imageUri);
         } else {
             rotation = getRotationFromGallery(context, imageUri);
         }
@@ -153,6 +160,7 @@ public class ImagePicker {
             int orientation = exif.getAttributeInt(
                     ExifInterface.TAG_ORIENTATION,
                     ExifInterface.ORIENTATION_NORMAL);
+           // int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
 
             switch (orientation) {
                 case ExifInterface.ORIENTATION_ROTATE_270:
