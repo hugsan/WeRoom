@@ -41,9 +41,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.itcom202.weroom.SingleFragment;
-import com.itcom202.weroom.cameraGallery.Camera;
 import com.itcom202.weroom.MapFragment;
 import com.itcom202.weroom.R;
+import com.itcom202.weroom.cameraGallery.ImagePicker;
 import com.itcom202.weroom.swipe.SwipeActivity;
 
 import java.io.File;
@@ -55,11 +55,10 @@ import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 import static com.facebook.FacebookSdk.getApplicationContext;
-import static com.itcom202.weroom.cameraGallery.Camera.uploadFile;
+//import static com.itcom202.weroom.cameraGallery.Camera.uploadFile;
 
 public class RoomCreationFragment extends SingleFragment {
-    static final int REQUEST_IMAGE_CAPTURE = 0;
-    static final int GALLERY_REQUEST_CODE = 1;
+    static final int REQUEST_CODE = 123;
 
     public final String TAG = "RoomCreationFragment";
     private EditText mRent;
@@ -253,7 +252,8 @@ public class RoomCreationFragment extends SingleFragment {
         mTakeRoomPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPhotoFile = Camera.dispatchTakePictureIntent(getActivity(),thisFragment );
+                Intent chooseImageIntent = ImagePicker.getPickImageIntent(getActivity());
+                startActivityForResult(chooseImageIntent, REQUEST_CODE);
             }
         });
         return v;
@@ -264,30 +264,15 @@ public class RoomCreationFragment extends SingleFragment {
         Log.d(TAG,"request code: "+ requestCode);
         Log.d(TAG,"result code: "+ resultCode);
         if (resultCode == RESULT_OK){
-            switch (requestCode) {
-                case REQUEST_IMAGE_CAPTURE:
-
-                    BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-                    Bitmap image = BitmapFactory.decodeFile(mPhotoFile.getPath(),bmOptions);
-                    mPictures.add(Camera.BitMapToString(image));
-                    mProfilePhoto.setImageBitmap(image);
-                    //uploadFile(image, "room_one");
-
+            switch(requestCode) {
+                case REQUEST_CODE:
+                    Bitmap bitmap = ImagePicker.getImageFromResult(getActivity(), resultCode, data);
+                    mProfilePhoto.setImageBitmap(bitmap);
+                    mPictures.add(String.valueOf(bitmap));
                     mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    //TODO: rotate picture to portrait
                     break;
-
-                case GALLERY_REQUEST_CODE:
-                    Uri selectedImage = data.getData();
-                    mProfilePhoto.setImageURI(selectedImage);
-                    try {
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-                        //uploadFile(bitmap,"room_one");
-                        mPictures.add(Camera.BitMapToString(bitmap));
-                        mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    }catch (Exception e){
-                        Log.d(TAG, "Exception Gallery: "+ e);
-                    }
+                default:
+                    super.onActivityResult(requestCode, resultCode, data);
                     break;
             }
         } else
