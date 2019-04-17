@@ -59,9 +59,6 @@ public class SwipeFragment extends Fragment {
                     @Override
                     public void onItemSwipedUp() {
                         Log.d(TAG, "UP");
-                        /*final CardInfoFragment cardInfoFragment = new CardInfoFragment();
-                        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                        transaction.replace(getId(R.id.fragment_card_info), cardInfoFragment).commit();*/
 
                     }
 
