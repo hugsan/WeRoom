@@ -65,7 +65,7 @@ public class ProfileFragment extends SingleFragment {
     private ImageButton mButtonProfilePhoto;
     private Spinner mGender;
     private Spinner mCountry;
-    private Spinner mRole;
+    public static Spinner mRole;
     private TagView mTag;
     private File mPhotoFile;
     private List<String> tags = new ArrayList<>();
