@@ -2,7 +2,7 @@ package com.itcom202.weroom.account.profiles;
 
 import java.io.Serializable;
 import java.util.InputMismatchException;
-import java.util.List;
+import java.util.UUID;
 
 public class RoomPosted implements Serializable {
 
@@ -19,12 +19,11 @@ public class RoomPosted implements Serializable {
         private boolean sInternet;
         private boolean sCommonAreas;
         private boolean sLaundry;
-        private int sRoomNumber;
+        private String sRoomID;
         private String sDescription;
-        private List<String> sPictures;
 
-        public Builder(int roomNumber){
-            sRoomNumber = roomNumber;
+        public Builder(){
+            sRoomID = UUID.randomUUID().toString(); ;
         }
         public Builder withRent(int rent){
             if(rent<0)
@@ -32,12 +31,7 @@ public class RoomPosted implements Serializable {
             sRent = rent;
             return this;
         }
-        public Builder withPictures(List<String> pictures){
-//            if (pictures.size() < 3)
-//                throw new IllegalArgumentException("Not enought pictures, at least 3 pictures are requiered");
-            this.sPictures = pictures;
-            return this;
-        }
+
         public Builder withDescription(String s){
             if(s.equals(""))
                 throw new InputMismatchException("Wrong description");
@@ -101,9 +95,8 @@ public class RoomPosted implements Serializable {
             r.mInternet = sInternet;
             r.mComonAreas = sCommonAreas;
             r.mLaundry = sLaundry;
-            r.mRoomNumber = sRoomNumber;
+            r.mRoomID = sRoomID;
             r.mDescription = sDescription;
-            r.mPictures = sPictures;
             return r;
         }
 
@@ -124,22 +117,13 @@ public class RoomPosted implements Serializable {
     private boolean mInternet;
     private boolean mComonAreas;
     private boolean mLaundry;
-    private int mRoomNumber;
+    private String mRoomID;
     private String mDescription;
 
-    private List<String> mPictures;
 
     //Constructor is public needed to de-serialize the object using firebase database
 
     public RoomPosted(){}
-
-    public List<String> getPictures() {
-        return mPictures;
-    }
-
-    public void setPictures(List<String> pictures) {
-        mPictures = pictures;
-    }
 
     public String getDescription() {
         return mDescription;
@@ -245,12 +229,12 @@ public class RoomPosted implements Serializable {
         mLaundry = laundry;
     }
 
-    public int getRoomNumber() {
-        return mRoomNumber;
+    public String getRoomID() {
+        return mRoomID;
     }
 
-    public void setRoomNumber(int roomNumber) {
-        mRoomNumber = roomNumber;
+    public void setRoomID(String roomID) {
+        mRoomID = roomID;
     }
 
 }

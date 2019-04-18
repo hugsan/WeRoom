@@ -9,6 +9,7 @@ public enum DataBasePath {
     ROOM_TWO("mRoomTwo"),
     ROOM_THREE("mRoomThree"),
     PROFILE_PICTURE("profile_picture"),
+    ROOM_PICTURE("profile_picture"),
     IMAGE("images");
 
     private final String name;

@@ -59,7 +59,7 @@ public class LandlordProfile {
             landlord.mUserID = sUserID;
             landlord.mTenantNation = sTenantNation;
             landlord.mTenantMinAge = sTenantMinAge;
-            landlord.mTenatnMaxAge = sTenatnMaxAge;
+            landlord.mTenantMaxAge = sTenatnMaxAge;
             landlord.mTenantGender = sTenantGender;
             landlord.mTenantOccupation = sTenantOccupation;
             landlord.mAllowTenantSmoking = sAllowTenantSmoking;
@@ -74,7 +74,7 @@ public class LandlordProfile {
     private String mUserID;
     private String mTenantNation;
     private int mTenantMinAge;
-    private int mTenatnMaxAge;
+    private int mTenantMaxAge;
     private String mTenantGender;
     private String mTenantOccupation;
     private String mAllowTenantSmoking;
@@ -146,12 +146,12 @@ public class LandlordProfile {
         mTenantMinAge = tenantMinAge;
     }
 
-    public int getTenatnMaxAge() {
-        return mTenatnMaxAge;
+    public int getTenantMaxAge() {
+        return mTenantMaxAge;
     }
 
-    public void setTenatnMaxAge(int tenatnMaxAge) {
-        mTenatnMaxAge = tenatnMaxAge;
+    public void setTenantMaxAge(int tenantMaxAge) {
+        mTenantMaxAge = tenantMaxAge;
     }
 
     public String getTenantGender() {

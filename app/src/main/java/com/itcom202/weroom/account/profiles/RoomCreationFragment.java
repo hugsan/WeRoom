@@ -3,11 +3,8 @@ package com.itcom202.weroom.account.profiles;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -49,13 +46,10 @@ import com.itcom202.weroom.swipe.SwipeActivity;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 import static com.facebook.FacebookSdk.getApplicationContext;
-//import static com.itcom202.weroom.cameraGallery.Camera.uploadFile;
 
 public class RoomCreationFragment extends SingleFragment {
     static final int REQUEST_CODE = 123;
@@ -198,7 +192,7 @@ public class RoomCreationFragment extends SingleFragment {
                     Toast.makeText(getContext(), R.string.type_description_room, Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    RoomPosted input = new RoomPosted.Builder(1)
+                    RoomPosted input = new RoomPosted.Builder()
                             .hasCommonAreas(mCommonArea.isChecked())
                             .hasInternet(mInternet.isChecked())
                             .hasLaundry(mLaundry.isChecked())
@@ -333,7 +327,7 @@ public class RoomCreationFragment extends SingleFragment {
             Toast.makeText(getContext(), R.string.type_description_room, Toast.LENGTH_SHORT).show();
         }
         else {
-            RoomPosted input = new RoomPosted.Builder(1)
+            RoomPosted input = new RoomPosted.Builder()
                     .hasCommonAreas(mCommonArea.isChecked())
                     .hasInternet(mInternet.isChecked())
                     .hasLaundry(mLaundry.isChecked())
@@ -344,7 +338,6 @@ public class RoomCreationFragment extends SingleFragment {
                     .withRent(Integer.parseInt(mRent.getText().toString()))
                     .withSize(Integer.parseInt(mRoomSize.getText().toString()))
                     .withDescription(mRoomDescription.getText().toString())
-                    .withPictures(mPictures)
                     .build();
 
             FirebaseFirestore db = FirebaseFirestore.getInstance();

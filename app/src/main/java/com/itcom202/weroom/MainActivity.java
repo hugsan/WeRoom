@@ -6,10 +6,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.itcom202.weroom.account.LoginActivity;
-import com.itcom202.weroom.swipe.SwipeActivity;
+import com.itcom202.weroom.queries.ProfileQuery;
+
+import java.util.concurrent.ExecutionException;
 
 
 public class MainActivity extends AppCompatActivity {
