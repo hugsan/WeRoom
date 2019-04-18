@@ -16,13 +16,10 @@ import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.media.ExifInterface;
 import android.util.Log;
-import android.widget.ImageView;
-
 import com.itcom202.weroom.R;
-
-
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +29,6 @@ public class ImagePicker {
     private static final int DEFAULT_MIN_WIDTH_QUALITY = 400;        // min pixels
     private static final String TAG = "ImagePicker";
     private static final String TEMP_IMAGE_NAME = "tempImage";
-
-    public static int minWidthQuality = DEFAULT_MIN_WIDTH_QUALITY;
 
 
     public static Intent getPickImageIntent(Context context) {
@@ -80,10 +75,9 @@ public class ImagePicker {
 
 
     public static Bitmap getImageFromResult(Context context, int resultCode,
-                                            Intent imageReturnedIntent) {
+                                            Intent imageReturnedIntent) throws IOException {
         Log.d(TAG, "getImageFromResult, resultCode: " + resultCode);
         Bitmap bm = null;
-        ImageView imageView= new ImageView(context);
         File imageFile = getTempFile(context);
         if (resultCode == Activity.RESULT_OK) {
             Uri selectedImage;
@@ -92,8 +86,8 @@ public class ImagePicker {
                     imageReturnedIntent.getData().toString().contains(imageFile.toString()));
             if (isCamera) {     /** CAMERA **/
 
-
                 selectedImage = Uri.fromFile(imageFile);
+              //  handleSamplingAndRotationBitmap(context,selectedImage);
             } else {            /** ALBUM **/
                 selectedImage = imageReturnedIntent.getData();
             }
@@ -101,7 +95,13 @@ public class ImagePicker {
 
             bm = getImageResized(context, selectedImage);
             int rotation = getRotation(context, selectedImage, isCamera);
-            bm = rotate(bm, rotation);
+            //bm = handleSamplingAndRotationBitmap(context,selectedImage);
+            if(bm.getHeight()>=bm.getWidth())
+                bm=rotate(bm,rotation);
+            else
+                bm=rotate(bm,rotation+90);
+
+
         }
         return bm;
     }
@@ -144,7 +144,7 @@ public class ImagePicker {
             bm = decodeBitmap(context, selectedImage, sampleSizes[i]);
             Log.d(TAG, "resizer: new bitmap width = " + bm.getWidth());
             i++;
-        } while (bm.getWidth() < minWidthQuality && i < sampleSizes.length);
+        } while (bm.getWidth() < DEFAULT_MIN_WIDTH_QUALITY && i < sampleSizes.length);
         return bm;
     }
 
@@ -164,14 +164,15 @@ public class ImagePicker {
 
     private static int getRotationFromCamera(Context context, Uri imageFile) {
         int rotate = 0;
-        try {
 
+        try {
             context.getContentResolver().notifyChange(imageFile, null);
             ExifInterface exif = new ExifInterface(imageFile.getPath());
             int orientation = exif.getAttributeInt(
                     ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_NORMAL);
-           // int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+                    ExifInterface.ORIENTATION_UNDEFINED);
+
+            // int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
 
             switch (orientation) {
                 case ExifInterface.ORIENTATION_ROTATE_270:
@@ -215,8 +216,7 @@ public class ImagePicker {
         if (rotation != 0) {
             Matrix matrix = new Matrix();
             matrix.postRotate(rotation);
-            Bitmap bmOut = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
-            return bmOut;
+            return Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
         }
         return bm;
     }

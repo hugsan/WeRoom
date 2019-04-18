@@ -1,9 +1,16 @@
 package com.itcom202.weroom.account.profiles;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.ExifInterface;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,11 +21,16 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.itcom202.weroom.SingleFragment;
+//import com.itcom202.weroom.cameraGallery.Camera;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.tagDescription.TagModel;
 import com.itcom202.weroom.account.profiles.tagDescription.TagSeparator;
@@ -29,15 +41,20 @@ import com.itcom202.weroom.queries.ImageController;
 
 
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 
 import static android.app.Activity.RESULT_OK;
@@ -71,6 +88,7 @@ public class ProfileFragment extends SingleFragment {
         View v = inflater.inflate(R.layout.profile_fragment, container, false);
 
       //  String[] genders={"Select your gender", "Female", "Male"};
+
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         mUserName = v.findViewById(R.id.username);
@@ -98,6 +116,7 @@ public class ProfileFragment extends SingleFragment {
 
 
         mCountry.setAdapter(countryAdapter());
+
 
         mCreateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,10 +190,16 @@ public class ProfileFragment extends SingleFragment {
         if (resultCode == RESULT_OK){
             switch(requestCode) {
                 case REQUEST_CODE:
-                    Bitmap bitmap = ImagePicker.getImageFromResult(getActivity(), resultCode, data);
+                    Bitmap bitmap = null;
+                    try {
+                        bitmap = ImagePicker.getImageFromResult(getActivity(), resultCode, data);
+                    } catch (IOException e) {
+                        //do sth
+                    }
                     mProfilePhoto.setImageBitmap(bitmap);
                     mPicture = bitmap;
                     mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
                     break;
                 default:
                     super.onActivityResult(requestCode, resultCode, data);

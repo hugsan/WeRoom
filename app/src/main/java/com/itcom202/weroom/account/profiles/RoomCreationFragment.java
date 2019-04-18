@@ -45,6 +45,7 @@ import com.itcom202.weroom.cameraGallery.ImagePicker;
 import com.itcom202.weroom.swipe.SwipeActivity;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -255,7 +256,12 @@ public class RoomCreationFragment extends SingleFragment {
         if (resultCode == RESULT_OK){
             switch(requestCode) {
                 case REQUEST_CODE:
-                    Bitmap bitmap = ImagePicker.getImageFromResult(getActivity(), resultCode, data);
+                    Bitmap bitmap = null;
+                    try {
+                        bitmap = ImagePicker.getImageFromResult(getActivity(), resultCode, data);
+                    } catch (IOException e) {
+                        //do sth
+                    }
                     mProfilePhoto.setImageBitmap(bitmap);
                     mPictures.add(String.valueOf(bitmap));
                     mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
