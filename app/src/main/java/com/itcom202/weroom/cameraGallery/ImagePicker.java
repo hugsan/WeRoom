@@ -19,7 +19,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.itcom202.weroom.R;
-import com.squareup.picasso.Picasso;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;

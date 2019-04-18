@@ -88,46 +88,16 @@ public class ProfileFragment extends SingleFragment {
         String[] tagList = new String[]{getString(R.string.hint_1), getString(R.string.hint_2), getString(R.string.hint_3)};
         mTag.setTagList(tagList);
 
+        ArrayAdapter adapterGender = ArrayAdapter.createFromResource(getActivity(), R.array.gender_array, R.layout.spinner_item);
+        adapterGender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mGender.setAdapter(adapterGender);
 
-        mGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView)view).setTextColor(Color.BLACK);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        mRole.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView)view).setTextColor(Color.BLACK);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        mCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView)view).setTextColor(Color.BLACK);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        ArrayAdapter adapterRole = ArrayAdapter.createFromResource(getActivity(), R.array.role_array, R.layout.spinner_item);
+        adapterRole.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mRole.setAdapter(adapterRole);
 
 
         mCountry.setAdapter(countryAdapter());
-
 
         mCreateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,8 +197,10 @@ public class ProfileFragment extends SingleFragment {
 
             countries.add(obj.getDisplayCountry());
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, countries);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item , countries);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
         return adapter;
     }
     private void createProfile(){

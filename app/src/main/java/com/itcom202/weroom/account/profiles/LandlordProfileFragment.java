@@ -58,39 +58,15 @@ public class LandlordProfileFragment extends SingleFragment {
         mSmokingGroup = v.findViewById(R.id.smokinggroup);
         mConfirm = v.findViewById(R.id.confirmtenantprofile);
 
-        mTenantGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView)view).setTextColor(Color.BLACK);
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+        ArrayAdapter adapterGenderTenant = ArrayAdapter.createFromResource(getActivity(), R.array.gender_array, R.layout.spinner_item);
+        adapterGenderTenant.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mTenantGender.setAdapter(adapterGenderTenant);
 
-            }
-        });
-        mTenantNation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView)view).setTextColor(Color.BLACK);
-            }
+        ArrayAdapter adapterOccup = ArrayAdapter.createFromResource(getActivity(), R.array.occupation, R.layout.spinner_item);
+        adapterOccup.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mTenantOccupation.setAdapter(adapterOccup);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        mTenantOccupation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView)view).setTextColor(Color.BLACK);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         mSocialGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
@@ -198,7 +174,7 @@ public class LandlordProfileFragment extends SingleFragment {
 
             countries.add(obj.getDisplayCountry());
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, countries);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item , countries);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         return adapter;
     }

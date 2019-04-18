@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -104,23 +105,17 @@ public class RoomCreationFragment extends SingleFragment {
         mProfilePhoto = v.findViewById(R.id.picturepreview);
         mAddAnotherRoom = v.findViewById(R.id.addMoreRooms);
 
+        ArrayAdapter adapterPeriodRent = ArrayAdapter.createFromResource(getActivity(), R.array.rending_period_array, R.layout.spinner_item);
+        adapterPeriodRent.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mPeriodRenting.setAdapter(adapterPeriodRent);
+
+
         mRoomDescription = v.findViewById(R.id.descriptionField);
 
         final MapFragment mapFragment = new MapFragment();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.showmapfragment, mapFragment).commit();
 
-        mPeriodRenting.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView)view).setTextColor(Color.BLACK);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
 
 

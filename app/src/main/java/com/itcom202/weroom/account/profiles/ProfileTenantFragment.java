@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -94,18 +95,11 @@ public class ProfileTenantFragment extends Fragment {
 
 
 
+        ArrayAdapter adapterPeriodRent = ArrayAdapter.createFromResource(getActivity(), R.array.rending_period_array, R.layout.spinner_item);
+        adapterPeriodRent.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mPeriodRenting.setAdapter(adapterPeriodRent);
 
-        mPeriodRenting.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView)view).setTextColor(Color.BLACK);
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         // Initialize Places.
         Places.initialize(getApplicationContext(), getString(R.string.google_cloud_api_key));
