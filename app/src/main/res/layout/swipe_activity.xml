@@ -5,35 +5,17 @@
     android:background="@color/white">
 
     <RelativeLayout
-        android:id="@+id/swipe_container"
-        android:layout_width="match_parent"
-        android:layout_height="402dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="521dp"
-            android:orientation="vertical">
-
-        </android.support.v7.widget.RecyclerView>
-
-    </RelativeLayout>
-
-    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageButton
             android:id="@+id/dislikeButton"
-            android:layout_width="82dp"
-            android:layout_height="82dp"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="420dp"
+            android:layout_marginStart="85dp"
+            android:layout_marginTop="492dp"
             android:background="@drawable/custom_dislike_button"
             android:scaleType="fitCenter"
             android:shadowColor="@color/black"
@@ -41,12 +23,12 @@
 
         <ImageButton
             android:id="@+id/likeButton"
-            android:layout_width="82dp"
-            android:layout_height="82dp"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="420dp"
-            android:layout_marginEnd="70dp"
+            android:layout_marginTop="492dp"
+            android:layout_marginEnd="91dp"
             android:background="@drawable/custom_dislike_button"
             android:scaleType="fitCenter"
             android:shadowColor="@color/black"
@@ -54,12 +36,12 @@
 
         <ImageButton
             android:id="@+id/regretButton"
-            android:layout_width="74dp"
-            android:layout_height="65dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="13dp"
-            android:layout_marginTop="493dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="538dp"
+            android:layout_marginEnd="22dp"
             android:layout_toStartOf="@+id/likeButton"
             android:layout_toEndOf="@+id/dislikeButton"
             android:background="@drawable/custom_dislike_button"
@@ -73,6 +55,22 @@
             android:layout_height="662dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="0dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/swipe_container"
+        android:layout_width="match_parent"
+        android:layout_height="464dp"
+        android:layout_marginTop="25dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="521dp"
+            android:orientation="vertical">
+
+        </android.support.v7.widget.RecyclerView>
 
     </RelativeLayout>
 

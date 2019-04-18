@@ -195,4 +195,14 @@
     <string name="email_sent">Email sent</string>
 
 
+    <!-- strings related to swipe cards -->
+    <string name="area">Area</string>
+    <string name="address_room">Address</string>
+    <string name="period">Period</string>
+    <string name="about_me">About Me</string>
+    <string name="smoke">Smoking habits</string>
+    <string name="searching_for">I\'m looking for</string>
+    <string name="searching_in">Searching  in</string>
+
+
 </resources>
