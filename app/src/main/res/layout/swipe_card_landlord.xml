@@ -4,21 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="horizontal">
 
     <android.support.v7.widget.CardView
 
-        android:layout_width="314dp"
-        android:layout_height="427dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="486dp"
+        android:layout_marginTop="25dp"
         app:cardBackgroundColor="#FF5A60">
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="410dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:orientation="vertical">
@@ -26,7 +22,7 @@
             <ImageView
                 android:id="@+id/photoCard"
                 android:layout_width="match_parent"
-                android:layout_height="305dp"
+                android:layout_height="326dp"
                 android:layout_gravity="center"
                 android:src="@mipmap/ic_launcher" />
 
@@ -35,11 +31,46 @@
                 android:layout_width="147dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/photoCard"
-                android:layout_marginTop="13dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="263dp"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="hola"
                 android:textColor="@color/white"
                 android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/nationalityOfTenant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="280dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/nationality"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/ageOfTenant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="351dp"
+                android:layout_marginBottom="56dp"
+                android:text="@string/hint_age"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/nameOfTenant"
+                android:layout_width="89dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="306dp"
+                android:layout_marginBottom="107dp"
+                android:text="@string/hint_name"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
