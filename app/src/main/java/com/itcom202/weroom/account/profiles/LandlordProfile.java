@@ -79,10 +79,8 @@ public class LandlordProfile {
     private String mTenantOccupation;
     private String mAllowTenantSmoking;
     private String mSocialTenant;
-    private RoomPosted mRoomOne;
-    private RoomPosted mRoomTwo;
-    private RoomPosted mRoomThree;
     private List<String> mPictures = new ArrayList<>();
+    private List<String> mRoomsID = new ArrayList<>();
 
     public boolean addPicture(String s){
         List<String> pictures = getPictures();
@@ -91,6 +89,20 @@ public class LandlordProfile {
         pictures.add(s);
         return true;
     }
+    public boolean addRoomID(String id){
+        if (mRoomsID.size()<3){
+            mRoomsID.add(id);
+            return true;
+        }
+        return false;
+    }
+    public boolean removeRoomID(String id){
+        if (mRoomsID.contains(id)){
+            mRoomsID.remove(id);
+            return true;
+        }
+        return false;
+    }
     public void removePicture(String s){
         getPictures().remove(s);
     }
@@ -98,28 +110,12 @@ public class LandlordProfile {
     //public constructor needed to de-serialize the object when using firebase database.
     public LandlordProfile(){}
 
-    public RoomPosted getRoomOne() {
-        return mRoomOne;
+    public List<String> getRoomsID() {
+        return mRoomsID;
     }
 
-    public void setRoomOne(RoomPosted roomOne) {
-        mRoomOne = roomOne;
-    }
-
-    public RoomPosted getRoomTwo() {
-        return mRoomTwo;
-    }
-
-    public void setRoomTwo(RoomPosted roomTwo) {
-        mRoomTwo = roomTwo;
-    }
-
-    public RoomPosted getRoomThree() {
-        return mRoomThree;
-    }
-
-    public void setRoomThree(RoomPosted roomThree) {
-        mRoomThree = roomThree;
+    public void setRoomsID(List<String> roomsID) {
+        mRoomsID = roomsID;
     }
 
     public String getUserID() {

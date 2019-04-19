@@ -16,52 +16,53 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.itcom202.weroom.account.profiles.DataBasePath;
 import com.itcom202.weroom.account.profiles.LandlordProfile;
 import com.itcom202.weroom.account.profiles.Profile;
+
+import org.w3c.dom.Document;
+
 import java.util.List;
 import java.util.Objects;
 
 public class MatchQueries {
+    private static String TAG = "MatchQueries";
 
     private static Profile userProfile;
     private static List<Profile> tenantCandidates;
 
-    public static List<Profile> getTenantCandidates(){
+    public static Task<QuerySnapshot> getTenantCandidates(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         //Getting the TenantProfile.
         DocumentReference tenantProfile = db.collection(DataBasePath.USERS.getValue())
                 .document(FirebaseAuth.getInstance().getUid());
 
-        tenantProfile.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                userProfile = documentSnapshot.toObject(Profile.class);
-            }
-        });
 
         //Making a query to all Tenant and looking for the candidates.
         CollectionReference userReference = db
                 .collection(DataBasePath.USERS.getValue());
-        LandlordProfile landlord = userProfile.getLandlord();
 
         Query tenantCandidateQuery = userReference
-                .whereGreaterThan("tenant", "")
-                .whereEqualTo("country",landlord.getTenantNation())
-                .whereEqualTo("gender",landlord.getTenantGender())
-                .whereGreaterThanOrEqualTo("age", landlord.getTenantMinAge())
-                .whereLessThanOrEqualTo("age",landlord.getTenantMaxAge())
-                ;
-        tenantCandidates = null;
-        tenantCandidateQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .whereGreaterThan("tenant", "");
+
+
+        Task<QuerySnapshot> task = tenantCandidateQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()){
-                    for (DocumentSnapshot document : Objects.requireNonNull(task.getResult())){
-                        tenantCandidates.add(document.toObject(Profile.class));
-                    }
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (DocumentSnapshot d : queryDocumentSnapshots){
+                    d.toObject(Profile.class);
                 }
             }
         });
-    return tenantCandidates;
+
+        Task<QuerySnapshot> t = tenantCandidateQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+            }
+        });
+
+
+
+    return task;
     }
 
 
