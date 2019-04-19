@@ -137,7 +137,7 @@ public class LandlordProfileFragment extends SingleFragment {
 
                 if (noError){
                     LandlordProfile newInput = new LandlordProfile.Builder(userID)
-                            .withTenantNationallity(String.valueOf(mTenantNation.getSelectedItem()))
+                            .withTenantNationallity(getISOCode(String.valueOf(mTenantNation.getSelectedItem())))
                             .withTenantAge(Integer.parseInt(mTenantMinAge.getText().toString()), Integer.parseInt(mTenantMaxAge.getText().toString()))
                             .withTenantGender(String.valueOf(mTenantGender.getSelectedItem()))
                             .withTenantOccupation(String.valueOf(mTenantOccupation.getSelectedItem()))
@@ -174,19 +174,34 @@ public class LandlordProfileFragment extends SingleFragment {
 
     private SpinnerAdapter countryAdapter(){
         String[] locales = Locale.getISOCountries();
+
         List<String> countries = new ArrayList<>();
         countries.add(getString(R.string.prompt_country));
 
+        // for (String countryCode : locales){
+        for(int i=0;i<locales.length;i++){
+
+            String countryCode=locales[i];
+            Locale obj = new Locale("",countryCode);
 
 
-        for (String countryCode : locales) {
-
-            Locale obj = new Locale("", countryCode);
-
-            countries.add(obj.getDisplayCountry());
+            countries.add(obj.getDisplayCountry(Locale.ENGLISH));
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item , countries);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
         return adapter;
+    }
+
+    private String getISOCode(String selectedCountry){
+        Map<String, String> countries = new HashMap<>();
+        for (String iso : Locale.getISOCountries()) {
+            Locale l = new Locale("", iso);
+            countries.put(l.getDisplayCountry(), iso);
+        }
+
+        return countries.get(selectedCountry);
+
     }
 }
