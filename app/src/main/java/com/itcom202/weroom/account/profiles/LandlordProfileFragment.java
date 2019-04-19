@@ -174,19 +174,23 @@ public class LandlordProfileFragment extends SingleFragment {
 
     private SpinnerAdapter countryAdapter(){
         String[] locales = Locale.getISOCountries();
+
         List<String> countries = new ArrayList<>();
         countries.add(getString(R.string.prompt_country));
 
+        // for (String countryCode : locales){
+        for(int i=0;i<locales.length;i++){
+
+            String countryCode=locales[i];
+            Locale obj = new Locale("",countryCode);
 
 
-        for (String countryCode : locales) {
-
-            Locale obj = new Locale("", countryCode);
-
-            countries.add(obj.getDisplayCountry());
+            countries.add(obj.getDisplayCountry(Locale.ENGLISH));
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item , countries);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
         return adapter;
     }
 
