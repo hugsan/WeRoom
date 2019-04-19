@@ -52,8 +52,10 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -221,14 +223,18 @@ public class ProfileFragment extends SingleFragment {
 
     private SpinnerAdapter countryAdapter(){
         String[] locales = Locale.getISOCountries();
+
         List<String> countries = new ArrayList<>();
         countries.add(getString(R.string.prompt_country));
 
-        for (String countryCode : locales) {
+       // for (String countryCode : locales){
+        for(int i=0;i<locales.length;i++){
 
-            Locale obj = new Locale("", countryCode);
+            String countryCode=locales[i];
+            Locale obj = new Locale("",countryCode);
 
-            countries.add(obj.getDisplayCountry());
+
+            countries.add(obj.getDisplayCountry(Locale.ENGLISH));
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item , countries);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -236,10 +242,21 @@ public class ProfileFragment extends SingleFragment {
 
         return adapter;
     }
+
+    private String getISOCode(String selectedCountry){
+        Map<String, String> countries = new HashMap<>();
+        for (String iso : Locale.getISOCountries()) {
+            Locale l = new Locale("", iso);
+            countries.put(l.getDisplayCountry(), iso);
+        }
+
+        return countries.get(selectedCountry);
+
+    }
     private void createProfile(){
         Profile myProfile =
                 new Profile(mUserName.getText().toString(), Integer.parseInt(mAge.getText().toString()),
-                        String.valueOf(mGender.getSelectedItem()), String.valueOf(mCountry.getSelectedItem()),
+                        String.valueOf(mGender.getSelectedItem()), getISOCode(String.valueOf(mCountry.getSelectedItem())),
                         String.valueOf(mRole.getSelectedItem()), tags);
 
         ImageController.setProfilePicture(FirebaseAuth.getInstance().getUid(),
