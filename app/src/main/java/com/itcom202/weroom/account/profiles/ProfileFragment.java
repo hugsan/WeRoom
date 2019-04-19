@@ -89,6 +89,7 @@ public class ProfileFragment extends SingleFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.profile_fragment, container, false);
 
+
       //  String[] genders={"Select your gender", "Female", "Male"};
 
         mFirebaseAuth = FirebaseAuth.getInstance();
