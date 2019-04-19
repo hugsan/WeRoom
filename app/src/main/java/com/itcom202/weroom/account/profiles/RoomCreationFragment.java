@@ -3,6 +3,7 @@ package com.itcom202.weroom.account.profiles;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -56,6 +57,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -261,6 +263,12 @@ public class RoomCreationFragment extends SingleFragment {
         return v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -184,6 +184,14 @@ public class ProfileFragment extends SingleFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+    }
+
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d(TAG,"request code: "+ requestCode);
         Log.d(TAG,"result code: "+ resultCode);

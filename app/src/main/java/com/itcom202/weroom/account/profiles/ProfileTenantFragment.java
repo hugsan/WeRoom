@@ -1,5 +1,6 @@
 package com.itcom202.weroom.account.profiles;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,6 +33,7 @@ import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.seekBar.BubbleSeekBar;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import com.google.android.libraries.places.api.Places;
 // Add import statements for the new library.
@@ -252,6 +254,15 @@ public class ProfileTenantFragment extends Fragment {
         });
         return v;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+    }
+
+
     private boolean checkNullFields(EditText tv){
             if (tv.getText().toString().equals("")){
                 tv.setError(getString(R.string.requiered_field));

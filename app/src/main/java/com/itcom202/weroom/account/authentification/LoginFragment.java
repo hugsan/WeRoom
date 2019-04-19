@@ -39,6 +39,7 @@ import com.itcom202.weroom.SingleFragment;
 import com.itcom202.weroom.account.profiles.ProfileFragment;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.google.android.gms.common.GooglePlayServicesUtilLight.GOOGLE_PLAY_STORE_PACKAGE;
@@ -74,7 +75,7 @@ public class LoginFragment extends SingleFragment {
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
     }
 

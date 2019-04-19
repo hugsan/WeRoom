@@ -1,5 +1,6 @@
 package com.itcom202.weroom.account.profiles;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 public class LandlordProfileFragment extends SingleFragment {
 
@@ -161,6 +163,15 @@ public class LandlordProfileFragment extends SingleFragment {
 
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+    }
+
+
     private SpinnerAdapter countryAdapter(){
         String[] locales = Locale.getISOCountries();
         List<String> countries = new ArrayList<>();
