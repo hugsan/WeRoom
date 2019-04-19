@@ -33,6 +33,9 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApi;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
@@ -45,11 +48,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.itcom202.weroom.SingleFragment;
 import com.itcom202.weroom.MapFragment;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.cameraGallery.ImagePicker;
+import com.itcom202.weroom.queries.ImageController;
 import com.itcom202.weroom.swipe.SwipeActivity;
 
 import java.io.File;
@@ -78,13 +86,12 @@ public class RoomCreationFragment extends SingleFragment {
     private Button mConfirmRoom;
     private DatabaseReference mDatabaseReference;
     private ImageButton mTakeRoomPicture;
-    private File mPhotoFile;
     private ImageView mProfilePhoto;
     private String mUserId;
     private String mFreeRoom;
     private Button mAddAnotherRoom;
     private PopUpMessage mPopUp = new PopUpMessage();
-    private List<String> mPictures = new ArrayList<>();
+    private List<Bitmap> mRoomPictures = new ArrayList<>();
 
     String mAddressID;
     String mAddressName;
@@ -101,7 +108,6 @@ public class RoomCreationFragment extends SingleFragment {
         mUserId = FirebaseAuth.getInstance().getUid();
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        roomExist();
 
         mRent = v.findViewById(R.id.rentInput);
         mDeposit = v.findViewById(R.id.depositroom);
@@ -170,9 +176,6 @@ public class RoomCreationFragment extends SingleFragment {
             }
         });
 
-
-
-
         mConfirmRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -202,29 +205,7 @@ public class RoomCreationFragment extends SingleFragment {
                     Toast.makeText(getContext(), R.string.type_description_room, Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    RoomPosted input = new RoomPosted.Builder()
-                            .hasCommonAreas(mCommonArea.isChecked())
-                            .hasInternet(mInternet.isChecked())
-                            .hasLaundry(mLaundry.isChecked())
-                            .isFurnished(mFurnished.isChecked())
-                            .withAddress(mAddressID, mAddressName, mAddressLatitude, mAddressLongitude)
-                            .withDeposit(Integer.parseInt(mDeposit.getText().toString()))
-                            .withPeriodRenting(String.valueOf(mPeriodRenting.getSelectedItem()))
-                            .withRent(Integer.parseInt(mRent.getText().toString()))
-                            .withSize(Integer.parseInt(mRoomSize.getText().toString()))
-                            .withDescription(mRoomDescription.getText().toString())
-                            .build();
-
-
-                roomExist();
-
-                if (mFreeRoom != null){
-                    postRoom();
-
-                }
-
-                postRoom();
-                startActivity(SwipeActivity.newIntent(getActivity()));
+                    postRoom(true);
                 }
             }
         });
@@ -232,20 +213,11 @@ public class RoomCreationFragment extends SingleFragment {
         mAddAnotherRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                roomExist();
-                if (mFreeRoom != null){
-                    postRoom();
-
-                    mPopUp.showDialog(getActivity(),getString(R.string.dialog_message));
-
-                    changeFragment(new RoomCreationFragment());
+                postRoom(false);
 
 
-                }else
-                {
-                    Toast.makeText(getActivity(), getString(R.string.only_3_rooms), Toast.LENGTH_LONG).show();
 
-                }
+
             }
         });
 
@@ -284,7 +256,7 @@ public class RoomCreationFragment extends SingleFragment {
                         //do sth
                     }
                     mProfilePhoto.setImageBitmap(bitmap);
-                    mPictures.add(String.valueOf(bitmap));
+                    keepPicture(bitmap);
                     mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     break;
                 default:
@@ -295,34 +267,7 @@ public class RoomCreationFragment extends SingleFragment {
             Log.d(TAG, "Error on camera/Gallery");
     }
 
-    private void roomExist(){
-
-        Query event = mDatabaseReference
-                .child(DataBasePath.USERS.getValue())
-                .child(FirebaseAuth.getInstance().getUid())
-                .child(DataBasePath.LANDLORD.getValue());
-        event.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    if (!dataSnapshot.child(mUserId).child(DataBasePath.ROOM_ONE.getValue()).exists())
-                        mFreeRoom = DataBasePath.ROOM_ONE.getValue();
-                    else if (!dataSnapshot.child(mUserId).child(DataBasePath.ROOM_TWO.getValue()).exists())
-                        mFreeRoom = DataBasePath.ROOM_TWO.getValue();
-                    else if (!dataSnapshot.child(mUserId).child(DataBasePath.ROOM_THREE.getValue()).exists())
-                        mFreeRoom = DataBasePath.ROOM_THREE.getValue();
-                    else
-                        mFreeRoom = null;
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                //TODO something when there is an error wiht the database query
-            }
-        });
-    }
-    //FIXME Patrick will fix this, this method is not working properly, posting all the rooms in roomOne
-    private void postRoom(){
+    private void postRoom(final boolean once){
         if(mRent.length()==0 || Integer.parseInt(mRent.getText().toString())<0){
             mRent.setError(getString(R.string.type_rent));
             mRent.requestFocus();
@@ -349,7 +294,7 @@ public class RoomCreationFragment extends SingleFragment {
             Toast.makeText(getContext(), R.string.type_description_room, Toast.LENGTH_SHORT).show();
         }
         else {
-            RoomPosted input = new RoomPosted.Builder()
+            final RoomPosted input = new RoomPosted.Builder(mUserId)
                     .hasCommonAreas(mCommonArea.isChecked())
                     .hasInternet(mInternet.isChecked())
                     .hasLaundry(mLaundry.isChecked())
@@ -362,14 +307,43 @@ public class RoomCreationFragment extends SingleFragment {
                     .withDescription(mRoomDescription.getText().toString())
                     .build();
 
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-            mFreeRoom = "roomOne";
+            final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
             db.collection(DataBasePath.USERS.getValue())
-                    .document(FirebaseAuth.getInstance().getUid())
-                    .update(DataBasePath.LANDLORD.getValue()+"."+mFreeRoom,input);
+                    .whereEqualTo("userID", mUserId)
+                    .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    DocumentSnapshot doc = queryDocumentSnapshots.getDocuments().get(0);
+                    Profile p = doc.toObject(Profile.class);
+                    if (p.getLandlord().getRoomsID().size() >= 3){
+                        mPopUp.showDialog(getActivity(),getString(R.string.more_three_rooms_error));
+                        mPopUp.changeToActivityOnClose(getActivity(),SwipeActivity.newIntent(getActivity()));
+                    }
+                    else
+                    {
+                        if (p.getLandlord().addRoomID(input.getRoomID())){
 
+                            db.collection(DataBasePath.USERS.getValue())
+                                    .document(mUserId)
+                                    .set(p);
+                        }
+
+                        db.collection(DataBasePath.ROOMS.getValue())
+                                .document(input.getRoomID())
+                                .set(input);
+                        uploadRoomPictures();
+                        if (!once){
+                            mPopUp.showDialog(getActivity(),getString(R.string.dialog_message));
+                            changeFragment(new RoomCreationFragment());
+                        }
+                        else{
+                            mPopUp.showDialog(getActivity(),getString(R.string.dialog_title));
+                            startActivity(SwipeActivity.newIntent(getActivity()));
+                        }
+                    }
+                }
+            });
         }
     }
     protected final boolean isPackageInstalled(String packageName) {
@@ -381,6 +355,14 @@ public class RoomCreationFragment extends SingleFragment {
         return true;
     }
 
+    private void uploadRoomPictures(){
+        for (int i = 0 ; i < mRoomPictures.size(); i++)
+        ImageController.setRoomPicture(mUserId,mRoomPictures.get(i), i);
+    }
+    private void keepPicture(Bitmap bmp){
+        if (mRoomPictures.size()<10)
+            mRoomPictures.add(bmp);
+    }
 
 
 }

@@ -23,7 +23,7 @@ public class Profile implements Serializable {
     private String country;
     private String role;
     private List<String> tags;
-
+    private String userID;
     private TenantProfile tenant;
     private LandlordProfile landlord;
 
@@ -31,7 +31,8 @@ public class Profile implements Serializable {
 
 
 
-    public Profile (String name, int age, String gender, String country, String role, List<String> tags){
+    public Profile (String userID, String name, int age, String gender, String country, String role, List<String> tags){
+        this.userID = userID;
         this.name = name;
         this.age = age;
         this.gender = gender;
@@ -106,5 +107,16 @@ public class Profile implements Serializable {
         this.landlord = landlord;
     }
 
+    public String getUserID() {
+        return userID;
+    }
 
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        return (o instanceof  Profile) && this.userID.equals( ((Profile)o).userID);
+    }
 }

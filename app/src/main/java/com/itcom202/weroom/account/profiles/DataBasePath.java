@@ -5,9 +5,7 @@ public enum DataBasePath {
     USERS("users"),
     PROFILE("profile"),
     LANDLORD("landlord"),
-    ROOM_ONE("mRoomOne"),
-    ROOM_TWO("mRoomTwo"),
-    ROOM_THREE("mRoomThree"),
+    ROOMS("rooms"),
     PROFILE_PICTURE("profile_picture"),
     ROOM_PICTURE("profile_picture"),
     IMAGE("images");

@@ -238,7 +238,7 @@ public class ProfileFragment extends SingleFragment {
     }
     private void createProfile(){
         Profile myProfile =
-                new Profile(mUserName.getText().toString(), Integer.parseInt(mAge.getText().toString()),
+                new Profile(mFirebaseAuth.getUid(), mUserName.getText().toString(), Integer.parseInt(mAge.getText().toString()),
                         String.valueOf(mGender.getSelectedItem()), String.valueOf(mCountry.getSelectedItem()),
                         String.valueOf(mRole.getSelectedItem()), tags);
 

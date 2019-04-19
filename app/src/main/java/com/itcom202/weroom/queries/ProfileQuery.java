@@ -29,31 +29,4 @@ public class ProfileQuery{
 
         return task;
     }
-/*
-    @Override
-    protected Object doInBackground(Object[] objects) {
-        @Override
-        protected Object doInBackground(Object[] objects) {
-
-            Task<DocumentSnapshot> documentSnapshotTask = FirebaseFirestore.getInstance().
-                    collection((String) objects[0]).document((String) objects[1]).get();
-
-            YourObject obj=null;
-
-            try {
-                DocumentSnapshot documentSnapshot = Tasks.await(documentSnapshotTask);
-
-                obj = new YourObject();
-                obj.setter(documentSnapshot.get("your field"));
-
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            return obj;
-        }
-        return null;
-    }*/
 }

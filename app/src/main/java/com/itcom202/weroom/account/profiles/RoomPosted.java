@@ -21,9 +21,11 @@ public class RoomPosted implements Serializable {
         private boolean sLaundry;
         private String sRoomID;
         private String sDescription;
+        private String sLandlordID;
 
-        public Builder(){
-            sRoomID = UUID.randomUUID().toString(); ;
+        public Builder(String landlordID){
+            sRoomID = UUID.randomUUID().toString();
+            sLandlordID = landlordID;
         }
         public Builder withRent(int rent){
             if(rent<0)
@@ -97,11 +99,9 @@ public class RoomPosted implements Serializable {
             r.mLaundry = sLaundry;
             r.mRoomID = sRoomID;
             r.mDescription = sDescription;
+            r.mLandlordID = sLandlordID;
             return r;
         }
-
-
-
 
     }
 
@@ -119,11 +119,19 @@ public class RoomPosted implements Serializable {
     private boolean mLaundry;
     private String mRoomID;
     private String mDescription;
-
+    private String mLandlordID;
 
     //Constructor is public needed to de-serialize the object using firebase database
 
     public RoomPosted(){}
+
+    public String getLandlordID() {
+        return mLandlordID;
+    }
+
+    public void setLandlordID(String landlordID) {
+        mLandlordID = landlordID;
+    }
 
     public String getDescription() {
         return mDescription;
