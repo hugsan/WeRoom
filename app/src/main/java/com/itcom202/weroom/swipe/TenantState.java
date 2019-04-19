@@ -37,6 +37,7 @@ public class TenantState extends RecyclerView.ViewHolder implements State {
     @Override
     public void changeTypeProfile() {
 
+
     }
 
     public void bind(int i) {

@@ -24,6 +24,7 @@ import com.itcom202.weroom.account.LoginActivity;
 import com.itcom202.weroom.account.profiles.DataBasePath;
 import com.itcom202.weroom.account.profiles.Profile;
 import com.itcom202.weroom.queries.MatchQueries;
+import com.itcom202.weroom.swipe.SwipeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,9 +98,26 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }//IF there is a user logged into Firebase it starts at AccountCreationActivity
         else{
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference docRef = db.collection(DataBasePath.USERS.getValue())
+                    .document(FirebaseAuth.getInstance().getUid());
+            Task getUser = docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    userProfile = documentSnapshot.toObject(Profile.class);
+                    ProfileSingleton.initialize(userProfile);
+                    System.out.println("TORTUGA! query finished");
+                }
+            });
             Log.i(TAG,"I am logged in: "+ firebaseAuth.getCurrentUser().getEmail());
-            startActivity(LoginActivity.newIntent(this));
-            finish();
+            getUser.addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    startActivity(SwipeActivity.newIntent(MainActivity.this));
+                    finish();
+                }
+            });
+
         }
 
     }

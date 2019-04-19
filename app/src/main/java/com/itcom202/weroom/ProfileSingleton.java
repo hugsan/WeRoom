@@ -23,9 +23,6 @@ public class ProfileSingleton {
     private ProfileSingleton(){}
 
     public static synchronized Profile getInstance(){
-        if (userProfile == null){
-            queryUser();
-        }
         System.out.println("TORTUGA! returning user profile");
         return userProfile;
     }
@@ -42,5 +39,8 @@ public class ProfileSingleton {
                                 System.out.println("TORTUGA! query finished");
                             }
                         });
+    }
+    public static void initialize(Profile profile){
+        userProfile = profile;
     }
 }
