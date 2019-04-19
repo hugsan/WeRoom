@@ -1,9 +1,13 @@
 package com.itcom202.weroom.account.profiles;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,6 +28,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApi;
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -112,11 +119,13 @@ public class RoomCreationFragment extends SingleFragment {
 
 
         mRoomDescription = v.findViewById(R.id.descriptionField);
-
         final MapFragment mapFragment = new MapFragment();
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.showmapfragment, mapFragment).commit();
 
+        if(isPackageInstalled(GooglePlayServicesUtil.GOOGLE_PLAY_STORE_PACKAGE)) {
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+            transaction.replace(R.id.showmapfragment, mapFragment).commit();
+
+        }
 
 
 
@@ -140,7 +149,10 @@ public class RoomCreationFragment extends SingleFragment {
             public void onPlaceSelected(Place place) {
                // txtView.setText(place.getName()+","+place.getId());
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getLatLng());
-                mapFragment.updateSite(place.getLatLng());
+                if(isPackageInstalled(GooglePlayServicesUtil.GOOGLE_PLAY_STORE_PACKAGE)) {
+
+                    mapFragment.updateSite(place.getLatLng());
+                }
                 mAddressID = place.getId();
                 mAddressName = place.getName();
                 mAddressLatitude = place.getLatLng().latitude;
@@ -249,6 +261,7 @@ public class RoomCreationFragment extends SingleFragment {
         return v;
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d(TAG,"request code: "+ requestCode);
@@ -351,6 +364,15 @@ public class RoomCreationFragment extends SingleFragment {
 
         }
     }
+    protected final boolean isPackageInstalled(String packageName) {
+        try {
+            getApplicationContext().getPackageManager().getPackageInfo(packageName, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+        return true;
+    }
+
 
 
 }

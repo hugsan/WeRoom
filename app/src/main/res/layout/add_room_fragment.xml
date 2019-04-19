@@ -271,11 +271,12 @@
             <fragment
                 android:id="@+id/showmapfragment"
                 android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-                android:layout_width="330dp"
+                android:layout_width="320dp"
                 android:layout_height="330dp"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="50dp" />
+                android:layout_marginEnd="50dp"
+                 />
 
             <TextView
                 android:id="@+id/roomSize"

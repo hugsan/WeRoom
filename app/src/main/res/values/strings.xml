@@ -13,6 +13,8 @@
     <string name="refer_to_signup">New User? Register Here!</string>
     <string name="empty_fields">Empty Fields!</string>
     <string name="login_textfield">Login</string>
+    <string name="pass_too_short">Password should be at least 6 characters</string>
+    <string name="email_in_use">Email already in use</string>
 
 
     <!-- Strings related to the Sign up fragment -->

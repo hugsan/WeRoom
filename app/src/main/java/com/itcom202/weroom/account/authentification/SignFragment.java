@@ -81,7 +81,7 @@ public class SignFragment extends SingleFragment {
                     mPasswd.requestFocus();
                     mPasswd2.requestFocus();
                 } else if (mEmail.getText().toString().length() == 0 || pwd1.length() == 0 || pwd2.length() == 0) {
-                    Toast.makeText(getActivity(), getString(R.string.empty_fields), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.empty_fields, Toast.LENGTH_SHORT).show();
                 } else if (!(mEmail.getText().toString().length() == 0 || pwd1.length() == 0 || pwd2.length() == 0))
                 {
                     mFirebaseAuth.createUserWithEmailAndPassword(mEmail.getText().toString(), mPasswd2.getText().toString())
@@ -94,25 +94,28 @@ public class SignFragment extends SingleFragment {
                                                     .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
                                                         public void onComplete(@NonNull Task<GetTokenResult> task) {
                                                             if (task.isSuccessful()) {
-                                                                changeFragment(new ProfileFragment());
+                                                                changeFragment(new ProfileFragment());}
 
-                                                            } else {
-                                                                Toast.makeText(getActivity().getApplicationContext(),
-                                                                        R.string.login_process_error + task.getException().getMessage(),
-                                                                        Toast.LENGTH_LONG).show();                                                            }
+                                                           else {
+                                                                Toast.makeText(getActivity(), R.string.login_process_error, Toast.LENGTH_SHORT).show();
+//                                                                Toast.makeText(getActivity().getApplicationContext(),
+//                                                                        R.string.login_process_error + task.getException().getMessage(),
+//                                                                        Toast.LENGTH_LONG).show();
+                                                            }
                                                         }
                                                     });
                                     } else {
                                         //TODO stuff i don't know yet!!!!
-                                        Toast.makeText(getActivity().getApplicationContext(),
-                                                String.valueOf(R.string.not_succ) + task.getException().getMessage(),
-                                                Toast.LENGTH_SHORT).show();
+                                       // Toast.makeText(getActivity().getApplicationContext(),
+                                             //   R.string.not_succ + task.getException().getMessage(),
+                                             //   Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), R.string.email_in_use, Toast.LENGTH_SHORT).show();
                                     }
                                     }
                                 });
                 }
                 else {
-                    Toast.makeText(getActivity(), String.valueOf(R.string.error), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.error, Toast.LENGTH_SHORT).show();
                 }
             }
         });

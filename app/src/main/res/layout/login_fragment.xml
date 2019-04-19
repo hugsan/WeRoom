@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/blured2"
     android:orientation="vertical"
+    android:screenOrientation="sensorPortrait"
     tools:context=".MainActivity">
 
 
@@ -118,13 +119,13 @@
         android:id="@+id/referSignUp"
         android:layout_width="match_parent"
         android:layout_height="61dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginBottom="86dp"
         android:background="#CCFF5A60"
         android:gravity="center"
         android:text="@string/refer_to_signup"
