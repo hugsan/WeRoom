@@ -8,8 +8,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.itcom202.weroom.R;
+import com.itcom202.weroom.account.profiles.DataBasePath;
 import com.itcom202.weroom.account.profiles.Profile;
+import com.itcom202.weroom.cameraGallery.PictureConversion;
+import com.itcom202.weroom.queries.ImageController;
 
 public class LandlordState extends RecyclerView.ViewHolder implements State {
     TextView textView;
@@ -35,8 +43,27 @@ public class LandlordState extends RecyclerView.ViewHolder implements State {
 
     public void bind(Profile profile) {
         textView.setText(profile.getName());
-        mPhoto.setImageResource(R.drawable.add_profile_picture);
+        Task t = ImageController.getProfilePicture(profile.getUserID());
+        t.addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                mPhoto.setImageBitmap(PictureConversion.byteArrayToBitmap(bytes));
+            }
+        });
+/*        StorageReference downloadRef = reference
+                .child(DataBasePath.IMAGE.getValue())
+                .child(userID)
+                .child(DataBasePath.PROFILE_PICTURE.getValue());
 
+        Task t = downloadRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                byteArray = bytes;
+            }
+        });
+
+        //mPhoto.setImageResource(R.drawable.add_profile_picture);
+*/
 
     }
 

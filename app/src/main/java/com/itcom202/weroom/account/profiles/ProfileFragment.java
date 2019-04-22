@@ -260,7 +260,7 @@ public class ProfileFragment extends SingleFragment {
                         String.valueOf(mGender.getSelectedItem()), getISOCode(String.valueOf(mCountry.getSelectedItem())),
                         String.valueOf(mRole.getSelectedItem()), tags);
 
-        ImageController.setProfilePicture(FirebaseAuth.getInstance().getUid(),
+        ImageController.setProfilePicture(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                 mPicture);
         // Access a Cloud Firestore instance from your Activity
         FirebaseFirestore db = FirebaseFirestore.getInstance();
