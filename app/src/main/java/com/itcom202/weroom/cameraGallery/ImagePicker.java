@@ -96,10 +96,13 @@ public class ImagePicker {
             bm = getImageResized(context, selectedImage);
             int rotation = getRotation(context, selectedImage, isCamera);
             //bm = handleSamplingAndRotationBitmap(context,selectedImage);
-            if(bm.getHeight()>=bm.getWidth())
-                bm=rotate(bm,rotation);
-            else
-                bm=rotate(bm,rotation+90);
+            if(bm.getHeight()>=bm.getWidth()) {
+                bm = rotate(bm, rotation);
+            }
+            else {
+
+                bm = rotate(bm, rotation + 90);
+            }
 
 
         }

@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             getUser.addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
-                    startActivity(SwipeActivity.newIntent(MainActivity.this));
+                    startActivity(LoginActivity.newIntent(MainActivity.this));
                     finish();
                 }
             });

@@ -28,7 +28,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     MapView mapView;
     GoogleMap map;
     GooglePlayServicesUtil gps;
-  //  private FusedLocationProviderClient fusedLocationClient;
+    private FusedLocationProviderClient fusedLocationClient;
     CameraUpdateFactory mCameraUpdateFactory;
 
     @Override
@@ -39,21 +39,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mapView = (MapView) v.findViewById(R.id.mapview);
         mapView.onCreate(savedInstanceState);
 
-//        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
-//        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_CALENDAR)
-//                == PackageManager.PERMISSION_GRANTED) {
-//            // Permission is not granted
-//              fusedLocationClient.getLastLocation()
-//                .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
-//                    @Override
-//                    public void onSuccess(Location location) {
-//                        // Got last known location. In some rare situations this can be null.
-//                        if (location != null) {
-//                            // Logic to handle location object
-//                        }
-//                    }
-//                });
-//        }else{Log.d("MapFragment", "Permissio not granted");}
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_CALENDAR)
+                == PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+              fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            // Logic to handle location object
+                        }
+                    }
+                });
+        }else{Log.d("MapFragment", "Permissio not granted");}
 
         mapView.getMapAsync(this);
 
