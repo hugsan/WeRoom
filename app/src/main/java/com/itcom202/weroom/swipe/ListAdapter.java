@@ -16,6 +16,7 @@ import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.DataBasePath;
 import com.itcom202.weroom.account.profiles.Profile;
+import com.itcom202.weroom.account.profiles.RoomPosted;
 import com.itcom202.weroom.queries.MatchQueries;
 
 
@@ -25,6 +26,10 @@ import java.util.List;
 public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
   private List<Profile> mTenantList = SwipeActivity.getTenantList();
+  private List<RoomPosted> mRoomPostedList = SwipeActivity.getRoomPostedList();
+  Profile p = ProfileSingleton.getInstance();
+
+
 
   @NonNull
   @Override
@@ -47,7 +52,7 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
       case 2:
         TenantState viewTenant = (TenantState) viewHolder;
-         // viewTenant.bind(mTenantList.get(i).intValue());
+        viewTenant.bind(mRoomPostedList.get(i));
 
           break;
     }
@@ -61,22 +66,30 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //
   @Override
   public int getItemCount() {
-    return mTenantList.size();
+    if(p.getRole().equals("Landlord"))
+      return mTenantList.size();
+    else
+      return mRoomPostedList.size();
   }
 
   public List<Profile> getTenantList() {
     return mTenantList;
   }
+  public List<RoomPosted> getRoomPostedList(){return mRoomPostedList;}
 
   public void removeTopItem() {
-    mTenantList.remove(0);
-    notifyDataSetChanged();
+    if(p.getRole().equals("Landlord")){
+      mTenantList.remove(0);
+      notifyDataSetChanged();
+    }else{
+      mRoomPostedList.remove(0);
+      notifyDataSetChanged();
+    }
   }
   @Override
   public int getItemViewType(int position) {
     // Just as an example, return 0 or 2 depending on position
     // Note that unlike in ListView adapters, types don't have to be contiguous
-    Profile p = ProfileSingleton.getInstance();
     if(p.getRole().equals("Landlord")){
         return 0;
     }else {

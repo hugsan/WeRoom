@@ -300,6 +300,7 @@ public class RoomCreationFragment extends SingleFragment {
                     .hasLaundry(mLaundry.isChecked())
                     .isFurnished(mFurnished.isChecked())
                     .withAddress(mAddressID, mAddressName, mAddressLatitude, mAddressLongitude)
+                    //FIXME  java.lang.NumberFormatException: For input string: "4567890987" for deposit;
                     .withDeposit(Integer.parseInt(mDeposit.getText().toString()))
                     .withPeriodRenting(String.valueOf(mPeriodRenting.getSelectedItem()))
                     .withRent(Integer.parseInt(mRent.getText().toString()))
@@ -332,7 +333,7 @@ public class RoomCreationFragment extends SingleFragment {
                         db.collection(DataBasePath.ROOMS.getValue())
                                 .document(input.getRoomID())
                                 .set(input);
-                        uploadRoomPictures();
+                        uploadRoomPictures(input.getRoomID());
                         if (!once){
                             mPopUp.showDialog(getActivity(),getString(R.string.dialog_message));
                             changeFragment(new RoomCreationFragment());
@@ -355,9 +356,9 @@ public class RoomCreationFragment extends SingleFragment {
         return true;
     }
 
-    private void uploadRoomPictures(){
+    private void uploadRoomPictures(String roomID){
         for (int i = 0 ; i < mRoomPictures.size(); i++)
-        ImageController.setRoomPicture(mUserId,mRoomPictures.get(i), i);
+        ImageController.setRoomPicture(roomID,mRoomPictures.get(i), i);
     }
     private void keepPicture(Bitmap bmp){
         if (mRoomPictures.size()<10)

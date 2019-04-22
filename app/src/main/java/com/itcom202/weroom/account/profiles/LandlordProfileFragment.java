@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.SingleFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.itcom202.weroom.R;
@@ -108,7 +109,7 @@ public class LandlordProfileFragment extends SingleFragment {
             @Override
             public void onClick(View v) {
                 String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
+                //FIXME if something less than 18 is written there is an error "minimum age is 16" and the text is set to 18?!
                 boolean noError = true;
                 if (mTenantMinAge.getText().toString().length()==0)
                 {
@@ -145,6 +146,9 @@ public class LandlordProfileFragment extends SingleFragment {
                             .canTenantSmoke(smokingValue)
                             .build();
 
+                    Profile p = ProfileSingleton.getInstance();
+                    p.setLandlord(newInput);
+                    ProfileSingleton.initialize(p);
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
                     db.collection(DataBasePath.USERS.getValue())

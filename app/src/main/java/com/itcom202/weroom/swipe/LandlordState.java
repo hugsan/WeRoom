@@ -50,20 +50,6 @@ public class LandlordState extends RecyclerView.ViewHolder implements State {
                 mPhoto.setImageBitmap(PictureConversion.byteArrayToBitmap(bytes));
             }
         });
-/*        StorageReference downloadRef = reference
-                .child(DataBasePath.IMAGE.getValue())
-                .child(userID)
-                .child(DataBasePath.PROFILE_PICTURE.getValue());
-
-        Task t = downloadRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                byteArray = bytes;
-            }
-        });
-
-        //mPhoto.setImageResource(R.drawable.add_profile_picture);
-*/
 
     }
 

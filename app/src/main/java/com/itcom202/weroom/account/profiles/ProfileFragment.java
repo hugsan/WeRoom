@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.SingleFragment;
 //import com.itcom202.weroom.cameraGallery.Camera;
 import com.itcom202.weroom.R;
@@ -89,9 +90,6 @@ public class ProfileFragment extends SingleFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.profile_fragment, container, false);
 
-
-      //  String[] genders={"Select your gender", "Female", "Male"};
-
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         mUserName = v.findViewById(R.id.username);
@@ -101,8 +99,6 @@ public class ProfileFragment extends SingleFragment {
         mCountry = v.findViewById(R.id.spinnerCountry);
         mRole = v.findViewById(R.id.spinnerRole);
         mTag = v.findViewById(R.id.tags);
-
-
 
         mTag.setHint(getString(R.string.description));
         mTag.addTagSeparator(TagSeparator.ENTER_SEPARATOR);
@@ -117,9 +113,7 @@ public class ProfileFragment extends SingleFragment {
         adapterRole.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mRole.setAdapter(adapterRole);
 
-
         mCountry.setAdapter(countryAdapter());
-
 
         mCreateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -266,6 +260,7 @@ public class ProfileFragment extends SingleFragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(DataBasePath.USERS.getValue()).document(mFirebaseAuth.getUid())
                 .set(myProfile);
+        ProfileSingleton.initialize(myProfile);
     }
 
 

@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuth.signOut();
+       // firebaseAuth.signOut();
         Log.i(TAG,"User logged in: "+ firebaseAuth.getCurrentUser());
         //if there is no user logged in Firebase it starts LoginActivity
         if (firebaseAuth.getCurrentUser() == null){

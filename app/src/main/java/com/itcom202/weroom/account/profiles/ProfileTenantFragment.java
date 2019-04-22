@@ -29,6 +29,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.seekBar.BubbleSeekBar;
 
@@ -58,7 +59,6 @@ public class ProfileTenantFragment extends Fragment {
     private EditText mRentMax;
     private BubbleSeekBar mDistanceFromCenter;
     private Button mConfirm;
-
 
 
     private int mDistanceFromCenterValue;
@@ -239,6 +239,9 @@ public class ProfileTenantFragment extends Fragment {
                                 .distanceFromCenter(mDistanceFromCenterValue)
                                 .build();
 
+                        Profile p = ProfileSingleton.getInstance();
+                        p.setTenant(newInput);
+                        ProfileSingleton.initialize(p);
 
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
 

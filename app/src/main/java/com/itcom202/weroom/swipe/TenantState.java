@@ -9,7 +9,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.itcom202.weroom.R;
+import com.itcom202.weroom.account.profiles.RoomPosted;
+import com.itcom202.weroom.cameraGallery.PictureConversion;
+import com.itcom202.weroom.queries.ImageController;
 
 import java.util.zip.Inflater;
 
@@ -34,16 +39,22 @@ public class TenantState extends RecyclerView.ViewHolder implements State {
 
     }
 
+    public void bind(RoomPosted roomPosted) {
+        textView.setText(roomPosted.getCompleteAddress());
+        Task t = ImageController.getRoomPicture(roomPosted.getRoomID(),0);
+        t.addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                mPhoto.setImageBitmap(PictureConversion.byteArrayToBitmap(bytes));
+            }
+        });
+
+
+    }
     @Override
     public void changeTypeProfile() {
 
 
     }
 
-    public void bind(int i) {
-        textView.setText(String.valueOf(i));
-        mPhoto.setImageResource(R.drawable.addpicture);
-
-
-    }
 }

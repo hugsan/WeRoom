@@ -51,22 +51,19 @@ public class ImageController {
                 .putBytes(PictureConversion.bitmapToByteArray(bmp));
     }
 
-    public static Bitmap getRoomPicture(String userID, int roomNumber){
+    public static Task getRoomPicture(String userID, int roomNumber){
         StorageReference reference = FirebaseStorage.getInstance().getReference();
         StorageReference downloadRef = reference
                 .child(DataBasePath.IMAGE.getValue())
                 .child(userID)
                 .child(DataBasePath.ROOM_PICTURE.getValue() +"_"+ Integer.toString(roomNumber));
 
-        downloadRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+        Task t = downloadRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
                 byteArray = bytes;
             }
         });
-        if (byteArray.length != 0)
-            return PictureConversion.byteArrayToBitmap(byteArray);
-        else
-            return null;
+        return t;
     }
 }
