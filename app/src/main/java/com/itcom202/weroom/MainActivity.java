@@ -88,9 +88,10 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });*/
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        Log.i(TAG,"User logged in: "+ firebaseAuth.getCurrentUser());
 
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        //firebaseAuth.signOut();
+        Log.i(TAG,"User logged in: "+ firebaseAuth.getCurrentUser());
         //if there is no user logged in Firebase it starts LoginActivity
         if (firebaseAuth.getCurrentUser() == null){
             Log.i(TAG,"We are not logged as:");

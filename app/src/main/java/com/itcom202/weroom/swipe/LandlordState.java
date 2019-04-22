@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.itcom202.weroom.R;
+import com.itcom202.weroom.account.profiles.Profile;
 
 public class LandlordState extends RecyclerView.ViewHolder implements State {
     TextView textView;
@@ -32,8 +33,8 @@ public class LandlordState extends RecyclerView.ViewHolder implements State {
 
     }
 
-    public void bind(int i) {
-        textView.setText(String.valueOf(i));
+    public void bind(Profile profile) {
+        textView.setText(profile.getName());
         mPhoto.setImageResource(R.drawable.add_profile_picture);
 
 

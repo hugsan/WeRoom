@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.itcom202.weroom.MapFragment;
 import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
@@ -39,6 +41,7 @@ public class SwipeFragment extends Fragment {
         thisFragment = this;
         Profile p = ProfileSingleton.getInstance();
         adapter = new ListAdapter();
+
         final RecyclerView recyclerView = v.findViewById(R.id.recycler_view);
         SwipeableTouchHelperCallback swipeableTouchHelperCallback =
                 new SwipeableTouchHelperCallback(new OnItemSwiped() {

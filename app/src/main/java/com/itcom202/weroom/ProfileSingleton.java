@@ -31,14 +31,14 @@ public class ProfileSingleton {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection(DataBasePath.USERS.getValue())
-                                .document(FirebaseAuth.getInstance().getUid());
-                        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                userProfile = documentSnapshot.toObject(Profile.class);
-                                System.out.println("TORTUGA! query finished");
-                            }
-                        });
+                .document(FirebaseAuth.getInstance().getUid());
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                userProfile = documentSnapshot.toObject(Profile.class);
+                System.out.println("TORTUGA! query finished");
+            }
+        });
     }
     public static void initialize(Profile profile){
         userProfile = profile;

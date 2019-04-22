@@ -5,17 +5,26 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
-import com.itcom202.weroom.account.profiles.ProfileFragment;
+import com.itcom202.weroom.account.profiles.DataBasePath;
+import com.itcom202.weroom.account.profiles.Profile;
+import com.itcom202.weroom.queries.MatchQueries;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-  private List<Integer> items = new ArrayList<>(Arrays.asList(0,1,2,3,4,5,6,7,8,9));
+  private List<Profile> mTenantList = SwipeActivity.getTenantList();
 
   @NonNull
   @Override
@@ -33,12 +42,12 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     switch (viewHolder.getItemViewType()) {
       case 0:
         LandlordState viewLandlord = (LandlordState) viewHolder;
-        viewLandlord.bind(items.get(i).intValue());
+        viewLandlord.bind(mTenantList.get(i));
         break;
 
       case 2:
         TenantState viewTenant = (TenantState) viewHolder;
-          viewTenant.bind(items.get(i).intValue());
+         // viewTenant.bind(mTenantList.get(i).intValue());
 
           break;
     }
@@ -46,28 +55,29 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 //  @Override
 //  public void onBindViewHolder(@NonNull ListItem holder, int position) {
-//         //holder.bind(items.get(position).intValue());
+//         //holder.bind(mTenantList.get(position).intValue());
 //     //   holder.bind(Integer.parseInt(mFirebaseUser.getEmail()));
 //  }
 //
   @Override
   public int getItemCount() {
-    return items.size();
+    return mTenantList.size();
   }
 
-  public List<Integer> getItems() {
-    return items;
+  public List<Profile> getTenantList() {
+    return mTenantList;
   }
 
   public void removeTopItem() {
-    items.remove(0);
+    mTenantList.remove(0);
     notifyDataSetChanged();
   }
   @Override
   public int getItemViewType(int position) {
     // Just as an example, return 0 or 2 depending on position
     // Note that unlike in ListView adapters, types don't have to be contiguous
-    if(ProfileFragment.mRole.getSelectedItemPosition()==0){
+    Profile p = ProfileSingleton.getInstance();
+    if(p.getRole().equals("Landlord")){
         return 0;
     }else {
         return 2;
