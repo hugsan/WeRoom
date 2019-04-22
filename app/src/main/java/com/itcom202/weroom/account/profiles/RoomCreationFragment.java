@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +34,7 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApi;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -121,50 +123,53 @@ public class RoomCreationFragment extends SingleFragment {
         mProfilePhoto = v.findViewById(R.id.picturepreview);
         mAddAnotherRoom = v.findViewById(R.id.addMoreRooms);
 
-        ArrayAdapter adapterPeriodRent = ArrayAdapter.createFromResource(getActivity(), R.array.rending_period_array, R.layout.spinner_item);
+        final ArrayAdapter adapterPeriodRent = ArrayAdapter.createFromResource(getActivity(), R.array.rending_period_array, R.layout.spinner_item);
         adapterPeriodRent.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mPeriodRenting.setAdapter(adapterPeriodRent);
 
-
         mRoomDescription = v.findViewById(R.id.descriptionField);
+
         final MapFragment mapFragment = new MapFragment();
+        final FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.showmapfragment, mapFragment).commit();
 
-        if(isPackageInstalled(GooglePlayServicesUtil.GOOGLE_PLAY_STORE_PACKAGE)) {
-            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-            transaction.replace(R.id.showmapfragment, mapFragment).commit();
+            // Initialize Places.
+            Places.initialize(getApplicationContext(), getString(R.string.google_cloud_api_key));
 
-        }
+            // Create a new Places client instance.
+            PlacesClient placesClient = Places.createClient(getActivity());
+
+            // Initialize the AutocompleteSupportFragment.
+            AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                    getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+            //autocompleteFragment.setTypeFilter(TypeFilter.GEOCODE);
+
+            // Specify the types of place data to return.
+            autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.LAT_LNG, Place.Field.NAME));
 
 
 
-        // Initialize Places.
-        Places.initialize(getApplicationContext(), getString(R.string.google_cloud_api_key));
-
-        // Create a new Places client instance.
-        PlacesClient placesClient = Places.createClient(getActivity());
-
-        // Initialize the AutocompleteSupportFragment.
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
-                getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
-
-        //autocompleteFragment.setTypeFilter(TypeFilter.GEOCODE);
-
-        // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.LAT_LNG, Place.Field.NAME));
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
-               // txtView.setText(place.getName()+","+place.getId());
+                // txtView.setText(place.getName()+","+place.getId());
+                mAddressName = place.getName();
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getLatLng());
-                if(isPackageInstalled(GooglePlayServicesUtil.GOOGLE_PLAY_STORE_PACKAGE)) {
+
+                try {
 
                     mapFragment.updateSite(place.getLatLng());
+                }catch (Exception e){
+                    Toast.makeText(getContext(), "No map", Toast.LENGTH_SHORT).show();
                 }
-                mAddressID = place.getId();
-                mAddressName = place.getName();
-                mAddressLatitude = place.getLatLng().latitude;
-                mAddressLongitude = place.getLatLng().longitude;
+
+                    mAddressID = place.getId();
+
+                    mAddressLatitude = Objects.requireNonNull(place.getLatLng()).latitude;
+                    mAddressLongitude = place.getLatLng().longitude;
+
 
             }
 
@@ -241,6 +246,7 @@ public class RoomCreationFragment extends SingleFragment {
         Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

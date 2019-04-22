@@ -73,7 +73,6 @@ public class ProfileFragment extends SingleFragment {
     private Button mCreateProfile;
     private Spinner mGender;
     private Spinner mCountry;
-    //TODO we need to fix this, we can not communicate values this way.
     public static  Spinner mRole;
     private TagView mTag;
     private File mPhotoFile;
