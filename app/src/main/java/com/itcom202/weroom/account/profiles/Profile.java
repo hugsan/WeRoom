@@ -26,6 +26,7 @@ public class Profile implements Serializable {
     private String userID;
     private TenantProfile tenant;
     private LandlordProfile landlord;
+    private Match match;
 
 
 
@@ -115,8 +116,17 @@ public class Profile implements Serializable {
         this.userID = userID;
     }
 
+    public Match getMatch() {
+        return match;
+    }
+
+    public void setMatch(Match match) {
+        this.match = match;
+    }
+
     @Override
     public boolean equals(Object o){
         return (o instanceof  Profile) && this.userID.equals( ((Profile)o).userID);
     }
+
 }
