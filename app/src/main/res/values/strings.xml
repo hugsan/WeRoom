@@ -109,8 +109,8 @@
     <string name="preferred_age_of_landlord">Preferred age of Landlord</string>
     <string name="_50km">50km</string>
     <string name="_5km">5km</string>
-    <string name="rent">Rent</string>
-    <string name="deposit">Deposit</string>
+    <string name="rent">Rent*</string>
+    <string name="deposit">Deposit*</string>
     <string name="looking_for">What are you looking for?</string>
     <string name="radius_from_center">Radius from center</string>
     <string name="internet">Internet</string>
@@ -119,7 +119,7 @@
     <string name="max">Max.</string>
     <string name="choose_city">Choose a city where you want to live</string>
     <string name="only_3_rooms">You can only list three rooms</string>
-    <string name="city">City</string>
+    <string name="city">City *</string>
     <string-array name="rending_period_array">
         <item>Select period of renting</item>
         <item>0 – 3 Months </item>
@@ -128,7 +128,7 @@
         <item>12+ Months </item>
     </string-array>
 
-    <string name="choose_period">Choose period of renting</string>
+    <string name="choose_period">Choose period of renting *</string>
 
 
     <!-- Strings related to ProfileLandlordFragment -->
@@ -146,15 +146,15 @@
     </string-array>
 
     <!-- Strings related to add_room_Fragment -->
-    <string name="rent_month">Rent pr Month</string>
-    <string name="deposit_room">Deposit</string>
-    <string name="rent_period">Period Of Renting</string>
+    <string name="rent_month">Rent pr Month *</string>
+    <string name="deposit_room">Deposit *</string>
+    <string name="rent_period">Period Of Renting *</string>
     <string name="max_number_pictures">Add up to 10 Pictures</string>
     <string name="post_room">Post Room</string>
-    <string name="address">Address</string>
-    <string name="size_room">Size of Room (m2)</string>
+    <string name="address">Address *</string>
+    <string name="size_room">Size of Room (m2)*</string>
     <string name="floor">Floor</string>
-    <string name="describe_room">Description</string>
+    <string name="describe_room">Description *</string>
     <string name="post">Post Room</string>
     <string name="add_more_rooms">Add another room.</string>
     <string name="room_creation_failed">Could not create room</string>
