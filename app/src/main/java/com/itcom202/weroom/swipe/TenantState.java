@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,11 +15,11 @@ import com.itcom202.weroom.account.profiles.RoomPosted;
 import com.itcom202.weroom.cameraGallery.PictureConversion;
 import com.itcom202.weroom.queries.ImageController;
 
-import java.util.zip.Inflater;
-
 public class TenantState extends RecyclerView.ViewHolder implements State {
     TextView textView;
     ImageView mPhoto;
+    RoomPosted room;
+    public static final String KEY_ROOM = "KEY_ROOM";
 
     public TenantState(@NonNull final View itemView) {
         super(itemView);
@@ -31,8 +30,9 @@ public class TenantState extends RecyclerView.ViewHolder implements State {
         mPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 AppCompatActivity activity = (AppCompatActivity) itemView.getContext();
-                Fragment myFragment = new CardInfoFragment();
+                Fragment myFragment = CardInfoRoomFragment.newInstance(room);
                 activity.getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, myFragment).addToBackStack(null).commit();
             }
         });
@@ -40,8 +40,9 @@ public class TenantState extends RecyclerView.ViewHolder implements State {
     }
 
     public void bind(RoomPosted roomPosted) {
-        textView.setText(roomPosted.getCompleteAddress());
-        Task t = ImageController.getRoomPicture(roomPosted.getRoomID(),0);
+        room = roomPosted;
+        textView.setText(room.getCompleteAddress());
+        Task t = ImageController.getRoomPicture(room.getRoomID(),0);
         t.addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {

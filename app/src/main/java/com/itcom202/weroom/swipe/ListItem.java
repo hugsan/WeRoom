@@ -1,11 +1,8 @@
 package com.itcom202.weroom.swipe;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,7 +24,7 @@ public class ListItem extends RecyclerView.ViewHolder {
           @Override
           public void onClick(View v) {
               AppCompatActivity activity = (AppCompatActivity) itemView.getContext();
-              Fragment myFragment = new CardInfoFragment();
+              Fragment myFragment = new CardInfoTenantFragment();
               activity.getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, myFragment).addToBackStack(null).commit();
           }
       });
