@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-       // firebaseAuth.signOut();
+        //firebaseAuth.signOut();
         Log.i(TAG,"User logged in: "+ firebaseAuth.getCurrentUser());
         //if there is no user logged in Firebase it starts LoginActivity
         if (firebaseAuth.getCurrentUser() == null){
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             getUser.addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
-                    startActivity(LoginActivity.newIntent(MainActivity.this));
+                    startActivity(SwipeActivity.newIntent(MainActivity.this));
                     finish();
                 }
             });
