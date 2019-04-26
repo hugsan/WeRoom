@@ -124,9 +124,9 @@ public class SwipeFragment extends Fragment {
 
 
     public void goToInformationFragment(){
-        final CardInfoFragment cardInfoFragment = new CardInfoFragment();
+        final CardInfoTenantFragment cardInfoTenantFragment = new CardInfoTenantFragment();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, cardInfoFragment).commit();
+        transaction.replace(R.id.fragment_container, cardInfoTenantFragment).commit();
     }
 
     @Override

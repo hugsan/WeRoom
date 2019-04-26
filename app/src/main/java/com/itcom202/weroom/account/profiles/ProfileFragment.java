@@ -31,13 +31,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.SingleFragment;
-//import com.itcom202.weroom.cameraGallery.Camera;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.tagDescription.TagModel;
 import com.itcom202.weroom.account.profiles.tagDescription.TagSeparator;
 import com.itcom202.weroom.account.profiles.tagDescription.TagView;
 import com.itcom202.weroom.cameraGallery.ImagePicker;
-import com.itcom202.weroom.cameraGallery.PictureConversion;
 import com.itcom202.weroom.queries.ImageController;
 
 
