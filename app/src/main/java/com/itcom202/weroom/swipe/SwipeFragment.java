@@ -136,6 +136,7 @@ public class SwipeFragment extends Fragment {
         //update whatever your list
         adapter.notifyDataSetChanged();
     }
+
     private SpinnerAdapter roomSpinnerAdapter(){
 
 
