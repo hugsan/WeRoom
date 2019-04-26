@@ -1,17 +1,39 @@
 package com.itcom202.weroom.account.profiles;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Match implements Serializable {
+public class Match implements Serializable , Parcelable {
     private List<String> match = new ArrayList<>();
     private List<String> liked = new ArrayList<>();
     private List<String> externalLikes = new ArrayList<>();
     private List<String> dislike = new ArrayList<>();
     public Match(){}
 
-    public void addMatch(String elementID){
+    protected Match(Parcel in) {
+        match = in.createStringArrayList();
+        liked = in.createStringArrayList();
+        externalLikes = in.createStringArrayList();
+        dislike = in.createStringArrayList();
+    }
+
+    public static final Creator<Match> CREATOR = new Creator<Match>() {
+        @Override
+        public Match createFromParcel(Parcel in) {
+            return new Match(in);
+        }
+
+        @Override
+        public Match[] newArray(int size) {
+            return new Match[size];
+        }
+    };
+
+    private void addMatch(String elementID){
         match.add(elementID);
     }
     public void addLiked(String elementID){
@@ -59,5 +81,18 @@ public class Match implements Serializable {
 
     public void setDislike(List<String> dislike) {
         this.dislike = dislike;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeStringList(match);
+        dest.writeStringList(liked);
+        dest.writeStringList(externalLikes);
+        dest.writeStringList(dislike);
     }
 }

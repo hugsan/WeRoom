@@ -2,6 +2,8 @@ package com.itcom202.weroom.account.profiles;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Base64;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -15,7 +17,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 
-public class Profile implements Serializable {
+public class Profile implements Serializable, Parcelable {
 
     private String name;
     private int age;
@@ -44,6 +46,31 @@ public class Profile implements Serializable {
     }
     //This constructor is needed to de-serialize the object from the FireBase database.
     public Profile(){}
+
+    protected Profile(Parcel in) {
+        name = in.readString();
+        age = in.readInt();
+        gender = in.readString();
+        country = in.readString();
+        role = in.readString();
+        tags = in.createStringArrayList();
+        userID = in.readString();
+        tenant = in.readParcelable(TenantProfile.class.getClassLoader());
+        landlord = in.readParcelable(LandlordProfile.class.getClassLoader());
+        match = in.readParcelable(Match.class.getClassLoader());
+    }
+
+    public static final Creator<Profile> CREATOR = new Creator<Profile>() {
+        @Override
+        public Profile createFromParcel(Parcel in) {
+            return new Profile(in);
+        }
+
+        @Override
+        public Profile[] newArray(int size) {
+            return new Profile[size];
+        }
+    };
 
     public int getAge() {
         return age;
@@ -129,4 +156,22 @@ public class Profile implements Serializable {
         return (o instanceof  Profile) && this.userID.equals( ((Profile)o).userID);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeInt(age);
+        dest.writeString(gender);
+        dest.writeString(country);
+        dest.writeString(role);
+        dest.writeStringList(tags);
+        dest.writeString(userID);
+        dest.writeParcelable(tenant, flags);
+        dest.writeParcelable(landlord, flags);
+        dest.writeParcelable(match, flags);
+    }
 }

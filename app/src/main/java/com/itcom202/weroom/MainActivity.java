@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     userProfile = documentSnapshot.toObject(Profile.class);
                     ProfileSingleton.initialize(userProfile);
-                    System.out.println("TORTUGA! query finished");
                 }
             });
             Log.i(TAG,"I am logged in: "+ firebaseAuth.getCurrentUser().getEmail());

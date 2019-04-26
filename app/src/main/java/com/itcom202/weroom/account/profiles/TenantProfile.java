@@ -1,9 +1,12 @@
 package com.itcom202.weroom.account.profiles;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.InputMismatchException;
 
-public class TenantProfile implements Serializable {
+public class TenantProfile implements Serializable, Parcelable {
     public static final int LESS_THAN_THREE_MONTH = 1;
     public static final int THREE_TO_SIX_MONTH = 2;
     public static final int SIX_TO_TWELVE_MONTH = 3;
@@ -11,6 +14,62 @@ public class TenantProfile implements Serializable {
     public static final String YES = "Yes";
     public static final String NO = "No";
     public static final String I_DONT_CARE = "Does not matter";
+
+    protected TenantProfile(Parcel in) {
+        mUserUid = in.readString();
+        mDistanceCenter = in.readInt();
+        mPeriodOfRent = in.readInt();
+        mMinDeposit = in.readInt();
+        mMAxDeposit = in.readInt();
+        mMinRent = in.readInt();
+        mMaxRent = in.readInt();
+        mChosenCityname = in.readString();
+        mChosenCityId = in.readString();
+        mCityLatitude = in.readDouble();
+        mCityLongitude = in.readDouble();
+        mFurnished = in.readString();
+        mInternet = in.readString();
+        mLaundry = in.readString();
+        mPetFriendly = in.readString();
+        mSmokeFriendly = in.readString();
+    }
+
+    public static final Creator<TenantProfile> CREATOR = new Creator<TenantProfile>() {
+        @Override
+        public TenantProfile createFromParcel(Parcel in) {
+            return new TenantProfile(in);
+        }
+
+        @Override
+        public TenantProfile[] newArray(int size) {
+            return new TenantProfile[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mUserUid);
+        dest.writeInt(mDistanceCenter);
+        dest.writeInt(mPeriodOfRent);
+        dest.writeInt(mMinDeposit);
+        dest.writeInt(mMAxDeposit);
+        dest.writeInt(mMinRent);
+        dest.writeInt(mMaxRent);
+        dest.writeString(mChosenCityname);
+        dest.writeString(mChosenCityId);
+        dest.writeDouble(mCityLatitude);
+        dest.writeDouble(mCityLongitude);
+        dest.writeString(mFurnished);
+        dest.writeString(mInternet);
+        dest.writeString(mLaundry);
+        dest.writeString(mPetFriendly);
+        dest.writeString(mSmokeFriendly);
+    }
 
     public static class Builder{
         private String sUserUid;

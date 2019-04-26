@@ -1,10 +1,71 @@
 package com.itcom202.weroom.account.profiles;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.InputMismatchException;
 import java.util.UUID;
 
-public class RoomPosted implements Serializable {
+public class RoomPosted implements Serializable, Parcelable{
+    static final long serialVersionUID = 42L;
+
+    protected RoomPosted(Parcel in) {
+        mRent = in.readInt();
+        mDeposit = in.readInt();
+        mPeriodOfRenting = in.readString();
+        mCompleteAddress = in.readString();
+        mAddressID = in.readString();
+        mLatitude = in.readDouble();
+        mLongitude = in.readDouble();
+        mSize = in.readInt();
+        mFurnished = in.readByte() != 0;
+        mInternet = in.readByte() != 0;
+        mComonAreas = in.readByte() != 0;
+        mLaundry = in.readByte() != 0;
+        mRoomID = in.readString();
+        mDescription = in.readString();
+        mLandlordID = in.readString();
+        mMatch = in.readParcelable(Match.class.getClassLoader());
+    }
+
+    public static final Creator<RoomPosted> CREATOR = new Creator<RoomPosted>() {
+        @Override
+        public RoomPosted createFromParcel(Parcel in) {
+            return new RoomPosted(in);
+        }
+
+        @Override
+        public RoomPosted[] newArray(int size) {
+            return new RoomPosted[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mRent);
+        dest.writeInt(mDeposit);
+        dest.writeString(mPeriodOfRenting);
+        dest.writeString(mCompleteAddress);
+        dest.writeString(mAddressID);
+        dest.writeDouble(mLatitude);
+        dest.writeDouble(mLongitude);
+        dest.writeInt(mSize);
+        dest.writeByte((byte) (mFurnished ? 1 : 0));
+        dest.writeByte((byte) (mInternet ? 1 : 0));
+        dest.writeByte((byte) (mComonAreas ? 1 : 0));
+        dest.writeByte((byte) (mLaundry ? 1 : 0));
+        dest.writeString(mRoomID);
+        dest.writeString(mDescription);
+        dest.writeString(mLandlordID);
+        dest.writeParcelable(mMatch, flags);
+    }
+
 
     public static class Builder{
         private int sRent;
@@ -120,10 +181,19 @@ public class RoomPosted implements Serializable {
     private String mRoomID;
     private String mDescription;
     private String mLandlordID;
+    private Match mMatch;
 
     //Constructor is public needed to de-serialize the object using firebase database
 
     public RoomPosted(){}
+
+    public Match getMatch() {
+        return mMatch;
+    }
+
+    public void setMatch(Match match) {
+        mMatch = match;
+    }
 
     public String getLandlordID() {
         return mLandlordID;

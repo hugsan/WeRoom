@@ -2,16 +2,17 @@ package com.itcom202.weroom.swipe;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -28,10 +29,11 @@ import java.util.List;
 
 
 public class SwipeActivity extends AppCompatActivity {
-    private static List<Profile> sTenantList = new ArrayList<>();
-    private static List<RoomPosted> sRoomPostedList = new ArrayList<>();
-
-    public static Intent newIntent(Context myContext){
+    private ArrayList<Profile> mAllProfilesFromQuery = new ArrayList<>();
+    private ArrayList<Profile> mNonTenantProfiles = new ArrayList<>();
+    private ArrayList<RoomPosted> mLandlordsRooms = new ArrayList<>();
+    private int asyncTaskLatch = 3;
+    public static Intent newIntent(Context myContext) {
         Intent i = new Intent(myContext, SwipeActivity.class);
         return i;
     }
@@ -40,99 +42,81 @@ public class SwipeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Profile p = ProfileSingleton.getInstance();
+        if (p.getRole().equals("Landlord")) {
 
-        if (ProfileSingleton.getInstance().getRole().equals("Landlord")){
+            Query tenantCandidateQuery = FirebaseFirestore.getInstance()
+                    .collection(DataBasePath.USERS.getValue());
 
-                //Making a query to all Tenant and looking for the candidates.
-                CollectionReference userReference = db
-                        .collection(DataBasePath.USERS.getValue());
+            Query removeNonTenant = FirebaseFirestore.getInstance()
+                    .collection(DataBasePath.USERS.getValue())
+                    .whereEqualTo("tenant", null);
 
-                final Query tenantCandidateQuery = db.collection(DataBasePath.USERS.getValue());
+            Query getLandlordsRooms = FirebaseFirestore.getInstance()
+                    .collection(DataBasePath.ROOMS.getValue())
+                    .whereEqualTo("landlordID",p.getUserID() );
 
-                tenantCandidateQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (DocumentSnapshot d : queryDocumentSnapshots){
-                            sTenantList.add(d.toObject(Profile.class));
-                        }
-                        Query removeNonTenant = FirebaseFirestore.getInstance()
-                                .collection(DataBasePath.USERS.getValue())
-                                .whereEqualTo("tenant", null);
-                        Task task = removeNonTenant.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                            @Override
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                for (DocumentSnapshot d : queryDocumentSnapshots){
-                                    sTenantList.remove(d.toObject(Profile.class));
-                                }
-                            }
-                        });
-                        task.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                startFragment();
-                            }
-                        });
-                    }
-                });
-
-
-            }else{
-
-            CollectionReference roomReference = db
-                    .collection(DataBasePath.ROOMS.getValue());
-
-            final Query RoomQuery = db.collection(DataBasePath.ROOMS.getValue());
-
-            RoomQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            Task t1 = tenantCandidateQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                     for (DocumentSnapshot d : queryDocumentSnapshots){
-                        sRoomPostedList.add(d.toObject(RoomPosted.class));
+                        mAllProfilesFromQuery.add(d.toObject(Profile.class));
                     }
-                    startFragment();
-//                    Query removeNonTenant = FirebaseFirestore.getInstance()
-//                            .collection(DataBasePath.USERS.getValue())
-//                            .whereEqualTo("tenant", null);
-//                    Task task = removeNonTenant.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                        @Override
-//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                            for (DocumentSnapshot d : queryDocumentSnapshots){
-//                                sTenantList.remove(d.toObject(Profile.class));
-//                            }
-//
-//                        }
-//                    });
-//                    task.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                            startFragment();
-//
-//                        }
-//                    });
                 }
             });
+            Task t2 = removeNonTenant.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    for (DocumentSnapshot d : queryDocumentSnapshots) {
+                        mNonTenantProfiles.add(d.toObject(Profile.class));
+                    }
+                }
+            });
+
+            Task t3 = getLandlordsRooms.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    for (DocumentSnapshot d : queryDocumentSnapshots) {
+                        mLandlordsRooms.add(d.toObject(RoomPosted.class));
+                    }
+                }
+            });
+
+            Tasks.whenAllSuccess(t1, t2, t3).addOnSuccessListener(new OnSuccessListener<List<Object>>() {
+                @Override
+                public void onSuccess(List<Object> list) {
+                    startFragmentFromLandlord();
+                }
+            });
+
+
+        } else {
+
+
         }
 
 
-
-
     }
-    private void startFragment(){
-        setContentView(R.layout.activity_one_fragment);
 
+
+    private void startFragmentFromLandlord(){
+        mAllProfilesFromQuery.removeAll(mNonTenantProfiles);
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(SwipeFragment.KEY_TENANT_LIST, mAllProfilesFromQuery);
+        bundle.putParcelableArrayList(SwipeFragment.KEY_ROOM_LIST, mLandlordsRooms);
+
+        setContentView(R.layout.activity_one_fragment);
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
 
-        if (fragment == null){
+        if (fragment == null) {
             fragment = new SwipeFragment();
+            fragment.setArguments(bundle);
             fm.beginTransaction()
                     .add(R.id.fragment_container, fragment)
                     .commit();
         }
     }
-
-    public static  List<Profile> getTenantList() {
-        return sTenantList;
-    }
-    public static  List<RoomPosted> getRoomPostedList() { return sRoomPostedList; }
 }
+
+

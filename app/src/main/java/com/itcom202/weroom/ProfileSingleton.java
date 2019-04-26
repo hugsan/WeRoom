@@ -23,7 +23,6 @@ public class ProfileSingleton {
     private ProfileSingleton(){}
 
     public static synchronized Profile getInstance(){
-        System.out.println("TORTUGA! returning user profile");
         return userProfile;
     }
 

@@ -1,13 +1,61 @@
 package com.itcom202.weroom.account.profiles;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 
-public class LandlordProfile {
+public class LandlordProfile implements Serializable, Parcelable {
     public static final String YES = "Yes";
     public static final String NO = "No";
     public static final String I_DONT_CARE = "Do not Care";
+
+    protected LandlordProfile(Parcel in) {
+        mUserID = in.readString();
+        mTenantNation = in.readString();
+        mTenantMinAge = in.readInt();
+        mTenantMaxAge = in.readInt();
+        mTenantGender = in.readString();
+        mTenantOccupation = in.readString();
+        mAllowTenantSmoking = in.readString();
+        mSocialTenant = in.readString();
+        mPictures = in.createStringArrayList();
+        mRoomsID = in.createStringArrayList();
+    }
+
+    public static final Creator<LandlordProfile> CREATOR = new Creator<LandlordProfile>() {
+        @Override
+        public LandlordProfile createFromParcel(Parcel in) {
+            return new LandlordProfile(in);
+        }
+
+        @Override
+        public LandlordProfile[] newArray(int size) {
+            return new LandlordProfile[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mUserID);
+        dest.writeString(mTenantNation);
+        dest.writeInt(mTenantMinAge);
+        dest.writeInt(mTenantMaxAge);
+        dest.writeString(mTenantGender);
+        dest.writeString(mTenantOccupation);
+        dest.writeString(mAllowTenantSmoking);
+        dest.writeString(mSocialTenant);
+        dest.writeStringList(mPictures);
+        dest.writeStringList(mRoomsID);
+    }
 
     public static class Builder{
         private String sUserID;

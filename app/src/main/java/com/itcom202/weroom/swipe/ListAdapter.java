@@ -25,10 +25,16 @@ import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-  private List<Profile> mTenantList = SwipeActivity.getTenantList();
-  private List<RoomPosted> mRoomPostedList = SwipeActivity.getRoomPostedList();
-  Profile p = ProfileSingleton.getInstance();
+  private List<Profile> mTenantList;
+  private List<RoomPosted> mRoomPostedList;
+  private Profile p;
 
+  public ListAdapter(List<Profile> tenantList, List<RoomPosted> roomPosteds, Profile p){
+    mTenantList = tenantList;
+    mRoomPostedList = roomPosteds;
+    this.p = p;
+
+  }
 
 
   @NonNull
@@ -85,6 +91,14 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
       mRoomPostedList.remove(0);
       notifyDataSetChanged();
     }
+  }
+  public String returnTopItemID(){
+      if (p.getRole().equals("Landlord")){
+          return mTenantList.get(0).getUserID();
+      }else{
+          return mRoomPostedList.get(0).getRoomID();
+      }
+
   }
   @Override
   public int getItemViewType(int position) {
