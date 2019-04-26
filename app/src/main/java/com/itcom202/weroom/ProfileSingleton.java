@@ -42,4 +42,14 @@ public class ProfileSingleton {
     public static void initialize(Profile profile){
         userProfile = profile;
     }
+    public static void update(Profile profile){
+            userProfile = profile;
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+            db.collection(DataBasePath.USERS.getValue())
+                .document(profile.getUserID())
+                .set(profile);
+
+
+}
 }

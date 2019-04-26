@@ -1,6 +1,7 @@
 package com.itcom202.weroom.swipe;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.Profile;
 import com.itcom202.weroom.account.profiles.RoomPosted;
@@ -71,7 +73,8 @@ public class CardInfoTenantFragment extends Fragment {
         t.addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
-                mPhoto.setImageBitmap(PictureConversion.byteArrayToBitmap(bytes));
+                Bitmap picture = PictureConversion.byteArrayToBitmap(bytes);
+                mPhoto.setImageBitmap(picture);
             }
         });
 

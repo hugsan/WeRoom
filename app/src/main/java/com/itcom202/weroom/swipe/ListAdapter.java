@@ -100,6 +100,12 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
       }
 
   }
+  public RoomPosted returnTopRoom(){
+    return mRoomPostedList.get(0);
+  }
+  public Profile returnTopTenant(){
+    return mTenantList.get(0);
+  }
   @Override
   public int getItemViewType(int position) {
     if(p.getRole().equals("Landlord")){

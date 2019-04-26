@@ -3,6 +3,8 @@ package com.itcom202.weroom.account.profiles;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.itcom202.weroom.ProfileSingleton;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,7 @@ public class Match implements Serializable , Parcelable {
         liked.add(elementID);
         if (externalLikes.contains(elementID))
             addMatch(elementID);
+
     }
     public void addExternalLikes(String elementID){
         externalLikes.add(elementID);

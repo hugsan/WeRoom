@@ -11,8 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
+import com.itcom202.weroom.account.profiles.DataBasePath;
+import com.itcom202.weroom.account.profiles.Match;
 import com.itcom202.weroom.account.profiles.Profile;
 import com.itcom202.weroom.account.profiles.RoomPosted;
 
@@ -22,7 +26,6 @@ import android.widget.SpinnerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 import swipeable.com.layoutmanager.OnItemSwiped;
@@ -37,7 +40,7 @@ public class SwipeFragment extends Fragment {
     private static final String TAG = "Swipe";
     private ListAdapter adapter;
     public static Fragment thisFragment;
-    private Spinner mPeriodRenting;
+    private Spinner mChoosenRoomSpinner;
 
     private ArrayList<Profile> mTenantProfiles;
     private ArrayList<RoomPosted> mLandlordsRooms;
@@ -55,29 +58,60 @@ public class SwipeFragment extends Fragment {
             mLandlordsRooms = getArguments().getParcelableArrayList(KEY_ROOM_LIST);
         }
 
-        mPeriodRenting = v.findViewById(R.id.landlordRoomSelectionSpinner);
+        mChoosenRoomSpinner = v.findViewById(R.id.landlordRoomSelectionSpinner);
         thisFragment = this;
         final Profile p = ProfileSingleton.getInstance();
         if (p.getRole().equals("Landlord")){
-            mPeriodRenting.setAdapter(roomSpinnerAdapter());
+            mChoosenRoomSpinner.setAdapter(roomSpinnerAdapter());
         }else{
-            mPeriodRenting.setEnabled(false);
+            mChoosenRoomSpinner.setEnabled(false);
         }
 
 
         final RecyclerView recyclerView = v.findViewById(R.id.recycler_view);
         SwipeableTouchHelperCallback swipeableTouchHelperCallback =
                 new SwipeableTouchHelperCallback(new OnItemSwiped() {
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
                     @Override
                     public void onItemSwiped() {
-                        adapter.removeTopItem();
-
 
                     }
 
                     @Override
                     public void onItemSwipedLeft() {
                         Log.d(TAG, "LEFT");
+                        //this when we swipe a room.
+                        if (adapter.returnTopItemID().length() == 36 ){
+                            //TODO remove this setMatch, is used only to change the values of the DB.
+                            // by default it should be creating the object in the constructor now.
+                            if (p.getMatch() == null)
+                                p.setMatch(new Match());
+                            p.getMatch().addDislike(adapter.returnTopItemID());
+                            ProfileSingleton.update(p);
+                        }//this when we swipe a tenant.
+                        else{
+                            RoomPosted r = mLandlordsRooms.get(mChoosenRoomSpinner.getSelectedItemPosition());
+                            r.getMatch().addDislike(adapter.returnTopItemID());
+                            db.collection(DataBasePath.ROOMS.getValue())
+                                    .document(r.getRoomID())
+                                    .set(r);
+                            Profile p = adapter.returnTopTenant();
+                            if (p.getMatch() == null)
+                                p.setMatch(new Match());
+                            p.getMatch().addExternalLikes(r.getRoomID());
+                            db.collection(DataBasePath.USERS.getValue())
+                                    .document(p.getUserID())
+                                    .set(p);
+                        }
+
+
+
+                        adapter.removeTopItem();
+
+
+                        adapter.removeTopItem();
 
 
                     }
@@ -85,11 +119,40 @@ public class SwipeFragment extends Fragment {
                     @Override
                     public void onItemSwipedRight() {
                         Log.d(TAG, "RIGHT");
-                        p.getMatch().addLiked(adapter.returnTopItemID());
-                        //this is a room.
+                        //this is when we swipe a room.
                         if (adapter.returnTopItemID().length() == 36 ){
+                            if (p.getMatch() == null)
+                                p.setMatch(new Match());
+                            p.getMatch().addLiked(adapter.returnTopItemID());
+                            ProfileSingleton.update(p);
 
+                            RoomPosted room = adapter.returnTopRoom();
+
+                            room.getMatch().addExternalLikes(p.getUserID());
+
+                            db.collection(DataBasePath.ROOMS.getValue())
+                                    .document(room.getRoomID())
+                                    .set(room);
+                        }//this when we swipe a tenant.
+                        else{
+                            int position = mChoosenRoomSpinner.getFirstVisiblePosition();
+                           RoomPosted r = mLandlordsRooms.get(position);
+                           r.getMatch().addLiked(adapter.returnTopItemID());
+                            db.collection(DataBasePath.ROOMS.getValue())
+                                    .document(r.getRoomID())
+                                    .set(r);
+                            Profile p = adapter.returnTopTenant();
+                            if (p.getMatch() == null)
+                                p.setMatch(new Match());
+                            p.getMatch().addExternalLikes(r.getRoomID());
+                            db.collection(DataBasePath.USERS.getValue())
+                                    .document(p.getUserID())
+                                    .set(p);
                         }
+
+
+
+                        adapter.removeTopItem();
 
                     }
 
@@ -109,6 +172,7 @@ public class SwipeFragment extends Fragment {
                         return ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT ;
                     }
                 };
+
         final ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeableTouchHelperCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
         recyclerView.setLayoutManager(new SwipeableLayoutManager().setAngle(10)

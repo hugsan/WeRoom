@@ -181,7 +181,7 @@ public class RoomPosted implements Serializable, Parcelable{
     private String mRoomID;
     private String mDescription;
     private String mLandlordID;
-    private Match mMatch;
+    private Match mMatch = new Match();
 
     //Constructor is public needed to de-serialize the object using firebase database
 

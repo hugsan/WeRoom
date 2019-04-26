@@ -28,7 +28,7 @@ public class Profile implements Serializable, Parcelable {
     private String userID;
     private TenantProfile tenant;
     private LandlordProfile landlord;
-    private Match match;
+    private Match match = new Match();
 
 
 
