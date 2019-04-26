@@ -5,33 +5,24 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
-import com.itcom202.weroom.account.profiles.DataBasePath;
 import com.itcom202.weroom.account.profiles.Profile;
 import com.itcom202.weroom.account.profiles.RoomPosted;
-import com.itcom202.weroom.queries.MatchQueries;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
   private List<Profile> mTenantList;
-  private List<RoomPosted> mRoomPostedList;
+  private List<RoomPosted> mRoomPostedFromLandlord;
+  private List<RoomPosted> mAllRoomPosted;
   private Profile p;
 
-  public ListAdapter(List<Profile> tenantList, List<RoomPosted> roomPosteds, Profile p){
+  public ListAdapter(List<Profile> tenantList, List<RoomPosted> roomPosteds, List<RoomPosted> allRooms, Profile p){
     mTenantList = tenantList;
-    mRoomPostedList = roomPosteds;
+    mRoomPostedFromLandlord = roomPosteds;
+    mAllRoomPosted = allRooms;
     this.p = p;
 
   }
@@ -58,7 +49,7 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
       case 2:
         TenantState viewTenant = (TenantState) viewHolder;
-        viewTenant.bind(mRoomPostedList.get(i));
+        viewTenant.bind(mAllRoomPosted.get(i));
 
           break;
     }
@@ -75,20 +66,20 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     if(p.getRole().equals("Landlord"))
       return mTenantList.size();
     else
-      return mRoomPostedList.size();
+      return mAllRoomPosted.size();
   }
 
   public List<Profile> getTenantList() {
     return mTenantList;
   }
-  public List<RoomPosted> getRoomPostedList(){return mRoomPostedList;}
+  public List<RoomPosted> getRoomPostedFromLandlord(){return mRoomPostedFromLandlord;}
 
   public void removeTopItem() {
     if(p.getRole().equals("Landlord")){
       mTenantList.remove(0);
       notifyDataSetChanged();
     }else{
-      mRoomPostedList.remove(0);
+      mAllRoomPosted.remove(0);
       notifyDataSetChanged();
     }
   }
@@ -96,15 +87,18 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
       if (p.getRole().equals("Landlord")){
           return mTenantList.get(0).getUserID();
       }else{
-          return mRoomPostedList.get(0).getRoomID();
+          return mAllRoomPosted.get(0).getRoomID();
       }
 
   }
-  public RoomPosted returnTopRoom(){
-    return mRoomPostedList.get(0);
+  public RoomPosted returnTopRoomLandlord(){
+    return mRoomPostedFromLandlord.get(0);
   }
   public Profile returnTopTenant(){
     return mTenantList.get(0);
+  }
+  public RoomPosted returnTopRoom(){
+    return mAllRoomPosted.get(0);
   }
   @Override
   public int getItemViewType(int position) {

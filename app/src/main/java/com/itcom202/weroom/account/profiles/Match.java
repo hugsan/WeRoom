@@ -39,13 +39,15 @@ public class Match implements Serializable , Parcelable {
         match.add(elementID);
     }
     public void addLiked(String elementID){
-        liked.add(elementID);
+        if (!liked.contains(elementID))
+            liked.add(elementID);
         if (externalLikes.contains(elementID))
             addMatch(elementID);
 
     }
     public void addExternalLikes(String elementID){
-        externalLikes.add(elementID);
+        if (!externalLikes.contains(elementID))
+            externalLikes.add(elementID);
         if (liked.contains(elementID))
             addMatch(elementID);
     }

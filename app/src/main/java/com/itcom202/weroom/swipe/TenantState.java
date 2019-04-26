@@ -16,9 +16,9 @@ import com.itcom202.weroom.cameraGallery.PictureConversion;
 import com.itcom202.weroom.queries.ImageController;
 
 public class TenantState extends RecyclerView.ViewHolder implements State {
-    TextView textView;
-    ImageView mPhoto;
-    RoomPosted room;
+    private TextView textView;
+    private ImageView mPhoto;
+    private RoomPosted room;
     public static final String KEY_ROOM = "KEY_ROOM";
 
     public TenantState(@NonNull final View itemView) {

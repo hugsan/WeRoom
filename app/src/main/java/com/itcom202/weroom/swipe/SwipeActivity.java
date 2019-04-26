@@ -32,6 +32,7 @@ public class SwipeActivity extends AppCompatActivity {
     private ArrayList<Profile> mAllProfilesFromQuery = new ArrayList<>();
     private ArrayList<Profile> mNonTenantProfiles = new ArrayList<>();
     private ArrayList<RoomPosted> mLandlordsRooms = new ArrayList<>();
+    private ArrayList<RoomPosted> mAllPostedRooms = new ArrayList<>();
     private int asyncTaskLatch = 3;
     public static Intent newIntent(Context myContext) {
         Intent i = new Intent(myContext, SwipeActivity.class);
@@ -91,19 +92,44 @@ public class SwipeActivity extends AppCompatActivity {
 
 
         } else {
+            Query getLandlordsRooms = FirebaseFirestore.getInstance()
+                    .collection(DataBasePath.ROOMS.getValue());
 
-
+            getLandlordsRooms.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    for (DocumentSnapshot d : queryDocumentSnapshots) {
+                        mAllPostedRooms.add(d.toObject(RoomPosted.class));
+                    }
+                    startFragmentFromTenant();
+                }
+            });
         }
 
 
     }
 
+    private void startFragmentFromTenant(){
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(SwipeFragment.KEY_ROOM_LIST_ALL, mAllPostedRooms);
 
+        setContentView(R.layout.activity_one_fragment);
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+
+        if (fragment == null) {
+            fragment = new SwipeFragment();
+            fragment.setArguments(bundle);
+            fm.beginTransaction()
+                    .add(R.id.fragment_container, fragment)
+                    .commit();
+        }
+    }
     private void startFragmentFromLandlord(){
         mAllProfilesFromQuery.removeAll(mNonTenantProfiles);
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(SwipeFragment.KEY_TENANT_LIST, mAllProfilesFromQuery);
-        bundle.putParcelableArrayList(SwipeFragment.KEY_ROOM_LIST, mLandlordsRooms);
+        bundle.putParcelableArrayList(SwipeFragment.KEY_ROOM_LIST_LANDLORD, mLandlordsRooms);
 
         setContentView(R.layout.activity_one_fragment);
         FragmentManager fm = getSupportFragmentManager();

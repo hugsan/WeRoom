@@ -16,9 +16,9 @@ import com.itcom202.weroom.cameraGallery.PictureConversion;
 import com.itcom202.weroom.queries.ImageController;
 
 public class LandlordState extends RecyclerView.ViewHolder implements State {
-    TextView textView;
-    ImageView mPhoto;
-    Profile  mProfile;
+    private TextView textView;
+    private ImageView mPhoto;
+    private Profile  mProfile;
     public static final String KEY_TENANT = "KEY_TENANT";
 
 

@@ -35,7 +35,8 @@ import swipeable.com.layoutmanager.touchelper.ItemTouchHelper;
 
 public class SwipeFragment extends Fragment {
     public static final String KEY_TENANT_LIST = "tenant_list";
-    public static final String KEY_ROOM_LIST = "room_list";
+    public static final String KEY_ROOM_LIST_LANDLORD = "room_list_landlord";
+    public static final String KEY_ROOM_LIST_ALL = "room_list_all";
 
     private static final String TAG = "Swipe";
     private ListAdapter adapter;
@@ -44,6 +45,7 @@ public class SwipeFragment extends Fragment {
 
     private ArrayList<Profile> mTenantProfiles;
     private ArrayList<RoomPosted> mLandlordsRooms;
+    private ArrayList<RoomPosted> mAllRooms;
 
 
 
@@ -55,7 +57,10 @@ public class SwipeFragment extends Fragment {
 
         if (ProfileSingleton.getInstance().getRole().equals("Landlord" )&& getArguments() != null){
             mTenantProfiles = getArguments().getParcelableArrayList(KEY_TENANT_LIST);
-            mLandlordsRooms = getArguments().getParcelableArrayList(KEY_ROOM_LIST);
+            mLandlordsRooms = getArguments().getParcelableArrayList(KEY_ROOM_LIST_LANDLORD);
+        }
+        if (ProfileSingleton.getInstance().getRole().equals("Tenant") && getArguments() != null){
+            mAllRooms = getArguments().getParcelableArrayList(KEY_ROOM_LIST_ALL);
         }
 
         mChoosenRoomSpinner = v.findViewById(R.id.landlordRoomSelectionSpinner);
@@ -106,13 +111,7 @@ public class SwipeFragment extends Fragment {
                                     .set(p);
                         }
 
-
-
                         adapter.removeTopItem();
-
-
-                        adapter.removeTopItem();
-
 
                     }
 
@@ -180,7 +179,7 @@ public class SwipeFragment extends Fragment {
                 .setMaxShowCount(3)
                 .setScaleGap(0.1f)
                 .setTransYGap(0));
-        recyclerView.setAdapter(adapter = new ListAdapter(mTenantProfiles, mLandlordsRooms, p));
+        recyclerView.setAdapter(adapter = new ListAdapter(mTenantProfiles, mLandlordsRooms,mAllRooms, p));
 
         return v;
     }
