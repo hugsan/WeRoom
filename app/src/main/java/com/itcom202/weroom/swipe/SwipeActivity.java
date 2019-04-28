@@ -2,27 +2,30 @@ package com.itcom202.weroom.swipe;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.itcom202.weroom.MainActivity;
 import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.DataBasePath;
 import com.itcom202.weroom.account.profiles.Profile;
 import com.itcom202.weroom.account.profiles.RoomPosted;
+import com.itcom202.weroom.chat.SelectChatFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +36,7 @@ public class SwipeActivity extends AppCompatActivity {
     private ArrayList<Profile> mNonTenantProfiles = new ArrayList<>();
     private ArrayList<RoomPosted> mLandlordsRooms = new ArrayList<>();
     private ArrayList<RoomPosted> mAllPostedRooms = new ArrayList<>();
-    private int asyncTaskLatch = 3;
+    private Fragment swipingFragment;
     public static Intent newIntent(Context myContext) {
         Intent i = new Intent(myContext, SwipeActivity.class);
         return i;
@@ -42,7 +45,33 @@ public class SwipeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        setContentView(R.layout.activity_two_fragment);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                FragmentManager fm = getSupportFragmentManager();
+                switch (item.getItemId()) {
+                    case R.id.action_profile:
+                        Toast.makeText(SwipeActivity.this, "profile", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_home:
+                        fm.beginTransaction()
+                                .replace(R.id.fragment_container_top, swipingFragment)
+                                .commit();
+                        break;
+                    case R.id.action_chat:
+
+                        Fragment fragment = new SelectChatFragment();
+                        fm.beginTransaction()
+                                 .replace(R.id.fragment_container_top, fragment)
+                                 .commit();
+                        break;
+                }
+                return true;
+            }
+        });
+
         Profile p = ProfileSingleton.getInstance();
         if (p.getRole().equals("Landlord")) {
 
@@ -113,17 +142,16 @@ public class SwipeActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(SwipeFragment.KEY_ROOM_LIST_ALL, mAllPostedRooms);
 
-        setContentView(R.layout.activity_one_fragment);
         FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
 
-        if (fragment == null) {
-            fragment = new SwipeFragment();
-            fragment.setArguments(bundle);
-            fm.beginTransaction()
-                    .add(R.id.fragment_container, fragment)
-                    .commit();
+        if (swipingFragment == null) {
+            swipingFragment = new SwipeFragment();
         }
+            swipingFragment.setArguments(bundle);
+            fm.beginTransaction()
+                    .add(R.id.fragment_container_top, swipingFragment)
+                    .commit();
+
     }
     private void startFragmentFromLandlord(){
         mAllProfilesFromQuery.removeAll(mNonTenantProfiles);
@@ -131,18 +159,19 @@ public class SwipeActivity extends AppCompatActivity {
         bundle.putParcelableArrayList(SwipeFragment.KEY_TENANT_LIST, mAllProfilesFromQuery);
         bundle.putParcelableArrayList(SwipeFragment.KEY_ROOM_LIST_LANDLORD, mLandlordsRooms);
 
-        setContentView(R.layout.activity_one_fragment);
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
 
-        if (fragment == null) {
-            fragment = new SwipeFragment();
-            fragment.setArguments(bundle);
-            fm.beginTransaction()
-                    .add(R.id.fragment_container, fragment)
-                    .commit();
+        FragmentManager fm = getSupportFragmentManager();
+
+        if (swipingFragment == null) {
+            swipingFragment = new SwipeFragment();
         }
+            swipingFragment.setArguments(bundle);
+            fm.beginTransaction()
+                    .add(R.id.fragment_container_top, swipingFragment)
+                    .commit();
+
     }
+
 }
 
 

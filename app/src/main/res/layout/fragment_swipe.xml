@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageButton
             android:id="@+id/dislikeButton"
@@ -63,25 +63,19 @@
             android:popupBackground="@color/quantum_grey700"
             android:spinnerMode="dropdown" />
 
-        <include
-            layout="@layout/activity_navigation_bar_fragment"
-            android:layout_width="433dp"
-            android:layout_height="662dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="-6dp" />
-
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/swipe_container"
         android:layout_width="match_parent"
-        android:layout_height="464dp"
-        android:layout_marginTop="25dp">
+        android:layout_height="480dp">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="521dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
             android:orientation="vertical">
 
         </android.support.v7.widget.RecyclerView>
