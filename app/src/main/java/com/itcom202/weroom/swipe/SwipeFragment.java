@@ -69,7 +69,7 @@ public class SwipeFragment extends Fragment {
         if (p.getRole().equals("Landlord")){
             mChoosenRoomSpinner.setAdapter(roomSpinnerAdapter());
         }else{
-            mChoosenRoomSpinner.setEnabled(false);
+            mChoosenRoomSpinner.setVisibility(View.GONE);
         }
 
 
