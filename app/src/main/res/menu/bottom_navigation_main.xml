@@ -9,6 +9,11 @@
         android:icon="@drawable/ic_profile"
         android:title="@string/navigation_profile"
         />
+    <item
+        android:id="@+id/navigation_room_spinner"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title=""
+        app:actionLayout="@layout/spinner"/>
 
     <item
 

@@ -10,6 +10,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,6 +41,7 @@ public class SwipeActivity extends AppCompatActivity {
     private ArrayList<RoomPosted> mLandlordsRooms = new ArrayList<>();
     private ArrayList<RoomPosted> mAllPostedRooms = new ArrayList<>();
     private Fragment swipingFragment;
+    private Spinner mRoomSpinner;
     public static Intent newIntent(Context myContext) {
         Intent i = new Intent(myContext, SwipeActivity.class);
         return i;
@@ -171,6 +176,7 @@ public class SwipeActivity extends AppCompatActivity {
                     .commit();
 
     }
+
 
 }
 
