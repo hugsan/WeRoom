@@ -3,16 +3,18 @@ package com.itcom202.weroom.chat;
 public class Message {
 
     private String content;
+    private String userName;
     private String senderID;
     private String timeStamp;
 
-    public Message (String content, String sender) {
-
+    public Message (String content, String userName, String sender) {
+        this.userName = userName;
         this.content = content;
         this.senderID = sender;
         long tsLong = System.currentTimeMillis()/1000;
         timeStamp = Long.toString(tsLong);
     }
+    public Message(){};
 
     public String getContent() {
         return content;
@@ -35,5 +37,13 @@ public class Message {
 
     public void setTimeStamp(String timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

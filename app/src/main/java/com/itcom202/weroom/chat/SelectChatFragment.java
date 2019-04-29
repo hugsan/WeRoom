@@ -44,7 +44,6 @@ public class SelectChatFragment extends Fragment {
     private void updateUI(){
         Profile p = ProfileSingleton.getInstance();
         final List<String> matches = p.getMatch().getMatch();
-        final Object lock = new Object();
 
         final Query getLandlordsRooms = FirebaseFirestore.getInstance()
                 .collection(DataBasePath.ROOMS.getValue());
@@ -61,7 +60,7 @@ public class SelectChatFragment extends Fragment {
                     Profile p = d.toObject(Profile.class);
                     allProfiles.add(p);
                     if (p != null && matches.contains(p.getUserID()))
-                        contacts.add(new ShowContact(p.getName(), null, null));
+                        contacts.add(new ShowContact(p.getName(), null, p.getUserID(), null));
                 }
                     getLandlordsRooms.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
@@ -71,7 +70,7 @@ public class SelectChatFragment extends Fragment {
                                 if (r != null && matches.contains(r.getRoomID())){
                                     for (Profile p : allProfiles){
                                         if (r.getLandlordID().equals(p.getUserID())){
-                                            contacts.add(new ShowContact(p.getName(),r.getAddressID(),null));
+                                            contacts.add(new ShowContact(p.getName(),r.getAddressID(),p.getUserID(),null));
                                         }
                                     }
                                 }
@@ -113,12 +112,13 @@ public class SelectChatFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container_top, new ChatFragment());
+                Fragment chatFragment = new ChatFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString(ChatFragment.PARTNER_ID, mContact.contactID);
+                chatFragment.setArguments(bundle);
+                transaction.replace(R.id.fragment_container_top, chatFragment);
                 transaction.commit();
-                /*FragmentManager fm = getFragmentManager();
-                fm.beginTransaction()
-                        .replace(R.id.fragment_container_top, new ChatFragment())
-                        .commit();*/
+
             }
 
             public void bind(ShowContact contact) {
@@ -191,12 +191,14 @@ public class SelectChatFragment extends Fragment {
     }
     private class ShowContact{
         String name;
+        String contactID;
         String roomAddress;
         Bitmap profilePicture;
-        ShowContact(String name, String room, Bitmap btmp){
+        ShowContact(String name, String room,String contactID, Bitmap btmp){
             this.name = name;
             this.roomAddress = room;
             this.profilePicture = btmp;
+            this.contactID = contactID;
         }
     }
 
