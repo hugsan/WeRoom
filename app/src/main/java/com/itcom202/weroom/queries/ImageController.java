@@ -10,7 +10,9 @@ import com.google.firebase.storage.StorageReference;
 import com.itcom202.weroom.account.profiles.DataBasePath;
 import com.itcom202.weroom.cameraGallery.PictureConversion;
 
-public class ImageController {
+import java.io.Serializable;
+
+public class ImageController implements Serializable {
 
     private static byte[] byteArray;
 
@@ -58,6 +60,7 @@ public class ImageController {
                 .child(userID)
                 .child(DataBasePath.ROOM_PICTURE.getValue() +"_"+ Integer.toString(roomNumber));
 
+
         Task t = downloadRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
@@ -65,5 +68,15 @@ public class ImageController {
             }
         });
         return t;
+    }
+
+    public static byte[] getRoomPicture2(String userID, int roomNumber){
+        StorageReference reference = FirebaseStorage.getInstance().getReference();
+        StorageReference downloadRef = reference
+                .child(DataBasePath.IMAGE.getValue())
+                .child(userID)
+                .child(DataBasePath.ROOM_PICTURE.getValue() +"_"+ Integer.toString(roomNumber));
+
+        return DataBasePath.IMAGE.getValue().getBytes();
     }
 }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
+import com.itcom202.weroom.account.profiles.OpenPictureFragment;
 import com.itcom202.weroom.account.profiles.Profile;
 import com.itcom202.weroom.account.profiles.RoomPosted;
 import com.itcom202.weroom.account.profiles.tagDescription.TagClickListener;
@@ -72,9 +74,26 @@ public class CardInfoTenantFragment extends Fragment {
         Task t = ImageController.getProfilePicture(mProfile.getUserID());
         t.addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
-            public void onSuccess(byte[] bytes) {
+            public void onSuccess(final byte[] bytes) {
                 Bitmap picture = PictureConversion.byteArrayToBitmap(bytes);
                 mPhoto.setImageBitmap(picture);
+                mPhoto.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FragmentTransaction ft =  getActivity().getSupportFragmentManager().beginTransaction();
+                        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        OpenPictureFragment openPic = new OpenPictureFragment();
+
+                        Bundle bundle = new Bundle();
+                        // YourObj obj = SET_YOUR_OBJECT_HERE;
+                        // bundle.putSerializable("your_obj",ImageController.getRoomPicture(mUserId,0).getResult());
+                        bundle.putByteArray("picture",bytes);
+                        openPic.setArguments(bundle);
+                        ft.replace(android.R.id.content, openPic);
+                        ft.addToBackStack(null);
+                        ft.commit();
+                    }
+                });
             }
         });
 

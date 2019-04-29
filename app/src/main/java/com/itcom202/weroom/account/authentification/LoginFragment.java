@@ -38,7 +38,6 @@ import com.itcom202.weroom.MainActivity;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.SingleFragment;
 import com.itcom202.weroom.account.profiles.ProfileFragment;
-import com.itcom202.weroom.account.profiles.RoomCreationFragment;
 
 import java.io.IOException;
 import java.sql.SQLOutput;
@@ -144,7 +143,7 @@ public class LoginFragment extends SingleFragment {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(getActivity(),getString(R.string.not_succ), Toast.LENGTH_SHORT).show();
                             } else {
-                                changeFragment(new RoomCreationFragment());
+                                changeFragment(new ProfileFragment());
                             }
                         }
                     });

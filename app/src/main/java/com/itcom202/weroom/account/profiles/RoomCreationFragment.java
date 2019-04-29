@@ -1,19 +1,15 @@
 package com.itcom202.weroom.account.profiles;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -73,7 +69,7 @@ public class RoomCreationFragment extends SingleFragment {
     private Button mConfirmRoom;
     private DatabaseReference mDatabaseReference;
     private ImageButton mTakeRoomPicture;
-    private ImageView mProfilePhoto;
+    private ImageView mRoomPicture;
     private String mUserId;
     private String mFreeRoom;
     private Button mAddAnotherRoom;
@@ -106,7 +102,7 @@ public class RoomCreationFragment extends SingleFragment {
         mCommonArea = v.findViewById(R.id.checkBoxCommonArea);
         mLaundry = v.findViewById(R.id.checkBoxLaundry);
         mConfirmRoom = v.findViewById(R.id.postRoomButton);
-        mProfilePhoto = v.findViewById(R.id.picturepreview);
+        mRoomPicture = v.findViewById(R.id.picturepreview);
         mAddAnotherRoom = v.findViewById(R.id.addMoreRooms);
         layoutMap = v.findViewById(R.id.layoutMap);
 
@@ -231,6 +227,7 @@ public class RoomCreationFragment extends SingleFragment {
                 startActivityForResult(chooseImageIntent, REQUEST_CODE);
             }
         });
+
         return v;
     }
 
@@ -255,9 +252,9 @@ public class RoomCreationFragment extends SingleFragment {
                     } catch (IOException e) {
                         //do sth
                     }
-                    mProfilePhoto.setImageBitmap(bitmap);
+                    mRoomPicture.setImageBitmap(bitmap);
                     keepPicture(bitmap);
-                    mProfilePhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    mRoomPicture.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     break;
                 default:
                     super.onActivityResult(requestCode, resultCode, data);
