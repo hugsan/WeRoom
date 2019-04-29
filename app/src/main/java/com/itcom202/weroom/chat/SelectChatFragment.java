@@ -142,6 +142,7 @@ public class SelectChatFragment extends Fragment {
             public void bind(ShowContact contact) {
                 mContact = contact;
                 mTitleTextView.setText(mContact.name);
+                mDateTextView.setText(mContact.roomAddress);
             }
         }
         private List<ShowContact> mContacts;
