@@ -38,6 +38,7 @@ import com.itcom202.weroom.MainActivity;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.SingleFragment;
 import com.itcom202.weroom.account.profiles.ProfileFragment;
+import com.itcom202.weroom.account.profiles.RoomCreationFragment;
 
 import java.io.IOException;
 import java.sql.SQLOutput;
@@ -126,32 +127,6 @@ public class LoginFragment extends SingleFragment {
             @Override
             public void onClick(View view) {
 
-                //ignore these
-
-                if(isPackageInstalled(GOOGLE_PLAY_STORE_PACKAGE)) Log.d(TAG, "Are");
-                else Log.d(TAG,"N are");
-
-                if(isPlayStoreInstalled(getContext())) Log.d(TAG, "Are 2");
-                else Log.d(TAG,"N are 2");
-
-               // if(GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getContext()))
-
-                IsPlayServicesAvailable();
-                startCameraSource();
-
-                boolean play_installed;
-
-              //  int val=GooglePlayServicesUtil.(getContext());
-//                if(val==ConnectionResult.SUCCESS)
-//                {
-//                    play_installed=true;
-//                }
-//                else
-//                {
-//                    play_installed=false;
-//                }
-//                System.out.println(" ARE/N ARE "+play_installed);
-
 
                 if (mLoginEmail.getText().toString().length()==0) {
                     mLoginEmail.setError(getString(R.string.type_email));
@@ -169,7 +144,7 @@ public class LoginFragment extends SingleFragment {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(getActivity(),getString(R.string.not_succ), Toast.LENGTH_SHORT).show();
                             } else {
-                                changeFragment(new ProfileFragment());
+                                changeFragment(new RoomCreationFragment());
                             }
                         }
                     });
@@ -209,53 +184,4 @@ public class LoginFragment extends SingleFragment {
             }
         }
     }
-
-
-    protected final boolean isPackageInstalled(String packageName) {
-        try {
-            getApplicationContext().getPackageManager().getPackageInfo(packageName, 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-        return true;
-    }
-
-    public static boolean isPlayStoreInstalled(Context context){
-        try {
-            context.getPackageManager()
-                    .getPackageInfo(GooglePlayServicesUtil.GOOGLE_PLAY_STORE_PACKAGE, 0);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-    }
-
-    protected void IsPlayServicesAvailable() {
-        int resultCode = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getContext());
-
-        if (resultCode == ConnectionResult.SUCCESS){
-            //  msgText.setText("isGooglePlayServicesAvailable SUCCESS");
-            Log.d(TAG,"ARE");
-        } else {
-            Log.d(TAG,"N AREE");
-
-            //  GoogleApiAvailability.getInstance().getErrorDialog(this, resultCode, 1).show();
-        }
-    }
-
-    private void startCameraSource() throws SecurityException {
-        // check that the device has play services available.
-        int code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
-                getApplicationContext());
-        if (code != ConnectionResult.SUCCESS) {
-            Dialog dlg =
-                    GoogleApiAvailability.getInstance().getErrorDialog(getActivity(), code, RC_SIGN_IN);
-            dlg.show();
-            System.out.println("Are3");
-        }
-        else System.out.println("N are 3");
-
-
-    }
-
 }

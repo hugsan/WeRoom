@@ -25,6 +25,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -78,6 +79,7 @@ public class RoomCreationFragment extends SingleFragment {
     private Button mAddAnotherRoom;
     private PopUpMessage mPopUp = new PopUpMessage();
     private List<Bitmap> mRoomPictures = new ArrayList<>();
+    private LinearLayout layoutMap;
 
     String mAddressID;
     String mAddressName;
@@ -106,6 +108,13 @@ public class RoomCreationFragment extends SingleFragment {
         mConfirmRoom = v.findViewById(R.id.postRoomButton);
         mProfilePhoto = v.findViewById(R.id.picturepreview);
         mAddAnotherRoom = v.findViewById(R.id.addMoreRooms);
+        layoutMap = v.findViewById(R.id.layoutMap);
+
+        try{
+            layoutMap.setVisibility(View.GONE);
+        }catch(Exception e){
+            Log.d(TAG,"layout visible");
+        }
 
         final ArrayAdapter adapterPeriodRent = ArrayAdapter.createFromResource(getActivity(), R.array.rending_period_array, R.layout.spinner_item);
         adapterPeriodRent.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -143,10 +152,11 @@ public class RoomCreationFragment extends SingleFragment {
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getLatLng());
 
                 try {
-
+                    layoutMap.setVisibility(View.VISIBLE);
                     mapFragment.updateSite(place.getLatLng());
                 }catch (Exception e){
-                    Toast.makeText(getContext(), "No map", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), "No map", Toast.LENGTH_SHORT).show();
+                    layoutMap.setVisibility(View.GONE);
                 }
 
                     mAddressID = place.getId();
