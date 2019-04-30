@@ -1,6 +1,8 @@
 package com.itcom202.weroom;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
@@ -28,13 +30,11 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     private Profile userProfile;
-    private List<Profile> tenantCandidates = new ArrayList<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        //firebaseAuth.signOut();
         Log.i(TAG,"User logged in: "+ firebaseAuth.getCurrentUser());
         //if there is no user logged in Firebase it starts LoginActivity
         if (firebaseAuth.getCurrentUser() == null){
@@ -57,14 +57,23 @@ public class MainActivity extends AppCompatActivity {
             getUser.addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
-                    startActivity(LoginActivity.newIntent(MainActivity.this));
-                    finish();
+                    if (ProfileSingleton.isFinishedProfile()){
+                        startActivity(SwipeActivity.newIntent(MainActivity.this));
+                        finish();
+                    }else
+                        startActivity(LoginActivity.newIntent(MainActivity.this));
                 }
             });
 
         }
 
     }
+    public static Intent newIntent(Context myContext) {
+        Intent i = new Intent(myContext, SwipeActivity.class);
+        return i;
+    }
+
+
 
 
 }

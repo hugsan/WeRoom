@@ -104,7 +104,7 @@ public class RoomCreationFragment extends SingleFragment {
         mConfirmRoom = v.findViewById(R.id.postRoomButton);
         mRoomPicture = v.findViewById(R.id.picturepreview);
         mAddAnotherRoom = v.findViewById(R.id.addMoreRooms);
-        layoutMap = v.findViewById(R.id.layoutMap);
+        layoutMap = v.findViewById(R.id.layoutmap);
 
         try{
             layoutMap.setVisibility(View.GONE);
@@ -279,16 +279,17 @@ public class RoomCreationFragment extends SingleFragment {
             errorText.setError("");
             errorText.setTextColor(Color.RED);
             errorText.setText(R.string.choose_period);
+        }else if(mAddressName == null){
+                    Toast.makeText(getContext(), R.string.type_address, Toast.LENGTH_SHORT).show();
         }
-//                else if(mAddressName == null){
-//                    Toast.makeText(getContext(), R.string.type_address, Toast.LENGTH_SHORT).show();
-//                }
         else if(mRoomSize.length()==0){
             mRoomSize.setError(getString(R.string.type_room_size));
             mRoomSize.requestFocus();
         }
         else if(mRoomDescription.length()==0){
             Toast.makeText(getContext(), R.string.type_description_room, Toast.LENGTH_SHORT).show();
+        } else if (mRoomPictures.size() < 3 ){
+            Toast.makeText(getContext(), R.string.at_least_three_pictures, Toast.LENGTH_SHORT).show();
         }
         else {
             final RoomPosted input = new RoomPosted.Builder(mUserId)

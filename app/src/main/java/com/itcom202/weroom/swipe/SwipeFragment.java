@@ -16,7 +16,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.DataBasePath;
-import com.itcom202.weroom.account.profiles.Match;
 import com.itcom202.weroom.account.profiles.Profile;
 import com.itcom202.weroom.account.profiles.RoomPosted;
 
@@ -41,8 +40,7 @@ public class SwipeFragment extends Fragment {
     private static final String TAG = "Swipe";
     private ListAdapter adapter;
     public static Fragment thisFragment;
-    private Spinner mChoosenRoomSpinner;
-
+    private Spinner mChosenRoomSpinner;
     private ArrayList<Profile> mTenantProfiles;
     private ArrayList<RoomPosted> mLandlordsRooms;
     private ArrayList<RoomPosted> mAllRooms;
@@ -63,13 +61,13 @@ public class SwipeFragment extends Fragment {
             mAllRooms = getArguments().getParcelableArrayList(KEY_ROOM_LIST_ALL);
         }
 
-        mChoosenRoomSpinner = v.findViewById(R.id.landlordRoomSelectionSpinner);
+        mChosenRoomSpinner = v.findViewById(R.id.landlordRoomSelectionSpinner);
         thisFragment = this;
         final Profile p = ProfileSingleton.getInstance();
         if (p.getRole().equals("Landlord")){
-            mChoosenRoomSpinner.setAdapter(roomSpinnerAdapter());
+            mChosenRoomSpinner.setAdapter(roomSpinnerAdapter());
         }else{
-            mChoosenRoomSpinner.setVisibility(View.GONE);
+            mChosenRoomSpinner.setVisibility(View.GONE);
         }
 
 
@@ -89,30 +87,22 @@ public class SwipeFragment extends Fragment {
                         Log.d(TAG, "LEFT");
                         //this when we swipe a room.
                         if (adapter.returnTopItemID().length() == 36 ){
-                            //TODO remove this setMatch, is used only to change the values of the DB.
-                            // by default it should be creating the object in the constructor now.
-                            if (p.getMatch() == null)
-                                p.setMatch(new Match());
                             p.getMatch().addDislike(adapter.returnTopItemID());
                             ProfileSingleton.update(p);
                         }//this when we swipe a tenant.
                         else{
-                            RoomPosted r = mLandlordsRooms.get(mChoosenRoomSpinner.getSelectedItemPosition());
+                            RoomPosted r = mLandlordsRooms.get(mChosenRoomSpinner.getSelectedItemPosition());
                             r.getMatch().addDislike(adapter.returnTopItemID());
                             db.collection(DataBasePath.ROOMS.getValue())
                                     .document(r.getRoomID())
                                     .set(r);
                             Profile p = adapter.returnTopTenant();
-                            if (p.getMatch() == null)
-                                p.setMatch(new Match());
                             p.getMatch().addExternalLikes(r.getRoomID());
                             db.collection(DataBasePath.USERS.getValue())
                                     .document(p.getUserID())
                                     .set(p);
                         }
-
                         adapter.removeTopItem();
-
                     }
 
                     @Override
@@ -120,8 +110,6 @@ public class SwipeFragment extends Fragment {
                         Log.d(TAG, "RIGHT");
                         //this is when we swipe a room.
                         if (adapter.returnTopItemID().length() == 36 ){
-                            if (p.getMatch() == null)
-                                p.setMatch(new Match());
                             p.getMatch().addLiked(adapter.returnTopItemID());
                             ProfileSingleton.update(p);
 
@@ -134,25 +122,19 @@ public class SwipeFragment extends Fragment {
                                     .set(room);
                         }//this when we swipe a tenant.
                         else{
-                            int position = mChoosenRoomSpinner.getFirstVisiblePosition();
+                            int position = mChosenRoomSpinner.getFirstVisiblePosition();
                            RoomPosted r = mLandlordsRooms.get(position);
                            r.getMatch().addLiked(adapter.returnTopItemID());
                             db.collection(DataBasePath.ROOMS.getValue())
                                     .document(r.getRoomID())
                                     .set(r);
                             Profile p = adapter.returnTopTenant();
-                            if (p.getMatch() == null)
-                                p.setMatch(new Match());
                             p.getMatch().addExternalLikes(r.getRoomID());
                             db.collection(DataBasePath.USERS.getValue())
                                     .document(p.getUserID())
                                     .set(p);
                         }
-
-
-
                         adapter.removeTopItem();
-
                     }
 
                     @Override
@@ -207,7 +189,7 @@ public class SwipeFragment extends Fragment {
         for (RoomPosted p : mLandlordsRooms)
             roomsName.add(p.getCompleteAddress());
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item , roomsName);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item , roomsName);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 

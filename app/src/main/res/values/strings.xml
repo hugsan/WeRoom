@@ -164,6 +164,7 @@
     <string name="type_address">Please type the address</string>
     <string name="type_room_size">Please type the size of the room</string>
     <string name="type_description_room">Please describe your room</string>
+    <string name="at_least_three_pictures">The rooms needs three pictures</string>
     <string name="dialog_close">Close</string>
     <string name="dialog_message">Your room has been posted. You can add up to three rooms.</string>
     <string name="dialog_title">Room posted!</string>
@@ -184,6 +185,8 @@
     <string name="google_cloud_api_key">AIzaSyDH4SglTZWSLqFwJLgH66qWSSxM3cfunEg</string>
     <string name="dkk">DKK</string>
 
+    <!-- strings related ProfileInfoFragment -->
+    <string name="logout">Dont Press ME!!!</string>
 
     <!-- strings related to connection errors -->
     <string name="connection_error_FB">Could not connect to Facebook</string>

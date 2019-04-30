@@ -16,14 +16,22 @@ import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.SingleFragment;
+import com.itcom202.weroom.account.profiles.DataBasePath;
+import com.itcom202.weroom.account.profiles.Profile;
 import com.itcom202.weroom.account.profiles.ProfileFragment;
+import com.itcom202.weroom.swipe.SwipeActivity;
 
 import java.util.Objects;
 
@@ -91,6 +99,4 @@ class FaceBookConnection {
             mCallbackManager = CallbackManager.Factory.create();
         return mCallbackManager;
     }
-
-
 }

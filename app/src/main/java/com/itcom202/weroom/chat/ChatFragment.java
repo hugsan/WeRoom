@@ -17,15 +17,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.DataBasePath;
 import com.itcom202.weroom.account.profiles.Profile;
-
+/*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
-
+*/
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +45,7 @@ public class ChatFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_chat, container, false);
         if (getArguments() != null)
             mChatPartnerID = getArguments().getString(PARTNER_ID);
-
+/*
         KeyboardVisibilityEvent.setEventListener(
                 getActivity(),
                 new KeyboardVisibilityEventListener() {
@@ -55,7 +54,7 @@ public class ChatFragment extends Fragment {
                         // some code depending on keyboard visiblity status
                     }
                 });
-
+*/
         chatMessages = new ArrayList<>();
 
         listView    =   v.findViewById(R.id.list_msg);

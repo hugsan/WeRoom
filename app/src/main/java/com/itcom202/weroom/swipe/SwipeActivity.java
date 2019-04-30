@@ -58,7 +58,9 @@ public class SwipeActivity extends AppCompatActivity {
                 FragmentManager fm = getSupportFragmentManager();
                 switch (item.getItemId()) {
                     case R.id.action_profile:
-                        Toast.makeText(SwipeActivity.this, "profile", Toast.LENGTH_SHORT).show();
+                        fm.beginTransaction()
+                                .replace(R.id.fragment_container_top, new ProfileInfoFragment())
+                                .commit();
                         break;
                     case R.id.action_home:
                         fm.beginTransaction()

@@ -32,12 +32,21 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.itcom202.weroom.MainActivity;
+import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.SingleFragment;
+import com.itcom202.weroom.account.LoginActivity;
+import com.itcom202.weroom.account.profiles.DataBasePath;
+import com.itcom202.weroom.account.profiles.Profile;
 import com.itcom202.weroom.account.profiles.ProfileFragment;
+import com.itcom202.weroom.swipe.SwipeActivity;
 
 import java.io.IOException;
 import java.sql.SQLOutput;
@@ -54,7 +63,6 @@ public class LoginFragment extends SingleFragment {
     final private static int RC_SIGN_IN = 101;
     private static final String EMAIL = "email";
 
-    private CallbackManager mCallbackManager;
     private LoginButton mLoginButtonFb;
     private SignInButton mGoogleSign;
     private EditText mLoginEmail, mLoginPasswd;
@@ -62,6 +70,8 @@ public class LoginFragment extends SingleFragment {
     private TextView mReferSignup;
     private FirebaseAuth firebaseAuth;
     private TextView mForgotPassword;
+    private Profile mUserProfile;
+    private  Activity activity;
 
 
     GoogleApiClient mGoogleApiClient;
@@ -86,6 +96,7 @@ public class LoginFragment extends SingleFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.login_fragment,container,false);
 
+        activity = getActivity();
 
         mGoogleApiClient = GoogleConnection.create(getActivity());
         mGoogleSign = v.findViewById(R.id.sign_in_google);
@@ -143,7 +154,7 @@ public class LoginFragment extends SingleFragment {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(getActivity(),getString(R.string.not_succ), Toast.LENGTH_SHORT).show();
                             } else {
-                                changeFragment(new ProfileFragment());
+                                logUser();
                             }
                         }
                     });
@@ -152,10 +163,7 @@ public class LoginFragment extends SingleFragment {
                 }
             }
         });
-
         mLoginButtonFb = FaceBookConnection.facebookLoginButtonCreate(v, this,firebaseAuth,getActivity());
-
-
         return v;
     }
 
@@ -173,8 +181,7 @@ public class LoginFragment extends SingleFragment {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 GoogleConnection.firebaseAuthWithGoogle(account, getActivity(), firebaseAuth,
                         getActivity(), this);
-                changeFragment(new ProfileFragment());
-
+                logUser();
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
@@ -182,5 +189,26 @@ public class LoginFragment extends SingleFragment {
                 Toast.makeText(getActivity(), R.string.google_connection_failed, Toast.LENGTH_SHORT).show();
             }
         }
+    }
+    private void logUser(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection(DataBasePath.USERS.getValue())
+                .document(FirebaseAuth.getInstance().getUid());
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot != null){
+                    mUserProfile = documentSnapshot.toObject(Profile.class);
+                    ProfileSingleton.initialize(mUserProfile);
+                    if (ProfileSingleton.isFinishedProfile()){
+                        startActivity(SwipeActivity.newIntent(activity));
+                    }else{
+                        changeFragment(new ProfileFragment());
+                    }
+                }else{
+                    changeFragment(new ProfileFragment());
+                }
+            }
+        });
     }
 }

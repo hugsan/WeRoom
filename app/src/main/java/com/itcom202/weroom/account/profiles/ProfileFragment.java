@@ -51,6 +51,8 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -228,6 +230,7 @@ public class ProfileFragment extends SingleFragment {
 
             countries.add(obj.getDisplayCountry(Locale.ENGLISH));
         }
+        Collections.sort(countries);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item , countries);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 

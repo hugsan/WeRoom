@@ -25,20 +25,6 @@ public class ProfileSingleton {
     public static synchronized Profile getInstance(){
         return userProfile;
     }
-
-    private static void queryUser(){
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference docRef = db.collection(DataBasePath.USERS.getValue())
-                .document(FirebaseAuth.getInstance().getUid());
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                userProfile = documentSnapshot.toObject(Profile.class);
-                System.out.println("TORTUGA! query finished");
-            }
-        });
-    }
     public static void initialize(Profile profile){
         userProfile = profile;
     }
@@ -49,7 +35,10 @@ public class ProfileSingleton {
             db.collection(DataBasePath.USERS.getValue())
                 .document(profile.getUserID())
                 .set(profile);
-
-
 }
+    public static boolean isFinishedProfile(){
+        return (userProfile.getTags() != null) ||
+                (userProfile.getLandlord() != null && userProfile.getLandlord().getRoomsID() != null
+                        && userProfile.getLandlord().getRoomsID().size()>0);
+    }
 }
