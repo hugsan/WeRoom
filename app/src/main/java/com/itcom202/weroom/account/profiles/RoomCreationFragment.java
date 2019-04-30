@@ -69,13 +69,12 @@ public class RoomCreationFragment extends SingleFragment {
     private Button mConfirmRoom;
     private DatabaseReference mDatabaseReference;
     private ImageButton mTakeRoomPicture;
-    private ImageView mRoomPicture;
     private String mUserId;
-    private String mFreeRoom;
     private Button mAddAnotherRoom;
     private PopUpMessage mPopUp = new PopUpMessage();
     private List<Bitmap> mRoomPictures = new ArrayList<>();
     private LinearLayout layoutMap;
+    private ImageView[] mPictures = new ImageView[10];
 
     String mAddressID;
     String mAddressName;
@@ -102,9 +101,17 @@ public class RoomCreationFragment extends SingleFragment {
         mCommonArea = v.findViewById(R.id.checkBoxCommonArea);
         mLaundry = v.findViewById(R.id.checkBoxLaundry);
         mConfirmRoom = v.findViewById(R.id.postRoomButton);
-        mRoomPicture = v.findViewById(R.id.picturepreview);
         mAddAnotherRoom = v.findViewById(R.id.addMoreRooms);
         layoutMap = v.findViewById(R.id.layoutmap);
+
+        for (int i = 0 ; i < 9 ; i++){
+            String btnID = "picturepreviewnr"+ (i+1);
+            int resID = getResources().getIdentifier(btnID, "id", Objects.requireNonNull(getActivity()).getPackageName());
+            mPictures[i] = v.findViewById(resID);
+            mPictures[i].setVisibility(View.GONE);
+        }
+
+
 
         try{
             layoutMap.setVisibility(View.GONE);
@@ -252,9 +259,7 @@ public class RoomCreationFragment extends SingleFragment {
                     } catch (IOException e) {
                         //do sth
                     }
-                    mRoomPicture.setImageBitmap(bitmap);
                     keepPicture(bitmap);
-                    mRoomPicture.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     break;
                 default:
                     super.onActivityResult(requestCode, resultCode, data);
@@ -359,8 +364,13 @@ public class RoomCreationFragment extends SingleFragment {
         ImageController.setRoomPicture(roomID,mRoomPictures.get(i), i);
     }
     private void keepPicture(Bitmap bmp){
-        if (mRoomPictures.size()<10)
+        int picturePosition = mRoomPictures.size();
+        if (picturePosition<10){
+            mPictures[picturePosition].setVisibility(View.VISIBLE);
+            mPictures[picturePosition].setScaleType(ImageView.ScaleType.CENTER_CROP);
+            mPictures[picturePosition].setImageBitmap(bmp);
             mRoomPictures.add(bmp);
+        }
     }
 
 

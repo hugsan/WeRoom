@@ -154,6 +154,7 @@ public class SelectChatFragment extends Fragment {
             }
         }
         private List<ShowContact> mContacts;
+
         public ChatAdapter(List<ShowContact> contacts){
             mContacts = contacts;
         }

@@ -74,7 +74,7 @@
                             android:src="@drawable/ic_add_a_photo_white_24dp" />
 
                         <ImageView
-                            android:id="@+id/picturepreview"
+                            android:id="@+id/picturepreviewnr1"
                             android:layout_width="92dp"
                             android:layout_height="147dp"
                             android:layout_marginStart="30dp"
