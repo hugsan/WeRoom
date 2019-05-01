@@ -3,20 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-
         android:id="@+id/action_profile"
         android:enabled="true"
         android:icon="@drawable/ic_profile"
         android:title="@string/navigation_profile"
         />
-    <item
-        android:id="@+id/navigation_room_spinner"
-        android:icon="@android:drawable/ic_menu_share"
-        android:title=""
-        app:actionLayout="@layout/spinner"/>
 
     <item
-
         android:id="@+id/action_home"
         android:enabled="true"
         android:icon="@drawable/ic_home"
@@ -24,15 +17,9 @@
         />
 
     <item
-
         android:id="@+id/action_chat"
         android:enabled="true"
         android:icon="@drawable/ic_chat"
         android:title="@string/navigation_chat"
         />
-
-
-
-
-
 </menu>

@@ -4,6 +4,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.itcom202.weroom.ProfileSingleton;
@@ -18,11 +20,6 @@ import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.DataBasePath;
 import com.itcom202.weroom.account.profiles.Profile;
 import com.itcom202.weroom.account.profiles.RoomPosted;
-
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -53,23 +50,24 @@ public class SwipeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_swipe, container, false);
 
-        if (ProfileSingleton.getInstance().getRole().equals("Landlord" )&& getArguments() != null){
+        TabLayout tabLayout = v.findViewById(R.id.tab_layout);
+
+        if (ProfileSingleton.getInstance().getRole().equals("Landlord" ) && getArguments() != null){
             mTenantProfiles = getArguments().getParcelableArrayList(KEY_TENANT_LIST);
             mLandlordsRooms = getArguments().getParcelableArrayList(KEY_ROOM_LIST_LANDLORD);
+            List<String> rooms = getRoomsStrings();
+            for (String s : rooms){
+                tabLayout.addTab(tabLayout.newTab().setText(s));
+            }
+            tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         }
         if (ProfileSingleton.getInstance().getRole().equals("Tenant") && getArguments() != null){
             mAllRooms = getArguments().getParcelableArrayList(KEY_ROOM_LIST_ALL);
+            tabLayout.setVisibility(View.GONE);
         }
 
-        mChosenRoomSpinner = v.findViewById(R.id.landlordRoomSelectionSpinner);
         thisFragment = this;
         final Profile p = ProfileSingleton.getInstance();
-        if (p.getRole().equals("Landlord")){
-            mChosenRoomSpinner.setAdapter(roomSpinnerAdapter());
-        }else{
-            mChosenRoomSpinner.setVisibility(View.GONE);
-        }
-
 
         final RecyclerView recyclerView = v.findViewById(R.id.recycler_view);
         SwipeableTouchHelperCallback swipeableTouchHelperCallback =
@@ -182,17 +180,13 @@ public class SwipeFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-    private SpinnerAdapter roomSpinnerAdapter(){
+    private List<String> getRoomsStrings(){
 
 
         List<String> roomsName = new ArrayList<>();
         for (RoomPosted p : mLandlordsRooms)
             roomsName.add(p.getCompleteAddress());
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.spinner_item , roomsName);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-
-        return adapter;
+        return roomsName;
     }
 }
