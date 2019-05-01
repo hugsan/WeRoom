@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -28,8 +29,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectChatFragment extends Fragment {
+    public static final String KEY_ROOM_LIST_LANDLORD = "landlords_rooms";
     private RecyclerView mShowContactsView;
     private ChatAdapter mAdapter;
+    private List<RoomPosted> mLandlordsRooms;
+    private RoomPosted mCurrentSelectedRoom;
 
     @Nullable
     @Override
@@ -37,6 +41,37 @@ public class SelectChatFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_selectchat, container, false);
         mShowContactsView = v.findViewById(R.id.contact_recycler_view);
         mShowContactsView.setLayoutManager( new LinearLayoutManager(getActivity()));
+/*
+        TabLayout tabLayout = v.findViewById(R.id.tab_layout_chat_select);
+
+        if (ProfileSingleton.getInstance().getRole().equals("Landlord" ) && getArguments() != null){
+            mLandlordsRooms = getArguments().getParcelableArrayList(KEY_ROOM_LIST_LANDLORD);
+            List<String> rooms = getRoomsStrings();
+            mCurrentSelectedRoom = mLandlordsRooms.get(0);
+            for (String s : rooms){
+                tabLayout.addTab(tabLayout.newTab().setText(s));
+            }
+            tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    mCurrentSelectedRoom = mLandlordsRooms.get(tab.getPosition());
+                }
+
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+
+                }
+            });
+        }
+        else if (ProfileSingleton.getInstance().getRole().equals("Tenant")){
+            tabLayout.setVisibility(View.GONE);
+        }*/
         updateUI();
 
         return v;
@@ -201,6 +236,13 @@ public class SelectChatFragment extends Fragment {
             this.profilePicture = btmp;
             this.contactID = contactID;
         }
+    }
+    private List<String> getRoomsStrings(){
+        List<String> roomsName = new ArrayList<>();
+        for (RoomPosted p : mLandlordsRooms)
+            roomsName.add(p.getCompleteAddress());
+
+        return roomsName;
     }
 
 }

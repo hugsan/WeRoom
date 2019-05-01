@@ -12,8 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Spinner;
-
+import android.widget.ImageButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
@@ -37,10 +36,13 @@ public class SwipeFragment extends Fragment {
     private static final String TAG = "Swipe";
     private ListAdapter adapter;
     public static Fragment thisFragment;
-    private Spinner mChosenRoomSpinner;
     private ArrayList<Profile> mTenantProfiles;
     private ArrayList<RoomPosted> mLandlordsRooms;
     private ArrayList<RoomPosted> mAllRooms;
+    private RoomPosted mCurrentSelectedRoom;
+    private Profile mThisProfile;
+    private ImageButton mRightButton;
+    private ImageButton mLeftButton;
 
 
 
@@ -50,16 +52,47 @@ public class SwipeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_swipe, container, false);
 
-        TabLayout tabLayout = v.findViewById(R.id.tab_layout);
+        TabLayout tabLayout = v.findViewById(R.id.tab_layout_swipe);
+        mRightButton = v.findViewById(R.id.likeButton);
+        mLeftButton = v.findViewById(R.id.dislikeButton);
 
+        mRightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                swipeRightAction();
+            }
+        });
+        mLeftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                swipeLeftAction();
+            }
+        });
         if (ProfileSingleton.getInstance().getRole().equals("Landlord" ) && getArguments() != null){
             mTenantProfiles = getArguments().getParcelableArrayList(KEY_TENANT_LIST);
             mLandlordsRooms = getArguments().getParcelableArrayList(KEY_ROOM_LIST_LANDLORD);
             List<String> rooms = getRoomsStrings();
+            mCurrentSelectedRoom = mLandlordsRooms.get(0);
             for (String s : rooms){
                 tabLayout.addTab(tabLayout.newTab().setText(s));
             }
             tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                        mCurrentSelectedRoom = mLandlordsRooms.get(tab.getPosition());
+                }
+
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+
+                }
+            });
         }
         if (ProfileSingleton.getInstance().getRole().equals("Tenant") && getArguments() != null){
             mAllRooms = getArguments().getParcelableArrayList(KEY_ROOM_LIST_ALL);
@@ -67,72 +100,25 @@ public class SwipeFragment extends Fragment {
         }
 
         thisFragment = this;
-        final Profile p = ProfileSingleton.getInstance();
+         mThisProfile = ProfileSingleton.getInstance();
 
         final RecyclerView recyclerView = v.findViewById(R.id.recycler_view);
         SwipeableTouchHelperCallback swipeableTouchHelperCallback =
                 new SwipeableTouchHelperCallback(new OnItemSwiped() {
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-
                     @Override
                     public void onItemSwiped() {
 
                     }
-
                     @Override
                     public void onItemSwipedLeft() {
-                        Log.d(TAG, "LEFT");
-                        //this when we swipe a room.
-                        if (adapter.returnTopItemID().length() == 36 ){
-                            p.getMatch().addDislike(adapter.returnTopItemID());
-                            ProfileSingleton.update(p);
-                        }//this when we swipe a tenant.
-                        else{
-                            RoomPosted r = mLandlordsRooms.get(mChosenRoomSpinner.getSelectedItemPosition());
-                            r.getMatch().addDislike(adapter.returnTopItemID());
-                            db.collection(DataBasePath.ROOMS.getValue())
-                                    .document(r.getRoomID())
-                                    .set(r);
-                            Profile p = adapter.returnTopTenant();
-                            p.getMatch().addExternalLikes(r.getRoomID());
-                            db.collection(DataBasePath.USERS.getValue())
-                                    .document(p.getUserID())
-                                    .set(p);
-                        }
-                        adapter.removeTopItem();
+                        swipeLeftAction();
                     }
 
                     @Override
                     public void onItemSwipedRight() {
-                        Log.d(TAG, "RIGHT");
-                        //this is when we swipe a room.
-                        if (adapter.returnTopItemID().length() == 36 ){
-                            p.getMatch().addLiked(adapter.returnTopItemID());
-                            ProfileSingleton.update(p);
-
-                            RoomPosted room = adapter.returnTopRoom();
-
-                            room.getMatch().addExternalLikes(p.getUserID());
-
-                            db.collection(DataBasePath.ROOMS.getValue())
-                                    .document(room.getRoomID())
-                                    .set(room);
-                        }//this when we swipe a tenant.
-                        else{
-                            int position = mChosenRoomSpinner.getFirstVisiblePosition();
-                           RoomPosted r = mLandlordsRooms.get(position);
-                           r.getMatch().addLiked(adapter.returnTopItemID());
-                            db.collection(DataBasePath.ROOMS.getValue())
-                                    .document(r.getRoomID())
-                                    .set(r);
-                            Profile p = adapter.returnTopTenant();
-                            p.getMatch().addExternalLikes(r.getRoomID());
-                            db.collection(DataBasePath.USERS.getValue())
-                                    .document(p.getUserID())
-                                    .set(p);
-                        }
-                        adapter.removeTopItem();
+                       swipeRightAction();
                     }
 
                     @Override
@@ -159,7 +145,7 @@ public class SwipeFragment extends Fragment {
                 .setMaxShowCount(3)
                 .setScaleGap(0.1f)
                 .setTransYGap(0));
-        recyclerView.setAdapter(adapter = new ListAdapter(mTenantProfiles, mLandlordsRooms,mAllRooms, p));
+        recyclerView.setAdapter(adapter = new ListAdapter(mTenantProfiles, mLandlordsRooms,mAllRooms, mThisProfile));
 
         return v;
     }
@@ -181,12 +167,62 @@ public class SwipeFragment extends Fragment {
     }
 
     private List<String> getRoomsStrings(){
-
-
         List<String> roomsName = new ArrayList<>();
         for (RoomPosted p : mLandlordsRooms)
             roomsName.add(p.getCompleteAddress());
 
         return roomsName;
+    }
+    private void swipeRightAction(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Log.d(TAG, "RIGHT");
+        //this is when we swipe a room.
+        if (adapter.returnTopItemID().length() == 36 ){
+            mThisProfile.getMatch().addLiked(adapter.returnTopItemID());
+            ProfileSingleton.update(mThisProfile);
+
+            RoomPosted room = adapter.returnTopRoom();
+
+            room.getMatch().addExternalLikes(mThisProfile.getUserID());
+
+            db.collection(DataBasePath.ROOMS.getValue())
+                    .document(room.getRoomID())
+                    .set(room);
+        }//this when we swipe a tenant.
+        else{
+
+            mCurrentSelectedRoom.getMatch().addLiked(adapter.returnTopItemID());
+            db.collection(DataBasePath.ROOMS.getValue())
+                    .document(mCurrentSelectedRoom.getRoomID())
+                    .set(mCurrentSelectedRoom);
+            Profile p = adapter.returnTopTenant();
+            p.getMatch().addExternalLikes(mCurrentSelectedRoom.getRoomID());
+            db.collection(DataBasePath.USERS.getValue())
+                    .document(p.getUserID())
+                    .set(p);
+        }
+        adapter.removeTopItem();
+    }
+    private void swipeLeftAction(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Log.d(TAG, "LEFT");
+        //this when we swipe a room.
+        if (adapter.returnTopItemID().length() == 36 ){
+            mThisProfile.getMatch().addDislike(adapter.returnTopItemID());
+            ProfileSingleton.update(mThisProfile);
+        }//this when we swipe a tenant.
+        else{
+            mCurrentSelectedRoom.getMatch().addDislike(adapter.returnTopItemID());
+            db.collection(DataBasePath.ROOMS.getValue())
+                    .document(mCurrentSelectedRoom.getRoomID())
+                    .set(mCurrentSelectedRoom);
+            Profile p = adapter.returnTopTenant();
+            p.getMatch().addExternalLikes(mCurrentSelectedRoom.getRoomID());
+            db.collection(DataBasePath.USERS.getValue())
+                    .document(p.getUserID())
+                    .set(p);
+        }
+        adapter.removeTopItem();
     }
 }

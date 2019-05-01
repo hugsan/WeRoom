@@ -10,12 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
@@ -23,7 +18,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.itcom202.weroom.MainActivity;
 import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.DataBasePath;
@@ -68,8 +62,11 @@ public class SwipeActivity extends AppCompatActivity {
                                 .commit();
                         break;
                     case R.id.action_chat:
-
+                        mAllProfilesFromQuery.removeAll(mNonTenantProfiles);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelableArrayList(SelectChatFragment.KEY_ROOM_LIST_LANDLORD, mLandlordsRooms);
                         Fragment fragment = new SelectChatFragment();
+                        fragment.setArguments(bundle);
                         fm.beginTransaction()
                                  .replace(R.id.fragment_container_top, fragment)
                                  .commit();
