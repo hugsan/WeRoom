@@ -64,7 +64,7 @@ public class SwipeActivity extends AppCompatActivity {
                     case R.id.action_chat:
                         mAllProfilesFromQuery.removeAll(mNonTenantProfiles);
                         Bundle bundle = new Bundle();
-                        bundle.putParcelableArrayList(SelectChatFragment.KEY_ROOM_LIST_LANDLORD, mLandlordsRooms);
+                        bundle.putParcelableArrayList(SelectChatFragment.KEY_OWNED_ID, mLandlordsRooms);
                         Fragment fragment = new SelectChatFragment();
                         fragment.setArguments(bundle);
                         fm.beginTransaction()
