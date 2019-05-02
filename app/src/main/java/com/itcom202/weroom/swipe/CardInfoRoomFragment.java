@@ -17,25 +17,23 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.OpenPictureFragment;
-import com.itcom202.weroom.account.profiles.Profile;
 import com.itcom202.weroom.account.profiles.RoomPosted;
 import com.itcom202.weroom.cameraGallery.PictureConversion;
 import com.itcom202.weroom.queries.ImageController;
 
-import static com.itcom202.weroom.swipe.TenantState.KEY_ROOM;
 
 public class CardInfoRoomFragment extends Fragment {
     FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
     ImageButton mButtonExit;
     ImageView mPhoto;
-   static RoomPosted mRoomPosted;
+    RoomPosted mRoomPosted;
+    private static final String KEY_ROOM = "KEY_ROOM";
 
     public static CardInfoRoomFragment newInstance(RoomPosted room) {
         CardInfoRoomFragment fragment = new CardInfoRoomFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(KEY_ROOM, room);
+        bundle.putParcelable(KEY_ROOM, room);
         fragment.setArguments(bundle);
-        mRoomPosted = room;
         return fragment;
     }
     @Nullable
@@ -43,6 +41,9 @@ public class CardInfoRoomFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.fragment_card_info_room, null, false);
 
+        if (getArguments() != null){
+            mRoomPosted = getArguments().getParcelable(KEY_ROOM);
+        }
         mButtonExit = v.findViewById(R.id.button_exit_info_page_lord);
         mButtonExit.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,5 +1,6 @@
 package com.itcom202.weroom.swipe;
 
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +20,6 @@ public class LandlordState extends RecyclerView.ViewHolder implements State {
     private TextView textView;
     private ImageView mPhoto;
     private Profile  mProfile;
-    public static final String KEY_TENANT = "KEY_TENANT";
 
 
     public LandlordState(@NonNull final View itemView) {
@@ -41,13 +41,14 @@ public class LandlordState extends RecyclerView.ViewHolder implements State {
     }
 
     public void bind(Profile profile) {
-
+        mProfile = profile;
         textView.setText(profile.getName());
         Task t = ImageController.getProfilePicture(profile.getUserID());
         t.addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
-                mPhoto.setImageBitmap(PictureConversion.byteArrayToBitmap(bytes));
+                Bitmap bmp = PictureConversion.byteArrayToBitmap(bytes);
+                mPhoto.setImageBitmap(bmp);
             }
         });
 

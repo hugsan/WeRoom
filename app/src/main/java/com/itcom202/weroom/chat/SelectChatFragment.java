@@ -38,12 +38,13 @@ public class SelectChatFragment extends Fragment {
         mShowContactsView = v.findViewById(R.id.contact_recycler_view);
         TabLayout tabLayout = v.findViewById(R.id.tab_layout_top_toolbar);
 
+        mShowContactsView.setLayoutManager( new LinearLayoutManager(getActivity()));
+
         if (ProfileSingleton.getInstance().getRole().equals("Landlord")){
             if (getArguments() != null){
                 mLandlordsRooms = getArguments().getParcelableArrayList(KEY_ROOM_LANDLORD);
                 mCurrentSelectedRoom = mLandlordsRooms.get(0);
             }
-            mShowContactsView.setLayoutManager( new LinearLayoutManager(getActivity()));
             List<String> rooms = getRoomsStrings();
             for (String s : rooms){
                 tabLayout.addTab(tabLayout.newTab().setText(s));
