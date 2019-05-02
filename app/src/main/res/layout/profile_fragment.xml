@@ -217,6 +217,7 @@
                 android:id="@+id/imageView7"
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
+                android:layout_gravity="bottom"
                 android:background="#CCFF5A60" />
 
         </LinearLayout>

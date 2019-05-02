@@ -169,6 +169,9 @@
     <string name="dialog_message">Your room has been posted. You can add up to three rooms.</string>
     <string name="dialog_title">Room posted!</string>
     <string name="minimum_pictures">(OBS! Minimum 3 Pictures)</string>
+    <string name="about_room">About the Room</string>
+    <string name="facilities">Facilities</string>
+    <string name="common_area">Common Area</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/dialog_title"
+                    android:text="@string/address_room"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
 
@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="2dp"
-                    android:text="@string/hint_age"
+                    android:text="@string/rent"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/gender"
+                    android:text="@string/deposit_room"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -72,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/nationality"
+                    android:text="@string/area"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -81,16 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/occupation"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/card_lord_smoking"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/smoke"
+                    android:text="@string/rent_period"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -100,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="30dp"
-                    android:text="@string/about_me"
+                    android:text="@string/about_room"
                     android:textColor="@color/black"
                     android:textSize="24sp" />
 
@@ -117,9 +108,46 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="30dp"
-                    android:text="@string/searching_for"
+                    android:text="@string/facilities"
                     android:textColor="@color/black"
                     android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/card_lord_internet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/internet"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/card_lord_laundry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/laundry"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/card_lord_furnished"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/furnished"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/card_lord_commomarea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/common_area"
+                    android:layout_marginBottom="60dp"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
             </LinearLayout>
         </ScrollView>
 
