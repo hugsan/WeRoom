@@ -46,17 +46,11 @@ public class MainActivity extends AppCompatActivity {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             DocumentReference docRef = db.collection(DataBasePath.USERS.getValue())
                     .document(FirebaseAuth.getInstance().getUid());
-            Task getUser = docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     userProfile = documentSnapshot.toObject(Profile.class);
                     ProfileSingleton.initialize(userProfile);
-                }
-            });
-            Log.i(TAG,"I am logged in: "+ firebaseAuth.getCurrentUser().getEmail());
-            getUser.addOnCompleteListener(new OnCompleteListener() {
-                @Override
-                public void onComplete(@NonNull Task task) {
                     if (ProfileSingleton.isFinishedProfile()){
                         startActivity(SwipeActivity.newIntent(MainActivity.this));
                         finish();
@@ -64,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(LoginActivity.newIntent(MainActivity.this));
                 }
             });
-
         }
 
     }
