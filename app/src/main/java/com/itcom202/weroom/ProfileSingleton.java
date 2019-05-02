@@ -37,7 +37,7 @@ public class ProfileSingleton {
                 .set(profile);
 }
     public static boolean isFinishedProfile(){
-        return (userProfile.getTags() != null) ||
+        return (userProfile.getTenant() != null) ||
                 (userProfile.getLandlord() != null && userProfile.getLandlord().getRoomsID() != null
                         && userProfile.getLandlord().getRoomsID().size()>0);
     }
