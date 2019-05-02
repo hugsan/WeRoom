@@ -71,7 +71,6 @@ public class SelectChatFragment extends Fragment {
             tabLayout.setVisibility(View.GONE);
         }
 
-
         updateUI();
 
         return v;
@@ -109,7 +108,7 @@ public class SelectChatFragment extends Fragment {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 Fragment chatFragment = new ChatFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString(ChatFragment.PARTNER_ID, createChatID(mContact,ProfileSingleton.getInstance().getUserID()));
+                bundle.putString(ChatFragment.PARTNER_ID, createChatID(mContact,mCurrentSelectedRoom.getRoomID()));
                 chatFragment.setArguments(bundle);
                 transaction.replace(R.id.fragment_container_top, chatFragment);
                 transaction.commit();
