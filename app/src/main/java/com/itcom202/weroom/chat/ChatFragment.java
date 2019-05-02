@@ -36,7 +36,7 @@ public class ChatFragment extends Fragment {
     private List<Message> chatMessages;
         private ArrayAdapter<Message> adapter;
     private Profile mProfile = ProfileSingleton.getInstance();
-    private String mChatPartnerID;
+    private String mChatID;
 
 
     @Nullable
@@ -44,7 +44,7 @@ public class ChatFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_chat, container, false);
         if (getArguments() != null)
-            mChatPartnerID = getArguments().getString(PARTNER_ID);
+            mChatID = getArguments().getString(PARTNER_ID);
 /*
         KeyboardVisibilityEvent.setEventListener(
                 getActivity(),
@@ -75,7 +75,7 @@ public class ChatFragment extends Fragment {
                     Message chatMessage = new Message(editText.getText().toString(), mProfile.getName(),mProfile.getUserID());
 
                     DatabaseReference messageRef = FirebaseDatabase.getInstance()
-                            .getReference(DataBasePath.CHAT.getValue()).child(thisChatID());
+                            .getReference(DataBasePath.CHAT.getValue()).child(mChatID);
                     String key = messageRef.push().getKey();
                     messageRef.child(key).setValue(chatMessage);
 
@@ -86,7 +86,7 @@ public class ChatFragment extends Fragment {
             }
         });
         DatabaseReference messageRef = FirebaseDatabase.getInstance()
-                .getReference(DataBasePath.CHAT.getValue()).child(thisChatID());
+                .getReference(DataBasePath.CHAT.getValue()).child(mChatID);
         messageRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -120,14 +120,4 @@ public class ChatFragment extends Fragment {
         return v;
     }
 
-    private String thisChatID(){
-        String ID_one = mProfile.getUserID();
-        String ID_two = mChatPartnerID;
-        String chat_ID;
-        if (ID_one.compareTo(ID_two) < 0)
-            chat_ID = ID_one + "_" + ID_two;
-        else
-            chat_ID = ID_two + "_" + ID_one;
-        return chat_ID;
-    }
 }
