@@ -34,7 +34,7 @@ public class ChatFragment extends Fragment {
     private View btnSend;
     private EditText editText;
     private List<Message> chatMessages;
-    private ArrayAdapter<Message> adapter;
+        private ArrayAdapter<Message> adapter;
     private Profile mProfile = ProfileSingleton.getInstance();
     private String mChatPartnerID;
 

@@ -26,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -196,9 +197,9 @@ public class RoomCreationFragment extends SingleFragment {
                     errorText.setTextColor(Color.RED);
                     errorText.setText(R.string.choose_period);
                 }
-//                else if(mAddressName == null){
-//                    Toast.makeText(getContext(), R.string.type_address, Toast.LENGTH_SHORT).show();
-//                }
+                else if(mAddressName == null){
+                    Toast.makeText(getContext(), R.string.type_address, Toast.LENGTH_SHORT).show();
+                }
                 else if(mRoomSize.length()==0){
                     mRoomSize.setError(getString(R.string.type_room_size));
                     mRoomSize.requestFocus();

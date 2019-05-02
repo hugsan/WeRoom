@@ -43,5 +43,4 @@ public class ProfileSingleton {
                 (userProfile.getLandlord() != null && userProfile.getLandlord().getRoomsID() != null
                         && userProfile.getLandlord().getRoomsID().size()>0);
     }
-
 }
