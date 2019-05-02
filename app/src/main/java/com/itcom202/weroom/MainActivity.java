@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public static Intent newIntent(Context myContext) {
-        Intent i = new Intent(myContext, SwipeActivity.class);
+        Intent i = new Intent(myContext, MainActivity.class);
         return i;
     }
 
