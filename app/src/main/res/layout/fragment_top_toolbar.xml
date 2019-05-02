@@ -16,7 +16,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <FrameLayout
-        android:id="@+id/chat_selection_container"
+        android:id="@+id/toolbar_subcontainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
