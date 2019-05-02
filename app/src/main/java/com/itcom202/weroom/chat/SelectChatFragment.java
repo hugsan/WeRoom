@@ -1,6 +1,5 @@
 package com.itcom202.weroom.chat;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,8 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.itcom202.weroom.ProfileSingleton;
@@ -41,12 +38,13 @@ public class SelectChatFragment extends Fragment {
         mShowContactsView = v.findViewById(R.id.contact_recycler_view);
         TabLayout tabLayout = v.findViewById(R.id.tab_layout_top_toolbar);
 
+        mShowContactsView.setLayoutManager( new LinearLayoutManager(getActivity()));
+
         if (ProfileSingleton.getInstance().getRole().equals("Landlord")){
             if (getArguments() != null){
                 mLandlordsRooms = getArguments().getParcelableArrayList(KEY_ROOM_LANDLORD);
                 mCurrentSelectedRoom = mLandlordsRooms.get(0);
             }
-            mShowContactsView.setLayoutManager( new LinearLayoutManager(getActivity()));
             List<String> rooms = getRoomsStrings();
             for (String s : rooms){
                 tabLayout.addTab(tabLayout.newTab().setText(s));
@@ -72,7 +70,6 @@ public class SelectChatFragment extends Fragment {
         }else{
             tabLayout.setVisibility(View.GONE);
         }
-
 
         updateUI();
 
@@ -111,7 +108,7 @@ public class SelectChatFragment extends Fragment {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 Fragment chatFragment = new ChatFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString(ChatFragment.PARTNER_ID, createChatID(mContact,ProfileSingleton.getInstance().getUserID()));
+                bundle.putString(ChatFragment.PARTNER_ID, createChatID(mContact,mCurrentSelectedRoom.getRoomID()));
                 chatFragment.setArguments(bundle);
                 transaction.replace(R.id.fragment_container_top, chatFragment);
                 transaction.commit();

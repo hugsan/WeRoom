@@ -36,7 +36,8 @@ public class Match implements Serializable , Parcelable {
     };
 
     private void addMatch(String elementID){
-        match.add(elementID);
+        if (!match.contains(elementID))
+            match.add(elementID);
     }
     public void addLiked(String elementID){
         if (!liked.contains(elementID))
