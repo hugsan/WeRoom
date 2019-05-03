@@ -33,6 +33,7 @@ public class ProfileInfoFragment extends Fragment {
     private Button mLogoutButton;
     private Button mSettingButton;
     private Button mEditButton;
+    private Button mEditSubProfile;
     private TextView mShowName;
     private TextView mShowAge;
     private TextView mShowRole;
@@ -55,9 +56,13 @@ public class ProfileInfoFragment extends Fragment {
         mTag = v.findViewById(R.id.profile_tags);
         mEditButton = v.findViewById(R.id.profile_edit_profile);
         mSettingButton = v.findViewById(R.id.profile_account_setting);
+        mEditSubProfile = v.findViewById(R.id.modify_sub_profile);
 
         Profile p = ProfileSingleton.getInstance();
-
+        if (p.getRole().equals("Landlord"))
+            mEditSubProfile.setText(R.string.edit_landlord);
+        else
+            mEditSubProfile.setText(R.string.edit_tenant);
         for (String s : p.getTags())
             mTag.addTag(s, false);
 
@@ -90,6 +95,12 @@ public class ProfileInfoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ((SwipeActivity)getActivity()).changeToProfileEditFragment();
+            }
+        });
+        mSettingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 

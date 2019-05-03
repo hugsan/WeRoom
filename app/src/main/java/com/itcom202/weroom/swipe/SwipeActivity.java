@@ -183,6 +183,9 @@ public class SwipeActivity extends AppCompatActivity {
                 .replace(R.id.fragment_container_top, new EditProfileFragment())
                 .commit();
     }
+    public void changeToSettingFragment(){
+
+    }
 
 }
 

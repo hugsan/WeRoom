@@ -262,14 +262,6 @@ public class ProfileFragment extends SingleFragment {
                 .withTags(tags)
                 .build();
 
-//        LandlordProfile newInput = new LandlordProfile.Builder(userID)
-//                .withTenantNationallity(getISOCode(String.valueOf(mTenantNation.getSelectedItem())))
-//                .withTenantAge(Integer.parseInt(mTenantMinAge.getText().toString()), Integer.parseInt(mTenantMaxAge.getText().toString()))
-//                .withTenantGender(String.valueOf(mTenantGender.getSelectedItem()))
-//                .withTenantOccupation(String.valueOf(mTenantOccupation.getSelectedItem()))
-//                .tenantSocial(socialValue)
-//                .canTenantSmoke(smokingValue)
-//                .build();
         ImageController.setProfilePicture(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                 mPicture);
         // Access a Cloud Firestore instance from your Activity
