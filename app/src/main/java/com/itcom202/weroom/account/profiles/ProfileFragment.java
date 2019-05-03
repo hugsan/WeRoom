@@ -75,7 +75,6 @@ public class ProfileFragment extends SingleFragment {
     private Spinner mCountry;
     public static  Spinner mRole;
     private TagView mTag;
-    private File mPhotoFile;
     private List<String> tags = new ArrayList<>();
 
     private ImageView mProfilePhoto;
@@ -165,7 +164,6 @@ public class ProfileFragment extends SingleFragment {
                 }
             }
         });
-        final Fragment thisFragment = this;
 
         mProfilePhoto = v.findViewById(R.id.profilePhoto);
         mProfilePhoto.setOnClickListener(new View.OnClickListener() {

@@ -89,6 +89,7 @@
     <string name="gender">Gender</string>
     <string name="role">Are you a Landlord or Tenant?</string>
     <string name="tag_description">Describe yourself using Tags</string>
+    <string name="tag_description_show">Your attributes: </string>
     <string name="occupation">Occupation</string>
     
     <!-- strings related to camera -->
@@ -189,7 +190,9 @@
     <string name="dkk">DKK</string>
 
     <!-- strings related ProfileInfoFragment -->
-    <string name="logout">Dont Press ME!!!</string>
+    <string name="logout">Logout</string>
+    <string name="account_edit">Edit</string>
+    <string name="account_settings">Settings</string>
 
     <!-- strings related to connection errors -->
     <string name="connection_error_FB">Could not connect to Facebook</string>

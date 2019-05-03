@@ -53,7 +53,8 @@ public class Match implements Serializable , Parcelable {
             addMatch(elementID);
     }
     public void addDislike(String elementID){
-        dislike.add(elementID);
+        if (!dislike.contains(elementID))
+            dislike.add(elementID);
         match.remove(elementID);
     }
 
