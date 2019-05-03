@@ -67,6 +67,7 @@ public class ProfileFragment extends SingleFragment {
     static final int REQUEST_CODE = 123;
 
     private static final String TAG = "ProfileFragment";
+    private String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private FirebaseAuth mFirebaseAuth;
     private EditText mUserName;
     private EditText mAge;
@@ -134,11 +135,11 @@ public class ProfileFragment extends SingleFragment {
                 } else if (Integer.parseInt(mAge.getText().toString()) > 99) {
                     mAge.setError(getString(R.string.too_old));
                     mAge.requestFocus();
-               /* } else if (mGender.getSelectedItemPosition() == 0) {
+                } else if (mGender.getSelectedItemPosition() == 0) {
                     TextView errorText = (TextView) mGender.getSelectedView();
                     errorText.setError("");
                     errorText.setTextColor(Color.RED);
-                    errorText.setText(R.string.select_gender);*/
+                    errorText.setText(R.string.select_gender);
 
                 } else if (mCountry.getSelectedItemPosition() == 0) {
                     TextView errorText = (TextView) mCountry.getSelectedView();
@@ -249,18 +250,35 @@ public class ProfileFragment extends SingleFragment {
 
     }
     private void createProfile(){
-        Profile myProfile =
-               new Profile(mFirebaseAuth.getUid(), mUserName.getText().toString(), Integer.parseInt(mAge.getText().toString()),
-                        String.valueOf(mGender.getSelectedItem()), getISOCode(String.valueOf(mCountry.getSelectedItem())),
-                        String.valueOf(mRole.getSelectedItem()), tags);
+//        Profile myProfile =
+//               new Profile(mFirebaseAuth.getUid(), mUserName.getText().toString(), Integer.parseInt(mAge.getText().toString()),
+//                        String.valueOf(mGender.getSelectedItem()), getISOCode(String.valueOf(mCountry.getSelectedItem())),
+//                        String.valueOf(mRole.getSelectedItem()), tags);
 
+        Profile profile = new Profile.Builder(userID)
+                .withName(mUserName.getText().toString())
+                .withAge(Integer.parseInt(mAge.getText().toString()))
+                .withGender(String.valueOf(mGender.getSelectedItem()))
+                .withCountry(getISOCode(String.valueOf(mCountry.getSelectedItem())))
+                .withRole(String.valueOf(mRole.getSelectedItem()))
+                .withTags(tags)
+                .build();
+
+//        LandlordProfile newInput = new LandlordProfile.Builder(userID)
+//                .withTenantNationallity(getISOCode(String.valueOf(mTenantNation.getSelectedItem())))
+//                .withTenantAge(Integer.parseInt(mTenantMinAge.getText().toString()), Integer.parseInt(mTenantMaxAge.getText().toString()))
+//                .withTenantGender(String.valueOf(mTenantGender.getSelectedItem()))
+//                .withTenantOccupation(String.valueOf(mTenantOccupation.getSelectedItem()))
+//                .tenantSocial(socialValue)
+//                .canTenantSmoke(smokingValue)
+//                .build();
         ImageController.setProfilePicture(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                 mPicture);
         // Access a Cloud Firestore instance from your Activity
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(DataBasePath.USERS.getValue()).document(mFirebaseAuth.getUid())
-                .set(myProfile);
-        ProfileSingleton.initialize(myProfile);
+                .set(profile);
+        ProfileSingleton.initialize(profile);
     }
 
 

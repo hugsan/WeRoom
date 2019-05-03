@@ -109,14 +109,13 @@ public class LandlordProfileFragment extends SingleFragment {
             @Override
             public void onClick(View v) {
                 String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                //FIXME if something less than 18 is written there is an error "minimum age is 16" and the text is set to 18?!
                 boolean noError = true;
                 if (mTenantMinAge.getText().toString().length()==0)
                 {
 
                     mTenantMinAge.setText("18");
                 }
-                if (Integer.parseInt(mTenantMinAge.getText().toString()) < 16)
+                if (Integer.parseInt(mTenantMinAge.getText().toString()) < 18)
                 {
                     mTenantMinAge.setError(getString(R.string.min_age));
                     mTenantMinAge.requestFocus();
@@ -127,7 +126,7 @@ public class LandlordProfileFragment extends SingleFragment {
                 {
                     mTenantMaxAge.setText("99");
                 }
-                if (Integer.parseInt(mTenantMaxAge.getText().toString()) > 120)
+                if (Integer.parseInt(mTenantMaxAge.getText().toString()) > 99)
                 {
                     mTenantMaxAge.setError(getString(R.string.max_age));
                     mTenantMaxAge.requestFocus();

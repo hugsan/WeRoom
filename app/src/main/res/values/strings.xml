@@ -77,8 +77,8 @@
     <string name="hint_2">Cat Person</string>
     <string name="hint_3">Vegan</string>
     <string name="requiered_field">Requiered field</string>
-    <string name="min_age">Minimum age is 16</string>
-    <string name="max_age">Maximum age is 120</string>
+    <string name="min_age">Minimum age is 18</string>
+    <string name="max_age">Maximum age is 99</string>
     <string name="wrong_min">Wrong min value</string>
     <string name="wrong_max">Wrong max value</string>
     <string name="age_of_ll">Preferred age of Landlord</string>
