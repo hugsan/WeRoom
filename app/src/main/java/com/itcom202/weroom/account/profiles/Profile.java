@@ -15,6 +15,7 @@ import com.itcom202.weroom.cameraGallery.PictureConversion;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.Serializable;
+import java.util.InputMismatchException;
 import java.util.List;
 
 public class Profile implements Serializable, Parcelable {
@@ -71,6 +72,76 @@ public class Profile implements Serializable, Parcelable {
             return new Profile[size];
         }
     };
+
+
+    public static class Builder{
+        private String sName;
+        private int sAge;
+        private String sGender;
+        private String sCountry;
+        private String sRole;
+        private List<String> sTags;
+        private String sUserID;
+
+        public Builder (String userUid){
+            this.sUserID = userUid;
+        }
+        public Builder withName(String name){
+            if(name.length()==0){
+                throw new InputMismatchException("No name");
+            }
+            sName = name;
+            return this;
+        }
+
+        public Builder withAge(int age){
+            if(age<18 || age>99)
+                throw new InputMismatchException("Wrong age");
+            sAge = age;
+            return this;
+        }
+
+        public Builder withGender(String gender){
+            if(gender.equals("Select your gender"))
+                throw new InputMismatchException("Gender not selected");
+            sGender = gender;
+            return this;
+        }
+
+        public Builder withCountry(String country){
+            if(country.equals("Select a country"))
+                throw new InputMismatchException("Country not selected");
+            sCountry = country;
+
+            return this;
+        }
+
+        public Builder withRole(String role){
+            sRole = role;
+            return this;
+        }
+
+        public Builder withTags(List<String> tags){
+            sTags = tags;
+            return this;
+        }
+
+        public Profile build(){
+            Profile profile = new Profile();
+            profile.userID = sUserID;
+            profile.name = sName;
+            profile.age = sAge;
+            profile.gender = sGender;
+            profile.country = sCountry;
+            profile.role = sRole;
+            profile.tags = sTags;
+            return profile;
+        }
+
+    }
+
+
+
 
     public int getAge() {
         return age;
