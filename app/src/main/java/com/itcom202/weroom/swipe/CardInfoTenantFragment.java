@@ -62,7 +62,7 @@ public class CardInfoTenantFragment extends Fragment {
         });
 
 
-        mPhoto = v.findViewById(R.id.card_lord_picture);
+        mPhoto = v.findViewById(R.id.card_tenant_picture);
         Task t = ImageController.getProfilePicture(mProfile.getUserID());
 
         t.addOnSuccessListener(new OnSuccessListener<byte[]>() {
