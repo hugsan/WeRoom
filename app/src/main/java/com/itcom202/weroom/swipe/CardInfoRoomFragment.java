@@ -58,7 +58,8 @@ public class CardInfoRoomFragment extends Fragment {
 
 
         mPhoto = v.findViewById(R.id.card_lord_picture);
-        Task t = ImageController.getProfilePicture(mRoomPosted.getLandlordID());
+        Task t = ImageController.getRoomPicture(mRoomPosted.getLandlordID(), 0
+        );
         t.addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(final byte[] bytes) {
