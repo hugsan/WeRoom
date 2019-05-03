@@ -32,7 +32,7 @@ public class TenantState extends RecyclerView.ViewHolder implements State {
 
                 AppCompatActivity activity = (AppCompatActivity) itemView.getContext();
                 Fragment myFragment = CardInfoRoomFragment.newInstance(room);
-                activity.getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_top, myFragment).addToBackStack(null).commit();
+                activity.getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, myFragment).addToBackStack(null).commit();
             }
         });
 
