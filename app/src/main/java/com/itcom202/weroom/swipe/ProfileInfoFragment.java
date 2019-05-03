@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +20,19 @@ import com.itcom202.weroom.MainActivity;
 import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.Profile;
+import com.itcom202.weroom.account.profiles.ProfileFragment;
 import com.itcom202.weroom.account.profiles.tagDescription.TagView;
 import com.itcom202.weroom.cameraGallery.PictureConversion;
+import com.itcom202.weroom.chat.SelectChatFragment;
 import com.itcom202.weroom.queries.ImageController;
+
+import java.util.Locale;
 
 
 public class ProfileInfoFragment extends Fragment {
     private Button mLogoutButton;
+    private Button mSettingButton;
+    private Button mEditButton;
     private TextView mShowName;
     private TextView mShowAge;
     private TextView mShowRole;
@@ -45,6 +53,8 @@ public class ProfileInfoFragment extends Fragment {
         mShowGender = v.findViewById(R.id.profile_gender);
         mProfilePicture = v.findViewById(R.id.profile_profilePhoto);
         mTag = v.findViewById(R.id.profile_tags);
+        mEditButton = v.findViewById(R.id.profile_edit_profile);
+        mSettingButton = v.findViewById(R.id.profile_account_setting);
 
         Profile p = ProfileSingleton.getInstance();
 
@@ -54,7 +64,10 @@ public class ProfileInfoFragment extends Fragment {
         mShowName.setText(p.getName());
         mShowAge.setText(Integer.toString(p.getAge()));
         mShowRole.setText(p.getRole());
-        mShowNation.setText(p.getCountry());
+
+        Locale obj = new Locale("",p.getCountry());
+
+        mShowNation.setText(obj.getDisplayCountry(Locale.ENGLISH));
         mShowGender.setText(p.getGender());
 
         Task t = ImageController.getProfilePicture(p.getUserID());
@@ -73,6 +86,13 @@ public class ProfileInfoFragment extends Fragment {
                 startActivity(MainActivity.newIntent(getActivity()));
             }
         });
+        mEditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((SwipeActivity)getActivity()).changeToProfileEditFragment();
+            }
+        });
+
 
         return v;
     }

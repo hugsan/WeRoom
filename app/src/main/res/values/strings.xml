@@ -216,5 +216,8 @@
     <string name="searching_for">I\'m looking for</string>
     <string name="searching_in">Searching  in</string>
 
+    <!-- strings related to EditProfileFragment -->
+    <string name="edit_profile">Edit profile</string>
+
 
 </resources>
