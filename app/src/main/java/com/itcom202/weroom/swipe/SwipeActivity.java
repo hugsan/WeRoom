@@ -55,12 +55,12 @@ public class SwipeActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.action_profile:
                         fm.beginTransaction()
-                                .replace(R.id.fragment_container, new ProfileInfoFragment())
+                                .replace(R.id.fragment_container_top, new ProfileInfoFragment())
                                 .commit();
                         break;
                     case R.id.action_home:
                         fm.beginTransaction()
-                                .replace(R.id.fragment_container, swipingFragment)
+                                .replace(R.id.fragment_container_top, swipingFragment)
                                 .commit();
                         break;
                     case R.id.action_chat:
@@ -70,7 +70,7 @@ public class SwipeActivity extends AppCompatActivity {
                         Fragment fragment = new SelectChatFragment();
                         fragment.setArguments(bundle);
                         fm.beginTransaction()
-                                 .replace(R.id.fragment_container, fragment)
+                                 .replace(R.id.fragment_container_top, fragment)
                                  .commit();
                         break;
                 }
@@ -155,7 +155,7 @@ public class SwipeActivity extends AppCompatActivity {
         }
             swipingFragment.setArguments(bundle);
             fm.beginTransaction()
-                    .add(R.id.fragment_container, swipingFragment)
+                    .add(R.id.fragment_container_top, swipingFragment)
                     .commit();
 
     }
@@ -173,14 +173,14 @@ public class SwipeActivity extends AppCompatActivity {
         }
             swipingFragment.setArguments(bundle);
             fm.beginTransaction()
-                    .add(R.id.fragment_container, swipingFragment)
+                    .add(R.id.fragment_container_top, swipingFragment)
                     .commit();
 
     }
     public void changeToProfileEditFragment(){
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
-                .replace(R.id.fragment_container, new EditProfileFragment())
+                .replace(R.id.fragment_container_top, new EditProfileFragment())
                 .commit();
     }
     public void changeToSettingFragment(){

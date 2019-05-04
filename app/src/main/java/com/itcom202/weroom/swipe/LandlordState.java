@@ -33,7 +33,7 @@ public class LandlordState extends RecyclerView.ViewHolder implements State {
             public void onClick(View v) {
                 AppCompatActivity activity = (AppCompatActivity) itemView.getContext();
                 Fragment myFragment = CardInfoTenantFragment.newInstance(mProfile);
-                activity.getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, myFragment).addToBackStack(null).commit();
+                activity.getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_top, myFragment).addToBackStack(null).commit();
             }
         });
 
@@ -42,8 +42,8 @@ public class LandlordState extends RecyclerView.ViewHolder implements State {
 
     public void bind(Profile profile) {
         mProfile = profile;
-        textView.setText(profile.getName());
-        Task t = ImageController.getProfilePicture(profile.getUserID());
+        textView.setText(mProfile.getName());
+        Task t = ImageController.getProfilePicture(mProfile.getUserID());
         t.addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
