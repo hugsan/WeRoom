@@ -272,5 +272,4 @@ public class ProfileFragment extends SingleFragment {
     }
 
 
-
 }

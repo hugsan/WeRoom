@@ -24,10 +24,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
-import com.itcom202.weroom.account.profiles.DataBasePath;
 import com.itcom202.weroom.account.profiles.Profile;
 import com.itcom202.weroom.account.profiles.tagDescription.TagModel;
 import com.itcom202.weroom.account.profiles.tagDescription.TagSeparator;
@@ -152,7 +150,7 @@ public class EditProfileFragment extends Fragment {
                         tags.add(model.getTagText());
                     }
                     createProfile();
-                    ((SwipeActivity)getActivity()).changeToProfileEditFragment();
+                    ((SwipeActivity)getActivity()).changeToPorifleFragment();
 
                 }
             }
@@ -276,11 +274,8 @@ public class EditProfileFragment extends Fragment {
         profile.setTenant(p.getTenant());
         ImageController.setProfilePicture(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                 mPicture);
-        // Access a Cloud Firestore instance from your Activity
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection(DataBasePath.USERS.getValue()).document(mFirebaseAuth.getUid())
-                .set(profile);
-        ProfileSingleton.initialize(profile);
+
+        ProfileSingleton.update(profile);
     }
 
 

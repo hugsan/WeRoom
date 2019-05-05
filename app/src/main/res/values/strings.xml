@@ -219,7 +219,9 @@
     <!-- strings related to EditProfileFragment -->
     <string name="edit_profile">Edit profile</string>
     <string name="edit_landlord">Edit landlord</string>
-    <string name="edit_tenant">Edit profile</string>
+    <string name="edit_tenant">Edit tenant</string>
+
+
 
 
 </resources>

@@ -58,7 +58,9 @@ public class ProfileInfoFragment extends Fragment {
         mSettingButton = v.findViewById(R.id.profile_account_setting);
         mEditSubProfile = v.findViewById(R.id.modify_sub_profile);
 
-        Profile p = ProfileSingleton.getInstance();
+        final Profile p = ProfileSingleton.getInstance();
+
+
         if (p.getRole().equals("Landlord"))
             mEditSubProfile.setText(R.string.edit_landlord);
         else
@@ -101,6 +103,16 @@ public class ProfileInfoFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+        mEditSubProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (p.getRole().equals("Landlord")){
+                    //TODO landlord case.
+                }else{
+                    ((SwipeActivity)getActivity()).changeToTenantEditFragment();
+                }
             }
         });
 

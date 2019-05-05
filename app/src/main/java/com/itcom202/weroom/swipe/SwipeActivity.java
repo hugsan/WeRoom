@@ -23,7 +23,7 @@ import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.edit.EditProfileFragment;
 import com.itcom202.weroom.account.profiles.DataBasePath;
 import com.itcom202.weroom.account.profiles.Profile;
-import com.itcom202.weroom.account.profiles.ProfileFragment;
+import com.itcom202.weroom.account.profiles.ProfileTenantFragment;
 import com.itcom202.weroom.account.profiles.RoomPosted;
 import com.itcom202.weroom.chat.SelectChatFragment;
 
@@ -54,9 +54,7 @@ public class SwipeActivity extends AppCompatActivity {
                 FragmentManager fm = getSupportFragmentManager();
                 switch (item.getItemId()) {
                     case R.id.action_profile:
-                        fm.beginTransaction()
-                                .replace(R.id.fragment_container_top, new ProfileInfoFragment())
-                                .commit();
+                        changeToPorifleFragment();
                         break;
                     case R.id.action_home:
                         fm.beginTransaction()
@@ -185,6 +183,23 @@ public class SwipeActivity extends AppCompatActivity {
     }
     public void changeToSettingFragment(){
 
+    }
+    public void changeToPorifleFragment(){
+        FragmentManager fm = getSupportFragmentManager();
+
+        fm.beginTransaction()
+                .replace(R.id.fragment_container_top, new ProfileInfoFragment())
+                .commit();
+    }
+    public void changeToTenantEditFragment(){
+        FragmentManager fm = getSupportFragmentManager();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(ProfileTenantFragment.KEY_INITIALIZE,true);
+        Fragment fragment = new ProfileTenantFragment();
+        fragment.setArguments(bundle);
+        fm.beginTransaction()
+                .replace(R.id.fragment_container_top, fragment)
+                .commit();
     }
 
 }

@@ -46,6 +46,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class ProfileTenantFragment extends Fragment {
     private static final String TAG = "ProfileTenantFragment";
+    public static final String KEY_INITIALIZE = "initialize";
 
     private Spinner mPeriodRenting;
     private RadioGroup mSmoking;
@@ -73,6 +74,10 @@ public class ProfileTenantFragment extends Fragment {
     private String furnish=null;
     private String laundry=null;
     private String internet =null;
+
+    private boolean mIsEdit = false;
+
+    AutocompleteSupportFragment autocompleteFragment;
 
 
 
@@ -110,7 +115,7 @@ public class ProfileTenantFragment extends Fragment {
         PlacesClient placesClient = Places.createClient(getActivity());
 
         // Initialize the AutocompleteSupportFragment.
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+        autocompleteFragment = (AutocompleteSupportFragment)
                 getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
 
@@ -160,6 +165,7 @@ public class ProfileTenantFragment extends Fragment {
             public void getProgressOnFinally(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat, boolean fromUser) {
 
             }
+
         });
 
         mConfirm.setOnClickListener(new View.OnClickListener(){
@@ -249,12 +255,18 @@ public class ProfileTenantFragment extends Fragment {
                                 .document(userID)
                                 .update(DataBasePath.TENANT.getValue(),newInput);
 
-
-                        startActivity(SwipeActivity.newIntent(getActivity()));
+                        if (mIsEdit){
+                            ((SwipeActivity)getActivity()).changeToPorifleFragment();
+                        }else{
+                            startActivity(SwipeActivity.newIntent(getActivity()));
+                        }
                     }
                 }
             }
         });
+
+        if (getArguments() != null && getArguments().getBoolean(KEY_INITIALIZE))
+            setTenantValues(v,ProfileSingleton.getInstance().getTenant());
         return v;
     }
 
@@ -276,6 +288,7 @@ public class ProfileTenantFragment extends Fragment {
     }
 
     private boolean minMaxFieldCheck(EditText min, EditText max){
+
         if (Integer.parseInt((min.getText().toString())) > Integer.parseInt(max.getText().toString())){
             min.setError(getString(R.string.wrong_min));
             min.requestFocus();
@@ -284,5 +297,93 @@ public class ProfileTenantFragment extends Fragment {
             return true;
         }
         return false;
+    }
+    private void setTenantValues(View v,TenantProfile tp){
+        mIsEdit = true;
+        String smoker = tp.getSmokeFriendly();
+        switch(smoker){
+            case "Yes":
+                ((RadioButton)v.findViewById(R.id.rbNoSmoke_tenantProfile)).setChecked(true);
+                break;
+            case "No":
+                ((RadioButton)v.findViewById(R.id.rbNoSmoke_tenantProfile)).setChecked(true);
+                break;
+            case "Does not matter":
+                ((RadioButton)v.findViewById(R.id.rbDCSMoke_tenantProfile)).setChecked(true);
+                break;
+            default:
+                Log.e(TAG,"Error on getSmoking from Tenant.");
+                break;
+        }
+        ((Spinner)v.findViewById(R.id.spinnerPeriodRenting_tenantProfile)).setSelection(tp.getPeriodOfRent());
+        String petFriendly = tp.getPetFriendly();
+        switch(petFriendly){
+            case "Yes":
+                ((RadioButton)v.findViewById(R.id.rbYesPet_tenantProfile)).setChecked(true);
+                break;
+            case "No":
+                ((RadioButton)v.findViewById(R.id.rbNoPet_tenantProfile)).setChecked(true);
+                break;
+            case "Does not matter":
+                ((RadioButton)v.findViewById(R.id.rbDCPet_tenantProfile)).setChecked(true);
+                break;
+            default:
+                Log.e(TAG,"Error on getPetFriendly from Tenant.");
+                break;
+        }
+        String furnished = tp.getmFurnished();
+        switch(furnished){
+            case "Yes":
+                ((RadioButton)v.findViewById(R.id.rbNoFurnished_tenantProfile)).setChecked(true);
+                break;
+            case "No":
+                ((RadioButton)v.findViewById(R.id.rbNoFurnished_tenantProfile)).setChecked(true);
+                break;
+            case "Does not matter":
+                ((RadioButton)v.findViewById(R.id.rbDCFurnished_tenantProfile)).setChecked(true);
+                break;
+            default:
+                Log.e(TAG,"Error on getFurnished from Tenant.");
+                break;
+        }
+        String laundry = tp.getmLaundry();
+        switch(laundry){
+            case "Yes":
+                ((RadioButton)v.findViewById(R.id.rbNoLaundry_tenantProfile)).setChecked(true);
+                break;
+            case "No":
+                ((RadioButton)v.findViewById(R.id.rbNoLaundry_tenantProfile)).setChecked(true);
+                break;
+            case "Does not matter":
+                ((RadioButton)v.findViewById(R.id.rbDCLaundry_tenantProfile)).setChecked(true);
+                break;
+            default:
+                Log.e(TAG,"Error on getLaundry from Tenant.");
+                break;
+        }
+        String internet = tp.getmInternet();
+        switch(internet){
+            case "Yes":
+                ((RadioButton)v.findViewById(R.id.rbNoInternet_tenantProfile)).setChecked(true);
+                break;
+            case "No":
+                ((RadioButton)v.findViewById(R.id.rbNoInternet_tenantProfile)).setChecked(true);
+                break;
+            case "Does not matter":
+                ((RadioButton)v.findViewById(R.id.rbDCInternet_tenantProfile)).setChecked(true);
+                break;
+            default:
+                Log.e(TAG,"Error on getInternet from Tenant.");
+                break;
+        }
+        mDepositMin.setText(Integer.toString(tp.getMinDeposit()));
+        mDepositMax.setText(Integer.toString(tp.getMAxDeposit()));
+        mRentMin.setText(Integer.toString(tp.getMinRent()));
+        mRentMax.setText(Integer.toString(tp.getMaxRent()));
+
+        mDistanceFromCenter.setProgress(tp.getDistanceCenter());
+
+        autocompleteFragment.setText(tp.getChoosenCityname());
+        mConfirm.setText(R.string.edit_tenant);
     }
 }
