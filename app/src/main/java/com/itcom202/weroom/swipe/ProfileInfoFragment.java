@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +18,8 @@ import com.itcom202.weroom.MainActivity;
 import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.Profile;
-import com.itcom202.weroom.account.profiles.ProfileFragment;
 import com.itcom202.weroom.account.profiles.tagDescription.TagView;
 import com.itcom202.weroom.cameraGallery.PictureConversion;
-import com.itcom202.weroom.chat.SelectChatFragment;
 import com.itcom202.weroom.queries.ImageController;
 
 import java.util.Locale;
@@ -109,7 +105,7 @@ public class ProfileInfoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (p.getRole().equals("Landlord")){
-                    //TODO landlord case.
+                    ((SwipeActivity)getActivity()).changeToLandlordEditFragment();
                 }else{
                     ((SwipeActivity)getActivity()).changeToTenantEditFragment();
                 }

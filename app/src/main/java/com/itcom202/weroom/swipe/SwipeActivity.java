@@ -205,6 +205,9 @@ public class SwipeActivity extends AppCompatActivity {
                 .replace(R.id.fragment_container_top, fragment)
                 .commit();
     }
+    public void changeToLandlordEditFragment(){
+
+    }
 
 }
 
