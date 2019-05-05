@@ -22,6 +22,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -36,7 +38,9 @@ import com.itcom202.weroom.account.profiles.tagDescription.TagModel;
 import com.itcom202.weroom.account.profiles.tagDescription.TagSeparator;
 import com.itcom202.weroom.account.profiles.tagDescription.TagView;
 import com.itcom202.weroom.cameraGallery.ImagePicker;
+import com.itcom202.weroom.cameraGallery.PictureConversion;
 import com.itcom202.weroom.queries.ImageController;
+import com.itcom202.weroom.swipe.SwipeActivity;
 
 
 import android.widget.Button;
@@ -65,7 +69,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class ProfileFragment extends SingleFragment {
     static final int REQUEST_CODE = 123;
-
+    public static final String KEY_IS_EDIT = "editable";
     private static final String TAG = "ProfileFragment";
     private String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private FirebaseAuth mFirebaseAuth;
@@ -80,6 +84,7 @@ public class ProfileFragment extends SingleFragment {
 
     private ImageView mProfilePhoto;
     private Bitmap mPicture;
+    private boolean mEditable = false;
 
 
 
@@ -156,10 +161,15 @@ public class ProfileFragment extends SingleFragment {
                         tags.add(model.getTagText());
                     }
                     createProfile();
-                    if (mRole.getSelectedItemId() == 0){
-                        changeFragment(new LandlordProfileFragment());
-                    }else if (mRole.getSelectedItemId() == 1){
-                        changeFragment(new ProfileTenantFragment());
+                    if (mEditable){
+                        ((SwipeActivity)getActivity()).changeToPorifleFragment();
+                    }else
+                    {
+                        if (mRole.getSelectedItemId() == 0){
+                            changeFragment(new LandlordProfileFragment());
+                        }else if (mRole.getSelectedItemId() == 1){
+                            changeFragment(new ProfileTenantFragment());
+                        }
                     }
 
                 }
@@ -175,6 +185,8 @@ public class ProfileFragment extends SingleFragment {
                 startActivityForResult(chooseImageIntent, REQUEST_CODE);
             }
         });
+        if (getArguments() != null && getArguments().getBoolean(KEY_IS_EDIT))
+            setProfile(ProfileSingleton.getInstance());
         return v;
     }
 
@@ -248,12 +260,7 @@ public class ProfileFragment extends SingleFragment {
 
     }
     private void createProfile(){
-//        Profile myProfile =
-//               new Profile(mFirebaseAuth.getUid(), mUserName.getText().toString(), Integer.parseInt(mAge.getText().toString()),
-//                        String.valueOf(mGender.getSelectedItem()), getISOCode(String.valueOf(mCountry.getSelectedItem())),
-//                        String.valueOf(mRole.getSelectedItem()), tags);
-
-        Profile profile = new Profile.Builder(userID)
+    Profile profile = new Profile.Builder(userID)
                 .withName(mUserName.getText().toString())
                 .withAge(Integer.parseInt(mAge.getText().toString()))
                 .withGender(String.valueOf(mGender.getSelectedItem()))
@@ -269,6 +276,52 @@ public class ProfileFragment extends SingleFragment {
         db.collection(DataBasePath.USERS.getValue()).document(mFirebaseAuth.getUid())
                 .set(profile);
         ProfileSingleton.initialize(profile);
+    }
+    private void setProfile(Profile p){
+        mEditable = true;
+
+        Task t = ImageController.getProfilePicture(p.getUserID());
+
+        t.addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(final byte[] bytes) {
+                mPicture = PictureConversion.byteArrayToBitmap(bytes);
+                mProfilePhoto.setImageBitmap(mPicture);
+            }
+        });
+        mCountry.setSelection(getCountryAdapterPosition(p.getCountry()));
+        mUserName.setText(p.getName());
+        mAge.setText(Integer.toString(p.getAge()));
+        mRole.setVisibility(View.GONE);
+        for (String s : p.getTags())
+            mTag.addTag(s,false);
+        ArrayAdapter adapterGender = ArrayAdapter.createFromResource(getActivity(), R.array.gender_array, R.layout.spinner_item);
+        adapterGender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mGender.setSelection(adapterGender.getPosition(p.getGender()));
+        mCountry.setSelection(getCountryAdapterPosition(p.getCountry()));
+
+        mCreateProfile.setText(R.string.edit_profile);
+
+    }
+
+    private int getCountryAdapterPosition(String countryISO){
+        String[] locales = Locale.getISOCountries();
+
+        List<String> countries = new ArrayList<>();
+        countries.add(getString(R.string.prompt_country));
+
+        // for (String countryCode : locales){
+        for(int i=0;i<locales.length;i++){
+
+            String countryCode=locales[i];
+            Locale obj = new Locale("",countryCode);
+
+
+            countries.add(obj.getDisplayCountry(Locale.ENGLISH));
+        }
+        Locale obj = new Locale("",countryISO);
+        Collections.sort(countries);
+        return countries.indexOf(obj.getDisplayCountry(Locale.ENGLISH));
     }
 
 

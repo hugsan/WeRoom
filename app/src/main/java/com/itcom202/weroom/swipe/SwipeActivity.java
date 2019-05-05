@@ -20,9 +20,9 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
-import com.itcom202.weroom.account.edit.EditProfileFragment;
 import com.itcom202.weroom.account.profiles.DataBasePath;
 import com.itcom202.weroom.account.profiles.Profile;
+import com.itcom202.weroom.account.profiles.ProfileFragment;
 import com.itcom202.weroom.account.profiles.ProfileTenantFragment;
 import com.itcom202.weroom.account.profiles.RoomPosted;
 import com.itcom202.weroom.chat.SelectChatFragment;
@@ -177,8 +177,12 @@ public class SwipeActivity extends AppCompatActivity {
     }
     public void changeToProfileEditFragment(){
         FragmentManager fm = getSupportFragmentManager();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(ProfileFragment.KEY_IS_EDIT,true);
+        Fragment fragment = new ProfileFragment();
+        fragment.setArguments(bundle);
         fm.beginTransaction()
-                .replace(R.id.fragment_container_top, new EditProfileFragment())
+                .replace(R.id.fragment_container_top, fragment)
                 .commit();
     }
     public void changeToSettingFragment(){
