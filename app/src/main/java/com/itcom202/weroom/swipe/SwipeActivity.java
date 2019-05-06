@@ -1,5 +1,6 @@
 package com.itcom202.weroom.swipe;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +10,9 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Spinner;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -47,12 +50,23 @@ public class SwipeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onefragment_navigationbar);
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        Menu bottomNavigationViewMenu = bottomNavigationView.getMenu();
+        bottomNavigationViewMenu.findItem(R.id.action_profile).setChecked(false);
+        mActiveBottomNavigationViewMenuItem = bottomNavigationViewMenu.findItem(R.id.action_home).setChecked(true);
+
+
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
                 FragmentManager fm = getSupportFragmentManager();
+
+
                 switch (item.getItemId()) {
+
                     case R.id.action_profile:
                         changeToPorifleFragment();
                         break;
@@ -71,7 +85,14 @@ public class SwipeActivity extends AppCompatActivity {
                                  .replace(R.id.fragment_container_top, fragment)
                                  .commit();
                         break;
+
+
                 }
+                if (item != mActiveBottomNavigationViewMenuItem){
+                    mActiveBottomNavigationViewMenuItem.setChecked(false);
+                    mActiveBottomNavigationViewMenuItem = item;
+                }
+
                 return true;
             }
         });
@@ -141,6 +162,7 @@ public class SwipeActivity extends AppCompatActivity {
 
 
     }
+    private MenuItem mActiveBottomNavigationViewMenuItem;
 
     private void startFragmentFromTenant(){
         Bundle bundle = new Bundle();

@@ -222,7 +222,7 @@ public class ProfileTenantFragment extends Fragment {
                     else if(String.valueOf(mLaundry.getCheckedRadioButtonId()).equals("2131296530"))
                         internet ="No";
                     else internet ="Does not matter";
-
+//
 
                     if (noError){
 

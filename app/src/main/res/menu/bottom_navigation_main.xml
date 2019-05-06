@@ -7,6 +7,7 @@
         android:enabled="true"
         android:icon="@drawable/ic_profile"
         android:title="@string/navigation_profile"
+        android:checked="false"
         />
 
     <item
@@ -14,6 +15,8 @@
         android:enabled="true"
         android:icon="@drawable/ic_home"
         android:title="@string/navigation_home"
+        android:checked="true"
+
         />
 
     <item
