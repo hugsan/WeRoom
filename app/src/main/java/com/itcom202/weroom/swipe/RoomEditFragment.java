@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -220,9 +221,17 @@ public class RoomEditFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ImageController.removeAllRoomPictures(mThisPostedRoom.getRoomID());
+                Profile p = ProfileSingleton.getInstance();
+                p.getLandlord().removeRoomID(mThisPostedRoom.getRoomID());
+                ProfileSingleton.update(p);
+
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                db.collection(DataBasePath.ROOMS.getValue())
+                        .document(mThisPostedRoom.getRoomID())
+                        .delete();
+
                 ((SwipeActivity)getActivity()).removeLandlordRoom(mThisPostedRoom);
                 ((SwipeActivity)getActivity()).changeToPorifleFragment();
-
             }
         });
 
