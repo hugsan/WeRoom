@@ -13,7 +13,7 @@ public class RoomPosted implements Serializable, Parcelable{
     protected RoomPosted(Parcel in) {
         mRent = in.readInt();
         mDeposit = in.readInt();
-        mPeriodOfRenting = in.readString();
+        mPeriodOfRenting = in.readInt();
         mCompleteAddress = in.readString();
         mAddressID = in.readString();
         mLatitude = in.readDouble();
@@ -50,7 +50,7 @@ public class RoomPosted implements Serializable, Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mRent);
         dest.writeInt(mDeposit);
-        dest.writeString(mPeriodOfRenting);
+        dest.writeInt(mPeriodOfRenting);
         dest.writeString(mCompleteAddress);
         dest.writeString(mAddressID);
         dest.writeDouble(mLatitude);
@@ -70,7 +70,7 @@ public class RoomPosted implements Serializable, Parcelable{
     public static class Builder{
         private int sRent;
         private int sDeposit;
-        private String sPeriodOfRenting;
+        private int sPeriodOfRenting;
         private String sCompleteAddress;
         private String sAddressID;
         private double sLatitude;
@@ -107,10 +107,10 @@ public class RoomPosted implements Serializable, Parcelable{
             sDeposit = deposit;
             return this;
         }
-        public Builder withPeriodRenting(String period){
-            if(period.equals("Select period of renting"))
+        public Builder withPeriodRenting(int position){
+            if(position < 0 || position > 4)
                 throw new InputMismatchException("Wrong period");
-            sPeriodOfRenting = period;
+            sPeriodOfRenting = position;
             return this;
         }
         public Builder withAddress(String id, String address, double latitude, double longitude ){
@@ -168,7 +168,7 @@ public class RoomPosted implements Serializable, Parcelable{
 
     private int mRent;
     private int mDeposit;
-    private String mPeriodOfRenting;
+    private int mPeriodOfRenting;
     private String mCompleteAddress;
     private String mAddressID;
     private double mLatitude;
@@ -227,11 +227,11 @@ public class RoomPosted implements Serializable, Parcelable{
         mDeposit = deposit;
     }
 
-    public String getPeriodOfRenting() {
+    public int getPeriodOfRenting() {
         return mPeriodOfRenting;
     }
 
-    public void setPeriodOfRenting(String periodOfRenting) {
+    public void setPeriodOfRenting(int periodOfRenting) {
         mPeriodOfRenting = periodOfRenting;
     }
 
@@ -315,4 +315,10 @@ public class RoomPosted implements Serializable, Parcelable{
         mRoomID = roomID;
     }
 
+    @Override
+    public boolean equals( Object obj) {
+        if (!(obj instanceof RoomPosted))
+            return false;
+        return this.getRoomID().equals(((RoomPosted) obj).mRoomID);
+    }
 }

@@ -1,5 +1,4 @@
-package com.itcom202.weroom.account.profiles;
-
+package com.itcom202.weroom.swipe;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -25,27 +24,30 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.itcom202.weroom.ProfileSingleton;
-import com.itcom202.weroom.SingleFragment;
 import com.itcom202.weroom.MapFragment;
+import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
+import com.itcom202.weroom.account.profiles.DataBasePath;
+import com.itcom202.weroom.account.profiles.PopUpMessage;
+import com.itcom202.weroom.account.profiles.Profile;
+import com.itcom202.weroom.account.profiles.RoomPosted;
 import com.itcom202.weroom.cameraGallery.ImagePicker;
+import com.itcom202.weroom.cameraGallery.PictureConversion;
 import com.itcom202.weroom.queries.ImageController;
-import com.itcom202.weroom.swipe.SwipeActivity;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,9 +57,9 @@ import java.util.Objects;
 import static android.app.Activity.RESULT_OK;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class RoomCreationFragment extends SingleFragment {
+public class RoomEditFragment extends Fragment {
     static final int REQUEST_CODE = 123;
-
+    public static final String KEY_ROOM = "room";
     public final String TAG = "RoomCreationFragment";
     private EditText mRent;
     private EditText mDeposit;
@@ -68,88 +70,88 @@ public class RoomCreationFragment extends SingleFragment {
     private CheckBox mInternet;
     private CheckBox mCommonArea;
     private CheckBox mLaundry;
-    private Button mConfirmRoom;
+    private Button mEditRoom;
     private DatabaseReference mDatabaseReference;
     private ImageButton mTakeRoomPicture;
     private String mUserId;
-    private Button mAddAnotherRoom;
+    private Button mDeleteRoom;
     private PopUpMessage mPopUp = new PopUpMessage();
     private List<Bitmap> mRoomPictures = new ArrayList<>();
     private LinearLayout layoutMap;
     private ImageView[] mPictures = new ImageView[10];
-
     String mAddressID;
     String mAddressName;
     double mAddressLatitude;
     double mAddressLongitude;
+    private RoomPosted mThisPostedRoom;
+    private AutocompleteSupportFragment mAutocompleteFragment;
+    private MapFragment mMapFragment;
 
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.add_room_fragment, null, false);
+        View v = inflater.inflate(R.layout.fragment_room_editing, null, false);
+
+
 
         mUserId = FirebaseAuth.getInstance().getUid();
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
-        mRent = v.findViewById(R.id.rentInput);
-        mDeposit = v.findViewById(R.id.depositroom);
-        mPeriodRenting = v.findViewById(R.id.PeriodRentingRoomFragment);
-        mRoomSize = v.findViewById(R.id.roomsizeroomfragment);
-        mFurnished = v.findViewById(R.id.checkFurnished);
-        mInternet = v.findViewById(R.id.checkBoxInternet);
-        mCommonArea = v.findViewById(R.id.checkBoxCommonArea);
-        mLaundry = v.findViewById(R.id.checkBoxLaundry);
-        mConfirmRoom = v.findViewById(R.id.postRoomButton);
-        mAddAnotherRoom = v.findViewById(R.id.addMoreRooms);
-        layoutMap = v.findViewById(R.id.layoutmap);
+        mRent = v.findViewById(R.id.room_edit_rentInput);
+        mDeposit = v.findViewById(R.id.room_edit_depositroom);
+        mPeriodRenting = v.findViewById(R.id.room_edit_PeriodRentingRoomFragment);
+        mRoomSize = v.findViewById(R.id.room_edit_roomsizeroomfragment);
+        mFurnished = v.findViewById(R.id.room_edit_checkFurnished);
+        mInternet = v.findViewById(R.id.room_edit_checkBoxInternet);
+        mCommonArea = v.findViewById(R.id.room_edit_checkBoxCommonArea);
+        mLaundry = v.findViewById(R.id.room_edit_checkBoxLaundry);
+        mEditRoom = v.findViewById(R.id.room_edit_postEditRoom);
+
+        mDeleteRoom = v.findViewById(R.id.room_edit_deleteroom);
+        layoutMap = v.findViewById(R.id.room_edit_layoutmap);
 
         for (int i = 0 ; i < 10 ; i++){
-            String btnID = "picturepreviewnr"+ (i+1);
+            String btnID = "room_edit_picturepreviewnr"+ (i+1);
             int resID = getResources().getIdentifier(btnID, "id", Objects.requireNonNull(getActivity()).getPackageName());
             mPictures[i] = v.findViewById(resID);
+            Log.i("TORTUGA","loop: "+i);
             mPictures[i].setVisibility(View.GONE);
         }
 
 
 
-        try{
-            layoutMap.setVisibility(View.GONE);
-        }catch(Exception e){
-            Log.d(TAG,"layout visible");
-        }
-
         final ArrayAdapter adapterPeriodRent = ArrayAdapter.createFromResource(getActivity(), R.array.rending_period_array, R.layout.spinner_item);
         adapterPeriodRent.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mPeriodRenting.setAdapter(adapterPeriodRent);
 
-        mRoomDescription = v.findViewById(R.id.descriptionField);
+        mRoomDescription = v.findViewById(R.id.room_edit_descriptionField);
 
-        final MapFragment mapFragment = new MapFragment();
+        mMapFragment = new MapFragment();
         final FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.showmapfragment, mapFragment).commit();
+        transaction.replace(R.id.room_edit_showmapfragment, mMapFragment).commit();
 
-            // Initialize Places.
-            Places.initialize(getApplicationContext(), getString(R.string.google_cloud_api_key));
+        // Initialize Places.
+        Places.initialize(getApplicationContext(), getString(R.string.google_cloud_api_key));
 
-            // Create a new Places client instance.
-            PlacesClient placesClient = Places.createClient(getActivity());
+        // Create a new Places client instance.
+        Places.createClient(getActivity());
 
-            // Initialize the AutocompleteSupportFragment.
-            AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
-                    getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+        // Initialize the AutocompleteSupportFragment.
+        mAutocompleteFragment = (AutocompleteSupportFragment)
+                getChildFragmentManager().findFragmentById(R.id.room_edit_autocomplete_fragment);
 
-            //autocompleteFragment.setTypeFilter(TypeFilter.GEOCODE);
+        //autocompleteFragment.setTypeFilter(TypeFilter.GEOCODE);
 
-            // Specify the types of place data to return.
-            autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.LAT_LNG, Place.Field.NAME));
-
-
+        // Specify the types of place data to return.
+        mAutocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.LAT_LNG, Place.Field.NAME));
 
 
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+
+
+        mAutocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
                 // txtView.setText(place.getName()+","+place.getId());
@@ -158,16 +160,16 @@ public class RoomCreationFragment extends SingleFragment {
 
                 try {
                     layoutMap.setVisibility(View.VISIBLE);
-                    mapFragment.updateSite(place.getLatLng());
+                    mMapFragment.updateSite(place.getLatLng());
                 }catch (Exception e){
-                   // Toast.makeText(getContext(), "No map", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getContext(), "No map", Toast.LENGTH_SHORT).show();
                     layoutMap.setVisibility(View.GONE);
                 }
 
-                    mAddressID = place.getId();
+                mAddressID = place.getId();
 
-                    mAddressLatitude = Objects.requireNonNull(place.getLatLng()).latitude;
-                    mAddressLongitude = place.getLatLng().longitude;
+                mAddressLatitude = Objects.requireNonNull(place.getLatLng()).latitude;
+                mAddressLongitude = place.getLatLng().longitude;
 
 
             }
@@ -180,7 +182,7 @@ public class RoomCreationFragment extends SingleFragment {
             }
         });
 
-        mConfirmRoom.setOnClickListener(new View.OnClickListener() {
+        mEditRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mRent.length()==0 || Integer.parseInt(mRent.getText().toString())<0){
@@ -208,26 +210,24 @@ public class RoomCreationFragment extends SingleFragment {
                     Toast.makeText(getContext(), R.string.type_description_room, Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    postRoom(true);
+                    postRoom();
+                    ((SwipeActivity)getActivity()).changeToPorifleFragment();
                 }
             }
         });
 
-        mAddAnotherRoom.setOnClickListener(new View.OnClickListener() {
+        mDeleteRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                postRoom(false);
-
-
-
+                ImageController.removeAllRoomPictures(mThisPostedRoom.getRoomID());
+                ((SwipeActivity)getActivity()).removeLandlordRoom(mThisPostedRoom);
+                ((SwipeActivity)getActivity()).changeToPorifleFragment();
 
             }
         });
 
-        final Fragment  thisFragment = this;
 
-
-        mTakeRoomPicture = v.findViewById(R.id.takeroompicture);
+        mTakeRoomPicture = v.findViewById(R.id.room_edit_takeroompicture);
         mTakeRoomPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -235,7 +235,14 @@ public class RoomCreationFragment extends SingleFragment {
                 startActivityForResult(chooseImageIntent, REQUEST_CODE);
             }
         });
-
+        if (getArguments() != null){
+            mThisPostedRoom = getArguments().getParcelable(KEY_ROOM);
+            initializeRoom();
+            initializePictures();
+        }else{
+            mEditRoom.setText(R.string.confirm);
+            mDeleteRoom.setVisibility(View.GONE);
+        }
         return v;
     }
 
@@ -270,7 +277,7 @@ public class RoomCreationFragment extends SingleFragment {
             Log.d(TAG, "Error on camera/Gallery");
     }
 
-    private void postRoom(final boolean once){
+    private void postRoom(){
         if(mRent.length()==0 || Integer.parseInt(mRent.getText().toString())<0){
             mRent.setError(getString(R.string.type_rent));
             mRent.requestFocus();
@@ -285,7 +292,7 @@ public class RoomCreationFragment extends SingleFragment {
             errorText.setTextColor(Color.RED);
             errorText.setText(R.string.choose_period);
         }else if(mAddressName == null){
-                    Toast.makeText(getContext(), R.string.type_address, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.type_address, Toast.LENGTH_SHORT).show();
         }
         else if(mRoomSize.length()==0){
             mRoomSize.setError(getString(R.string.type_room_size));
@@ -311,41 +318,25 @@ public class RoomCreationFragment extends SingleFragment {
                     .withDescription(mRoomDescription.getText().toString())
                     .build();
 
-            final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-            db.collection(DataBasePath.USERS.getValue())
-                    .whereEqualTo("userID", mUserId)
-                    .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                @Override
-                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    DocumentSnapshot doc = queryDocumentSnapshots.getDocuments().get(0);
-                    Profile p = doc.toObject(Profile.class);
-                    if (p.getLandlord().getRoomsID().size() >= 3){
-                        mPopUp.showDialog(getActivity(),getString(R.string.more_three_rooms_error));
-                        mPopUp.changeToActivityOnClose(getActivity(),SwipeActivity.newIntent(getActivity()));
-                    }
-                    else
-                    {
-                        if (p.getLandlord().addRoomID(input.getRoomID())){
+            Profile p = ProfileSingleton.getInstance();
+            if (!(p.getLandlord().getRoomsID().contains(input.getRoomID()))){
+                p.getLandlord().addRoomID(input.getRoomID());
+                ProfileSingleton.update(p);
+            }
+                    //FIXME: we are uploading all pictures on each update of the room, even if the pictures remain the same.
 
-                            ProfileSingleton.update(p);
-                        }
+                    uploadRoomPictures(input.getRoomID());
+                    if (mThisPostedRoom != null)
+                        input.setRoomID(mThisPostedRoom.getRoomID());
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection(DataBasePath.ROOMS.getValue())
+                    .document(input.getRoomID())
+                    .set(input);
 
-                        db.collection(DataBasePath.ROOMS.getValue())
-                                .document(input.getRoomID())
-                                .set(input);
-                        uploadRoomPictures(input.getRoomID());
-                        if (!once){
-                            mPopUp.showDialog(getActivity(),getString(R.string.dialog_message));
-                            changeFragment(new RoomCreationFragment());
-                        }
-                        else{
-                            mPopUp.showDialog(getActivity(),getString(R.string.dialog_title));
-                            startActivity(SwipeActivity.newIntent(getActivity()));
-                        }
-                    }
-                }
-            });
+            ((SwipeActivity)getActivity()).addLandlordRoom(input);
+
+
         }
     }
     protected final boolean isPackageInstalled(String packageName) {
@@ -359,7 +350,7 @@ public class RoomCreationFragment extends SingleFragment {
 
     private void uploadRoomPictures(String roomID){
         for (int i = 0 ; i < mRoomPictures.size(); i++)
-        ImageController.setRoomPicture(roomID,mRoomPictures.get(i), i);
+            ImageController.setRoomPicture(roomID,mRoomPictures.get(i), i);
     }
     private void keepPicture(Bitmap bmp){
         int picturePosition = mRoomPictures.size();
@@ -370,7 +361,43 @@ public class RoomCreationFragment extends SingleFragment {
             mRoomPictures.add(bmp);
         }
     }
+    private void initializeRoom(){
+        mRent.setText(Integer.toString(mThisPostedRoom.getRent()));
+        mDeposit.setText(Integer.toString(mThisPostedRoom.getDeposit()));
+        mRoomSize.setText(Integer.toString(mThisPostedRoom.getSize()));
+        mInternet.setChecked(mThisPostedRoom.isInternet());
+        mFurnished.setChecked(mThisPostedRoom.isFurnished());
+        mCommonArea.setChecked(mThisPostedRoom.isComonAreas());
+        mLaundry.setChecked(mThisPostedRoom.isLaundry());
+        mPeriodRenting.setSelection(mThisPostedRoom.getPeriodOfRenting());
+        mRoomDescription.setText(mThisPostedRoom.getDescription());
+        mAddressName = mThisPostedRoom.getCompleteAddress();
+        mAddressLatitude = mThisPostedRoom.getLatitude();
+        mAddressLongitude = mThisPostedRoom.getLongitude();
+        mAutocompleteFragment.setText(mThisPostedRoom.getCompleteAddress());
+        LatLng coordinates = new LatLng(mThisPostedRoom.getLatitude(), mThisPostedRoom.getLongitude());
+        mMapFragment.initializeSite(coordinates);
+    }
+    //multiple task are working in the same for loop. using the same index when putting pictures.
+    private  void initializePictures(){
+            Task[] t = ImageController.getAllRoomPicture(mThisPostedRoom.getRoomID());
+            for (int i = 0 ; i < 9 ; i++){
+                synchronized (this){
+                    final  int k = i;
+                    t[i].addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            Bitmap picture;
+                            picture = PictureConversion.byteArrayToBitmap(bytes);
+                            mPictures[k].setImageBitmap(picture);
+                            mPictures[k].setVisibility(View.VISIBLE);
+                            keepPicture(picture);
+                        }
+                    });
+                }
+        }
+
+    }
 
 
 }
-

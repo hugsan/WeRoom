@@ -30,6 +30,7 @@ public class ProfileInfoFragment extends Fragment {
     private Button mSettingButton;
     private Button mEditButton;
     private Button mEditSubProfile;
+    private Button mModifyRoom;
     private TextView mShowName;
     private TextView mShowAge;
     private TextView mShowRole;
@@ -37,7 +38,7 @@ public class ProfileInfoFragment extends Fragment {
     private TextView mShowGender;
     private ImageView mProfilePicture;
     private TagView mTag;
-    @SuppressLint("SetTextI18n")
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
@@ -53,14 +54,19 @@ public class ProfileInfoFragment extends Fragment {
         mEditButton = v.findViewById(R.id.profile_edit_profile);
         mSettingButton = v.findViewById(R.id.profile_account_setting);
         mEditSubProfile = v.findViewById(R.id.modify_sub_profile);
+        mModifyRoom = v.findViewById(R.id.modify_rooms);
 
         final Profile p = ProfileSingleton.getInstance();
 
 
-        if (p.getRole().equals("Landlord"))
+        if (p.getRole().equals("Landlord")){
             mEditSubProfile.setText(R.string.edit_landlord);
-        else
+            mModifyRoom.setText(R.string.edit_rooms);
+        }
+        else{
+            mModifyRoom.setVisibility(View.GONE);
             mEditSubProfile.setText(R.string.edit_tenant);
+        }
         for (String s : p.getTags())
             mTag.addTag(s, false);
 
@@ -111,6 +117,14 @@ public class ProfileInfoFragment extends Fragment {
                 }
             }
         });
+
+        mModifyRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((SwipeActivity)getActivity()).changeToRoomEditing();
+            }
+        });
+
 
 
         return v;

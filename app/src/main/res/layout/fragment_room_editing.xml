@@ -28,7 +28,7 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:id="@+id/numberOfPictures"
+                android:id="@+id/room_edit_numberOfPictures"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
@@ -40,7 +40,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/minimumPictures"
+                android:id="@+id/room_edit_minimumPictures"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
@@ -65,7 +65,7 @@
                         android:orientation="horizontal">
 
                         <ImageButton
-                            android:id="@+id/takeroompicture"
+                            android:id="@+id/room_edit_takeroompicture"
                             android:layout_width="92dp"
                             android:layout_height="147dp"
                             android:layout_marginStart="50dp"
@@ -74,7 +74,7 @@
                             android:src="@drawable/ic_add_a_photo_white_24dp" />
 
                         <ImageView
-                            android:id="@+id/picturepreviewnr1"
+                            android:id="@+id/room_edit_picturepreviewnr1"
                             android:layout_width="92dp"
                             android:layout_height="147dp"
                             android:layout_marginStart="30dp"
@@ -82,7 +82,7 @@
                             android:background="#FF5A60" />
 
                         <ImageView
-                            android:id="@+id/picturepreviewnr2"
+                            android:id="@+id/room_edit_picturepreviewnr2"
                             android:layout_width="92dp"
                             android:layout_height="147dp"
                             android:layout_marginStart="30dp"
@@ -90,7 +90,7 @@
                             android:background="#FF5A60" />
 
                         <ImageView
-                            android:id="@+id/picturepreviewnr3"
+                            android:id="@+id/room_edit_picturepreviewnr3"
                             android:layout_width="92dp"
                             android:layout_height="147dp"
                             android:layout_marginStart="30dp"
@@ -98,7 +98,7 @@
                             android:background="#FF5A60" />
 
                         <ImageView
-                            android:id="@+id/picturepreviewnr4"
+                            android:id="@+id/room_edit_picturepreviewnr4"
                             android:layout_width="92dp"
                             android:layout_height="147dp"
                             android:layout_marginStart="30dp"
@@ -106,7 +106,7 @@
                             android:background="#FF5A60" />
 
                         <ImageView
-                            android:id="@+id/picturepreviewnr5"
+                            android:id="@+id/room_edit_picturepreviewnr5"
                             android:layout_width="92dp"
                             android:layout_height="147dp"
                             android:layout_marginStart="30dp"
@@ -114,7 +114,7 @@
                             android:background="#FF5A60" />
 
                         <ImageView
-                            android:id="@+id/picturepreviewnr6"
+                            android:id="@+id/room_edit_picturepreviewnr6"
                             android:layout_width="92dp"
                             android:layout_height="147dp"
                             android:layout_marginStart="30dp"
@@ -122,7 +122,7 @@
                             android:background="#FF5A60" />
 
                         <ImageView
-                            android:id="@+id/picturepreviewnr7"
+                            android:id="@+id/room_edit_picturepreviewnr7"
                             android:layout_width="92dp"
                             android:layout_height="147dp"
                             android:layout_marginStart="30dp"
@@ -130,7 +130,7 @@
                             android:background="#FF5A60" />
 
                         <ImageView
-                            android:id="@+id/picturepreviewnr8"
+                            android:id="@+id/room_edit_picturepreviewnr8"
                             android:layout_width="92dp"
                             android:layout_height="147dp"
                             android:layout_marginStart="30dp"
@@ -138,7 +138,7 @@
                             android:background="#FF5A60" />
 
                         <ImageView
-                            android:id="@+id/picturepreviewnr9"
+                            android:id="@+id/room_edit_picturepreviewnr9"
                             android:layout_width="92dp"
                             android:layout_height="147dp"
                             android:layout_marginStart="30dp"
@@ -146,7 +146,7 @@
                             android:background="#FF5A60" />
 
                         <ImageView
-                            android:id="@+id/picturepreviewnr10"
+                            android:id="@+id/room_edit_picturepreviewnr10"
                             android:layout_width="92dp"
                             android:layout_height="147dp"
                             android:layout_marginStart="30dp"
@@ -159,7 +159,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/rentMonth"
+                android:id="@+id/room_edit_rentMonth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
@@ -170,7 +170,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/rentInput"
+                android:id="@+id/room_edit_rentInput"
                 android:layout_width="173dp"
                 android:layout_height="38dp"
                 android:layout_marginStart="50dp"
@@ -187,7 +187,7 @@
                 android:textColorHint="@color/quantum_grey" />
 
             <TextView
-                android:id="@+id/deposit"
+                android:id="@+id/room_edit_deposit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
@@ -199,7 +199,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/depositroom"
+                android:id="@+id/room_edit_depositroom"
                 android:layout_width="173dp"
                 android:layout_height="38dp"
                 android:layout_marginStart="50dp"
@@ -217,7 +217,7 @@
                 android:textColorHint="@color/quantum_grey" />
 
             <TextView
-                android:id="@+id/rentPeriod"
+                android:id="@+id/room_edit_rentPeriod"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
@@ -229,7 +229,7 @@
                 android:textSize="18sp" />
 
             <Spinner
-                android:id="@+id/PeriodRentingRoomFragment"
+                android:id="@+id/room_edit_PeriodRentingRoomFragment"
                 android:layout_width="229dp"
                 android:layout_height="38dp"
                 android:layout_marginStart="50dp"
@@ -241,7 +241,7 @@
                 android:spinnerMode="dropdown" />
 
             <TextView
-                android:id="@+id/address"
+                android:id="@+id/room_edit_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
@@ -253,7 +253,7 @@
                 android:textSize="18sp" />
 
             <android.support.v7.widget.CardView
-                android:id="@+id/idCardView"
+                android:id="@+id/room_edit_idCardView"
                 android:layout_width="323dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="50dp"
@@ -262,30 +262,30 @@
                 app:cardCornerRadius="4dp">
 
                 <fragment
-                    android:id="@+id/autocomplete_fragment"
+                    android:id="@+id/room_edit_autocomplete_fragment"
                     android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </android.support.v7.widget.CardView>
 
             <LinearLayout
-                android:id="@+id/layoutmap"
+                android:id="@+id/room_edit_layoutmap"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            <fragment
-                android:id="@+id/showmapfragment"
-                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-                android:layout_width="320dp"
-                android:layout_height="330dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="50dp"
-                 />
+                <fragment
+                    android:id="@+id/room_edit_showmapfragment"
+                    android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                    android:layout_width="320dp"
+                    android:layout_height="330dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
+                    />
             </LinearLayout>
 
             <TextView
-                android:id="@+id/roomSize"
+                android:id="@+id/room_edit_roomSize"
                 android:layout_width="169dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
@@ -297,7 +297,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/roomsizeroomfragment"
+                android:id="@+id/room_edit_roomsizeroomfragment"
                 android:layout_width="173dp"
                 android:layout_height="38dp"
                 android:layout_marginStart="50dp"
@@ -319,7 +319,7 @@
                 android:orientation="horizontal">
 
                 <CheckBox
-                    android:id="@+id/checkFurnished"
+                    android:id="@+id/room_edit_checkFurnished"
                     android:layout_width="44dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
@@ -330,7 +330,7 @@
                     android:textColor="@color/black" />
 
                 <CheckBox
-                    android:id="@+id/checkBoxInternet"
+                    android:id="@+id/room_edit_checkBoxInternet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
@@ -349,7 +349,7 @@
                 android:orientation="horizontal">
 
                 <CheckBox
-                    android:id="@+id/checkBoxLaundry"
+                    android:id="@+id/room_edit_checkBoxLaundry"
                     android:layout_width="8dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
@@ -360,7 +360,7 @@
                     android:textColor="@color/black" />
 
                 <CheckBox
-                    android:id="@+id/checkBoxCommonArea"
+                    android:id="@+id/room_edit_checkBoxCommonArea"
                     android:layout_width="44dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -373,7 +373,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/description"
+                android:id="@+id/room_edit_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
@@ -385,7 +385,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/descriptionField"
+                android:id="@+id/room_edit_descriptionField"
                 android:layout_width="match_parent"
                 android:layout_height="129dp"
                 android:layout_marginStart="50dp"
@@ -402,30 +402,30 @@
                 android:textColorHint="@color/quantum_grey" />
 
             <Button
-                android:id="@+id/postRoomButton"
+                android:id="@+id/room_edit_postEditRoom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/drawable_custom_button"
-                android:text="@string/post" />
+                android:text="@string/edit_room" />
 
             <Button
-                android:id="@+id/addMoreRooms"
+                android:id="@+id/room_edit_deleteroom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="70dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="70dp"
                 android:background="@drawable/drawable_custom_button"
-                android:text="@string/add_more_rooms"
+                android:text="@string/delete_room"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                 />
+                />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/room_edit_imageButton"
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
                 android:layout_marginTop="20dp"

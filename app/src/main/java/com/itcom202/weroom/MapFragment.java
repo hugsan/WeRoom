@@ -30,6 +30,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     GooglePlayServicesUtil gps;
     private FusedLocationProviderClient fusedLocationClient;
     CameraUpdateFactory mCameraUpdateFactory;
+    private LatLng mInitialPosition;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,9 +74,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         map.getUiSettings().setIndoorLevelPickerEnabled(false);
         map.getUiSettings().setZoomControlsEnabled(true);
 
+        if (mInitialPosition != null){
+            updateSite(mInitialPosition);
+        }
 
 
 
+
+
+    }
+    public void initializeSite(LatLng position){
+        mInitialPosition = position;
 
     }
     public void updateSite(LatLng position){

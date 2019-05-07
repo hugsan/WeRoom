@@ -1,6 +1,5 @@
 package com.itcom202.weroom.swipe;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Spinner;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -24,6 +22,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.DataBasePath;
+import com.itcom202.weroom.account.profiles.LandlordProfileFragment;
 import com.itcom202.weroom.account.profiles.Profile;
 import com.itcom202.weroom.account.profiles.ProfileFragment;
 import com.itcom202.weroom.account.profiles.ProfileTenantFragment;
@@ -228,7 +227,35 @@ public class SwipeActivity extends AppCompatActivity {
                 .commit();
     }
     public void changeToLandlordEditFragment(){
-
+        FragmentManager fm = getSupportFragmentManager();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(LandlordProfileFragment.KET_INITIALIZE,true);
+        Fragment fragment = new LandlordProfileFragment();
+        fragment.setArguments(bundle);
+        fm.beginTransaction()
+                .replace(R.id.fragment_container_top, fragment)
+                .commit();
+    }
+    public void changeToRoomEditing(){
+        FragmentManager fm = getSupportFragmentManager();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(EditRoomsFragment.KEY_ROOMS,mLandlordsRooms);
+        Fragment fragment = new EditRoomsFragment();
+        fragment.setArguments(bundle);
+        fm.beginTransaction()
+                .replace(R.id.fragment_container_top, fragment)
+                .commit();
+    }
+    public void addLandlordRoom(RoomPosted rooms){
+        if (mLandlordsRooms.contains(rooms)){
+            int position = mLandlordsRooms.indexOf(rooms);
+            mLandlordsRooms.set(position,rooms);
+        }else{
+            mLandlordsRooms.add(rooms);
+        }
+    }
+    public void removeLandlordRoom(RoomPosted room){
+        mLandlordsRooms.remove(room);
     }
 
 }
