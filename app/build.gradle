@@ -67,6 +67,9 @@ dependencies {
 
     //library for swiping
     implementation 'com.github.nihad92:SwipeableCards:1.0.19'
+    //library for notification
+    implementation "com.android.support:support-compat:28.0.0"
+
 
 
 }

@@ -1,11 +1,20 @@
 package com.itcom202.weroom;
 
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,11 +38,12 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
+    NotificationManager mNotificationManager;
+
     private Profile userProfile;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         Log.i(TAG,"User logged in: "+ firebaseAuth.getCurrentUser());
         //if there is no user logged in Firebase it starts LoginActivity

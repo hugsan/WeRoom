@@ -19,10 +19,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.itcom202.weroom.NotificationService;
 import com.itcom202.weroom.ProfileSingleton;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.profiles.DataBasePath;
 import com.itcom202.weroom.account.profiles.LandlordProfileFragment;
+import com.itcom202.weroom.account.profiles.Match;
 import com.itcom202.weroom.account.profiles.Profile;
 import com.itcom202.weroom.account.profiles.ProfileFragment;
 import com.itcom202.weroom.account.profiles.ProfileTenantFragment;
@@ -53,6 +55,7 @@ public class SwipeActivity extends AppCompatActivity {
         Menu bottomNavigationViewMenu = bottomNavigationView.getMenu();
         bottomNavigationViewMenu.findItem(R.id.action_profile).setChecked(false);
         mActiveBottomNavigationViewMenuItem = bottomNavigationViewMenu.findItem(R.id.action_home).setChecked(true);
+
 
 
 
@@ -91,7 +94,6 @@ public class SwipeActivity extends AppCompatActivity {
                     mActiveBottomNavigationViewMenuItem.setChecked(false);
                     mActiveBottomNavigationViewMenuItem = item;
                 }
-
                 return true;
             }
         });
@@ -159,11 +161,12 @@ public class SwipeActivity extends AppCompatActivity {
             });
         }
 
-
     }
     private MenuItem mActiveBottomNavigationViewMenuItem;
 
     private void startFragmentFromTenant(){
+        startNotificationService();
+
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(SwipeFragment.KEY_ROOM_LIST_ALL, mAllPostedRooms);
 
@@ -179,6 +182,7 @@ public class SwipeActivity extends AppCompatActivity {
 
     }
     private void startFragmentFromLandlord(){
+        startNotificationService();
         mAllProfilesFromQuery.removeAll(mNonTenantProfiles);
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(SwipeFragment.KEY_TENANT_LIST, mAllProfilesFromQuery);
@@ -256,6 +260,22 @@ public class SwipeActivity extends AppCompatActivity {
     }
     public void removeLandlordRoom(RoomPosted room){
         mLandlordsRooms.remove(room);
+    }
+    public void startNotificationService(){
+        ArrayList<Match> matches = new ArrayList<>();
+        ArrayList<String> ids = new ArrayList<>();
+        Profile p = ProfileSingleton.getInstance();
+        if (p.getRole().equals("Landlord")){
+            for (RoomPosted r : mLandlordsRooms){
+                matches.add(r.getMatch());
+                ids.add(r.getRoomID());
+            }
+        }else{
+            matches.add(p.getMatch());
+            ids.add(p.getUserID());
+        }
+        startService(NotificationService.getIntent(this,matches,ids));
+
     }
 
 }
