@@ -29,8 +29,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar"
-        android:windowSoftInputMode="adjustPan|stateHidden">
+        android:theme="@style/Theme.AppCompat.NoActionBar">
         <service
             android:name=".NotificationService"
             android:enabled="true"
@@ -38,7 +37,8 @@
 
         <activity android:name=".swipe.SwipeActivity" />
         <activity android:name=".account.LoginActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

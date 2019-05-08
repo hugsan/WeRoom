@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -28,18 +29,31 @@
 
         <EditText
             android:id="@+id/msg_type"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.7"
-            android:hint="Input message" />
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_weight="2"
+            android:background="@drawable/custom_rounded_edittext"
+            android:ems="10"
+            android:hint="Write a message"
+            android:inputType="text"
+            android:paddingHorizontal="10dp"
+            android:shadowColor="@color/black"
+            android:layout_gravity="center"
+            android:text=""
+            android:textColor="@color/black"
+            android:textColorHighlight="#FF5A60"
+            android:textColorHint="@color/quantum_grey"
+            android:textColorLink="#FF5A60" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_chat_send"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.3"
-            android:background="@color/background_floating_material_dark"
-            android:text="Send"
-            android:textColor="@color/background_material_light" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            android:padding="20dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/ic_send" />
     </LinearLayout>
+
 </LinearLayout>

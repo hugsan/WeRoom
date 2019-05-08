@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         app:itemBackground="@color/tag_bg"
         app:itemIconTint="@drawable/nav_item_color_state"
-
         app:itemTextColor="@drawable/nav_item_color_state"
         app:menu="@menu/bottom_navigation_main" />
 

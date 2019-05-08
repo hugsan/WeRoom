@@ -6,7 +6,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/bubble_in"
+        android:background="@drawable/their_message"
         android:orientation="vertical"
         android:paddingBottom="10dp">
 
@@ -14,9 +14,10 @@
             android:id="@+id/txt_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="100dp"
-            android:padding="5dp"
-            android:textColor="@android:color/holo_red_dark" />
+            android:textColor="@color/black"
+            android:padding="10dp"
+            android:elevation="2dp"
+            android:textSize="18dp" />
 
     </LinearLayout>
 

@@ -7,11 +7,8 @@
 
     <FrameLayout
         android:id="@+id/fragment_container_top"
-        android:layout_width="399dp"
-        android:layout_height="584dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp">
+        android:layout_width="430dp"
+        android:layout_height="600dp">
 
     </FrameLayout>
 
@@ -20,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="2dp"
+        android:layout_below="@+id/fragment_container_top"
         android:background="#FF5A60"
         app:itemBackground="@android:color/transparent"
         app:itemIconTint="@drawable/nav_item_color_state"
