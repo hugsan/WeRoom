@@ -219,10 +219,17 @@
     <!-- strings related to EditProfileFragment -->
     <string name="edit_profile">Edit profile</string>
     <string name="edit_landlord">Edit landlord</string>
-    <string name="edit_tenant">Edit tenant</string>
+    <string name="edit_tenant">Edit search criteria</string>
+    <string name="current_role">Your current role:</string>
+
+    <!-- Strings related to fragment_room_editing -->
     <string name="edit_rooms">Edit rooms</string>
-    <string name="edit_room">Edit room</string>
+    <string name="edit_room">Edit your room</string>
+    <string name="edit_the_room">Edit room</string>
     <string name="delete_room">Delete room</string>
+
+
+
 
 
     <!-- notification string -->

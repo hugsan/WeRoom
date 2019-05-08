@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/room_edit_postRoom"
@@ -22,7 +22,7 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="50dp"
-                android:text="@string/post_room"
+                android:text="@string/edit_room"
                 android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 android:textSize="30sp" />
@@ -208,11 +208,11 @@
                 android:layout_weight="1"
                 android:autofillHints=""
                 android:background="@drawable/custom_rounded_edittext"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:ems="10"
                 android:hint="DKK"
                 android:inputType="number"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/quantum_grey" />
 
@@ -280,8 +280,7 @@
                     android:layout_height="330dp"
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="50dp"
-                    />
+                    android:layout_marginEnd="50dp" />
             </LinearLayout>
 
             <TextView
@@ -305,13 +304,13 @@
                 android:layout_weight="1"
                 android:autofillHints=""
                 android:background="@drawable/custom_rounded_edittext"
-                android:textColorHint="@color/quantum_grey"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:ems="10"
                 android:hint="m2"
                 android:inputType="number"
-                android:textColor="@color/black" />
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/quantum_grey" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -403,26 +402,24 @@
 
             <Button
                 android:id="@+id/room_edit_postEditRoom"
-                android:layout_width="match_parent"
+                android:layout_width="155dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/drawable_custom_button"
-                android:text="@string/edit_room" />
+                android:text="@string/edit_the_room" />
 
             <Button
                 android:id="@+id/room_edit_deleteroom"
-                android:layout_width="match_parent"
+                android:layout_width="155dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="70dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="70dp"
                 android:background="@drawable/drawable_custom_button"
                 android:text="@string/delete_room"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="parent"
-                />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <ImageButton
                 android:id="@+id/room_edit_imageButton"

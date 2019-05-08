@@ -538,12 +538,11 @@
             <Button
                 android:id="@+id/confirmButton_tenantProfile"
                 android:layout_width="166dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_height="match_parent"
                 android:layout_marginTop="30dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:background="@drawable/drawable_custom_button"
-                android:gravity="center_horizontal"
                 android:text="@string/confirm" />
 
             <ImageView
