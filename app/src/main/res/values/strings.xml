@@ -236,4 +236,8 @@
     <string name="channel_name">WeRoom match</string>
     <string name="channel_description">WeRoom showing when users get a new match</string>
 
+    <!-- setting string -->
+    <string name="delete_account">Delete account</string>
+    <string name="battery_safe">Battery safe mode</string>
+
 </resources>

@@ -1,11 +1,14 @@
 package com.itcom202.weroom.account.profiles;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -77,6 +80,7 @@ public class RoomCreationFragment extends SingleFragment {
     private List<Bitmap> mRoomPictures = new ArrayList<>();
     private LinearLayout layoutMap;
     private ImageView[] mPictures = new ImageView[10];
+    private MapFragment mapFragment;
 
     String mAddressID;
     String mAddressName;
@@ -106,6 +110,9 @@ public class RoomCreationFragment extends SingleFragment {
         mAddAnotherRoom = v.findViewById(R.id.addMoreRooms);
         layoutMap = v.findViewById(R.id.layoutmap);
 
+        ConnectivityManager connManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        final NetworkInfo wifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
         for (int i = 0 ; i < 10 ; i++){
             String btnID = "picturepreviewnr"+ (i+1);
             int resID = getResources().getIdentifier(btnID, "id", Objects.requireNonNull(getActivity()).getPackageName());
@@ -127,9 +134,13 @@ public class RoomCreationFragment extends SingleFragment {
 
         mRoomDescription = v.findViewById(R.id.descriptionField);
 
-        final MapFragment mapFragment = new MapFragment();
-        final FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.showmapfragment, mapFragment).commit();
+
+        if (wifi.isConnected()){
+            mapFragment = new MapFragment();
+            final FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+            transaction.replace(R.id.showmapfragment, mapFragment).commit();
+        }
+
 
             // Initialize Places.
             Places.initialize(getApplicationContext(), getString(R.string.google_cloud_api_key));
@@ -156,13 +167,16 @@ public class RoomCreationFragment extends SingleFragment {
                 mAddressName = place.getName();
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getLatLng());
 
-                try {
-                    layoutMap.setVisibility(View.VISIBLE);
-                    mapFragment.updateSite(place.getLatLng());
-                }catch (Exception e){
-                   // Toast.makeText(getContext(), "No map", Toast.LENGTH_SHORT).show();
-                    layoutMap.setVisibility(View.GONE);
+                if (wifi.isConnected()){
+                    try {
+                        layoutMap.setVisibility(View.VISIBLE);
+                        mapFragment.updateSite(place.getLatLng());
+                    }catch (Exception e){
+                        // Toast.makeText(getContext(), "No map", Toast.LENGTH_SHORT).show();
+                        layoutMap.setVisibility(View.GONE);
+                    }
                 }
+
 
                     mAddressID = place.getId();
 

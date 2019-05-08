@@ -17,9 +17,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -30,15 +28,11 @@ import com.itcom202.weroom.account.profiles.Profile;
 
 import com.itcom202.weroom.swipe.SwipeActivity;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-
-    NotificationManager mNotificationManager;
 
     private Profile userProfile;
     @Override

@@ -104,7 +104,7 @@ public class ProfileInfoFragment extends Fragment {
         mSettingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ((SwipeActivity)getActivity()).changeToSettingFragment();
             }
         });
         mEditSubProfile.setOnClickListener(new View.OnClickListener() {

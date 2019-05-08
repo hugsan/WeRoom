@@ -2,6 +2,9 @@ package com.itcom202.weroom.swipe;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +12,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Spinner;
@@ -36,6 +40,9 @@ import java.util.List;
 
 
 public class SwipeActivity extends AppCompatActivity {
+    private final String TAG = "SwipeActivity";
+    private final String MY_PREFS_NAME = "settings_preferences";
+    private final String NOTIFICATION_VALUE = "notification";
     private ArrayList<Profile> mAllProfilesFromQuery = new ArrayList<>();
     private ArrayList<Profile> mNonTenantProfiles = new ArrayList<>();
     private ArrayList<RoomPosted> mLandlordsRooms = new ArrayList<>();
@@ -211,7 +218,11 @@ public class SwipeActivity extends AppCompatActivity {
                 .commit();
     }
     public void changeToSettingFragment(){
+        FragmentManager fm = getSupportFragmentManager();
 
+        fm.beginTransaction()
+                .replace(R.id.fragment_container_top, new SettingFragment())
+                .commit();
     }
     public void changeToPorifleFragment(){
         FragmentManager fm = getSupportFragmentManager();
@@ -250,6 +261,7 @@ public class SwipeActivity extends AppCompatActivity {
                 .replace(R.id.fragment_container_top, fragment)
                 .commit();
     }
+
     public void addLandlordRoom(RoomPosted rooms){
         if (mLandlordsRooms.contains(rooms)){
             int position = mLandlordsRooms.indexOf(rooms);
@@ -262,20 +274,37 @@ public class SwipeActivity extends AppCompatActivity {
         mLandlordsRooms.remove(room);
     }
     public void startNotificationService(){
-        ArrayList<Match> matches = new ArrayList<>();
-        ArrayList<String> ids = new ArrayList<>();
-        Profile p = ProfileSingleton.getInstance();
-        if (p.getRole().equals("Landlord")){
-            for (RoomPosted r : mLandlordsRooms){
-                matches.add(r.getMatch());
-                ids.add(r.getRoomID());
+        if (getBatteryLevel() > 10 && getNotificationOption()){
+            ArrayList<Match> matches = new ArrayList<>();
+            ArrayList<String> ids = new ArrayList<>();
+            Profile p = ProfileSingleton.getInstance();
+            if (p.getRole().equals("Landlord")){
+                for (RoomPosted r : mLandlordsRooms){
+                    matches.add(r.getMatch());
+                    ids.add(r.getRoomID());
+                }
+            }else{
+                matches.add(p.getMatch());
+                ids.add(p.getUserID());
             }
-        }else{
-            matches.add(p.getMatch());
-            ids.add(p.getUserID());
+            startService(NotificationService.getIntent(this,matches,ids));
         }
-        startService(NotificationService.getIntent(this,matches,ids));
-
+    }
+    public int getBatteryLevel(){
+        Intent BATTERYintent = this.registerReceiver(null, new IntentFilter(
+                Intent.ACTION_BATTERY_CHANGED));
+        int level = BATTERYintent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        Log.v(TAG, "LEVEL" + level);
+        return level;
+    }
+    public void changeNotificationOption(boolean option){
+        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putBoolean(NOTIFICATION_VALUE,option);
+        editor.apply();
+    }
+    public boolean getNotificationOption(){
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        return prefs.getBoolean(NOTIFICATION_VALUE,true);
     }
 
 }
