@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Spinner;
@@ -175,7 +176,8 @@ public class SwipeActivity extends AppCompatActivity {
         startNotificationService();
 
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(SwipeFragment.KEY_ROOM_LIST_ALL, mAllPostedRooms);
+        ArrayList<RoomPosted> filteredRooms = FilterController.filterRoomsFromTenant(ProfileSingleton.getInstance(),mAllPostedRooms);
+        bundle.putParcelableArrayList(SwipeFragment.KEY_ROOM_LIST_ALL, filteredRooms);
 
         FragmentManager fm = getSupportFragmentManager();
 
