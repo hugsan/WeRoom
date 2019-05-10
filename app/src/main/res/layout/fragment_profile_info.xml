@@ -206,7 +206,7 @@
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
-            <com.itcom202.weroom.account.profiles.tagDescription.TagView
+            <com.itcom202.weroom.account.onboarding.controllers.tagDescription.TagView
                 android:id="@+id/profile_tags"
                 android:layout_width="311dp"
                 android:layout_height="207dp"

@@ -34,12 +34,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <service
-            android:name=".NotificationService"
+            android:name=".services.NotificationService"
             android:enabled="true"
             android:exported="true"></service>
 
-        <activity android:name=".swipe.SwipeActivity" />
-        <activity android:name=".account.LoginActivity" />
+        <activity android:name=".interaction.SwipeActivity" />
+        <activity android:name=".account.AuthenticationAndOnBoardingActivity" />
         <activity android:name=".MainActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>

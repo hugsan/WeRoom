@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".account.profiles.ProfileFragment">
+    tools:context=".account.onboarding.views.flow.ProfileFragment">
 
 </android.support.constraint.ConstraintLayout>

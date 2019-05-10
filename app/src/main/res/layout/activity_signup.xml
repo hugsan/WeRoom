@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".account.authentification.SignFragment">
+    tools:context=".account.authentification.views.SignFragment">
 
 </android.support.constraint.ConstraintLayout>
