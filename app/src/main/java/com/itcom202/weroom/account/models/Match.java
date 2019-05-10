@@ -12,13 +12,16 @@ public class Match implements Serializable , Parcelable {
     private List<String> liked = new ArrayList<>();
     private List<String> externalLikes = new ArrayList<>();
     private List<String> dislike = new ArrayList<>();
+    private boolean lazySwipe = false;
     public Match(){}
+
 
     protected Match(Parcel in) {
         match = in.createStringArrayList();
         liked = in.createStringArrayList();
         externalLikes = in.createStringArrayList();
         dislike = in.createStringArrayList();
+        lazySwipe = in.readByte() != 0;
     }
 
     public static final Creator<Match> CREATOR = new Creator<Match>() {
@@ -44,11 +47,14 @@ public class Match implements Serializable , Parcelable {
             addMatch(elementID);
 
     }
-    public void addExternalLikes(String elementID){
+    public boolean addExternalLikes(String elementID){
         if (!externalLikes.contains(elementID))
             externalLikes.add(elementID);
-        if (liked.contains(elementID))
+        if (!lazySwipe){
             addMatch(elementID);
+        }else if (liked.contains(elementID))
+            addMatch(elementID);
+        return lazySwipe;
     }
     public void addDislike(String elementID){
         if (!dislike.contains(elementID))
@@ -88,6 +94,15 @@ public class Match implements Serializable , Parcelable {
         this.dislike = dislike;
     }
 
+    public boolean isLazySwipe() {
+        return lazySwipe;
+    }
+
+    public void setLazySwipe(boolean lazySwipe) {
+
+        this.lazySwipe = lazySwipe;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -99,5 +114,6 @@ public class Match implements Serializable , Parcelable {
         dest.writeStringList(liked);
         dest.writeStringList(externalLikes);
         dest.writeStringList(dislike);
+        dest.writeByte((byte) (lazySwipe ? 1 : 0));
     }
 }

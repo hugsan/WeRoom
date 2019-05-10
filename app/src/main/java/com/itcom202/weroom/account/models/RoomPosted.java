@@ -144,6 +144,7 @@ public class RoomPosted implements Serializable, Parcelable{
             sLaundry = laundry;
             return this;
         }
+
         public RoomPosted build(){
             RoomPosted r = new RoomPosted();
             r.mRent = sRent;

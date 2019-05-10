@@ -400,6 +400,13 @@
                 android:textColor="@color/black"
                 android:textColorHint="@color/quantum_grey" />
 
+            <Switch
+                android:id="@+id/lazy_swipe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/lazy_swipe" />
+
             <Button
                 android:id="@+id/room_edit_postEditRoom"
                 android:layout_width="155dp"

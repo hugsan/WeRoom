@@ -17,11 +17,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -87,6 +89,7 @@ public class RoomEditFragment extends Fragment {
     private RoomPosted mThisPostedRoom;
     private AutocompleteSupportFragment mAutocompleteFragment;
     private MapFragment mMapFragment;
+    private Switch mLazySwipeSwitch;
 
 
 
@@ -110,9 +113,11 @@ public class RoomEditFragment extends Fragment {
         mCommonArea = v.findViewById(R.id.room_edit_checkBoxCommonArea);
         mLaundry = v.findViewById(R.id.room_edit_checkBoxLaundry);
         mEditRoom = v.findViewById(R.id.room_edit_postEditRoom);
+        mLazySwipeSwitch = v.findViewById(R.id.lazy_swipe);
 
         mDeleteRoom = v.findViewById(R.id.room_edit_deleteroom);
         layoutMap = v.findViewById(R.id.room_edit_layoutmap);
+
 
         for (int i = 0 ; i < 10 ; i++){
             String btnID = "room_edit_picturepreviewnr"+ (i+1);
@@ -214,6 +219,13 @@ public class RoomEditFragment extends Fragment {
                     postRoom();
                     ((SwipeActivity)getActivity()).changeToPorifleFragment();
                 }
+            }
+        });
+
+        mLazySwipeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mThisPostedRoom.getMatch().setLazySwipe(isChecked);
             }
         });
 
@@ -327,6 +339,7 @@ public class RoomEditFragment extends Fragment {
                     .withDescription(mRoomDescription.getText().toString())
                     .build();
 
+            input.getMatch().setLazySwipe(mLazySwipeSwitch.isChecked());
 
             Profile p = ProfileSingleton.getInstance();
             if (!(p.getLandlord().getRoomsID().contains(input.getRoomID()))){
@@ -386,6 +399,8 @@ public class RoomEditFragment extends Fragment {
         mAutocompleteFragment.setText(mThisPostedRoom.getCompleteAddress());
         LatLng coordinates = new LatLng(mThisPostedRoom.getLatitude(), mThisPostedRoom.getLongitude());
         mMapFragment.initializeSite(coordinates);
+        mLazySwipeSwitch.setChecked(mThisPostedRoom.getMatch().isLazySwipe());
+
     }
     //multiple task are working in the same for loop. using the same index when putting pictures.
     private  void initializePictures(){

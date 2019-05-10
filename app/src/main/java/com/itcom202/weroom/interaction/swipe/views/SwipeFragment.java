@@ -190,12 +190,13 @@ public class SwipeFragment extends Fragment {
         Log.d(TAG, "RIGHT");
         //this is when we swipe a room.
         if (mCurrentAdapter.returnTopItemID().length() == 36 ){
-            mThisProfile.getMatch().addLiked(mCurrentAdapter.returnTopItemID());
-            ProfileSingleton.update(mThisProfile);
 
             RoomPosted room = mCurrentAdapter.returnTopRoom();
 
-            room.getMatch().addExternalLikes(mThisProfile.getUserID());
+            if (room.getMatch().addExternalLikes(mThisProfile.getUserID()))
+                mThisProfile.getMatch().addExternalLikes(mCurrentAdapter.returnTopItemID());
+            mThisProfile.getMatch().addLiked(mCurrentAdapter.returnTopItemID());
+            ProfileSingleton.update(mThisProfile);
 
             db.collection(DataBasePath.ROOMS.getValue())
                     .document(room.getRoomID())
