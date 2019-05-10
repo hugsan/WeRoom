@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Spinner;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
@@ -162,15 +164,27 @@ public class SwipeActivity extends AppCompatActivity {
             Query getLandlordsRooms = FirebaseFirestore.getInstance()
                     .collection(DataBasePath.ROOMS.getValue());
 
-            getLandlordsRooms.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            Task t1 = getLandlordsRooms.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                     for (DocumentSnapshot d : queryDocumentSnapshots) {
                         mAllPostedRooms.add(d.toObject(RoomPosted.class));
+                        //startFragmentFromTenant();
                     }
+                }
+            });
+            Tasks.whenAllSuccess(t1).addOnSuccessListener(new OnSuccessListener<List<Object>>() {
+                @Override
+                public void onSuccess(List<Object> list) {
                     startFragmentFromTenant();
                 }
             });
+            /*t1.addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    startFragmentFromTenant();
+                }
+            });*/
         }
 
     }

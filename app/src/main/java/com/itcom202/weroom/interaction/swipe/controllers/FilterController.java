@@ -14,24 +14,26 @@ public class FilterController {
             return null;
         }
         ArrayList<RoomPosted> result = new ArrayList<>(rooms);
+        ArrayList<RoomPosted> removeRooms = new ArrayList<>();
         TenantProfile tenant = p.getTenant();
+
         for (RoomPosted r : result){
             if (HaversineCalculator.distance(tenant.getCityLatitude(),tenant.getCityLongitude(),
                     r.getLatitude(),r.getLongitude()) > tenant.getDistanceCenter()){
-                result.remove(r);
+                removeRooms.add(r);
                 continue;
             }
             if (tenant.getMinDeposit() > r.getDeposit() || tenant.getMAxDeposit() < r.getDeposit()){
-                result.remove(r);
+                removeRooms.add(r);
                 continue;
             }
             if (tenant.getMinRent() > r.getRent() || tenant.getMaxRent() < r.getRent() ){
-                result.remove(r);
+                removeRooms.add(r);
             }
         }
         //TODO implement all other filters in future, for testing it will only filter
         //distance, deposit and rent.
-
+        result.removeAll(removeRooms);
         return result;
     }
 
@@ -40,21 +42,22 @@ public class FilterController {
             return null;
         }
         ArrayList<Profile> result = new ArrayList<>(profiles);
+        ArrayList<Profile> removeProfile = new ArrayList<>();
         LandlordProfile l = p.getLandlord();
 
         for (Profile tenant : result){
             if (!l.getTenantGender().equals(tenant.getGender())){
-                result.remove(tenant);
+                removeProfile.add(tenant);
                 continue;
             }
             if (l.getTenantMinAge() > tenant.getAge() || l.getTenantMaxAge() < tenant.getAge()){
-                result.remove(tenant);
+                removeProfile.add(tenant);
                 continue;
             }
         }
         //TODO implement all other filters in future, for testing it will only filter
         //tenant age, tenant gender.
-
+        result.removeAll(removeProfile);
         return result;
     }
 }
