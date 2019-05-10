@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.itcom202.weroom.framework.ProfileSingleton;
@@ -62,6 +63,7 @@ public class SwipeFragment extends Fragment {
         mRightButton = v.findViewById(R.id.likeButton);
         mLeftButton = v.findViewById(R.id.dislikeButton);
 
+        if(mCurrentAdapter != null){
         mRightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +75,7 @@ public class SwipeFragment extends Fragment {
             public void onClick(View v) {
                 swipeLeftAction();
             }
-        });
+        });}
         if (ProfileSingleton.getInstance().getRole().equals("Landlord" ) && getArguments() != null){
             mTenantProfiles = getArguments().getParcelableArrayList(KEY_TENANT_LIST);
             mLandlordsRooms = getArguments().getParcelableArrayList(KEY_ROOM_LIST_LANDLORD);
