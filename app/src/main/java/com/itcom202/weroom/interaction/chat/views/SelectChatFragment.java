@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -152,6 +154,7 @@ public class SelectChatFragment extends Fragment {
 
 
             private String mContact;
+            private RoomPosted mRoomPosted;
 
             public RoomHolder(LayoutInflater inflater, ViewGroup parent) {
                 super(inflater.inflate(R.layout.list_contacts, parent, false));
@@ -176,37 +179,42 @@ public class SelectChatFragment extends Fragment {
 
             public void bind(String contact) {
                 mContact = contact;
-                FirebaseFirestore.getInstance()
+                Task t1 = FirebaseFirestore.getInstance()
                         .collection(DataBasePath.ROOMS.getValue())
                         .document(contact)
                         .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        RoomPosted r = documentSnapshot.toObject(RoomPosted.class);
-                        if (r != null){
-                            mAddresTextView.setText(r.getCompleteAddress());
+                        mRoomPosted = documentSnapshot.toObject(RoomPosted.class);
+                        if (mRoomPosted != null){
+                            mAddresTextView.setText(mRoomPosted.getCompleteAddress());
                         }
 
                     }
                 });
-                FirebaseFirestore.getInstance().collection(DataBasePath.USERS.getValue())
-                        .document(mCurrentSelectedRoom.getLandlordID())
-                        .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                t1.addOnCompleteListener(new OnCompleteListener() {
                     @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Profile p = documentSnapshot.toObject(Profile.class);
-                        if (p != null){
-                            mLandlordName.setText(p.getName());
-                            mLandlordAge.setText(Integer.toString(p.getAge()));
-                            Task t = ImageController.getProfilePicture(p.getUserID());
-                            t.addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                @Override
-                                public void onSuccess(final byte[] bytes) {
-                                    mProfilePicture.setImageBitmap(PictureConversion.byteArrayToBitmap(bytes));
-                                }
-                            });
+                    public void onComplete(@NonNull Task task) {
+                        FirebaseFirestore.getInstance().collection(DataBasePath.USERS.getValue())
+                                .document(mRoomPosted.getLandlordID())
+                                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                Profile p = documentSnapshot.toObject(Profile.class);
+                                if (p != null){
+                                    mLandlordName.setText(p.getName());
+                                    mLandlordAge.setText(Integer.toString(p.getAge()));
+                                    Task t = ImageController.getProfilePicture(p.getUserID());
+                                    t.addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                        @Override
+                                        public void onSuccess(final byte[] bytes) {
+                                            mProfilePicture.setImageBitmap(PictureConversion.byteArrayToBitmap(bytes));
+                                        }
+                                    });
 
-                        }
+                                }
+                            }
+                        });
                     }
                 });
 
@@ -223,7 +231,10 @@ public class SelectChatFragment extends Fragment {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
             if (i == 1)//tenant case
                 return new ProfileHolder(layoutInflater, viewGroup);
-            return new RoomHolder(layoutInflater, viewGroup);//room case
+            else
+                return new RoomHolder(layoutInflater, viewGroup);//room case
+
+
         }
 
         @Override

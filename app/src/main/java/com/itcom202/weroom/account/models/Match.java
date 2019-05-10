@@ -50,7 +50,7 @@ public class Match implements Serializable , Parcelable {
     public boolean addExternalLikes(String elementID){
         if (!externalLikes.contains(elementID))
             externalLikes.add(elementID);
-        if (!lazySwipe){
+        if (lazySwipe){
             addMatch(elementID);
         }else if (liked.contains(elementID))
             addMatch(elementID);
