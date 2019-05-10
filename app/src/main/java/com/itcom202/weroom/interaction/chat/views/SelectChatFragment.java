@@ -15,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.itcom202.weroom.framework.DataBasePath;
 import com.itcom202.weroom.framework.ProfileSingleton;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.models.Profile;
@@ -88,8 +91,8 @@ public class SelectChatFragment extends Fragment {
     }
     private class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private class ProfileHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-            private TextView mTitleTextView;
-            private TextView mDateTextView;
+            private TextView mProfileName;
+            private TextView mProfileAge;
             private ImageView mProfilePicture;
 
             private String mContact;
@@ -98,9 +101,9 @@ public class SelectChatFragment extends Fragment {
                 super(inflater.inflate(R.layout.list_contacts, parent, false));
                 itemView.setOnClickListener(this);
 
-                mTitleTextView = itemView.findViewById(R.id.name);
-                mDateTextView = itemView.findViewById(R.id.age);
-                mProfilePicture = itemView.findViewById(R.id.list_contac_profile);
+                mProfileName = itemView.findViewById(R.id.list_contact_name);
+                mProfileAge = itemView.findViewById(R.id.list_contact_age);
+                mProfilePicture = itemView.findViewById(R.id.list_contact_profile);
             }
 
             @Override
@@ -116,8 +119,20 @@ public class SelectChatFragment extends Fragment {
             }
 
             public void bind(String contact) {
+                FirebaseFirestore.getInstance()
+                        .collection(DataBasePath.USERS.getValue())
+                        .document(contact)
+                        .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                Profile p = documentSnapshot.toObject(Profile.class);
+                                if (p != null){
+                                    mProfileName.setText(p.getName());
+                                    mProfileAge.setText(Integer.toString(p.getAge()));
+                                }
+                            }
+                });
                 mContact = contact;
-                mTitleTextView.setText(mContact);
                 Task t = ImageController.getProfilePicture(mContact);
                 t.addOnSuccessListener(new OnSuccessListener<byte[]>() {
                     @Override
@@ -130,8 +145,11 @@ public class SelectChatFragment extends Fragment {
         }
 
         private class RoomHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-            private TextView mTitleTextView;
-            private TextView mDateTextView;
+            private TextView mLandlordName;
+            private TextView mLandlordAge;
+            private TextView mAddresTextView;
+            private ImageView mProfilePicture;
+
 
             private String mContact;
 
@@ -139,8 +157,10 @@ public class SelectChatFragment extends Fragment {
                 super(inflater.inflate(R.layout.list_contacts, parent, false));
                 itemView.setOnClickListener(this);
 
-                mTitleTextView = itemView.findViewById(R.id.name);
-                mDateTextView = itemView.findViewById(R.id.age);
+                mLandlordName = itemView.findViewById(R.id.list_contact_name);
+                mLandlordAge = itemView.findViewById(R.id.list_contact_age);
+                mAddresTextView = itemView.findViewById(R.id.list_contacts_address);
+                mProfilePicture = itemView.findViewById(R.id.list_contact_profile);
             }
 
             @Override
@@ -156,8 +176,40 @@ public class SelectChatFragment extends Fragment {
 
             public void bind(String contact) {
                 mContact = contact;
-                //TODO get this values from a query
-                mTitleTextView.setText(contact);
+                FirebaseFirestore.getInstance()
+                        .collection(DataBasePath.ROOMS.getValue())
+                        .document(contact)
+                        .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        RoomPosted r = documentSnapshot.toObject(RoomPosted.class);
+                        if (r != null){
+                            mAddresTextView.setText(r.getCompleteAddress());
+                        }
+
+                    }
+                });
+                FirebaseFirestore.getInstance().collection(DataBasePath.USERS.getValue())
+                        .document(mCurrentSelectedRoom.getLandlordID())
+                        .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Profile p = documentSnapshot.toObject(Profile.class);
+                        if (p != null){
+                            mLandlordName.setText(p.getName());
+                            mLandlordAge.setText(Integer.toString(p.getAge()));
+                            Task t = ImageController.getProfilePicture(p.getUserID());
+                            t.addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                @Override
+                                public void onSuccess(final byte[] bytes) {
+                                    mProfilePicture.setImageBitmap(PictureConversion.byteArrayToBitmap(bytes));
+                                }
+                            });
+
+                        }
+                    }
+                });
+
             }
         }
         private List<String> mChatPartnerIDS;

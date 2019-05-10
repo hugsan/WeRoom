@@ -82,7 +82,7 @@ public class ProfileFragment extends SingleFragment {
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         mUserName = v.findViewById(R.id.username);
-        mAge = v.findViewById(R.id.age);
+        mAge = v.findViewById(R.id.list_contact_age);
         mCreateProfile = v.findViewById(R.id.createprofile);
         mGender = v.findViewById(R.id.spinnerGender);
         mCountry = v.findViewById(R.id.spinnerCountry);

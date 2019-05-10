@@ -9,20 +9,26 @@
     android:padding="8dp">
 
     <ImageView
-        android:id="@+id/list_contac_profile"
-        android:layout_width="0dp"
+        android:id="@+id/list_contact_profile"
+        android:layout_width="80dp"
         android:layout_height="0dp"
         android:layout_weight="1"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/list_contact_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="" />
 
     <TextView
-        android:id="@+id/age"
+        android:id="@+id/list_contact_age"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/list_contacts_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="" />
