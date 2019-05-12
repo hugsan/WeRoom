@@ -49,8 +49,6 @@ public class SwipeFragment extends Fragment {
     private RecyclerView mRecyclerView;
 
 
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -82,7 +80,7 @@ public class SwipeFragment extends Fragment {
 
             for (String s : rooms){
                 tabLayout.addTab(tabLayout.newTab().setText(s));
-                mLandlordsAdapter.add( new ListAdapter(mTenantProfiles, mLandlordsRooms,mAllRooms, mThisProfile));
+                mLandlordsAdapter.add( new ListAdapter(new ArrayList<>(mTenantProfiles), null,null, mThisProfile));
             }
             mCurrentAdapter = mLandlordsAdapter.get(0);
             tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -91,7 +89,7 @@ public class SwipeFragment extends Fragment {
                 public void onTabSelected(TabLayout.Tab tab) {
                     mCurrentSelectedRoom = mLandlordsRooms.get(tab.getPosition());
                     //mCurrentAdapter = mLandlordsAdapter.get(tab.getPosition());
-                    mRecyclerView.swapAdapter(mLandlordsAdapter.get(tab.getPosition()), false);
+                    mRecyclerView.swapAdapter(mLandlordsAdapter.get(tab.getPosition()), true);
                 }
 
                 @Override
@@ -108,7 +106,7 @@ public class SwipeFragment extends Fragment {
         if (ProfileSingleton.getInstance().getRole().equals("Tenant") && getArguments() != null){
             mAllRooms = getArguments().getParcelableArrayList(KEY_ROOM_LIST_ALL);
             tabLayout.setVisibility(View.GONE);
-            mCurrentAdapter = new ListAdapter(mTenantProfiles, mLandlordsRooms,mAllRooms, mThisProfile);
+            mCurrentAdapter = new ListAdapter(null, mLandlordsRooms,mAllRooms, mThisProfile);
         }
 
         thisFragment = this;
@@ -161,13 +159,6 @@ public class SwipeFragment extends Fragment {
         return v;
     }
 
-
-
-    public void goToInformationFragment(){
-        final CardInfoTenantFragment cardInfoTenantFragment = new CardInfoTenantFragment();
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, cardInfoTenantFragment).commit();
-    }
 
     @Override
     public void onResume() {

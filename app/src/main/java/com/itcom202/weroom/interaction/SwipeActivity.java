@@ -179,12 +179,7 @@ public class SwipeActivity extends AppCompatActivity {
                     startFragmentFromTenant();
                 }
             });
-            /*t1.addOnCompleteListener(new OnCompleteListener() {
-                @Override
-                public void onComplete(@NonNull Task task) {
-                    startFragmentFromTenant();
-                }
-            });*/
+
         }
 
     }
