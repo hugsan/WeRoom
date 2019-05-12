@@ -77,15 +77,6 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/card_lord_occupation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/rent_period"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <TextView
                     android:id="@+id/card_lord_aboutMe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -96,10 +87,19 @@
                     android:textSize="24sp" />
 
                 <TextView
+                    android:id="@+id/card_lord_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/pet_friendly"
+                    android:textColor="@color/black"
+                    android:textSize="24sp" />
+
+                <TextView
                     android:id="@+id/card_lord_description"
                     android:layout_width="match_parent"
                     android:layout_height="143dp"
-                    android:text="here the description is displayed"
                     android:textColor="@color/black" />
 
                 <TextView
@@ -112,42 +112,30 @@
                     android:textColor="@color/black"
                     android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/card_lord_internet"
-                    android:layout_width="wrap_content"
+                <CheckBox
+                    android:id="@+id/card_land_internet"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/internet"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:text="@string/internet" />
 
-                <TextView
-                    android:id="@+id/card_lord_laundry"
-                    android:layout_width="wrap_content"
+                <CheckBox
+                    android:id="@+id/card_land_laundry"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/laundry"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:text="@string/laundry" />
 
-                <TextView
-                    android:id="@+id/card_lord_furnished"
-                    android:layout_width="wrap_content"
+                <CheckBox
+                    android:id="@+id/card_land_furnished"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/furnished"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:text="@string/furnished" />
 
-                <TextView
-                    android:id="@+id/card_lord_commomarea"
-                    android:layout_width="wrap_content"
+                <CheckBox
+                    android:id="@+id/card_land_common"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/common_area"
-                    android:layout_marginBottom="60dp"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:text="@string/common_area" />
+
             </LinearLayout>
         </ScrollView>
 

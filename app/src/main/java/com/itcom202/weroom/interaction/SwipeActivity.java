@@ -207,7 +207,8 @@ public class SwipeActivity extends AppCompatActivity {
         startNotificationService();
         mAllProfilesFromQuery.removeAll(mNonTenantProfiles);
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(SwipeFragment.KEY_TENANT_LIST, mAllProfilesFromQuery);
+        ArrayList<Profile> filteredTenants = FilterController.filterProfilesFromLandlord(ProfileSingleton.getInstance(),mAllProfilesFromQuery);
+        bundle.putParcelableArrayList(SwipeFragment.KEY_TENANT_LIST, filteredTenants);
         bundle.putParcelableArrayList(SwipeFragment.KEY_ROOM_LIST_LANDLORD, mLandlordsRooms);
 
 

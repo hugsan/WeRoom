@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,14 +26,21 @@ import com.itcom202.weroom.framework.queries.ImageController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class CardInfoTenantFragment extends Fragment {
-    ImageButton mButtonExit;
-    FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
-    ImageView mPhoto;
-    Profile mProfile;
-    TagView mTagView;
+    private ImageButton mButtonExit;
+    private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+    private ImageView mPhoto;
+    private Profile mProfile;
+    private TagView mTagView;
+    private TextView mTenantName;
+    private TextView mTenantAge;
+    private TextView mTenantGender;
+    private TextView mTenantNation;
+    private TextView mSmoker;
+
     private List<String> tags = new ArrayList<>();
     private static final String KEY_TENANT = "mytenant";
 
@@ -48,6 +57,13 @@ public class CardInfoTenantFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.fragment_card_info_tenant, null, false);
 
+        mTenantName = v.findViewById(R.id.card_tenant_name);
+        mTenantAge = v.findViewById(R.id.card_tenant_age);
+        mTenantGender = v.findViewById(R.id.card_tenant_gender);
+        mTenantNation = v.findViewById(R.id.card_tenant_nation);
+        mSmoker = v.findViewById(R.id.card_tenant_smoking);
+        mTagView = v.findViewById(R.id.card_tenant_description);
+        mPhoto = v.findViewById(R.id.card_tenant_picture);
         if (getArguments() != null)
             mProfile = getArguments().getParcelable(KEY_TENANT);
         mButtonExit = v.findViewById(R.id.button_exit_info_page_tenant);
@@ -62,7 +78,22 @@ public class CardInfoTenantFragment extends Fragment {
         });
 
 
-        mPhoto = v.findViewById(R.id.card_tenant_picture);
+
+        updateUI();
+        return v;
+    }
+
+    private void updateUI(){
+        mTenantName.setText(mProfile.getName());
+        mTenantAge.setText(Integer.toString(mProfile.getAge()));
+        mTenantGender.setText(mProfile.getGender());
+        Locale l = new Locale("",mProfile.getCountry());
+        mTenantNation.setText(l.getDisplayCountry());
+        mSmoker.setText(mProfile.getTenant().getSmokeFriendly());
+
+        for (String s : mProfile.getTags())
+            mTagView.addTag(s, false);
+
         Task t = ImageController.getProfilePicture(mProfile.getUserID());
 
         t.addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -89,19 +120,5 @@ public class CardInfoTenantFragment extends Fragment {
                 });
             }
         });
-
-        mTagView = v.findViewById(R.id.card_tenant_description);
-
-//
-//        for(TagModel model:  mTagView.getSelectedTags()){
-//            tags.add(model.getTagText());
-//        }
-
-
-
-
-
-            return v;
     }
-
 }
