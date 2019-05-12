@@ -65,7 +65,9 @@ public class MessageAdapter extends ArrayAdapter<Message> {
     @Override
     public int getItemViewType(int position) {
         // return a value between 0 and (getViewTypeCount - 1)
-        return position % 2;
+        if (messages.get(position).getSenderID().equals(ProfileSingleton.getInstance().getUserID()))
+            return 1;
+        return  2;
     }
 
     private class ViewHolder {

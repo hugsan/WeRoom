@@ -17,14 +17,18 @@ import com.itcom202.weroom.framework.queries.ImageController;
 import com.itcom202.weroom.interaction.swipe.views.CardInfoRoomFragment;
 
 public class TenantState extends RecyclerView.ViewHolder implements State {
-    private TextView textView;
+    private TextView mAddressRoom;
+    private TextView mRentRoom;
+    private TextView mSizeRoom;
     private ImageView mPhoto;
     private RoomPosted room;
 
     public TenantState(@NonNull final View itemView) {
         super(itemView);
 
-        textView = itemView.findViewById(R.id.textTenantCard);
+        mAddressRoom = itemView.findViewById(R.id.textTenantCard);
+        mRentRoom = itemView.findViewById(R.id.rentOfRoom);
+        mSizeRoom = itemView.findViewById(R.id.card_room_size);
 
         mPhoto = itemView.findViewById(R.id.photoCardTenant);
         mPhoto.setOnClickListener(new View.OnClickListener() {
@@ -41,7 +45,9 @@ public class TenantState extends RecyclerView.ViewHolder implements State {
 
     public void bind(RoomPosted roomPosted) {
         room = roomPosted;
-        textView.setText(room.getCompleteAddress());
+        mAddressRoom.setText(room.getCompleteAddress());
+        mRentRoom.setText(Integer.toString(room.getRent()));
+        mSizeRoom.setText(Integer.toString(room.getSize()));
         Task t = ImageController.getRoomPicture(room.getRoomID(),0);
         t.addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override

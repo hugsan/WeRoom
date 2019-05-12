@@ -240,5 +240,9 @@
     <!-- setting string -->
     <string name="delete_account">Delete account</string>
     <string name="battery_safe">Battery safe mode</string>
+     <!-- SwipingViewHolders -->
+    <string name="name_holder">Name : %s</string>
+    <string name="age_holder">Age : %s</string>
+    <string name="nationality_holder">Nationality : %s</string>
 
 </resources>

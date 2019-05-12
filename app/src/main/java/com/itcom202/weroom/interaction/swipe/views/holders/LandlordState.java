@@ -1,5 +1,6 @@
 package com.itcom202.weroom.interaction.swipe.views.holders;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -17,8 +18,12 @@ import com.itcom202.weroom.framework.cameraandgallery.PictureConversion;
 import com.itcom202.weroom.framework.queries.ImageController;
 import com.itcom202.weroom.interaction.swipe.views.CardInfoTenantFragment;
 
+import java.util.Locale;
+
 public class LandlordState extends RecyclerView.ViewHolder implements State {
-    private TextView textView;
+    private TextView mTenantName;
+    private TextView mTenantNationallity;
+    private TextView mTenantAge;
     private ImageView mPhoto;
     private Profile  mProfile;
 
@@ -26,7 +31,9 @@ public class LandlordState extends RecyclerView.ViewHolder implements State {
     public LandlordState(@NonNull final View itemView) {
         super(itemView);
 
-        textView = itemView.findViewById(R.id.text);
+        mTenantName = itemView.findViewById(R.id.text);
+        mTenantNationallity = itemView.findViewById(R.id.nationalityOfTenant);
+        mTenantAge = itemView.findViewById(R.id.ageOfTenant);
 
         mPhoto = itemView.findViewById(R.id.photoCard);
         mPhoto.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +50,13 @@ public class LandlordState extends RecyclerView.ViewHolder implements State {
 
     public void bind(Profile profile) {
         mProfile = profile;
-        textView.setText(mProfile.getName());
+
+        Locale l = new Locale("",mProfile.getCountry());
+
+        mTenantName.setText( mProfile.getName());
+        mTenantNationallity.setText(l.getDisplayCountry());
+        mTenantAge.setText(Integer.toString(mProfile.getAge()));
+
         Task t = ImageController.getProfilePicture(mProfile.getUserID());
         t.addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
