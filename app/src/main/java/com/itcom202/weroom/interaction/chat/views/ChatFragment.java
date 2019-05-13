@@ -36,7 +36,7 @@ public class ChatFragment extends Fragment {
     private View btnSend;
     private EditText editText;
     private List<Message> chatMessages;
-        private ArrayAdapter<Message> adapter;
+    private ArrayAdapter<Message> adapter;
     private Profile mProfile = ProfileSingleton.getInstance();
     private String mChatID;
 
@@ -47,16 +47,7 @@ public class ChatFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_chat, container, false);
         if (getArguments() != null)
             mChatID = getArguments().getString(PARTNER_ID);
-/*
-        KeyboardVisibilityEvent.setEventListener(
-                getActivity(),
-                new KeyboardVisibilityEventListener() {
-                    @Override
-                    public void onVisibilityChanged(boolean isOpen) {
-                        // some code depending on keyboard visiblity status
-                    }
-                });
-*/
+
         chatMessages = new ArrayList<>();
 
         listView    =   v.findViewById(R.id.list_msg);
@@ -81,7 +72,6 @@ public class ChatFragment extends Fragment {
                     String key = messageRef.push().getKey();
                     messageRef.child(key).setValue(chatMessage);
 
-                    chatMessages.add(chatMessage);
                     adapter.notifyDataSetChanged();
                     editText.setText("");
                 }
@@ -93,10 +83,8 @@ public class ChatFragment extends Fragment {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Message message = dataSnapshot.getValue(Message.class);
-                if (!message.getSenderID().equals(mProfile.getUserID())){
-                    chatMessages.add(message);
-                    adapter.notifyDataSetChanged();
-                }
+                chatMessages.add(message);
+                adapter.notifyDataSetChanged();
             }
 
             @Override

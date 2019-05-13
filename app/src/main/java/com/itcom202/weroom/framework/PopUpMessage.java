@@ -1,4 +1,4 @@
-package com.itcom202.weroom.account.onboarding.controllers;
+package com.itcom202.weroom.framework;
 
 import android.app.Activity;
 import android.app.Dialog;
