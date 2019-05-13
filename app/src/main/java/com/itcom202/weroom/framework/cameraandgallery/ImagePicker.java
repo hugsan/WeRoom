@@ -97,7 +97,7 @@ public class ImagePicker {
             int rotation = getRotation(context, selectedImage, isCamera);
             //bm = handleSamplingAndRotationBitmap(context,selectedImage);
             if(bm.getHeight()>=bm.getWidth()) {
-                bm = rotate(bm, rotation);
+                bm = rotate(bm, rotation + 180);
             }
             else {
 
