@@ -33,7 +33,6 @@ public class MessageAdapter extends ArrayAdapter<Message> {
 
         int layoutResource = 0; // determined by view type
         Message chatMessage = getItem(position);
-        int viewType = getItemViewType(position);
 
         if (chatMessage.getSenderID().equals(p.getUserID())) {
             layoutResource = R.layout.item_chat_right; //sending chat
@@ -67,14 +66,14 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         // return a value between 0 and (getViewTypeCount - 1)
         if (messages.get(position).getSenderID().equals(ProfileSingleton.getInstance().getUserID()))
             return 1;
-        return  2;
+        return  0;
     }
 
     private class ViewHolder {
         private TextView msg;
 
         public ViewHolder(View v) {
-            msg = (TextView) v.findViewById(R.id.txt_msg);
+            msg = v.findViewById(R.id.txt_msg);
         }
     }
 }
