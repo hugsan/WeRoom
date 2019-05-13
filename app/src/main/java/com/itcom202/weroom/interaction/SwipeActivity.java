@@ -1,6 +1,7 @@
 package com.itcom202.weroom.interaction;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -11,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -25,6 +27,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.itcom202.weroom.framework.PopUpExit;
 import com.itcom202.weroom.interaction.profile.views.EditRoomsFragment;
 import com.itcom202.weroom.interaction.swipe.controllers.FilterController;
 import com.itcom202.weroom.interaction.profile.views.ProfileInfoFragment;
@@ -55,7 +58,8 @@ public class SwipeActivity extends AppCompatActivity {
     private ArrayList<RoomPosted> mLandlordsRooms = new ArrayList<>();
     private ArrayList<RoomPosted> mAllPostedRooms = new ArrayList<>();
     private Fragment swipingFragment;
-    private Spinner mRoomSpinner;
+    private PopUpExit mExitPopUp = new PopUpExit();
+
     public static Intent newIntent(Context myContext) {
         Intent i = new Intent(myContext, SwipeActivity.class);
         return i;
@@ -321,6 +325,10 @@ public class SwipeActivity extends AppCompatActivity {
     public boolean getNotificationOption(){
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         return prefs.getBoolean(NOTIFICATION_VALUE,true);
+    }
+    @Override
+    public void onBackPressed() {
+        mExitPopUp.showDialog(this,getString(R.string.close_app_msg));
     }
 
 }

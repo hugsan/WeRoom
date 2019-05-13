@@ -43,7 +43,7 @@ import com.itcom202.weroom.account.onboarding.views.widget.MapFragment;
 import com.itcom202.weroom.framework.ProfileSingleton;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.framework.DataBasePath;
-import com.itcom202.weroom.account.onboarding.controllers.PopUpMessage;
+import com.itcom202.weroom.framework.PopUpMessage;
 import com.itcom202.weroom.account.models.Profile;
 import com.itcom202.weroom.account.models.RoomPosted;
 import com.itcom202.weroom.framework.cameraandgallery.ImagePicker;
