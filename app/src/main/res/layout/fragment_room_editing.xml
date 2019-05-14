@@ -258,6 +258,7 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="4dp">
 
                 <fragment
@@ -399,21 +400,53 @@
                 android:textColor="@color/black"
                 android:textColorHint="@color/quantum_grey" />
 
-            <Switch
-                android:id="@+id/lazy_swipe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/lazy_swipe" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/room_edit_rentPeriod2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_weight="1"
+                    android:text="@string/passive_swipe"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/info_passive_swipe"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_weight="1"
+                    android:text="@string/info_passive_swipe"
+                    android:textColor="@color/quantum_grey800"
+                    android:textSize="14sp"
+                    android:textStyle="italic" />
+
+                <Switch
+                    android:id="@+id/lazy_swipe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/lazy_swipe" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/room_edit_postEditRoom"
                 android:layout_width="155dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/drawable_custom_button"
-                android:text="@string/edit_the_room" />
+                android:text="@string/confirm" />
 
             <Button
                 android:id="@+id/room_edit_deleteroom"

@@ -231,6 +231,8 @@
     <string name="edit_the_room">Edit room</string>
     <string name="delete_room">Delete room</string>
     <string name="lazy_swipe">Lazy swipe</string>
+    <string name="passive_swipe">Passive swipe?</string>
+    <string name="info_passive_swipe">If enabled, you won\'t have to swipe. Automatically matches with tenants for you.</string>
 
 
 

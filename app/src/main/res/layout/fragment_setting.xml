@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,27 +11,20 @@
         android:id="@+id/delete_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="65dp"
-        android:layout_marginEnd="283dp"
-        android:layout_marginBottom="41dp"
+        android:layout_marginTop="350dp"
+        android:background="@drawable/drawable_custom_button"
+        android:layout_centerHorizontal="true"
         android:text="@string/delete_account"
-        app:layout_constraintBottom_toTopOf="@+id/battery_safe_mode"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/battery_safe_mode" />
 
     <Switch
         android:id="@+id/battery_safe_mode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="283dp"
-        android:layout_marginBottom="478dp"
+        android:layout_marginTop="200dp"
+        android:layout_centerHorizontal="true"
         android:text="@string/battery_safe"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/delete_account" />
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
