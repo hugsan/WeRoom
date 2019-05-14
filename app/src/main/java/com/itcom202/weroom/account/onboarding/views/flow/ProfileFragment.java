@@ -60,6 +60,7 @@ public class ProfileFragment extends SingleFragment {
     private FirebaseAuth mFirebaseAuth;
     private EditText mUserName;
     private EditText mAge;
+    private TextView mRoleTextView;
     private Button mCreateProfile;
     private Spinner mGender;
     private Spinner mCountry;
@@ -83,6 +84,7 @@ public class ProfileFragment extends SingleFragment {
         mCountry = v.findViewById( R.id.spinnerCountry );
         mRole = v.findViewById( R.id.spinnerRole );
         mTag = v.findViewById( R.id.tags );
+        mRoleTextView = v.findViewById( R.id.spinnerTextfieldRole);
 
         mTag.setHint( getString( R.string.description ) );
         mTag.addTagSeparator( TagSeparator.ENTER_SEPARATOR );
@@ -272,6 +274,7 @@ public class ProfileFragment extends SingleFragment {
         mUserName.setText( p.getName( ) );
         mAge.setText( String.format( Locale.getDefault( ), "%d", p.getAge( ) ) );
         mRole.setVisibility( View.GONE );
+        mRoleTextView.setVisibility(View.GONE);
         for ( String s : p.getTags( ) )
             mTag.addTag( s, false );
         ArrayAdapter<CharSequence> adapterGender =
