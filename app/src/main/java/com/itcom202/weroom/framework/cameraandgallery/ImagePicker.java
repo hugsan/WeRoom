@@ -91,9 +91,10 @@ public class ImagePicker {
      * @param resultCode is the standard result of the operation
      * @param imageReturnedIntent this is the intent from which the method will get the picture
      * @return returns the bitmap format of the picture
+     * @throws IOException
      */
     public static Bitmap getImageFromResult(Context context, int resultCode,
-                                            Intent imageReturnedIntent)  {
+                                            Intent imageReturnedIntent) throws IOException {
         Log.d(TAG, "getImageFromResult, resultCode: " + resultCode);
         Bitmap bm = null;
         File imageFile = getTempFile(context);
