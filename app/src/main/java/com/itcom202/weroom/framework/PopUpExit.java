@@ -9,35 +9,37 @@ import android.widget.TextView;
 
 import com.itcom202.weroom.R;
 
+/**
+ * Class that creates a dialog asking the user if they wish to close the application.
+ */
 public class PopUpExit {
 
-
     public void showDialog( final Activity activity, String msg ) {
-        final Dialog dialog = new Dialog(activity);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.pop_exit);
+        final Dialog dialog = new Dialog( activity );
+        dialog.requestWindowFeature( Window.FEATURE_NO_TITLE );
+        dialog.setCancelable( false );
+        dialog.setContentView( R.layout.pop_exit );
 
-        TextView text = dialog.findViewById(R.id.textViewDialogMsg);
-        text.setText(msg);
+        TextView text = dialog.findViewById( R.id.textViewDialogMsg );
+        text.setText( msg );
 
-        Button dialogButton = dialog.findViewById(R.id.exitButton);
-        dialogButton.setOnClickListener(new View.OnClickListener() {
+        Button dialogButton = dialog.findViewById( R.id.exitButton );
+        dialogButton.setOnClickListener( new View.OnClickListener( ) {
             @Override
-            public void onClick(View v) {
-                activity.finish();
-                System.exit(0);
+            public void onClick( View v ) {
+                activity.finish( );
+                System.exit( 0 );
             }
-        });
-        Button cancelButton = dialog.findViewById(R.id.cancelButton);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
+        } );
+        Button cancelButton = dialog.findViewById( R.id.cancelButton );
+        cancelButton.setOnClickListener( new View.OnClickListener( ) {
             @Override
-            public void onClick(View v) {
-                dialog.dismiss();
+            public void onClick( View v ) {
+                dialog.dismiss( );
             }
-        });
+        } );
 
-        dialog.show();
+        dialog.show( );
 
     }
 
