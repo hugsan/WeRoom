@@ -14,41 +14,43 @@ import com.itcom202.weroom.R;
 import com.itcom202.weroom.framework.SingleFragment;
 import com.itcom202.weroom.framework.cameraandgallery.PictureConversion;
 
-
+/**
+ * Fragment used to display a picture on a fragment.
+ */
 public class OpenPictureFragment extends SingleFragment {
 
-    private String TAG ="OpenPictureFragment";
-
+    public static final String KEY_PICTURE = "picture";
+    private String TAG = "OpenPictureFragment";
     private ImageView mOpenedPicture;
     private ImageButton mButtonClose;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.open_picture_fragment, null, false);
+    public View onCreateView( @NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState ) {
+        View v = inflater.inflate( R.layout.open_picture_fragment, container, false );
 
-        mOpenedPicture = v.findViewById(R.id.openedPicture);
-        mButtonClose = v.findViewById(R.id.imageButtonClose);
+        mOpenedPicture = v.findViewById( R.id.openedPicture );
+        mButtonClose = v.findViewById( R.id.imageButtonClose );
 
-        Bundle bundle = getArguments();
+        Bundle bundle = getArguments( );
 
-        byte[] obj = (byte[]) bundle.getSerializable("picture");
-        mOpenedPicture.setImageBitmap(PictureConversion.byteArrayToBitmap(obj));
-        mButtonClose.setOnClickListener(new View.OnClickListener() {
+        byte[] obj = new byte[ 0 ];
+        if ( bundle != null ) {
+            obj = ( byte[] ) bundle.getSerializable( KEY_PICTURE );
+        }
+        mOpenedPicture.setImageBitmap( PictureConversion.byteArrayToBitmap( obj ) );
+        mButtonClose.setOnClickListener( new View.OnClickListener( ) {
             @Override
-            public void onClick(View v) {
+            public void onClick( View v ) {
                 try {
-                    assert getFragmentManager() != null;
-                    getFragmentManager().popBackStack();
-                }
-                catch(Exception e) {
-                    Log.w(TAG,"popBackStack not successful");
+                    assert getFragmentManager( ) != null;
+                    getFragmentManager( ).popBackStack( );
+                } catch ( Exception e ) {
+                    Log.w( TAG, "popBackStack not successful" );
                 }
             }
-        });
+        } );
 
         return v;
-
     }
-
 }
