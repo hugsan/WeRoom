@@ -17,18 +17,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.itcom202.weroom.framework.ProfileSingleton;
 import com.itcom202.weroom.R;
+import com.itcom202.weroom.account.models.Profile;
 import com.itcom202.weroom.framework.DataBasePath;
+import com.itcom202.weroom.framework.ProfileSingleton;
 import com.itcom202.weroom.interaction.chat.controllers.MessageAdapter;
 import com.itcom202.weroom.interaction.chat.models.Message;
-import com.itcom202.weroom.account.models.Profile;
-/*
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
-*/
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class ChatFragment extends Fragment {
     static public final String PARTNER_ID = "parner_id";
@@ -50,9 +48,9 @@ public class ChatFragment extends Fragment {
 
         chatMessages = new ArrayList<>();
 
-        listView    =   v.findViewById(R.id.list_msg);
-        btnSend     =   v.findViewById(R.id.btn_chat_send);
-        editText    =   v.findViewById(R.id.msg_type);
+        listView = v.findViewById(R.id.list_msg);
+        btnSend = v.findViewById(R.id.btn_chat_send);
+        editText = v.findViewById(R.id.msg_type);
 
         adapter = new MessageAdapter(getActivity(), R.layout.item_chat_left, chatMessages);
         listView.setAdapter(adapter);
@@ -65,7 +63,7 @@ public class ChatFragment extends Fragment {
                     Toast.makeText(getActivity(), "Please input some text...", Toast.LENGTH_SHORT).show();
                 } else {
                     //add message to list
-                    Message chatMessage = new Message(editText.getText().toString(), mProfile.getName(),mProfile.getUserID());
+                    Message chatMessage = new Message(editText.getText().toString(), mProfile.getName(), mProfile.getUserID());
 
                     DatabaseReference messageRef = FirebaseDatabase.getInstance()
                             .getReference(DataBasePath.CHAT.getValue()).child(mChatID);

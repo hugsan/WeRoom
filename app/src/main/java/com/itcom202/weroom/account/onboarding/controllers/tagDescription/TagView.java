@@ -35,18 +35,14 @@ import java.util.List;
 
 public class TagView extends FlexboxLayout implements TagClickListener {
 
-    private List<TagModel> mTagList = new ArrayList<>();
-    private List<View> mTagViewList = new ArrayList<>();
-
+    private final String EMPTY_STRING = "";
+    private final String DEFAULT_TAG_LIMIT_MESSAGE = "You reach maximum tags";
+    private List<TagModel> mTagList = new ArrayList<>( );
+    private List<View> mTagViewList = new ArrayList<>( );
     private EditText editText;
     private RecyclerView recyclerView;
     private TextView textViewAdd;
-
     private TagViewAdapter mAdapter;
-
-    private final String EMPTY_STRING = "";
-    private final String DEFAULT_TAG_LIMIT_MESSAGE = "You reach maximum tags";
-
     /**
      * This is Default Tab separator.
      * User can add different tab separator
@@ -55,7 +51,7 @@ public class TagView extends FlexboxLayout implements TagClickListener {
      * <p>
      * And the Tag separator will be special character
      */
-    private String tagSeparator = TagSeparator.valueOf(TagSeparator.COMMA_SEPARATOR.name()).getValue();
+    private String tagSeparator = TagSeparator.valueOf( TagSeparator.COMMA_SEPARATOR.name( ) ).getValue( );
 
 
     /**
@@ -84,199 +80,199 @@ public class TagView extends FlexboxLayout implements TagClickListener {
 
     private TagItemListener mTagItemListener;
 
-    private List<String> mTagItemList = new ArrayList<>();
+    private List<String> mTagItemList = new ArrayList<>( );
 
-    public TagView(Context context) {
-        super(context);
+    public TagView( Context context ) {
+        super( context );
     }
 
-    public TagView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public TagView( Context context, AttributeSet attrs ) {
+        super( context, attrs );
 
-        setFlexWrap(FlexWrap.WRAP);
+        setFlexWrap( FlexWrap.WRAP );
 
-        setJustifyContent(JustifyContent.FLEX_START);
+        setJustifyContent( JustifyContent.FLEX_START );
 
-        tagBackgroundColor = getResources().getColor(R.color.tag_bg);
+        tagBackgroundColor = getResources( ).getColor( R.color.tag_bg );
 
-        mTagTextColor = getResources().getColor(R.color.white);
+        mTagTextColor = getResources( ).getColor( R.color.white );
 
-        mAdapter = new TagViewAdapter(mTagTextColor, tagBackgroundColor);
+        mAdapter = new TagViewAdapter( mTagTextColor, tagBackgroundColor );
 
-        addEditText();
+        addEditText( );
 
-        init(attrs);
+        init( attrs );
 
     }
 
-    private void init(AttributeSet attributeSet) {
-        TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet, R.styleable.TagView);
+    private void init( AttributeSet attributeSet ) {
+        TypedArray typedArray = getContext( ).obtainStyledAttributes( attributeSet, R.styleable.TagView );
 
-        mTagTextColor = typedArray.getColor(R.styleable.TagView_tag_text_color, getResources().getColor(R.color.white));
+        mTagTextColor = typedArray.getColor( R.styleable.TagView_tag_text_color, getResources( ).getColor( R.color.white ) );
 
-        tagBackgroundColor = typedArray.getColor(R.styleable.TagView_tag_background_color, getResources().getColor(R.color.tag_bg));
+        tagBackgroundColor = typedArray.getColor( R.styleable.TagView_tag_background_color, getResources( ).getColor( R.color.tag_bg ) );
 
-        tagLimit = typedArray.getInt(R.styleable.TagView_tag_limit, 1);
+        tagLimit = typedArray.getInt( R.styleable.TagView_tag_limit, 1 );
 
-        mCrossDrawable = typedArray.getDrawable(R.styleable.TagView_close_icon);
+        mCrossDrawable = typedArray.getDrawable( R.styleable.TagView_close_icon );
 
-        mTagLimitMessage = typedArray.getString(R.styleable.TagView_limit_error_text);
+        mTagLimitMessage = typedArray.getString( R.styleable.TagView_limit_error_text );
 
 
-        int separator = typedArray.getInt(R.styleable.TagView_tag_separator, 0);
+        int separator = typedArray.getInt( R.styleable.TagView_tag_separator, 0 );
 
-        tagSeparator = convertSeparator(separator);
+        tagSeparator = convertSeparator( separator );
 
-        typedArray.recycle();
+        typedArray.recycle( );
     }
 
     /**
      * Adding a tag view in Main view
      */
-    private void addTagInView() {
-        final TagModel model = mTagList.get(mTagList.size() - 1);
+    private void addTagInView( ) {
+        final TagModel model = mTagList.get( mTagList.size( ) - 1 );
 
-        final LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View tagView = inflater.inflate(R.layout.tag_layout, null);
+        final LayoutInflater inflater = ( LayoutInflater ) getContext( ).getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+        final View tagView = inflater.inflate( R.layout.tag_layout, null );
 
-        TextView tagTextView = tagView.findViewById(R.id.text_view_tag);
+        TextView tagTextView = tagView.findViewById( R.id.text_view_tag );
 
-        ImageView imageView = tagView.findViewById(R.id.image_view_cross);
+        ImageView imageView = tagView.findViewById( R.id.image_view_cross );
 
-        LinearLayout linearLayout = tagView.findViewById(R.id.tag_container);
+        LinearLayout linearLayout = tagView.findViewById( R.id.tag_container );
 
-        GradientDrawable drawable = (GradientDrawable) linearLayout.getBackground();
+        GradientDrawable drawable = ( GradientDrawable ) linearLayout.getBackground( );
 
-        drawable.setColor(tagBackgroundColor);
+        drawable.setColor( tagBackgroundColor );
 
-        tagTextView.setTextColor(mTagTextColor);
+        tagTextView.setTextColor( mTagTextColor );
 
-        if (mCrossBitmap != null) {
-            imageView.setImageBitmap(mCrossBitmap);
-        } else if (mCrossDrawable != null) {
-            imageView.setImageDrawable(mCrossDrawable);
+        if ( mCrossBitmap != null ) {
+            imageView.setImageBitmap( mCrossBitmap );
+        } else if ( mCrossDrawable != null ) {
+            imageView.setImageDrawable( mCrossDrawable );
         }
 
         /*
          * Here we remove the tag
          * */
-        imageView.setOnClickListener(new OnClickListener() {
+        imageView.setOnClickListener( new OnClickListener( ) {
             @Override
-            public void onClick(View view) {
-                removeView(tagView);
-                mTagList.remove(model);
+            public void onClick( View view ) {
+                removeView( tagView );
+                mTagList.remove( model );
 
-                if (model.isFromList()) {
-                    mAdapter.addItem(model.getTagText());
+                if ( model.isFromList( ) ) {
+                    mAdapter.addItem( model.getTagText( ) );
                 }
 
-                if (mTagItemListener != null) {
-                    mTagItemListener.onGetRemovedItem(model);
+                if ( mTagItemListener != null ) {
+                    mTagItemListener.onGetRemovedItem( model );
                 }
 
-                invalidate();
+                invalidate( );
             }
-        });
+        } );
 
-        tagTextView.setText(model.getTagText());
+        tagTextView.setText( model.getTagText( ) );
 
-        this.addView(tagView, mTagList.indexOf(model));
+        this.addView( tagView, mTagList.indexOf( model ) );
 
-        if (mTagItemListener != null) {
-            mTagItemListener.onGetAddedItem(model);
+        if ( mTagItemListener != null ) {
+            mTagItemListener.onGetAddedItem( model );
         }
 
         // mTagViewList.add(view);
 
-        invalidate();
+        invalidate( );
 
     }
 
     /**
      * First add an Edit text to show edit form where user can create a tag
      */
-    private void addEditText() {
-        editText = new EditText(getContext());
+    private void addEditText( ) {
+        editText = new EditText( getContext( ) );
 
-        recyclerView = new RecyclerView(getContext());
+        recyclerView = new RecyclerView( getContext( ) );
 
-        textViewAdd = new TextView(getContext());
+        textViewAdd = new TextView( getContext( ) );
 
-        editText.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        editText.setLayoutParams( new LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT ) );
 
 
-        editText.addTextChangedListener(new TextWatcher() {
+        editText.addTextChangedListener( new TextWatcher( ) {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged( CharSequence charSequence, int i, int i1, int i2 ) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onTextChanged( CharSequence charSequence, int i, int i1, int i2 ) {
 
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.toString().contains(tagSeparator)) {
-                    if (mTagList.size() < tagLimit) {
-                        String tagText = editable.toString();
-                        tagText = tagText.replace(tagSeparator, EMPTY_STRING);
+            public void afterTextChanged( Editable editable ) {
+                if ( editable.toString( ).contains( tagSeparator ) ) {
+                    if ( mTagList.size( ) < tagLimit ) {
+                        String tagText = editable.toString( );
+                        tagText = tagText.replace( tagSeparator, EMPTY_STRING );
 
-                        addTag(tagText, false);
+                        addTag( tagText, false );
 
-                        editText.setText("");
+                        editText.setText( "" );
                     } else {
-                        showTagLimitMessage();
+                        showTagLimitMessage( );
                     }
 
                 } else {
-                    mAdapter.getFilter().filter(editable.toString());
-                    mAdapter.notifyDataSetChanged();
+                    mAdapter.getFilter( ).filter( editable.toString( ) );
+                    mAdapter.notifyDataSetChanged( );
 
-                    if (mAdapter.getItemCount() == 0) {
-                        textViewAdd.setVisibility(VISIBLE);
-                        recyclerView.setVisibility(GONE);
-                        textViewAdd.setText(editable.toString());
+                    if ( mAdapter.getItemCount( ) == 0 ) {
+                        textViewAdd.setVisibility( VISIBLE );
+                        recyclerView.setVisibility( GONE );
+                        textViewAdd.setText( editable.toString( ) );
                     } else {
-                        textViewAdd.setVisibility(GONE);
-                        recyclerView.setVisibility(VISIBLE);
+                        textViewAdd.setVisibility( GONE );
+                        recyclerView.setVisibility( VISIBLE );
                     }
                 }
 
-                if (editable.toString().isEmpty()) {
-                    textViewAdd.setVisibility(GONE);
-                    recyclerView.setVisibility(VISIBLE);
+                if ( editable.toString( ).isEmpty( ) ) {
+                    textViewAdd.setVisibility( GONE );
+                    recyclerView.setVisibility( VISIBLE );
                 }
             }
-        });
+        } );
 
 
     }
 
-    private String convertSeparator(int separator) {
+    private String convertSeparator( int separator ) {
         String tagSeparator = "";
-        switch (separator) {
+        switch ( separator ) {
             case 1:
-                tagSeparator = TagSeparator.valueOf(TagSeparator.COMMA_SEPARATOR.name()).getValue();
+                tagSeparator = TagSeparator.valueOf( TagSeparator.COMMA_SEPARATOR.name( ) ).getValue( );
                 break;
             case 2:
-                tagSeparator = TagSeparator.valueOf(TagSeparator.PLUS_SEPARATOR.name()).getValue();
+                tagSeparator = TagSeparator.valueOf( TagSeparator.PLUS_SEPARATOR.name( ) ).getValue( );
                 break;
             case 3:
-                tagSeparator = TagSeparator.valueOf(TagSeparator.MINUS_SEPARATOR.name()).getValue();
+                tagSeparator = TagSeparator.valueOf( TagSeparator.MINUS_SEPARATOR.name( ) ).getValue( );
                 break;
             case 4:
-                tagSeparator = TagSeparator.valueOf(TagSeparator.SPACE_SEPARATOR.name()).getValue();
+                tagSeparator = TagSeparator.valueOf( TagSeparator.SPACE_SEPARATOR.name( ) ).getValue( );
                 break;
             case 5:
-                tagSeparator = TagSeparator.valueOf(TagSeparator.AT_SEPARATOR.name()).getValue();
+                tagSeparator = TagSeparator.valueOf( TagSeparator.AT_SEPARATOR.name( ) ).getValue( );
                 break;
             case 6:
-                tagSeparator = TagSeparator.valueOf(TagSeparator.HASH_SEPARATOR.name()).getValue();
+                tagSeparator = TagSeparator.valueOf( TagSeparator.HASH_SEPARATOR.name( ) ).getValue( );
                 break;
             case 7:
-                tagSeparator = TagSeparator.valueOf(TagSeparator.ENTER_SEPARATOR.name()).getValue();
+                tagSeparator = TagSeparator.valueOf( TagSeparator.ENTER_SEPARATOR.name( ) ).getValue( );
                 break;
         }
         return tagSeparator;
@@ -287,20 +283,20 @@ public class TagView extends FlexboxLayout implements TagClickListener {
      *
      * @param text It takes String and create a mode {@link TagModel}
      */
-    public void addTag(String text, boolean isFromList) {
-        if (text.equals("")) {
+    public void addTag( String text, boolean isFromList ) {
+        if ( text.equals( "" ) ) {
             //text = EMPTY_STRING;
-            Toast.makeText(getContext(), R.string.empty_tag,
-                    Toast.LENGTH_SHORT).show();
-        }else {
+            Toast.makeText( getContext( ), R.string.empty_tag,
+                    Toast.LENGTH_SHORT ).show( );
+        } else {
 
-            TagModel model = new TagModel();
-            model.setTagText(text);
-            model.setFromList(isFromList);
+            TagModel model = new TagModel( );
+            model.setTagText( text );
+            model.setFromList( isFromList );
 
-            mTagList.add(model);
+            mTagList.add( model );
 
-            addTagInView();
+            addTagInView( );
         }
     }
 
@@ -311,76 +307,76 @@ public class TagView extends FlexboxLayout implements TagClickListener {
      * If not matching item, the editor text will add in recycler view item temporary to select or add
      * Tag
      */
-    private void addRecyclerView() {
-        recyclerView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+    private void addRecyclerView( ) {
+        recyclerView.setLayoutParams( new LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT ) );
 
-        textViewAdd.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        textViewAdd.setGravity(Gravity.CENTER);
-        textViewAdd.setPadding(4, 0, 4, 0);
-        textViewAdd.setBackground(getResources().getDrawable(R.drawable.drawable_tag));
+        textViewAdd.setLayoutParams( new LayoutParams( ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT ) );
+        textViewAdd.setGravity( Gravity.CENTER );
+        textViewAdd.setPadding( 4, 0, 4, 0 );
+        textViewAdd.setBackground( getResources( ).getDrawable( R.drawable.drawable_tag ) );
 
-        GradientDrawable drawable = (GradientDrawable) textViewAdd.getBackground();
-        drawable.setColor(tagBackgroundColor);
+        GradientDrawable drawable = ( GradientDrawable ) textViewAdd.getBackground( );
+        drawable.setColor( tagBackgroundColor );
 
-        textViewAdd.setTextColor(mTagTextColor);
+        textViewAdd.setTextColor( mTagTextColor );
 
-        textViewAdd.setOnClickListener(new OnClickListener() {
+        textViewAdd.setOnClickListener( new OnClickListener( ) {
             @Override
-            public void onClick(View view) {
-                if (mTagList.size() < tagLimit) {
-                    addTag(textViewAdd.getText().toString(), false);
-                    textViewAdd.setText("");
-                    textViewAdd.setVisibility(GONE);
-                    recyclerView.setVisibility(VISIBLE);
-                    editText.setText("");
+            public void onClick( View view ) {
+                if ( mTagList.size( ) < tagLimit ) {
+                    addTag( textViewAdd.getText( ).toString( ), false );
+                    textViewAdd.setText( "" );
+                    textViewAdd.setVisibility( GONE );
+                    recyclerView.setVisibility( VISIBLE );
+                    editText.setText( "" );
                 } else {
-                    showTagLimitMessage();
+                    showTagLimitMessage( );
                 }
 
             }
-        });
+        } );
 
-        this.addView(editText);
-        if (mTagItemList != null) {
-            FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getContext());
+        this.addView( editText );
+        if ( mTagItemList != null ) {
+            FlexboxLayoutManager layoutManager = new FlexboxLayoutManager( getContext( ) );
 
-            layoutManager.setJustifyContent(JustifyContent.FLEX_START);
-            layoutManager.setFlexWrap(FlexWrap.WRAP);
-            recyclerView.setLayoutManager(layoutManager);
+            layoutManager.setJustifyContent( JustifyContent.FLEX_START );
+            layoutManager.setFlexWrap( FlexWrap.WRAP );
+            recyclerView.setLayoutManager( layoutManager );
 
-            recyclerView.setAdapter(mAdapter);
+            recyclerView.setAdapter( mAdapter );
 
             // set adapter click listener
-            mAdapter.setTagClickListener(this);
+            mAdapter.setTagClickListener( this );
 
-            mAdapter.addItems(mTagItemList);
+            mAdapter.addItems( mTagItemList );
 
         }
 
-        this.addView(recyclerView);
+        this.addView( recyclerView );
 
-        this.addView(textViewAdd);
-        textViewAdd.setVisibility(GONE);
+        this.addView( textViewAdd );
+        textViewAdd.setVisibility( GONE );
 
 
-        invalidate();
+        invalidate( );
     }
 
-    private void showTagLimitMessage() {
-        if (mTagLimitMessage != null) {
-            Toast.makeText(getContext(), mTagLimitMessage, Toast.LENGTH_SHORT).show();
+    private void showTagLimitMessage( ) {
+        if ( mTagLimitMessage != null ) {
+            Toast.makeText( getContext( ), mTagLimitMessage, Toast.LENGTH_SHORT ).show( );
         } else {
-            Toast.makeText(getContext(), DEFAULT_TAG_LIMIT_MESSAGE, Toast.LENGTH_SHORT).show();
+            Toast.makeText( getContext( ), DEFAULT_TAG_LIMIT_MESSAGE, Toast.LENGTH_SHORT ).show( );
         }
     }
 
     @Override
-    public void onGetSelectTag(int position, String tagText) {
+    public void onGetSelectTag( int position, String tagText ) {
         // We get tag item. we have to add tag
 
-        addTag(tagText, true);
+        addTag( tagText, true );
 
-        mAdapter.removeTagItem(position, tagText);
+        mAdapter.removeTagItem( position, tagText );
     }
 
 
@@ -394,11 +390,11 @@ public class TagView extends FlexboxLayout implements TagClickListener {
      *
      * @param hint This take only String. If it get null it will convert null to Empty String
      */
-    public void setHint(String hint) {
-        if (hint == null) {
+    public void setHint( String hint ) {
+        if ( hint == null ) {
             hint = EMPTY_STRING;
         }
-        editText.setHint(hint);
+        editText.setHint( hint );
     }
 
     /**
@@ -407,12 +403,12 @@ public class TagView extends FlexboxLayout implements TagClickListener {
      * @param separator This is Tag separator. It contains only
      *                  few separator {@link TagSeparator}
      */
-    public void addTagSeparator(Enum separator) {
+    public void addTagSeparator( Enum separator ) {
 
-        TagSeparator tagSeparator = TagSeparator.valueOf(separator.name());
+        TagSeparator tagSeparator = TagSeparator.valueOf( separator.name( ) );
 
-        this.tagSeparator = tagSeparator.getValue();
-        Log.d("TagTest", tagSeparator.getValue());
+        this.tagSeparator = tagSeparator.getValue( );
+        Log.d( "TagTest", tagSeparator.getValue( ) );
 
     }
 
@@ -421,8 +417,8 @@ public class TagView extends FlexboxLayout implements TagClickListener {
      *
      * @param limit Integer value
      */
-    public void addTagLimit(int limit) {
-        if (limit == 0) {
+    public void addTagLimit( int limit ) {
+        if ( limit == 0 ) {
             limit = 1;
         }
         tagLimit = limit;
@@ -433,10 +429,10 @@ public class TagView extends FlexboxLayout implements TagClickListener {
      *
      * @param color Integer Color
      */
-    public void setTagBackgroundColor(int color) {
+    public void setTagBackgroundColor( int color ) {
         tagBackgroundColor = color;
 
-        mAdapter.addTagBackgroundColor(tagBackgroundColor);
+        mAdapter.addTagBackgroundColor( tagBackgroundColor );
     }
 
     /**
@@ -444,10 +440,10 @@ public class TagView extends FlexboxLayout implements TagClickListener {
      *
      * @param color String color code
      */
-    public void setTagBackgroundColor(String color) {
-        tagBackgroundColor = Color.parseColor(color);
+    public void setTagBackgroundColor( String color ) {
+        tagBackgroundColor = Color.parseColor( color );
 
-        mAdapter.addTagBackgroundColor(tagBackgroundColor);
+        mAdapter.addTagBackgroundColor( tagBackgroundColor );
     }
 
     /**
@@ -455,10 +451,10 @@ public class TagView extends FlexboxLayout implements TagClickListener {
      *
      * @param color {@link Integer}
      */
-    public void setTagTextColor(int color) {
+    public void setTagTextColor( int color ) {
         mTagTextColor = color;
 
-        mAdapter.addTagTextColor(mTagTextColor);
+        mAdapter.addTagTextColor( mTagTextColor );
     }
 
     /**
@@ -466,10 +462,10 @@ public class TagView extends FlexboxLayout implements TagClickListener {
      *
      * @param color {@link String}
      */
-    public void setTagTextColor(String color) {
-        mTagTextColor = Color.parseColor(color);
+    public void setTagTextColor( String color ) {
+        mTagTextColor = Color.parseColor( color );
 
-        mAdapter.addTagTextColor(mTagTextColor);
+        mAdapter.addTagTextColor( mTagTextColor );
     }
 
     /**
@@ -477,8 +473,8 @@ public class TagView extends FlexboxLayout implements TagClickListener {
      *
      * @param message User defined message
      */
-    public void setMaximumTagLimitMessage(String message) {
-        if (TextUtils.isEmpty(message)) {
+    public void setMaximumTagLimitMessage( String message ) {
+        if ( TextUtils.isEmpty( message ) ) {
             mTagLimitMessage = DEFAULT_TAG_LIMIT_MESSAGE;
         } else {
             mTagLimitMessage = message;
@@ -490,7 +486,7 @@ public class TagView extends FlexboxLayout implements TagClickListener {
      *
      * @param crossDrawable It takes resources drawable
      */
-    public void setCrossButton(Drawable crossDrawable) {
+    public void setCrossButton( Drawable crossDrawable ) {
         mCrossDrawable = crossDrawable;
         mCrossBitmap = null;
     }
@@ -500,7 +496,7 @@ public class TagView extends FlexboxLayout implements TagClickListener {
      *
      * @param crossBitmap It takes Bitmap
      */
-    public void setCrossButton(Bitmap crossBitmap) {
+    public void setCrossButton( Bitmap crossBitmap ) {
         mCrossDrawable = null;
         mCrossBitmap = crossBitmap;
     }
@@ -510,7 +506,7 @@ public class TagView extends FlexboxLayout implements TagClickListener {
      *
      * @param listener {@link TagItemListener}
      */
-    public void initTagListener(TagItemListener listener) {
+    public void initTagListener( TagItemListener listener ) {
         mTagItemListener = listener;
     }
 
@@ -521,26 +517,26 @@ public class TagView extends FlexboxLayout implements TagClickListener {
      *
      * @param tagList List of String
      */
-    public void setTagList(List<String> tagList) {
-        if (tagList == null) {
-            tagList = new ArrayList<>();
+    public void setTagList( List<String> tagList ) {
+        if ( tagList == null ) {
+            tagList = new ArrayList<>( );
         }
         mTagItemList = tagList;
 
-        addRecyclerView();
+        addRecyclerView( );
     }
 
     /**
      * User Can provide tag list as String array
-     *      *
-     *      * @param tagList It is string array
+     * *
+     * * @param tagList It is string array
      */
-    public void setTagList(String... tagList) {
-        List<String> tempList = Arrays.asList(tagList);
+    public void setTagList( String... tagList ) {
+        List<String> tempList = Arrays.asList( tagList );
 
-        mTagItemList.addAll(tempList);
+        mTagItemList.addAll( tempList );
 
-        addRecyclerView();
+        addRecyclerView( );
     }
 
     /**
@@ -548,7 +544,7 @@ public class TagView extends FlexboxLayout implements TagClickListener {
      *
      * @return {@link TagModel} of List
      */
-    public List<TagModel> getSelectedTags() {
+    public List<TagModel> getSelectedTags( ) {
         return mTagList;
     }
 

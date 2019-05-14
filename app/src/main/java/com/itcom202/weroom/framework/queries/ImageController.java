@@ -48,7 +48,7 @@ public class ImageController implements Serializable {
         reference
                 .child(DataBasePath.IMAGE.getValue())
                 .child(roomID)
-                .child(DataBasePath.ROOM_PICTURE.getValue() +"_"+ Integer.toString(roomNumber))
+                .child(DataBasePath.ROOM_PICTURE.getValue() +"_"+ roomNumber)
                 .putBytes(PictureConversion.bitmapToByteArray(bmp));
     }
 
@@ -57,7 +57,7 @@ public class ImageController implements Serializable {
         StorageReference downloadRef = reference
                 .child(DataBasePath.IMAGE.getValue())
                 .child(roomID)
-                .child(DataBasePath.ROOM_PICTURE.getValue() +"_"+ Integer.toString(roomNumber));
+                .child(DataBasePath.ROOM_PICTURE.getValue() +"_"+ roomNumber);
 
 
         Task t = downloadRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -79,7 +79,7 @@ public class ImageController implements Serializable {
         StorageReference reference = FirebaseStorage.getInstance().getReference();
         reference.child(DataBasePath.IMAGE.getValue())
                 .child(roomID)
-                .child(DataBasePath.ROOM_PICTURE.getValue() +"_"+ Integer.toString(roomNumber))
+                .child(DataBasePath.ROOM_PICTURE.getValue() +"_"+ roomNumber)
                 .delete();
 
     }
@@ -89,14 +89,4 @@ public class ImageController implements Serializable {
         }
     }
 
-
-    public static byte[] getRoomPicture2(String userID, int roomNumber){
-        StorageReference reference = FirebaseStorage.getInstance().getReference();
-        StorageReference downloadRef = reference
-                .child(DataBasePath.IMAGE.getValue())
-                .child(userID)
-                .child(DataBasePath.ROOM_PICTURE.getValue() +"_"+ Integer.toString(roomNumber));
-
-        return DataBasePath.IMAGE.getValue().getBytes();
-    }
 }

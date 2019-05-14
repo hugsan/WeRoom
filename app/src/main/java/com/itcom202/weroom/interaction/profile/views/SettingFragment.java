@@ -22,7 +22,7 @@ import com.itcom202.weroom.R;
 import com.itcom202.weroom.framework.DataBasePath;
 import com.itcom202.weroom.account.models.Profile;
 import com.itcom202.weroom.framework.queries.ImageController;
-import com.itcom202.weroom.interaction.SwipeActivity;
+import com.itcom202.weroom.interaction.InteractionActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,10 +71,10 @@ public class SettingFragment extends Fragment {
             }
         });
 
-        mBatterySafeMode.setChecked(((SwipeActivity)getActivity()).getNotificationOption());
+        mBatterySafeMode.setChecked((( InteractionActivity )getActivity()).getNotificationOption());
         mBatterySafeMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ((SwipeActivity)getActivity()).changeNotificationOption(isChecked);
+                (( InteractionActivity )getActivity()).changeNotificationOption(isChecked);
             }
         });
         return v;

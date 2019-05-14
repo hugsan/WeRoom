@@ -1,7 +1,6 @@
 package com.itcom202.weroom.interaction;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -12,14 +11,11 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Spinner;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
@@ -49,8 +45,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SwipeActivity extends AppCompatActivity {
-    private final String TAG = "SwipeActivity";
+public class InteractionActivity extends AppCompatActivity {
+    private final String TAG = "InteractionActivity";
     private final String MY_PREFS_NAME = "settings_preferences";
     private final String NOTIFICATION_VALUE = "notification";
     private ArrayList<Profile> mAllProfilesFromQuery = new ArrayList<>();
@@ -61,7 +57,7 @@ public class SwipeActivity extends AppCompatActivity {
     private PopUpExit mExitPopUp = new PopUpExit();
 
     public static Intent newIntent(Context myContext) {
-        Intent i = new Intent(myContext, SwipeActivity.class);
+        Intent i = new Intent(myContext, InteractionActivity.class);
         return i;
     }
 
@@ -73,8 +69,6 @@ public class SwipeActivity extends AppCompatActivity {
         Menu bottomNavigationViewMenu = bottomNavigationView.getMenu();
         bottomNavigationViewMenu.findItem(R.id.action_profile).setChecked(false);
         mActiveBottomNavigationViewMenuItem = bottomNavigationViewMenu.findItem(R.id.action_home).setChecked(true);
-
-
 
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -102,13 +96,13 @@ public class SwipeActivity extends AppCompatActivity {
                         Fragment fragment = new SelectChatFragment();
                         fragment.setArguments(bundle);
                         fm.beginTransaction()
-                                 .replace(R.id.fragment_container_top, fragment)
-                                 .commit();
+                                .replace(R.id.fragment_container_top, fragment)
+                                .commit();
                         break;
 
 
                 }
-                if (item != mActiveBottomNavigationViewMenuItem){
+                if (item != mActiveBottomNavigationViewMenuItem) {
                     mActiveBottomNavigationViewMenuItem.setChecked(false);
                     mActiveBottomNavigationViewMenuItem = item;
                 }
@@ -128,12 +122,12 @@ public class SwipeActivity extends AppCompatActivity {
 
             Query getLandlordsRooms = FirebaseFirestore.getInstance()
                     .collection(DataBasePath.ROOMS.getValue())
-                    .whereEqualTo("landlordID",p.getUserID() );
+                    .whereEqualTo("landlordID", p.getUserID());
 
             Task t1 = tenantCandidateQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    for (DocumentSnapshot d : queryDocumentSnapshots){
+                    for (DocumentSnapshot d : queryDocumentSnapshots) {
                         mAllProfilesFromQuery.add(d.toObject(Profile.class));
                     }
                 }
@@ -187,13 +181,14 @@ public class SwipeActivity extends AppCompatActivity {
         }
 
     }
+
     private MenuItem mActiveBottomNavigationViewMenuItem;
 
-    private void startFragmentFromTenant(){
+    private void startFragmentFromTenant() {
         startNotificationService();
 
         Bundle bundle = new Bundle();
-        ArrayList<RoomPosted> filteredRooms = FilterController.filterRoomsFromTenant(ProfileSingleton.getInstance(),mAllPostedRooms);
+        ArrayList<RoomPosted> filteredRooms = FilterController.filterRoomsFromTenant(ProfileSingleton.getInstance(), mAllPostedRooms);
         bundle.putParcelableArrayList(SwipeFragment.KEY_ROOM_LIST_ALL, filteredRooms);
 
         FragmentManager fm = getSupportFragmentManager();
@@ -201,17 +196,18 @@ public class SwipeActivity extends AppCompatActivity {
         if (swipingFragment == null) {
             swipingFragment = new SwipeFragment();
         }
-            swipingFragment.setArguments(bundle);
-            fm.beginTransaction()
-                    .add(R.id.fragment_container_top, swipingFragment)
-                    .commit();
+        swipingFragment.setArguments(bundle);
+        fm.beginTransaction()
+                .add(R.id.fragment_container_top, swipingFragment)
+                .commit();
 
     }
-    private void startFragmentFromLandlord(){
+
+    private void startFragmentFromLandlord() {
         startNotificationService();
         mAllProfilesFromQuery.removeAll(mNonTenantProfiles);
         Bundle bundle = new Bundle();
-        ArrayList<Profile> filteredTenants = FilterController.filterProfilesFromLandlord(ProfileSingleton.getInstance(),mAllProfilesFromQuery);
+        ArrayList<Profile> filteredTenants = FilterController.filterProfilesFromLandlord(ProfileSingleton.getInstance(), mAllProfilesFromQuery);
         bundle.putParcelableArrayList(SwipeFragment.KEY_TENANT_LIST, filteredTenants);
         bundle.putParcelableArrayList(SwipeFragment.KEY_ROOM_LIST_LANDLORD, mLandlordsRooms);
 
@@ -221,60 +217,66 @@ public class SwipeActivity extends AppCompatActivity {
         if (swipingFragment == null) {
             swipingFragment = new SwipeFragment();
         }
-            swipingFragment.setArguments(bundle);
-            fm.beginTransaction()
-                    .add(R.id.fragment_container_top, swipingFragment)
-                    .commit();
+        swipingFragment.setArguments(bundle);
+        fm.beginTransaction()
+                .add(R.id.fragment_container_top, swipingFragment)
+                .commit();
 
     }
-    public void changeToProfileEditFragment(){
+
+    public void changeToProfileEditFragment() {
         FragmentManager fm = getSupportFragmentManager();
         Bundle bundle = new Bundle();
-        bundle.putBoolean(ProfileFragment.KEY_IS_EDIT,true);
+        bundle.putBoolean(ProfileFragment.KEY_IS_EDIT, true);
         Fragment fragment = new ProfileFragment();
         fragment.setArguments(bundle);
         fm.beginTransaction()
                 .replace(R.id.fragment_container_top, fragment)
                 .commit();
     }
-    public void changeToSettingFragment(){
+
+    public void changeToSettingFragment() {
         FragmentManager fm = getSupportFragmentManager();
 
         fm.beginTransaction()
                 .replace(R.id.fragment_container_top, new SettingFragment())
                 .commit();
     }
-    public void changeToPorifleFragment(){
+
+    public void changeToPorifleFragment() {
         FragmentManager fm = getSupportFragmentManager();
 
         fm.beginTransaction()
                 .replace(R.id.fragment_container_top, new ProfileInfoFragment())
                 .commit();
     }
-    public void changeToTenantEditFragment(){
+
+    public void changeToTenantEditFragment() {
         FragmentManager fm = getSupportFragmentManager();
         Bundle bundle = new Bundle();
-        bundle.putBoolean(ProfileTenantFragment.KEY_INITIALIZE,true);
+        bundle.putBoolean(ProfileTenantFragment.KEY_INITIALIZE, true);
         Fragment fragment = new ProfileTenantFragment();
         fragment.setArguments(bundle);
         fm.beginTransaction()
                 .replace(R.id.fragment_container_top, fragment)
                 .commit();
     }
-    public void changeToLandlordEditFragment(){
+
+    public void changeToLandlordEditFragment() {
         FragmentManager fm = getSupportFragmentManager();
         Bundle bundle = new Bundle();
-        bundle.putBoolean(LandlordProfileFragment.KET_INITIALIZE,true);
+        bundle.putBoolean(LandlordProfileFragment.KET_INITIALIZE, true);
         Fragment fragment = new LandlordProfileFragment();
         fragment.setArguments(bundle);
         fm.beginTransaction()
                 .replace(R.id.fragment_container_top, fragment)
                 .commit();
     }
-    public void changeToRoomEditing(){
+
+    public void changeToRoomEditing() {
         FragmentManager fm = getSupportFragmentManager();
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(EditRoomsFragment.KEY_ROOMS,mLandlordsRooms);
+        bundle.putParcelableArrayList(EditRoomsFragment.KEY_ROOMS, mLandlordsRooms);
         Fragment fragment = new EditRoomsFragment();
         fragment.setArguments(bundle);
         fm.beginTransaction()
@@ -282,53 +284,59 @@ public class SwipeActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void addLandlordRoom(RoomPosted rooms){
-        if (mLandlordsRooms.contains(rooms)){
+    public void addLandlordRoom(RoomPosted rooms) {
+        if (mLandlordsRooms.contains(rooms)) {
             int position = mLandlordsRooms.indexOf(rooms);
-            mLandlordsRooms.set(position,rooms);
-        }else{
+            mLandlordsRooms.set(position, rooms);
+        } else {
             mLandlordsRooms.add(rooms);
         }
     }
-    public void removeLandlordRoom(RoomPosted room){
+
+    public void removeLandlordRoom(RoomPosted room) {
         mLandlordsRooms.remove(room);
     }
-    public void startNotificationService(){
-        if (getBatteryLevel() > 10 && getNotificationOption()){
+
+    public void startNotificationService() {
+        if (getBatteryLevel() > 10 && getNotificationOption()) {
             ArrayList<Match> matches = new ArrayList<>();
             ArrayList<String> ids = new ArrayList<>();
             Profile p = ProfileSingleton.getInstance();
-            if (p.getRole().equals("Landlord")){
-                for (RoomPosted r : mLandlordsRooms){
+            if (p.getRole().equals("Landlord")) {
+                for (RoomPosted r : mLandlordsRooms) {
                     matches.add(r.getMatch());
                     ids.add(r.getRoomID());
                 }
-            }else{
+            } else {
                 matches.add(p.getMatch());
                 ids.add(p.getUserID());
             }
-            startService(NotificationService.getIntent(this,matches,ids));
+            startService(NotificationService.getIntent(this, matches, ids));
         }
     }
-    public int getBatteryLevel(){
+
+    public int getBatteryLevel() {
         Intent BATTERYintent = this.registerReceiver(null, new IntentFilter(
                 Intent.ACTION_BATTERY_CHANGED));
         int level = BATTERYintent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
         Log.v(TAG, "LEVEL" + level);
         return level;
     }
-    public void changeNotificationOption(boolean option){
+
+    public void changeNotificationOption(boolean option) {
         SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-        editor.putBoolean(NOTIFICATION_VALUE,option);
+        editor.putBoolean(NOTIFICATION_VALUE, option);
         editor.apply();
     }
-    public boolean getNotificationOption(){
+
+    public boolean getNotificationOption() {
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        return prefs.getBoolean(NOTIFICATION_VALUE,true);
+        return prefs.getBoolean(NOTIFICATION_VALUE, true);
     }
+
     @Override
     public void onBackPressed() {
-        mExitPopUp.showDialog(this,getString(R.string.close_app_msg));
+        mExitPopUp.showDialog(this, getString(R.string.close_app_msg));
     }
 
 }

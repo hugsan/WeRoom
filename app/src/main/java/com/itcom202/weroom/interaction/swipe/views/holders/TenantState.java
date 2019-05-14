@@ -16,7 +16,7 @@ import com.itcom202.weroom.framework.cameraandgallery.PictureConversion;
 import com.itcom202.weroom.framework.queries.ImageController;
 import com.itcom202.weroom.interaction.swipe.views.CardInfoRoomFragment;
 
-public class TenantState extends RecyclerView.ViewHolder implements State {
+public class TenantState extends RecyclerView.ViewHolder {
     private TextView mAddressRoom;
     private TextView mRentRoom;
     private TextView mSizeRoom;
@@ -55,11 +55,6 @@ public class TenantState extends RecyclerView.ViewHolder implements State {
                 mPhoto.setImageBitmap(PictureConversion.byteArrayToBitmap(bytes));
             }
         });
-
-
-    }
-    @Override
-    public void changeTypeProfile() {
 
 
     }

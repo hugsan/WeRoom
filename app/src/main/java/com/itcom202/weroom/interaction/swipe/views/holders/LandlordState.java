@@ -20,7 +20,7 @@ import com.itcom202.weroom.interaction.swipe.views.CardInfoTenantFragment;
 
 import java.util.Locale;
 
-public class LandlordState extends RecyclerView.ViewHolder implements State {
+public class LandlordState extends RecyclerView.ViewHolder {
     private TextView mTenantName;
     private TextView mTenantNationallity;
     private TextView mTenantAge;
@@ -68,8 +68,4 @@ public class LandlordState extends RecyclerView.ViewHolder implements State {
 
     }
 
-    @Override
-    public void changeTypeProfile() {
-
-    }
 }

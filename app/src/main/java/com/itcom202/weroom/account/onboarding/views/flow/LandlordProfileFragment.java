@@ -15,15 +15,13 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.itcom202.weroom.framework.ProfileSingleton;
-import com.itcom202.weroom.framework.SingleFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.models.LandlordProfile;
 import com.itcom202.weroom.account.models.Profile;
-import com.itcom202.weroom.interaction.SwipeActivity;
+import com.itcom202.weroom.framework.ProfileSingleton;
+import com.itcom202.weroom.framework.SingleFragment;
+import com.itcom202.weroom.interaction.InteractionActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,8 +31,13 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Fragment that allows the user to create a new LandlordProfile.
+ */
 public class LandlordProfileFragment extends SingleFragment {
     public static final String KET_INITIALIZE = "initialize";
+    private final String MIN_AGE = "18";
+    private final String MAX_AGE = "99";
     private Spinner mTenantNation;
     private EditText mTenantMinAge;
     private EditText mTenantMaxAge;
@@ -45,40 +48,34 @@ public class LandlordProfileFragment extends SingleFragment {
     private Button mConfirm;
     private String socialValue = LandlordProfile.I_DONT_CARE;
     private String smokingValue = LandlordProfile.I_DONT_CARE;
-    private DatabaseReference mDatabaseReference;
     private boolean mEditable = false;
-
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.profile_landlord_fragment, null,false);
+    public View onCreateView( @NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState ) {
+        View v = inflater.inflate( R.layout.profile_landlord_fragment, container, false );
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        mTenantNation = v.findViewById(R.id.spinnerNationalityLLlandlordfragment);
-        mTenantMinAge = v.findViewById(R.id.ageMinT);
-        mTenantMaxAge = v.findViewById(R.id.ageMaxT);
-        mTenantGender = v.findViewById(R.id.spinnerGenderLL);
-        mTenantOccupation = v.findViewById(R.id.occupation);
-        mSocialGroup = v.findViewById(R.id.socialgroup);
-        mSmokingGroup = v.findViewById(R.id.smokinggroup);
-        mConfirm = v.findViewById(R.id.confirmtenantprofile);
+        mTenantNation = v.findViewById( R.id.spinnerNationalityLLlandlordfragment );
+        mTenantMinAge = v.findViewById( R.id.ageMinT );
+        mTenantMaxAge = v.findViewById( R.id.ageMaxT );
+        mTenantGender = v.findViewById( R.id.spinnerGenderLL );
+        mTenantOccupation = v.findViewById( R.id.occupation );
+        mSocialGroup = v.findViewById( R.id.socialgroup );
+        mSmokingGroup = v.findViewById( R.id.smokinggroup );
+        mConfirm = v.findViewById( R.id.confirmtenantprofile );
 
+        ArrayAdapter<CharSequence> adapterGenderTenant = ArrayAdapter.createFromResource( Objects.requireNonNull( getActivity( ) ), R.array.gender_array, R.layout.spinner_item );
+        adapterGenderTenant.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+        mTenantGender.setAdapter( adapterGenderTenant );
 
-        ArrayAdapter adapterGenderTenant = ArrayAdapter.createFromResource(getActivity(), R.array.gender_array, R.layout.spinner_item);
-        adapterGenderTenant.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mTenantGender.setAdapter(adapterGenderTenant);
+        ArrayAdapter<CharSequence> adapterOccup = ArrayAdapter.createFromResource( getActivity( ), R.array.occupation, R.layout.spinner_item );
+        adapterOccup.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+        mTenantOccupation.setAdapter( adapterOccup );
+        mTenantNation.setAdapter( countryAdapter( ) );
 
-        ArrayAdapter adapterOccup = ArrayAdapter.createFromResource(getActivity(), R.array.occupation, R.layout.spinner_item);
-        adapterOccup.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mTenantOccupation.setAdapter(adapterOccup);
-
-        mTenantNation.setAdapter(countryAdapter());
-
-        mSocialGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch(checkedId){
+        mSocialGroup.setOnCheckedChangeListener( new RadioGroup.OnCheckedChangeListener( ) {
+            public void onCheckedChanged( RadioGroup group, int checkedId ) {
+                switch ( checkedId ) {
                     case R.id.radiossocialyes:
                         socialValue = LandlordProfile.YES;
                         break;
@@ -90,11 +87,10 @@ public class LandlordProfileFragment extends SingleFragment {
                         break;
                 }
             }
-        });
-        mSmokingGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch(checkedId){
+        } );
+        mSmokingGroup.setOnCheckedChangeListener( new RadioGroup.OnCheckedChangeListener( ) {
+            public void onCheckedChanged( RadioGroup group, int checkedId ) {
+                switch ( checkedId ) {
                     case R.id.radiosmokeyes:
                         smokingValue = LandlordProfile.YES;
                         break;
@@ -106,163 +102,162 @@ public class LandlordProfileFragment extends SingleFragment {
                         break;
                 }
             }
-        });
+        } );
 
-        mConfirm.setOnClickListener(new View.OnClickListener() {
+        mConfirm.setOnClickListener( new View.OnClickListener( ) {
             @Override
-            public void onClick(View v) {
-                String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            public void onClick( View v ) {
+                String userID = Objects.requireNonNull( FirebaseAuth.getInstance( ).getCurrentUser( ) ).getUid( );
                 boolean noError = true;
-                if (mTenantMinAge.getText().toString().length()==0)
-                {
+                if ( mTenantMinAge.getText( ).toString( ).length( ) == 0 ) {
 
-                    mTenantMinAge.setText("18");
+                    mTenantMinAge.setText( MIN_AGE );
                 }
-                if (Integer.parseInt(mTenantMinAge.getText().toString()) < 18)
-                {
-                    mTenantMinAge.setError(getString(R.string.min_age));
-                    mTenantMinAge.requestFocus();
-                    mTenantMinAge.setText("18");
+                if ( Integer.parseInt( mTenantMinAge.getText( ).toString( ) ) < 18 ) {
+                    mTenantMinAge.setError( getString( R.string.min_age ) );
+                    mTenantMinAge.requestFocus( );
+                    mTenantMinAge.setText( MIN_AGE );
                     noError = false;
                 }
-                if (mTenantMaxAge.getText().toString().length()==0)
-                {
-                    mTenantMaxAge.setText("99");
+                if ( mTenantMaxAge.getText( ).toString( ).length( ) == 0 ) {
+                    mTenantMaxAge.setText( MAX_AGE );
                 }
-                if (Integer.parseInt(mTenantMaxAge.getText().toString()) > 99)
-                {
-                    mTenantMaxAge.setError(getString(R.string.max_age));
-                    mTenantMaxAge.requestFocus();
-                    mTenantMaxAge.setText("99");
+                if ( Integer.parseInt( mTenantMaxAge.getText( ).toString( ) ) > 99 ) {
+                    mTenantMaxAge.setError( getString( R.string.max_age ) );
+                    mTenantMaxAge.requestFocus( );
+                    mTenantMaxAge.setText( MAX_AGE );
                     noError = false;
                 }
 
+                if ( noError ) {
+                    LandlordProfile newInput = new LandlordProfile.Builder( userID )
+                            .withTenantNationality( getISOCode( String.valueOf( mTenantNation.getSelectedItem( ) ) ) )
+                            .withTenantAge( Integer.parseInt( mTenantMinAge.getText( ).toString( ) ), Integer.parseInt( mTenantMaxAge.getText( ).toString( ) ) )
+                            .withTenantGender( String.valueOf( mTenantGender.getSelectedItem( ) ) )
+                            .withTenantOccupation( String.valueOf( mTenantOccupation.getSelectedItem( ) ) )
+                            .tenantSocial( socialValue )
+                            .canTenantSmoke( smokingValue )
+                            .build( );
 
-                if (noError){
-                    LandlordProfile newInput = new LandlordProfile.Builder(userID)
-                            .withTenantNationallity(getISOCode(String.valueOf(mTenantNation.getSelectedItem())))
-                            .withTenantAge(Integer.parseInt(mTenantMinAge.getText().toString()), Integer.parseInt(mTenantMaxAge.getText().toString()))
-                            .withTenantGender(String.valueOf(mTenantGender.getSelectedItem()))
-                            .withTenantOccupation(String.valueOf(mTenantOccupation.getSelectedItem()))
-                            .tenantSocial(socialValue)
-                            .canTenantSmoke(smokingValue)
-                            .build();
-
-                    Profile p = ProfileSingleton.getInstance();
-                    p.setLandlord(newInput);
-                    ProfileSingleton.update(p);
-                    if (mEditable){
-                        ((SwipeActivity)getActivity()).changeToPorifleFragment();
-                    }else{
-                        changeFragment(new RoomCreationFragment());
+                    Profile p = ProfileSingleton.getInstance( );
+                    p.setLandlord( newInput );
+                    ProfileSingleton.update( p );
+                    if ( mEditable ) {
+                        ( ( InteractionActivity ) Objects.requireNonNull( getActivity( ) ) ).changeToPorifleFragment( );
+                    } else {
+                        changeFragment( new RoomCreationFragment( ) );
                     }
                 }
 
             }
-        });
+        } );
 
-        if (getArguments() != null && getArguments().getBoolean(KET_INITIALIZE)){
-            mConfirm.setText(R.string.edit_landlord);
-            initializeLandlord(v,ProfileSingleton.getInstance().getLandlord());
+        if ( getArguments( ) != null && getArguments( ).getBoolean( KET_INITIALIZE ) ) {
+            mConfirm.setText( R.string.edit_landlord );
+            initializeLandlord( v, ProfileSingleton.getInstance( ).getLandlord( ) );
         }
 
-        return  v;
+        return v;
 
 
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    public void onResume( ) {
+        super.onResume( );
+        Objects.requireNonNull( getActivity( ) ).setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );
 
     }
 
 
-    private SpinnerAdapter countryAdapter(){
-        String[] locales = Locale.getISOCountries();
+    private SpinnerAdapter countryAdapter( ) {
+        String[] locales = Locale.getISOCountries( );
 
-        List<String> countries = new ArrayList<>();
-        countries.add(getString(R.string.prompt_country));
+        List<String> countries = new ArrayList<>( );
+        countries.add( getString( R.string.prompt_country ) );
 
         // for (String countryCode : locales){
-        for(int i=0;i<locales.length;i++){
+        for ( String countryCode : locales ) {
 
-            String countryCode=locales[i];
-            Locale obj = new Locale("",countryCode);
-            countries.add(obj.getDisplayCountry(Locale.ENGLISH));
+            Locale obj = new Locale( "", countryCode );
+            countries.add( obj.getDisplayCountry( Locale.ENGLISH ) );
         }
-        Collections.sort(countries);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item , countries);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Collections.sort( countries );
+        ArrayAdapter<String> adapter = new ArrayAdapter<>( Objects.requireNonNull( getContext( ) ), R.layout.spinner_item, countries );
+        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
 
         return adapter;
     }
 
-    private String getISOCode(String selectedCountry){
-        Map<String, String> countries = new HashMap<>();
-        for (String iso : Locale.getISOCountries()) {
-            Locale l = new Locale("", iso);
-            countries.put(l.getDisplayCountry(), iso);
+    private String getISOCode( String selectedCountry ) {
+        Map<String, String> countries = new HashMap<>( );
+        for ( String iso : Locale.getISOCountries( ) ) {
+            Locale l = new Locale( "", iso );
+            countries.put( l.getDisplayCountry( ), iso );
         }
 
-        return countries.get(selectedCountry);
+        return countries.get( selectedCountry );
 
     }
 
-    private void initializeLandlord(View v,LandlordProfile lp){
+    private void initializeLandlord( View v, LandlordProfile lp ) {
         mEditable = true;
-        mTenantNation.setSelection(getCountryAdapterPosition(lp.getTenantNation()));
-        mTenantMinAge.setText(Integer.toString(lp.getTenantMinAge()));
-        mTenantMaxAge.setText(Integer.toString(lp.getTenantMaxAge()));
-        String smoking = lp.getAllowTenantSmoking();
-        switch(smoking){
+        mTenantNation.setSelection( getCountryAdapterPosition( lp.getTenantNation( ) ) );
+        mTenantMinAge.setText( String.format( Locale.getDefault( ), "%d", lp.getTenantMinAge( ) ) );
+        mTenantMaxAge.setText( String.format( Locale.getDefault( ), "%d", lp.getTenantMaxAge( ) ) );
+        String smoking = lp.getAllowTenantSmoking( );
+        switch ( smoking ) {
             case LandlordProfile.YES:
-                ((RadioButton)v.findViewById(R.id.radiosmokeyes)).setChecked(true);
+                ( ( RadioButton ) v.findViewById( R.id.radiosmokeyes ) ).setChecked( true );
                 break;
             case LandlordProfile.NO:
-                ((RadioButton)v.findViewById(R.id.radiosmokeno)).setChecked(true);
+                ( ( RadioButton ) v.findViewById( R.id.radiosmokeno ) ).setChecked( true );
                 break;
             case LandlordProfile.I_DONT_CARE:
-                ((RadioButton)v.findViewById(R.id.radiosmokeidc)).setChecked(true);
+                ( ( RadioButton ) v.findViewById( R.id.radiosmokeidc ) ).setChecked( true );
                 break;
         }
-        String social = lp.getSocialTenant();
-        switch(social){
+        String social = lp.getSocialTenant( );
+        switch ( social ) {
             case LandlordProfile.YES:
-                ((RadioButton)v.findViewById(R.id.radiossocialyes)).setChecked(true);
+                ( ( RadioButton ) v.findViewById( R.id.radiossocialyes ) ).setChecked( true );
                 break;
             case LandlordProfile.NO:
-                ((RadioButton)v.findViewById(R.id.radiosocialno)).setChecked(true);
+                ( ( RadioButton ) v.findViewById( R.id.radiosocialno ) ).setChecked( true );
                 break;
             case LandlordProfile.I_DONT_CARE:
-                ((RadioButton)v.findViewById(R.id.radiosocialidc)).setChecked(true);
+                ( ( RadioButton ) v.findViewById( R.id.radiosocialidc ) ).setChecked( true );
                 break;
         }
-        ArrayAdapter adapterGender = ArrayAdapter.createFromResource(getActivity(), R.array.gender_array, R.layout.spinner_item);
-        adapterGender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mTenantGender.setSelection(adapterGender.getPosition(lp.getTenantGender()));
+        ArrayAdapter<CharSequence> adapterGender = ArrayAdapter.createFromResource( Objects.requireNonNull( getActivity( ) ), R.array.gender_array, R.layout.spinner_item );
+        adapterGender.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+        mTenantGender.setSelection( adapterGender.getPosition( lp.getTenantGender( ) ) );
 
-        ArrayAdapter adapterOccup = ArrayAdapter.createFromResource(getActivity(), R.array.occupation, R.layout.spinner_item);
-        adapterOccup.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mTenantOccupation.setSelection(adapterOccup.getPosition(lp.getTenantOccupation()));
+        ArrayAdapter<CharSequence> adapterOccup = ArrayAdapter.createFromResource( getActivity( ), R.array.occupation, R.layout.spinner_item );
+        adapterOccup.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+        mTenantOccupation.setSelection( adapterOccup.getPosition( lp.getTenantOccupation( ) ) );
 
     }
-    private int getCountryAdapterPosition(String countryISO){
-        String[] locales = Locale.getISOCountries();
 
-        List<String> countries = new ArrayList<>();
-        countries.add(getString(R.string.prompt_country));
+    /**
+     * Method that return the position of the spinner of ISO country's translated in english from a ISO country code.
+     *
+     * @param countryISO country ISO code.
+     * @return Position of our spinner where it its allocated the ISO code when translated to english.
+     */
+    private int getCountryAdapterPosition( String countryISO ) {
+        String[] locales = Locale.getISOCountries( );
+
+        List<String> countries = new ArrayList<>( );
+        countries.add( getString( R.string.prompt_country ) );
 
         // for (String countryCode : locales){
-        for(int i=0;i<locales.length;i++){
-            String countryCode=locales[i];
-            Locale obj = new Locale("",countryCode);
-            countries.add(obj.getDisplayCountry(Locale.ENGLISH));
+        for ( String countryCode : locales ) {
+            Locale obj = new Locale( "", countryCode );
+            countries.add( obj.getDisplayCountry( Locale.ENGLISH ) );
         }
-        Collections.sort(countries);
-        Locale obj = new Locale("",countryISO);
-        int position = countries.indexOf(obj.getDisplayCountry(Locale.ENGLISH));
-        return position;
+        Collections.sort( countries );
+        Locale obj = new Locale( "", countryISO );
+        return countries.indexOf( obj.getDisplayCountry( Locale.ENGLISH ) );
     }
 }

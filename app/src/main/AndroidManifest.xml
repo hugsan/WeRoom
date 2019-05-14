@@ -38,7 +38,7 @@
             android:enabled="true"
             android:exported="true"></service>
 
-        <activity android:name=".interaction.SwipeActivity" />
+        <activity android:name=".interaction.InteractionActivity" />
         <activity android:name=".account.AuthenticationAndOnBoardingActivity" />
         <activity android:name=".MainActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">

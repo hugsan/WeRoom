@@ -20,7 +20,7 @@ import com.itcom202.weroom.account.models.Profile;
 import com.itcom202.weroom.account.onboarding.controllers.tagDescription.TagView;
 import com.itcom202.weroom.framework.cameraandgallery.PictureConversion;
 import com.itcom202.weroom.framework.queries.ImageController;
-import com.itcom202.weroom.interaction.SwipeActivity;
+import com.itcom202.weroom.interaction.InteractionActivity;
 
 import java.util.Locale;
 
@@ -98,22 +98,22 @@ public class ProfileInfoFragment extends Fragment {
         mEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((SwipeActivity)getActivity()).changeToProfileEditFragment();
+                (( InteractionActivity )getActivity()).changeToProfileEditFragment();
             }
         });
         mSettingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((SwipeActivity)getActivity()).changeToSettingFragment();
+                (( InteractionActivity )getActivity()).changeToSettingFragment();
             }
         });
         mEditSubProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (p.getRole().equals("Landlord")){
-                    ((SwipeActivity)getActivity()).changeToLandlordEditFragment();
+                    (( InteractionActivity )getActivity()).changeToLandlordEditFragment();
                 }else{
-                    ((SwipeActivity)getActivity()).changeToTenantEditFragment();
+                    (( InteractionActivity )getActivity()).changeToTenantEditFragment();
                 }
             }
         });
@@ -121,7 +121,7 @@ public class ProfileInfoFragment extends Fragment {
         mModifyRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((SwipeActivity)getActivity()).changeToRoomEditing();
+                (( InteractionActivity )getActivity()).changeToRoomEditing();
             }
         });
 

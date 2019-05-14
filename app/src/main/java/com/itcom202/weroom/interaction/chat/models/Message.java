@@ -14,7 +14,7 @@ public class Message {
         long tsLong = System.currentTimeMillis()/1000;
         timeStamp = Long.toString(tsLong);
     }
-    public Message(){};
+    public Message(){}
 
     public String getContent() {
         return content;

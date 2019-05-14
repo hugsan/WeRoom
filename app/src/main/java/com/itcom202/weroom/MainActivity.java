@@ -17,9 +17,7 @@ import com.itcom202.weroom.framework.DataBasePath;
 import com.itcom202.weroom.framework.ProfileSingleton;
 import com.itcom202.weroom.account.models.Profile;
 
-import com.itcom202.weroom.interaction.SwipeActivity;
-
-
+import com.itcom202.weroom.interaction.InteractionActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -47,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                     userProfile = documentSnapshot.toObject(Profile.class);
                     ProfileSingleton.initialize(userProfile);
                     if (ProfileSingleton.isFinishedProfile()){
-                        startActivity(SwipeActivity.newIntent(MainActivity.this));
+                        startActivity( InteractionActivity.newIntent(MainActivity.this));
                         finish();
                     }else
                         startActivity(AuthenticationAndOnBoardingActivity.newIntent(MainActivity.this));

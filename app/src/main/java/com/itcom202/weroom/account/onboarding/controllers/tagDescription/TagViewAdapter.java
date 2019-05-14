@@ -40,35 +40,35 @@ public class TagViewAdapter extends RecyclerView.Adapter<TagViewAdapter.TagViewH
 
     private TagClickListener mClickListener;
 
-    public TagViewAdapter(int mTagTextColor, int mTagBackgroundColor) {
+    public TagViewAdapter( int mTagTextColor, int mTagBackgroundColor ) {
         this.mTagTextColor = mTagTextColor;
         this.mTagBackgroundColor = mTagBackgroundColor;
 
-        mTagItemList = new ArrayList<>();
-        mBackUpList = new ArrayList<>();
+        mTagItemList = new ArrayList<>( );
+        mBackUpList = new ArrayList<>( );
     }
 
     @NonNull
     @Override
-    public TagViewAdapter.TagViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_tag, viewGroup, false);
-        return new TagViewAdapter.TagViewHolder(view);
+    public TagViewAdapter.TagViewHolder onCreateViewHolder( @NonNull ViewGroup viewGroup, int i ) {
+        View view = LayoutInflater.from( viewGroup.getContext( ) ).inflate( R.layout.item_tag, viewGroup, false );
+        return new TagViewAdapter.TagViewHolder( view );
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TagViewAdapter.TagViewHolder tagViewHolder, int i) {
-        String tag = mTagItemList.get(i);
-        tagViewHolder.textViewTag.setTextColor(mTagTextColor);
+    public void onBindViewHolder( @NonNull TagViewAdapter.TagViewHolder tagViewHolder, int i ) {
+        String tag = mTagItemList.get( i );
+        tagViewHolder.textViewTag.setTextColor( mTagTextColor );
 
-        GradientDrawable drawable = (GradientDrawable) tagViewHolder.tagContainer.getBackground();
-        drawable.setColor(mTagBackgroundColor);
+        GradientDrawable drawable = ( GradientDrawable ) tagViewHolder.tagContainer.getBackground( );
+        drawable.setColor( mTagBackgroundColor );
 
-        tagViewHolder.textViewTag.setText(tag);
+        tagViewHolder.textViewTag.setText( tag );
     }
 
     @Override
-    public int getItemCount() {
-        return mTagItemList.size();
+    public int getItemCount( ) {
+        return mTagItemList.size( );
     }
 
     /**
@@ -76,35 +76,35 @@ public class TagViewAdapter extends RecyclerView.Adapter<TagViewAdapter.TagViewH
      *
      * @param tagList List of Tag
      */
-    public void addItems(List<String> tagList) {
-        if (mTagItemList != null) {
-            mTagItemList.clear();
+    public void addItems( List<String> tagList ) {
+        if ( mTagItemList != null ) {
+            mTagItemList.clear( );
             mTagItemList = tagList;
         }
-        if (mBackUpList != null) {
-            mBackUpList.clear();
-            mBackUpList.addAll(tagList);
+        if ( mBackUpList != null ) {
+            mBackUpList.clear( );
+            mBackUpList.addAll( tagList );
         }
 
-        notifyDataSetChanged();
+        notifyDataSetChanged( );
     }
 
-    public void addItem(String text) {
-        mTagItemList.add(text);
-        mBackUpList.add(text);
+    public void addItem( String text ) {
+        mTagItemList.add( text );
+        mBackUpList.add( text );
 
-        notifyItemInserted(mTagItemList.size() - 1);
+        notifyItemInserted( mTagItemList.size( ) - 1 );
     }
 
-    public void addTagTextColor(int mTagTextColor) {
+    public void addTagTextColor( int mTagTextColor ) {
         this.mTagTextColor = mTagTextColor;
     }
 
-    public void addTagBackgroundColor(int mTagBackgroundColor) {
+    public void addTagBackgroundColor( int mTagBackgroundColor ) {
         this.mTagBackgroundColor = mTagBackgroundColor;
     }
 
-    public void setTagClickListener(TagClickListener listener) {
+    public void setTagClickListener( TagClickListener listener ) {
         mClickListener = listener;
     }
 
@@ -113,42 +113,42 @@ public class TagViewAdapter extends RecyclerView.Adapter<TagViewAdapter.TagViewH
      *
      * @param position Item Position
      */
-    public void removeTagItem(int position, String tag) {
-        if (mTagItemList != null && mTagItemList.size() >= position) {
-            mTagItemList.remove(tag);
-            notifyItemRemoved(position);
+    public void removeTagItem( int position, String tag ) {
+        if ( mTagItemList != null && mTagItemList.size( ) >= position ) {
+            mTagItemList.remove( tag );
+            notifyItemRemoved( position );
         }
 
-        if (mBackUpList != null && mBackUpList.size() >= position) {
-            mBackUpList.remove(tag);
+        if ( mBackUpList != null && mBackUpList.size( ) >= position ) {
+            mBackUpList.remove( tag );
         }
     }
 
     @Override
-    public Filter getFilter() {
-        return new Filter() {
+    public Filter getFilter( ) {
+        return new Filter( ) {
             @Override
-            protected FilterResults performFiltering(CharSequence charSequence) {
-                if (charSequence.toString().isEmpty()) {
-                    mTagItemList.clear();
-                    mTagItemList.addAll(mBackUpList);
+            protected FilterResults performFiltering( CharSequence charSequence ) {
+                if ( charSequence.toString( ).isEmpty( ) ) {
+                    mTagItemList.clear( );
+                    mTagItemList.addAll( mBackUpList );
 
                 } else {
-                    mTagItemList.clear();
+                    mTagItemList.clear( );
 
-                    for (String text : mBackUpList) {
-                        if (text.toLowerCase().contains(charSequence) || text.toUpperCase().contains(charSequence)) {
-                            mTagItemList.add(text);
+                    for ( String text : mBackUpList ) {
+                        if ( text.toLowerCase( ).contains( charSequence ) || text.toUpperCase( ).contains( charSequence ) ) {
+                            mTagItemList.add( text );
                         }
                     }
                 }
-                final FilterResults results = new FilterResults();
+                final FilterResults results = new FilterResults( );
                 results.values = mTagItemList;
                 return results;
             }
 
             @Override
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            protected void publishResults( CharSequence charSequence, FilterResults filterResults ) {
 
             }
         };
@@ -158,18 +158,18 @@ public class TagViewAdapter extends RecyclerView.Adapter<TagViewAdapter.TagViewH
         TextView textViewTag;
         LinearLayout tagContainer;
 
-        public TagViewHolder(@NonNull View itemView) {
-            super(itemView);
-            textViewTag = itemView.findViewById(R.id.text_view_tag);
-            tagContainer = itemView.findViewById(R.id.tag_container);
+        public TagViewHolder( @NonNull View itemView ) {
+            super( itemView );
+            textViewTag = itemView.findViewById( R.id.text_view_tag );
+            tagContainer = itemView.findViewById( R.id.tag_container );
 
-            itemView.setOnClickListener(this);
+            itemView.setOnClickListener( this );
         }
 
         @Override
-        public void onClick(View view) {
-            if (mClickListener != null) {
-                mClickListener.onGetSelectTag(getAdapterPosition(), mTagItemList.get(getAdapterPosition()));
+        public void onClick( View view ) {
+            if ( mClickListener != null ) {
+                mClickListener.onGetSelectTag( getAdapterPosition( ), mTagItemList.get( getAdapterPosition( ) ) );
             }
         }
     }

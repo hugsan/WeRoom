@@ -66,7 +66,6 @@ public class RoomPosted implements Serializable, Parcelable{
         dest.writeParcelable(mMatch, flags);
     }
 
-
     public static class Builder{
         private int sRent;
         private int sDeposit;
@@ -114,8 +113,6 @@ public class RoomPosted implements Serializable, Parcelable{
             return this;
         }
         public Builder withAddress(String id, String address, double latitude, double longitude ){
-//            if(address.equals(""))
-    //            throw new InputMismatchException("wrong address");
             sAddressID = id;
             sCompleteAddress = address;
             sLatitude = latitude;
@@ -185,7 +182,6 @@ public class RoomPosted implements Serializable, Parcelable{
     private Match mMatch = new Match();
 
     //Constructor is public needed to de-serialize the object using firebase database
-
     public RoomPosted(){}
 
     public Match getMatch() {
@@ -316,6 +312,11 @@ public class RoomPosted implements Serializable, Parcelable{
         mRoomID = roomID;
     }
 
+    /**
+     * Two rooms are identical if they have the same roomID
+     * @param obj object to compare with a RoomPosted
+     * @return returns true if the object is a instance of RoomPosted and contains the same ID. False in other cases.
+     */
     @Override
     public boolean equals( Object obj) {
         if (!(obj instanceof RoomPosted))

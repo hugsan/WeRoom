@@ -137,9 +137,7 @@ public class CardInfoRoomFragment extends Fragment {
                         OpenPictureFragment openPic = new OpenPictureFragment();
 
                         Bundle bundle = new Bundle();
-                        // YourObj obj = SET_YOUR_OBJECT_HERE;
-                        // bundle.putSerializable("your_obj",ImageController.getRoomPicture(mUserId,0).getResult());
-                        bundle.putByteArray("picture",bytes);
+                        bundle.putByteArray(OpenPictureFragment.KEY_PICTURE,bytes);
                         openPic.setArguments(bundle);
                         ft.replace(android.R.id.content, openPic);
                         ft.addToBackStack(null);

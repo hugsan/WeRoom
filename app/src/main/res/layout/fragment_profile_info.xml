@@ -40,38 +40,38 @@
                     <Button
                         android:id="@+id/profile_edit_profile"
                         android:layout_width="120dp"
-                        android:background="#FF5A60"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="30dp"
+                        android:background="#FF5A60"
                         android:text="@string/edit_profile" />
 
                     <Button
                         android:id="@+id/profile_account_setting"
                         android:layout_width="120dp"
-                        android:background="#FF5A60"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
+                        android:background="#FF5A60"
                         android:text="@string/account_settings" />
 
                     <Button
                         android:id="@+id/modify_sub_profile"
                         android:layout_width="120dp"
-                        android:background="#FF5A60"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="@string/edit_tenant"
-                        android:layout_marginTop="5dp" />
+                        android:layout_marginTop="5dp"
+                        android:background="#FF5A60"
+                        android:text="@string/edit_tenant" />
 
                     <Button
                         android:id="@+id/modify_rooms"
                         android:layout_width="120dp"
-                        android:background="#FF5A60"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="@string/edit_rooms"
-                        android:layout_marginTop="5dp" />
+                        android:layout_marginTop="5dp"
+                        android:background="#FF5A60"
+                        android:text="@string/edit_rooms" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -89,16 +89,16 @@
                 android:id="@+id/profile_username"
                 android:layout_width="311dp"
                 android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:ems="10"
-                android:layout_gravity="center_horizontal"
                 android:hint="@string/hint_name"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/quantum_grey"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/profile_textfieldAge"
@@ -114,15 +114,15 @@
                 android:id="@+id/profileshow_age"
                 android:layout_width="311dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
                 android:ems="10"
                 android:hint="@string/hint_age"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/quantum_grey"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/profile_spinnerTextfieldNationality"
@@ -138,15 +138,15 @@
                 android:id="@+id/profiles_nationatility"
                 android:layout_width="311dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
                 android:ems="10"
                 android:hint="@string/hint_age"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/quantum_grey"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/profile_spinnerTextfieldGender"
@@ -162,15 +162,15 @@
                 android:id="@+id/profile_gender"
                 android:layout_width="311dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
                 android:ems="10"
                 android:hint="@string/hint_age"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/quantum_grey"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/profile_spinnerTextfieldRole"
@@ -186,15 +186,15 @@
                 android:id="@+id/profile_role"
                 android:layout_width="311dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
                 android:ems="10"
                 android:hint="@string/hint_age"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/quantum_grey"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/profile_spinnerTextfieldTags"
@@ -228,9 +228,9 @@
                 android:id="@+id/profile_logout_button"
                 android:layout_width="147dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:layout_gravity="center_horizontal"
                 android:background="@drawable/drawable_custom_button"
                 android:text="@string/logout" />
 

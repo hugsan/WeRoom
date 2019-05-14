@@ -49,7 +49,7 @@ import com.itcom202.weroom.account.models.RoomPosted;
 import com.itcom202.weroom.framework.cameraandgallery.ImagePicker;
 import com.itcom202.weroom.framework.cameraandgallery.PictureConversion;
 import com.itcom202.weroom.framework.queries.ImageController;
-import com.itcom202.weroom.interaction.SwipeActivity;
+import com.itcom202.weroom.interaction.InteractionActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -217,7 +217,7 @@ public class RoomEditFragment extends Fragment {
                 }
                 else {
                     postRoom();
-                    ((SwipeActivity)getActivity()).changeToPorifleFragment();
+                    (( InteractionActivity )getActivity()).changeToPorifleFragment();
                 }
             }
         });
@@ -242,8 +242,8 @@ public class RoomEditFragment extends Fragment {
                         .document(mThisPostedRoom.getRoomID())
                         .delete();
 
-                ((SwipeActivity)getActivity()).removeLandlordRoom(mThisPostedRoom);
-                ((SwipeActivity)getActivity()).changeToPorifleFragment();
+                (( InteractionActivity )getActivity()).removeLandlordRoom(mThisPostedRoom);
+                (( InteractionActivity )getActivity()).changeToPorifleFragment();
             }
         });
 
@@ -356,7 +356,7 @@ public class RoomEditFragment extends Fragment {
                     .document(input.getRoomID())
                     .set(input);
 
-            ((SwipeActivity)getActivity()).addLandlordRoom(input);
+            (( InteractionActivity )getActivity()).addLandlordRoom(input);
 
 
         }
