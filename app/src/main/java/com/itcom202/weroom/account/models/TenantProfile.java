@@ -6,6 +6,9 @@ import android.os.Parcelable;
 import java.io.Serializable;
 import java.util.InputMismatchException;
 
+/**
+ * Model that represent a Tenant in WeRoom.
+ */
 public class TenantProfile implements Serializable, Parcelable {
     public static final Creator<TenantProfile> CREATOR = new Creator<TenantProfile>( ) {
         @Override

@@ -29,7 +29,13 @@ import com.itcom202.weroom.framework.queries.ImageController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
+/**
+ * Fragment that displays all the users that the user can chat with.
+ * <p>
+ * When clicking on those users that are loaded in recyclerView it will open an new chat fragment.
+ */
 public class SelectChatFragment extends Fragment {
     public static final String KEY_ROOM_LANDLORD = "landlords_rooms";
     private RecyclerView mShowContactsView;
@@ -49,7 +55,9 @@ public class SelectChatFragment extends Fragment {
         if ( ProfileSingleton.getInstance( ).getRole( ).equals( "Landlord" ) ) {
             if ( getArguments( ) != null ) {
                 mLandlordsRooms = getArguments( ).getParcelableArrayList( KEY_ROOM_LANDLORD );
-                mCurrentSelectedRoom = mLandlordsRooms.get( 0 );
+                if ( mLandlordsRooms != null ) {
+                    mCurrentSelectedRoom = mLandlordsRooms.get( 0 );
+                }
             }
             List<String> rooms = getRoomsStrings( );
             for ( String s : rooms ) {
@@ -82,6 +90,9 @@ public class SelectChatFragment extends Fragment {
         return v;
     }
 
+    /**
+     * Updates the value of the chatAdapter with all existing matches from the current user.
+     */
     private void updateUI( ) {
         List<String> contacts;
         Profile p = ProfileSingleton.getInstance( );
@@ -94,6 +105,11 @@ public class SelectChatFragment extends Fragment {
         mShowContactsView.setAdapter( mAdapter );
     }
 
+    /**
+     * Creates a List of string with the CompleteAdress of mLandlordsRooms.
+     *
+     * @return List<String> of mLandlordsRooms complete address.
+     */
     private List<String> getRoomsStrings( ) {
         List<String> roomsName = new ArrayList<>( );
         for ( RoomPosted p : mLandlordsRooms )
@@ -102,6 +118,13 @@ public class SelectChatFragment extends Fragment {
         return roomsName;
     }
 
+    /**
+     * Create unique chat ID combining two different ID's
+     *
+     * @param ID_one ID from one user.
+     * @param ID_two ID from second user.
+     * @return Unique chat ID combining ID_one and ID_two
+     */
     private String createChatID( String ID_one, String ID_two ) {
         String chat_ID;
         if ( ID_one.compareTo( ID_two ) < 0 )
@@ -111,10 +134,13 @@ public class SelectChatFragment extends Fragment {
         return chat_ID;
     }
 
+    /**
+     * Adapter that reads get all matches and displays in a RecyclerView all matched contacts.
+     */
     private class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private List<String> mChatPartnerIDS;
 
-        public ChatAdapter( List<String> chatPartnerIDS ) {
+        ChatAdapter( List<String> chatPartnerIDS ) {
             this.mChatPartnerIDS = chatPartnerIDS;
         }
 
@@ -154,6 +180,9 @@ public class SelectChatFragment extends Fragment {
                 return 2; //landlord case
         }
 
+        /**
+         * Holder for contacts that are Tenants.
+         */
         private class ProfileHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             private TextView mProfileName;
             private TextView mProfileAge;
@@ -161,7 +190,7 @@ public class SelectChatFragment extends Fragment {
 
             private String mContact;
 
-            public ProfileHolder( LayoutInflater inflater, ViewGroup parent ) {
+            ProfileHolder( LayoutInflater inflater, ViewGroup parent ) {
                 super( inflater.inflate( R.layout.list_contacts, parent, false ) );
                 itemView.setOnClickListener( this );
 
@@ -172,17 +201,20 @@ public class SelectChatFragment extends Fragment {
 
             @Override
             public void onClick( View v ) {
-                FragmentTransaction transaction = getFragmentManager( ).beginTransaction( );
-                Fragment chatFragment = new ChatFragment( );
-                Bundle bundle = new Bundle( );
-                bundle.putString( ChatFragment.PARTNER_ID, createChatID( mContact, mCurrentSelectedRoom.getRoomID( ) ) );
-                chatFragment.setArguments( bundle );
-                transaction.replace( R.id.fragment_container_top, chatFragment );
-                transaction.commit( );
+                FragmentTransaction transaction;
+                if ( getFragmentManager( ) != null ) {
+                    transaction = getFragmentManager( ).beginTransaction( );
+                    Fragment chatFragment = new ChatFragment( );
+                    Bundle bundle = new Bundle( );
+                    bundle.putString( ChatFragment.KET_CHAT_ID, createChatID( mContact, mCurrentSelectedRoom.getRoomID( ) ) );
+                    chatFragment.setArguments( bundle );
+                    transaction.replace( R.id.fragment_container_top, chatFragment );
+                    transaction.commit( );
+                }
 
             }
 
-            public void bind( String contact ) {
+            void bind( String contact ) {
                 FirebaseFirestore.getInstance( )
                         .collection( DataBasePath.USERS.getValue( ) )
                         .document( contact )
@@ -192,7 +224,7 @@ public class SelectChatFragment extends Fragment {
                         Profile p = documentSnapshot.toObject( Profile.class );
                         if ( p != null ) {
                             mProfileName.setText( p.getName( ) );
-                            mProfileAge.setText( Integer.toString( p.getAge( ) ) );
+                            mProfileAge.setText( String.format( Locale.getDefault( ), "%d", p.getAge( ) ) );
                         }
                     }
                 } );
@@ -208,37 +240,43 @@ public class SelectChatFragment extends Fragment {
 
         }
 
+        /**
+         * Holder for contacts that are Landlords.
+         */
         private class RoomHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             private TextView mLandlordName;
             private TextView mLandlordAge;
-            private TextView mAddresTextView;
+            private TextView mAddressTextView;
             private ImageView mProfilePicture;
 
             private String mContact;
             private RoomPosted mRoomPosted;
 
-            public RoomHolder( LayoutInflater inflater, ViewGroup parent ) {
+            RoomHolder( LayoutInflater inflater, ViewGroup parent ) {
                 super( inflater.inflate( R.layout.list_contacts, parent, false ) );
                 itemView.setOnClickListener( this );
 
                 mLandlordName = itemView.findViewById( R.id.list_contact_name );
                 mLandlordAge = itemView.findViewById( R.id.list_contact_age );
-                mAddresTextView = itemView.findViewById( R.id.list_contacts_address );
+                mAddressTextView = itemView.findViewById( R.id.list_contacts_address );
                 mProfilePicture = itemView.findViewById( R.id.list_contact_profile );
             }
 
             @Override
             public void onClick( View v ) {
-                FragmentTransaction transaction = getFragmentManager( ).beginTransaction( );
-                Fragment chatFragment = new ChatFragment( );
-                Bundle bundle = new Bundle( );
-                bundle.putString( ChatFragment.PARTNER_ID, createChatID( mContact, ProfileSingleton.getInstance( ).getUserID( ) ) );
-                chatFragment.setArguments( bundle );
-                transaction.replace( R.id.fragment_container_top, chatFragment );
-                transaction.commit( );
+                FragmentTransaction transaction;
+                if ( getFragmentManager( ) != null ) {
+                    transaction = getFragmentManager( ).beginTransaction( );
+                    Fragment chatFragment = new ChatFragment( );
+                    Bundle bundle = new Bundle( );
+                    bundle.putString( ChatFragment.KET_CHAT_ID, createChatID( mContact, ProfileSingleton.getInstance( ).getUserID( ) ) );
+                    chatFragment.setArguments( bundle );
+                    transaction.replace( R.id.fragment_container_top, chatFragment );
+                    transaction.commit( );
+                }
             }
 
-            public void bind( String contact ) {
+            void bind( String contact ) {
                 mContact = contact;
                 Task t1 = FirebaseFirestore.getInstance( )
                         .collection( DataBasePath.ROOMS.getValue( ) )
@@ -248,7 +286,7 @@ public class SelectChatFragment extends Fragment {
                             public void onSuccess( DocumentSnapshot documentSnapshot ) {
                                 mRoomPosted = documentSnapshot.toObject( RoomPosted.class );
                                 if ( mRoomPosted != null ) {
-                                    mAddresTextView.setText( mRoomPosted.getCompleteAddress( ) );
+                                    mAddressTextView.setText( mRoomPosted.getCompleteAddress( ) );
                                 }
 
                             }
@@ -264,7 +302,7 @@ public class SelectChatFragment extends Fragment {
                                 Profile p = documentSnapshot.toObject( Profile.class );
                                 if ( p != null ) {
                                     mLandlordName.setText( p.getName( ) );
-                                    mLandlordAge.setText( Integer.toString( p.getAge( ) ) );
+                                    mLandlordAge.setText( String.format( Locale.getDefault( ), "%d", p.getAge( ) ) );
                                     Task t = ImageController.getProfilePicture( p.getUserID( ) );
                                     t.addOnSuccessListener( new OnSuccessListener<byte[]>( ) {
                                         @Override

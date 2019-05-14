@@ -7,6 +7,9 @@ import java.io.Serializable;
 import java.util.InputMismatchException;
 import java.util.List;
 
+/**
+ * Model that represent a profile in WeRoom.
+ */
 public class Profile implements Serializable, Parcelable {
 
     public static final Creator<Profile> CREATOR = new Creator<Profile>( ) {

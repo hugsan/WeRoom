@@ -7,6 +7,9 @@ import java.io.Serializable;
 import java.util.InputMismatchException;
 import java.util.UUID;
 
+/**
+ * Model that represent a Room in WeRoom.
+ */
 public class RoomPosted implements Serializable, Parcelable{
     static final long serialVersionUID = 42L;
 

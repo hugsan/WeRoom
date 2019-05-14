@@ -27,85 +27,107 @@ import com.itcom202.weroom.interaction.chat.models.Message;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Fragment that displays a live chat room for the users.
+ */
 public class ChatFragment extends Fragment {
-    static public final String PARTNER_ID = "parner_id";
+    static public final String KET_CHAT_ID = "chat_id";
     private ListView listView;
     private View btnSend;
     private EditText editText;
     private List<Message> chatMessages;
     private ArrayAdapter<Message> adapter;
-    private Profile mProfile = ProfileSingleton.getInstance();
+    private Profile mProfile = ProfileSingleton.getInstance( );
     private String mChatID;
 
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_chat, container, false);
-        if (getArguments() != null)
-            mChatID = getArguments().getString(PARTNER_ID);
+    public View onCreateView( @NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState ) {
+        View v = inflater.inflate( R.layout.fragment_chat, container, false );
+        if ( getArguments( ) != null )
+            mChatID = getArguments( ).getString( KET_CHAT_ID );
 
-        chatMessages = new ArrayList<>();
+        chatMessages = new ArrayList<>( );
 
-        listView = v.findViewById(R.id.list_msg);
-        btnSend = v.findViewById(R.id.btn_chat_send);
-        editText = v.findViewById(R.id.msg_type);
+        listView = v.findViewById( R.id.list_msg );
+        btnSend = v.findViewById( R.id.btn_chat_send );
+        editText = v.findViewById( R.id.msg_type );
 
-        adapter = new MessageAdapter(getActivity(), R.layout.item_chat_left, chatMessages);
-        listView.setAdapter(adapter);
+        adapter = new MessageAdapter( getActivity( ), R.layout.item_chat_left, chatMessages );
+        listView.setAdapter( adapter );
 
-        //event for button SEND
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (editText.getText().toString().trim().equals("")) {
-                    Toast.makeText(getActivity(), "Please input some text...", Toast.LENGTH_SHORT).show();
-                } else {
-                    //add message to list
-                    Message chatMessage = new Message(editText.getText().toString(), mProfile.getName(), mProfile.getUserID());
-
-                    DatabaseReference messageRef = FirebaseDatabase.getInstance()
-                            .getReference(DataBasePath.CHAT.getValue()).child(mChatID);
-                    String key = messageRef.push().getKey();
-                    messageRef.child(key).setValue(chatMessage);
-
-                    adapter.notifyDataSetChanged();
-                    editText.setText("");
-                }
-            }
-        });
-        DatabaseReference messageRef = FirebaseDatabase.getInstance()
-                .getReference(DataBasePath.CHAT.getValue()).child(mChatID);
-        messageRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Message message = dataSnapshot.getValue(Message.class);
-                chatMessages.add(message);
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        createSendMessageListener( );
+        newMessageListener( );
         return v;
     }
 
+    /**
+     * Initialize the btnSend to send message from editText to the FireBase RealtimeDatabase.
+     * after sending the message it reset the editText to have a empty string.
+     */
+    public void createSendMessageListener( ) {
+        //event for button SEND
+        btnSend.setOnClickListener( new View.OnClickListener( ) {
+            @Override
+            public void onClick( View v ) {
+                if ( editText.getText( ).toString( ).trim( ).equals( "" ) ) {
+                    Toast.makeText( getActivity( ), "Please input some text...", Toast.LENGTH_SHORT ).show( );
+                } else {
+                    //add message to list
+                    Message chatMessage = new Message( editText.getText( ).toString( ), mProfile.getName( ), mProfile.getUserID( ) );
+
+                    DatabaseReference messageRef = FirebaseDatabase.getInstance( )
+                            .getReference( DataBasePath.CHAT.getValue( ) ).child( mChatID );
+                    String key = messageRef.push( ).getKey( );
+                    if ( key != null ) {
+                        messageRef.child( key ).setValue( chatMessage );
+                    }
+
+                    adapter.notifyDataSetChanged( );
+                    editText.setText( "" );
+                }
+            }
+        } );
+    }
+
+    /**
+     * Initialize a query that will be listening to any new message create on FireBase
+     * RealTimeDatabase.
+     * <p>
+     * When a new message is written in the database it will read the message and update the
+     * adapter that contain the messages.
+     */
+    public void newMessageListener( ) {
+        DatabaseReference messageRef = FirebaseDatabase.getInstance( )
+                .getReference( DataBasePath.CHAT.getValue( ) ).child( mChatID );
+        messageRef.addChildEventListener( new ChildEventListener( ) {
+            @Override
+            public void onChildAdded( @NonNull DataSnapshot dataSnapshot, @Nullable String s ) {
+                Message message = dataSnapshot.getValue( Message.class );
+                chatMessages.add( message );
+                adapter.notifyDataSetChanged( );
+            }
+
+            @Override
+            public void onChildChanged( @NonNull DataSnapshot dataSnapshot, @Nullable String s ) {
+
+            }
+
+            @Override
+            public void onChildRemoved( @NonNull DataSnapshot dataSnapshot ) {
+
+            }
+
+            @Override
+            public void onChildMoved( @NonNull DataSnapshot dataSnapshot, @Nullable String s ) {
+
+            }
+
+            @Override
+            public void onCancelled( @NonNull DatabaseError databaseError ) {
+
+            }
+        } );
+    }
 }

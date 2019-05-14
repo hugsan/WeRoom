@@ -7,6 +7,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Model that handles the matches in the application.
+ *
+ * All options are:
+ * -Liked
+ * -ExternalLiked
+ * -Match
+ * -Dislike
+ */
 public class Match implements Serializable, Parcelable {
     public static final Creator<Match> CREATOR = new Creator<Match>( ) {
         @Override

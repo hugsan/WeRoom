@@ -10,21 +10,27 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.itcom202.weroom.MainActivity;
-import com.itcom202.weroom.framework.ProfileSingleton;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.models.Profile;
 import com.itcom202.weroom.account.onboarding.controllers.tagDescription.TagView;
+import com.itcom202.weroom.framework.ProfileSingleton;
 import com.itcom202.weroom.framework.cameraandgallery.PictureConversion;
 import com.itcom202.weroom.framework.queries.ImageController;
 import com.itcom202.weroom.interaction.InteractionActivity;
 
 import java.util.Locale;
+import java.util.Objects;
 
-
+/**
+ * Fragment that allows the user to see their profile information and navigate to setting and edit
+ * their own profile and tenant/landlord profile, and in case of being a landlord it should also be able
+ * to edit their rooms.
+ */
 public class ProfileInfoFragment extends Fragment {
     private Button mLogoutButton;
     private Button mSettingButton;
@@ -41,91 +47,87 @@ public class ProfileInfoFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_profile_info, null, false);
-        mLogoutButton = v.findViewById(R.id.profile_logout_button);
-        mShowName = v.findViewById(R.id.profile_username);
-        mShowAge = v.findViewById(R.id.profileshow_age);
-        mShowRole = v.findViewById(R.id.profile_role);
-        mShowNation = v.findViewById(R.id.profiles_nationatility);
-        mShowGender = v.findViewById(R.id.profile_gender);
-        mProfilePicture = v.findViewById(R.id.profile_profilePhoto);
-        mTag = v.findViewById(R.id.profile_tags);
-        mEditButton = v.findViewById(R.id.profile_edit_profile);
-        mSettingButton = v.findViewById(R.id.profile_account_setting);
-        mEditSubProfile = v.findViewById(R.id.modify_sub_profile);
-        mModifyRoom = v.findViewById(R.id.modify_rooms);
+    public View onCreateView( @NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState ) {
+        View v = inflater.inflate( R.layout.fragment_profile_info, container, false );
+        mLogoutButton = v.findViewById( R.id.profile_logout_button );
+        mShowName = v.findViewById( R.id.profile_username );
+        mShowAge = v.findViewById( R.id.profileshow_age );
+        mShowRole = v.findViewById( R.id.profile_role );
+        mShowNation = v.findViewById( R.id.profiles_nationatility );
+        mShowGender = v.findViewById( R.id.profile_gender );
+        mProfilePicture = v.findViewById( R.id.profile_profilePhoto );
+        mTag = v.findViewById( R.id.profile_tags );
+        mEditButton = v.findViewById( R.id.profile_edit_profile );
+        mSettingButton = v.findViewById( R.id.profile_account_setting );
+        mEditSubProfile = v.findViewById( R.id.modify_sub_profile );
+        mModifyRoom = v.findViewById( R.id.modify_rooms );
 
-        final Profile p = ProfileSingleton.getInstance();
+        final Profile p = ProfileSingleton.getInstance( );
 
-
-        if (p.getRole().equals("Landlord")){
-            mEditSubProfile.setText(R.string.edit_landlord);
-            mModifyRoom.setText(R.string.edit_rooms);
+        if ( p.getRole( ).equals( "Landlord" ) ) {
+            mEditSubProfile.setText( R.string.edit_landlord );
+            mModifyRoom.setText( R.string.edit_rooms );
+        } else {
+            mModifyRoom.setVisibility( View.GONE );
+            mEditSubProfile.setText( R.string.edit_tenant );
         }
-        else{
-            mModifyRoom.setVisibility(View.GONE);
-            mEditSubProfile.setText(R.string.edit_tenant);
-        }
-        for (String s : p.getTags())
-            mTag.addTag(s, false);
+        for ( String s : p.getTags( ) )
+            mTag.addTag( s, false );
 
-        mShowName.setText(p.getName());
-        mShowAge.setText(Integer.toString(p.getAge()));
-        mShowRole.setText(p.getRole());
+        mShowName.setText( p.getName( ) );
+        mShowAge.setText( String.format( Locale.getDefault( ), "%d", p.getAge( ) ) );
+        mShowRole.setText( p.getRole( ) );
 
-        Locale obj = new Locale("",p.getCountry());
+        Locale obj = new Locale( "", p.getCountry( ) );
 
-        mShowNation.setText(obj.getDisplayCountry(Locale.ENGLISH));
-        mShowGender.setText(p.getGender());
+        mShowNation.setText( obj.getDisplayCountry( Locale.ENGLISH ) );
+        mShowGender.setText( p.getGender( ) );
 
-        Task t = ImageController.getProfilePicture(p.getUserID());
+        Task t = ImageController.getProfilePicture( p.getUserID( ) );
 
-        t.addOnSuccessListener(new OnSuccessListener<byte[]>() {
+        t.addOnSuccessListener( new OnSuccessListener<byte[]>( ) {
             @Override
-            public void onSuccess(final byte[] bytes) {
-                mProfilePicture.setImageBitmap(PictureConversion.byteArrayToBitmap(bytes));
+            public void onSuccess( final byte[] bytes ) {
+                mProfilePicture.setImageBitmap( PictureConversion.byteArrayToBitmap( bytes ) );
             }
-        });
+        } );
 
-        mLogoutButton.setOnClickListener(new View.OnClickListener() {
+        mLogoutButton.setOnClickListener( new View.OnClickListener( ) {
             @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(MainActivity.newIntent(getActivity()));
+            public void onClick( View v ) {
+                FirebaseAuth.getInstance( ).signOut( );
+                startActivity( MainActivity.newIntent( getActivity( ) ) );
             }
-        });
-        mEditButton.setOnClickListener(new View.OnClickListener() {
+        } );
+        mEditButton.setOnClickListener( new View.OnClickListener( ) {
             @Override
-            public void onClick(View v) {
-                (( InteractionActivity )getActivity()).changeToProfileEditFragment();
+            public void onClick( View v ) {
+                ( ( InteractionActivity ) Objects.requireNonNull( getActivity( ) ) ).changeToProfileEditFragment( );
             }
-        });
-        mSettingButton.setOnClickListener(new View.OnClickListener() {
+        } );
+        mSettingButton.setOnClickListener( new View.OnClickListener( ) {
             @Override
-            public void onClick(View v) {
-                (( InteractionActivity )getActivity()).changeToSettingFragment();
+            public void onClick( View v ) {
+                ( ( InteractionActivity ) Objects.requireNonNull( getActivity( ) ) ).changeToSettingFragment( );
             }
-        });
-        mEditSubProfile.setOnClickListener(new View.OnClickListener() {
+        } );
+        mEditSubProfile.setOnClickListener( new View.OnClickListener( ) {
             @Override
-            public void onClick(View v) {
-                if (p.getRole().equals("Landlord")){
-                    (( InteractionActivity )getActivity()).changeToLandlordEditFragment();
-                }else{
-                    (( InteractionActivity )getActivity()).changeToTenantEditFragment();
+            public void onClick( View v ) {
+                if ( p.getRole( ).equals( "Landlord" ) ) {
+                    ( ( InteractionActivity ) Objects.requireNonNull( getActivity( ) ) ).changeToLandlordEditFragment( );
+                } else {
+                    ( ( InteractionActivity ) Objects.requireNonNull( getActivity( ) ) ).changeToTenantEditFragment( );
                 }
             }
-        });
+        } );
 
-        mModifyRoom.setOnClickListener(new View.OnClickListener() {
+        mModifyRoom.setOnClickListener( new View.OnClickListener( ) {
             @Override
-            public void onClick(View v) {
-                (( InteractionActivity )getActivity()).changeToRoomEditing();
+            public void onClick( View v ) {
+                ( ( InteractionActivity ) Objects.requireNonNull( getActivity( ) ) ).changeToRoomEditing( );
             }
-        });
-
-
+        } );
 
         return v;
     }

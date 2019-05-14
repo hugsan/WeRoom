@@ -29,10 +29,14 @@ public class ProfileSingleton {
 
     /**
      * Initialize the value of userProfile with a given Profile.
+     * Create a instance of SingleTon if null.
      *
      * @param profile Profile to initialize the SingleTon.
      */
     public static void initialize( Profile profile ) {
+        if (single_instance == null){
+            single_instance = new ProfileSingleton();
+        }
         single_instance.userProfile = profile;
     }
 

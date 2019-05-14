@@ -26,14 +26,18 @@ import com.itcom202.weroom.interaction.InteractionActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+/**
+ * Fragment that allows the user to change the settings of the application and delete the account.
+ */
 public class SettingFragment extends Fragment {
     private final String TAG = "SettingFragment";
     private Button mDeleteAccount;
     private Switch mBatterySafeMode;
     private List<Task> mDeleteAccountTask = new ArrayList<>();
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_setting, null, false);
+        View v = inflater.inflate(R.layout.fragment_setting, container, false);
 
         mDeleteAccount = v.findViewById(R.id.delete_account);
         mBatterySafeMode = v.findViewById(R.id.battery_safe_mode);
@@ -47,7 +51,10 @@ public class SettingFragment extends Fragment {
                 Profile p = ProfileSingleton.getInstance();
 
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
-                Task t1 =  user.delete();
+                Task t1 = null;
+                if ( user != null ) {
+                    t1 = user.delete();
+                }
                 mDeleteAccountTask.add(t1);
                 Task t2 = db.collection(DataBasePath.USERS.getValue())
                         .document(p.getUserID())
@@ -71,10 +78,10 @@ public class SettingFragment extends Fragment {
             }
         });
 
-        mBatterySafeMode.setChecked((( InteractionActivity )getActivity()).getNotificationOption());
+        mBatterySafeMode.setChecked((( InteractionActivity ) Objects.requireNonNull( getActivity( ) ) ).getNotificationOption());
         mBatterySafeMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                (( InteractionActivity )getActivity()).changeNotificationOption(isChecked);
+                (( InteractionActivity ) Objects.requireNonNull( getActivity( ) ) ).changeNotificationOption(isChecked);
             }
         });
         return v;
