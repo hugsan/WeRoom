@@ -39,7 +39,6 @@ public class CardInfoTenantFragment extends Fragment {
     private TextView mTenantAge;
     private TextView mTenantGender;
     private TextView mTenantNation;
-    private TextView mSmoker;
 
     private List<String> tags = new ArrayList<>();
     private static final String KEY_TENANT = "mytenant";
@@ -61,7 +60,6 @@ public class CardInfoTenantFragment extends Fragment {
         mTenantAge = v.findViewById(R.id.card_tenant_age);
         mTenantGender = v.findViewById(R.id.card_tenant_gender);
         mTenantNation = v.findViewById(R.id.card_tenant_nation);
-        mSmoker = v.findViewById(R.id.card_tenant_smoking);
         mTagView = v.findViewById(R.id.card_tenant_description);
         mPhoto = v.findViewById(R.id.card_tenant_picture);
         if (getArguments() != null)
@@ -89,7 +87,6 @@ public class CardInfoTenantFragment extends Fragment {
         mTenantGender.setText(mProfile.getGender());
         Locale l = new Locale("",mProfile.getCountry());
         mTenantNation.setText(l.getDisplayCountry());
-        mSmoker.setText(mProfile.getTenant().getSmokeFriendly());
 
         for (String s : mProfile.getTags())
             mTagView.addTag(s, false);

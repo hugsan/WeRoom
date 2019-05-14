@@ -1,5 +1,6 @@
 package com.itcom202.weroom.interaction.swipe.views;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -33,12 +34,17 @@ import java.util.Locale;
 public class CardInfoRoomFragment extends Fragment {
     private ImageButton mButtonExit;
     private ImageView mPhoto;
+    private ImageView mPhotoLandlord;
     private TextView mLandlordName;
     private TextView mLandlordAge;
     private TextView mLandlordGender;
     private TextView mLandlordNation;
     private TextView mRoomDescription;
     private TextView mRoomLocation;
+    private TextView mRent;
+    private TextView mDeposit;
+    private TextView mArea;
+    private TextView mRentPeriod;
     private CheckBox mRoomInternet;
     private CheckBox mRoomLaundry;
     private CheckBox mRoomFurnished;
@@ -73,6 +79,11 @@ public class CardInfoRoomFragment extends Fragment {
         mRoomLaundry = v.findViewById(R.id.card_land_laundry);
         mRoomFurnished = v.findViewById(R.id.card_land_furnished);
         mRoomCommonArea = v.findViewById(R.id.card_land_common);
+        mArea = v.findViewById(R.id.area_room_cardinfo);
+        mDeposit = v.findViewById(R.id.deposit_room_cardinfo);
+        mRent = v.findViewById(R.id.rent_room_cardinfo);
+        mRentPeriod = v.findViewById(R.id.period_room_cardinfo);
+        mPhotoLandlord = v.findViewById(R.id.landlord_pb_cardinfo);
 
         if (getArguments() != null){
             mRoomPosted = getArguments().getParcelable(KEY_ROOM);
@@ -109,10 +120,15 @@ public class CardInfoRoomFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task task) {
                 mLandlordName.setText(mLandlord.getName());
-                mLandlordAge.setText(Integer.toString(mLandlord.getAge()));
+                mLandlordAge.setText(String.format(Locale.getDefault(), "%d", mLandlord.getAge()));
                 mLandlordGender.setText(mLandlord.getGender());
                 Locale l = new Locale("",mLandlord.getCountry());
                 mLandlordNation.setText(l.getDisplayCountry());
+                mArea.setText(String.format(Locale.getDefault(), "%d", mRoomPosted.getSize()));
+                mRent.setText(String.format(Locale.getDefault(), "%d", mRoomPosted.getRent()));
+                mRentPeriod.setText(String.format(Locale.getDefault(), "%d", mRoomPosted.getPeriodOfRenting()));
+                mDeposit.setText(String.format(Locale.getDefault(), "%d", mRoomPosted.getDeposit()));
+
 
             }
         });
@@ -123,6 +139,7 @@ public class CardInfoRoomFragment extends Fragment {
         mRoomLaundry.setChecked(mRoomPosted.isLaundry());
         mRoomFurnished.setChecked(mRoomPosted.isFurnished());
         mRoomCommonArea.setChecked(mRoomPosted.isComonAreas());
+
 
         Task t1 = ImageController.getRoomPicture(mRoomPosted.getRoomID(), 0);
         t1.addOnSuccessListener(new OnSuccessListener<byte[]>() {

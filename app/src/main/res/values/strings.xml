@@ -218,6 +218,14 @@
     <string name="smoke">Smoking habits</string>
     <string name="searching_for">I\'m looking for</string>
     <string name="searching_in">Searching  in</string>
+    <string name="rent_of_room">Rent</string>
+    <string name="area_of_room">Area</string>
+    <string name="nationality_text">Nationality</string>
+    <string name="age_tenant">Age</string>
+    <string name="period_of_rent">Rent period</string>
+    <string name="room_deposit">Deposit</string>
+
+
 
     <!-- strings related to EditProfileFragment -->
     <string name="edit_profile">Edit profile</string>
@@ -251,6 +259,7 @@
     <string name="nationality_holder">Nationality : %s</string>
 
     <!-- close application message -->
-    <string name="close_app_msg">Are you sure that you want to close WeRoom?</string>
+    <string name="application_close">Close Application</string>
+    <string name="close_app_msg">Are you sure you want to close WeRoom?</string>
 
 </resources>
