@@ -14,36 +14,47 @@ import android.os.Build;
 import android.os.Parcelable;
 import android.os.StrictMode;
 import android.provider.MediaStore;
-import android.media.ExifInterface;
+import android.support.media.ExifInterface;
 import android.util.Log;
+
 import com.itcom202.weroom.R;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+/**
+ * Class that allows the user to choose a picture form gallery or open a new phone camera intent.
+ * Author: Mario Velasco Casquero
+ * Source: https://gist.github.com/Mariovc/f06e70ebe8ca52fbbbe2
+ */
 public class ImagePicker {
 
     private static final int DEFAULT_MIN_WIDTH_QUALITY = 400;        // min pixels
     private static final String TAG = "ImagePicker";
     private static final String TEMP_IMAGE_NAME = "tempImage";
 
-
+    /**
+     * This method creates a bottom sheet for choosing which image intent to open
+     *
+     * @param context gets the context of the application
+     * @return returns the intent chosen by the user
+     */
     public static Intent getPickImageIntent(Context context) {
-        if(Build.VERSION.SDK_INT>=24){
-            try{
+        if (Build.VERSION.SDK_INT >= 24) {
+            try {
                 Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
                 m.invoke(null);
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         Intent chooserIntent = null;
-
         List<Intent> intentList = new ArrayList<>();
-
         Intent pickIntent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -73,7 +84,15 @@ public class ImagePicker {
         return list;
     }
 
-
+    /**
+     * This method gets the picture from the chosen intent
+     *
+     * @param context gets the context of the application
+     * @param resultCode is the standard result of the operation
+     * @param imageReturnedIntent this is the intent from which the method will get the picture
+     * @return returns the bitmap format of the picture
+     * @throws IOException
+     */
     public static Bitmap getImageFromResult(Context context, int resultCode,
                                             Intent imageReturnedIntent) throws IOException {
         Log.d(TAG, "getImageFromResult, resultCode: " + resultCode);
@@ -82,26 +101,23 @@ public class ImagePicker {
         if (resultCode == Activity.RESULT_OK) {
             Uri selectedImage;
             boolean isCamera = (imageReturnedIntent == null ||
-                    imageReturnedIntent.getData() == null  ||
+                    imageReturnedIntent.getData() == null ||
                     imageReturnedIntent.getData().toString().contains(imageFile.toString()));
-            if (isCamera) {     /** CAMERA **/
+            if (isCamera) {     //camera
 
                 selectedImage = Uri.fromFile(imageFile);
-              //  handleSamplingAndRotationBitmap(context,selectedImage);
-            } else {            /** ALBUM **/
+            } else {            //gallery
                 selectedImage = imageReturnedIntent.getData();
             }
             Log.d(TAG, "selectedImage: " + selectedImage);
 
             bm = getImageResized(context, selectedImage);
             int rotation = getRotation(context, selectedImage, isCamera);
-            //bm = handleSamplingAndRotationBitmap(context,selectedImage);
-            if(bm.getHeight()>=bm.getWidth()) {
-                if(isCamera) {
+            if (bm.getHeight() >= bm.getWidth()) {
+                if (isCamera) {
                     bm = rotate(bm, rotation + 180);
-                }else bm = rotate(bm, rotation);
-            }
-            else {
+                } else bm = rotate(bm, rotation);
+            } else {
 
                 bm = rotate(bm, rotation + 90);
             }
@@ -129,11 +145,16 @@ public class ImagePicker {
             e.printStackTrace();
         }
 
-        Bitmap actuallyUsableBitmap = BitmapFactory.decodeFileDescriptor(
-                fileDescriptor.getFileDescriptor(), null, options);
+        Bitmap actuallyUsableBitmap = null;
+        if (fileDescriptor != null) {
+            actuallyUsableBitmap = BitmapFactory.decodeFileDescriptor(
+                    fileDescriptor.getFileDescriptor(), null, options);
+        }
 
-        Log.d(TAG, options.inSampleSize + " sample method bitmap ... " +
-                actuallyUsableBitmap.getWidth() + " " + actuallyUsableBitmap.getHeight());
+        if (actuallyUsableBitmap != null) {
+            Log.d(TAG, options.inSampleSize + " sample method bitmap ... " +
+                    actuallyUsableBitmap.getWidth() + " " + actuallyUsableBitmap.getHeight());
+        }
 
         return actuallyUsableBitmap;
     }
@@ -142,7 +163,7 @@ public class ImagePicker {
      * Resize to avoid using too much memory loading big images (e.g.: 2560*1920)
      **/
     private static Bitmap getImageResized(Context context, Uri selectedImage) {
-        Bitmap bm = null;
+        Bitmap bm;
         int[] sampleSizes = new int[]{5, 3, 2, 1};
         int i = 0;
         do {
@@ -153,8 +174,14 @@ public class ImagePicker {
         return bm;
     }
 
-
-
+    /**
+     * This method rotates the pictures
+     *
+     * @param context gets the context of the application
+     * @param imageUri is the Uri reference of the picture
+     * @param isCamera checks if the intent is the camera, else being the gallery
+     * @return
+     */
     private static int getRotation(Context context, Uri imageUri, boolean isCamera) {
         int rotation;
 
@@ -172,12 +199,10 @@ public class ImagePicker {
 
         try {
             context.getContentResolver().notifyChange(imageFile, null);
-            ExifInterface exif = new ExifInterface(imageFile.getPath());
+            ExifInterface exif = new ExifInterface(Objects.requireNonNull(imageFile.getPath()));
             int orientation = exif.getAttributeInt(
                     ExifInterface.TAG_ORIENTATION,
                     ExifInterface.ORIENTATION_UNDEFINED);
-
-            // int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
 
             switch (orientation) {
                 case ExifInterface.ORIENTATION_ROTATE_270:
@@ -196,23 +221,17 @@ public class ImagePicker {
         return rotate;
     }
 
-    public static int getRotationFromGallery(Context context, Uri imageUri) {
+    private static int getRotationFromGallery(Context context, Uri imageUri) {
         int result = 0;
         String[] columns = {MediaStore.Images.Media.ORIENTATION};
-        Cursor cursor = null;
-        try {
-            cursor = context.getContentResolver().query(imageUri, columns, null, null, null);
+        try (Cursor cursor = context.getContentResolver().query(imageUri, columns, null, null, null)) {
             if (cursor != null && cursor.moveToFirst()) {
                 int orientationColumnIndex = cursor.getColumnIndex(columns[0]);
                 result = cursor.getInt(orientationColumnIndex);
             }
         } catch (Exception e) {
             //Do nothing
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }//End of try-catch block
+        }
         return result;
     }
 

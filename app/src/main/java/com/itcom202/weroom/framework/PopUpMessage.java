@@ -10,12 +10,20 @@ import android.widget.TextView;
 
 import com.itcom202.weroom.R;
 
+/**
+ * Class that creates a dialog for the users. The dialog can display different message on runtime.
+ */
 public class PopUpMessage {
     private boolean mStartActivity = false;
     private Activity mActivity;
     private Intent mIntent;
 
 
+    /**
+     * Method that show dialog with a specific message.
+     * @param activity context of the application.
+     * @param msg String of the message to be displayed to the user.
+     */
     public void showDialog(Activity activity,String msg){
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
