@@ -51,7 +51,7 @@ import java.util.List;
  * <p>
  * Implements Navigation bar
  * <p>
- * Starts the Notification service if the requirements are meet.
+ * Starts the Notification service if the requirements are met.
  */
 public class InteractionActivity extends AppCompatActivity {
     private final String TAG = "InteractionActivity";

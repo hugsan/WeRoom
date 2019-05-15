@@ -23,9 +23,9 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<RoomPosted> mAllRoomPosted;
     private Profile p;
 
-    public ListAdapter( List<Profile> tenantList, List<RoomPosted> roomPosteds, List<RoomPosted> allRooms, Profile p ) {
+    public ListAdapter( List<Profile> tenantList, List<RoomPosted> roomPosted, List<RoomPosted> allRooms, Profile p ) {
         mTenantList = tenantList;
-        mRoomPostedFromLandlord = roomPosteds;
+        mRoomPostedFromLandlord = roomPosted;
         mAllRoomPosted = allRooms;
         this.p = p;
     }

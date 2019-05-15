@@ -84,11 +84,17 @@ public class SignFragment extends SingleFragment {
                 } else if ( 0 == mPasswd.getText( ).toString( ).length( ) ) {
                     mPasswd.setError( getString( R.string.set_passw ) );
                     mPasswd.requestFocus( );
-                } else if ( ! pwd1.equals( pwd2 ) ) {
+
+                } else if (6 > mPasswd.getText( ).toString( ).length( ) ) {
+                    mPasswd.setError(getString(R.string.pass_too_short));
+                    mPasswd.requestFocus();
+
+                }else if ( ! pwd1.equals( pwd2 ) ) {
                     mPasswd.setError( getString( R.string.same_passw ) );
                     mPasswd.requestFocus( );
                     mPasswd2.requestFocus( );
-                } else if ( mEmail.getText( ).toString( ).length( ) == 0 || pwd1.length( ) == 0 ) {
+
+                }else if ( mEmail.getText( ).toString( ).length( ) == 0 || pwd1.length( ) == 0 ) {
                     Toast.makeText( getActivity( ), R.string.empty_fields, Toast.LENGTH_SHORT ).show( );
                 } else if ( ! ( mEmail.getText( ).toString( ).length( ) == 0 ) ) {
                     mFirebaseAuth.createUserWithEmailAndPassword( mEmail.getText( ).toString( ), mPasswd2.getText( ).toString( ) )
