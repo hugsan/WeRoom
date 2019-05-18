@@ -35,10 +35,12 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public RecyclerView.ViewHolder onCreateViewHolder( @NonNull ViewGroup parent, int viewType ) {
         switch ( viewType ) {
             case 0:
-                return new TenantHolder( LayoutInflater.from( parent.getContext( ) ).inflate( R.layout.swipe_card_landlord, parent, false ) );
+                return new TenantHolder( LayoutInflater.from( parent.getContext( ) )
+                        .inflate( R.layout.swipe_card_landlord, parent, false ) );
 
             case 2:
-                return new RoomHolder( LayoutInflater.from( parent.getContext( ) ).inflate( R.layout.swipe_card_tenant, parent, false ) );
+                return new RoomHolder( LayoutInflater.from( parent.getContext( ) )
+                        .inflate( R.layout.swipe_card_tenant, parent, false ) );
         }
         return null;
     }
