@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -32,6 +33,7 @@ import java.util.List;
  */
 public class ChatFragment extends Fragment {
     static public final String KET_CHAT_ID = "chat_id";
+    static public final String KEY_CHAT_PARTNER = "chat_partner";
     private ListView listView;
     private View btnSend;
     private EditText editText;
@@ -39,23 +41,28 @@ public class ChatFragment extends Fragment {
     private ArrayAdapter<Message> adapter;
     private Profile mProfile = ProfileSingleton.getInstance( );
     private String mChatID;
-
+    private TextView mChatName;
+    private String mChatPartner;
 
     @Nullable
     @Override
     public View onCreateView( @NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState ) {
         View v = inflater.inflate( R.layout.fragment_chat, container, false );
-        if ( getArguments( ) != null )
-            mChatID = getArguments( ).getString( KET_CHAT_ID );
-
+        if ( getArguments( ) != null ) {
+            mChatID = getArguments().getString(KET_CHAT_ID);
+        }
         chatMessages = new ArrayList<>( );
 
         listView = v.findViewById( R.id.list_msg );
         btnSend = v.findViewById( R.id.btn_chat_send );
         editText = v.findViewById( R.id.msg_type );
+        mChatName = v.findViewById(R.id.nameChat);
+        mChatName.setText(getArguments().getString(KEY_CHAT_PARTNER));
 
         adapter = new MessageAdapter( getActivity( ), R.layout.item_chat_left, chatMessages );
         listView.setAdapter( adapter );
+
+
 
         createSendMessageListener( );
         newMessageListener( );

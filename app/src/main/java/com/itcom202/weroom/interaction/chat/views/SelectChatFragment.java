@@ -207,6 +207,7 @@ public class SelectChatFragment extends Fragment {
                     Fragment chatFragment = new ChatFragment( );
                     Bundle bundle = new Bundle( );
                     bundle.putString( ChatFragment.KET_CHAT_ID, createChatID( mContact, mCurrentSelectedRoom.getRoomID( ) ) );
+                    bundle.putString(ChatFragment.KEY_CHAT_PARTNER, mProfileName.getText().toString());
                     chatFragment.setArguments( bundle );
                     transaction.replace( R.id.fragment_container_top, chatFragment );
                     transaction.commit( );
@@ -270,6 +271,7 @@ public class SelectChatFragment extends Fragment {
                     Fragment chatFragment = new ChatFragment( );
                     Bundle bundle = new Bundle( );
                     bundle.putString( ChatFragment.KET_CHAT_ID, createChatID( mContact, ProfileSingleton.getInstance( ).getUserID( ) ) );
+                    bundle.putString(ChatFragment.KEY_CHAT_PARTNER, mLandlordName.getText().toString() + "\n" + mRoomPosted.getCompleteAddress() );
                     chatFragment.setArguments( bundle );
                     transaction.replace( R.id.fragment_container_top, chatFragment );
                     transaction.commit( );
