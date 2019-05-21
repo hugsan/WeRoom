@@ -60,7 +60,7 @@ public class ProfileSingleton {
      * @return true if the profile from singleton is finished, false if there is missing data to have a finished account.
      */
     public static boolean isFinishedProfile( ) {
-        if ( single_instance == null )
+        if ( single_instance == null || single_instance.userProfile == null )
             return false;
 
 

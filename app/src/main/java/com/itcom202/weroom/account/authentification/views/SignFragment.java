@@ -2,6 +2,7 @@ package com.itcom202.weroom.account.authentification.views;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -130,6 +131,16 @@ public class SignFragment extends SingleFragment {
                 changeFragment( new LoginFragment( ) );
             }
         } );
+
+        TextView terms = v.findViewById(R.id.termslink);
+        terms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.freeprivacypolicy.com/privacy/view/22fabd147977aa7df768b4e341e507b6")));
+
+            }
+        });
+
         return v;
     }
 
