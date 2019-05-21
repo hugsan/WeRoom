@@ -5,6 +5,14 @@
     android:background="@drawable/gradient">
 
 
+    <TextView
+        android:id="@+id/no_cards"
+        android:layout_width="match_parent"
+        android:layout_height="641dp"
+        android:gravity="center|center_horizontal"
+        android:text="@string/no_more_cards"
+        android:textColor="#7C1212" />
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout_swipe"
         android:layout_width="match_parent"

@@ -265,4 +265,6 @@
     <string name="gdpr_consent">I consent that I agree with the </string>
     <string name="terms_cond"><u>terms and conditions</u></string>
 
+    <string name="no_more_cards">No more matches! Check again later :)</string>
+
 </resources>
