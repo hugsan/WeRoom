@@ -26,15 +26,6 @@
                 android:layout_marginBottom="5dp"
                 android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/button_exit_info_page_tenant"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginTop="28dp"
-                    android:background="@drawable/custom_round_exit_button"
-                    app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
-
                 <ImageView
                     android:id="@+id/card_tenant_picture"
                     android:layout_width="match_parent"
@@ -146,7 +137,21 @@
             </LinearLayout>
         </ScrollView>
 
-
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/button_exit_info_page_tenant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/custom_round_exit_button"
+            android:clickable="true"
+            app:backgroundTint="#0AFF5A60"
+            app:elevation="6dp"
+            app:layout_anchorGravity="top|right|end"
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
     </RelativeLayout>
 
 

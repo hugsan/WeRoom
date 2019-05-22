@@ -14,6 +14,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -24,16 +25,7 @@
                 android:orientation="vertical">
 
 
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/button_exit_info_page_lord"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_weight="1"
-                    android:background="@drawable/custom_round_exit_button"
-                    android:clickable="true"
-                    app:backgroundTint="#FF5A60"
-                    app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
 
                 <ImageView
                     android:id="@+id/card_lord_picture"
@@ -312,6 +304,21 @@
             </LinearLayout>
         </ScrollView>
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/button_exit_info_page_lord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/custom_round_exit_button"
+            android:clickable="true"
+            app:backgroundTint="#00FF5A60"
+            app:elevation="6dp"
+            app:layout_anchorGravity="top|right|end"
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
     </RelativeLayout>
 
 
