@@ -224,6 +224,7 @@
     <string name="age_tenant">Age</string>
     <string name="period_of_rent">Rent period</string>
     <string name="room_deposit">Deposit</string>
+    <string name="room_size">Size (m\u00B2)</string>
 
 
 

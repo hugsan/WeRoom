@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="30dp"
+                    android:layout_marginEnd="72dp"
                     android:text="@string/rent_of_room"
                     android:textColor="@color/white"
                     android:textSize="22sp" />
@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="30dp"
-                    android:text="@string/area_of_room"
+                    android:text="@string/room_size"
                     android:textColor="@color/white"
                     android:textSize="22sp" />
 
