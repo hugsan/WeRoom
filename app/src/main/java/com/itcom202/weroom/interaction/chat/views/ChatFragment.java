@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +44,7 @@ public class ChatFragment extends Fragment {
     private Profile mProfile = ProfileSingleton.getInstance( );
     private String mChatID;
     private TextView mChatName;
-    private String mChatPartner;
+    private ImageButton mButtonBack;
 
     @Nullable
     @Override
@@ -58,7 +60,17 @@ public class ChatFragment extends Fragment {
         editText = v.findViewById( R.id.msg_type );
         mChatName = v.findViewById(R.id.nameChat);
         mChatName.setText(getArguments().getString(KEY_CHAT_PARTNER));
-
+        mButtonBack = v.findViewById(R.id.backbutton_chat);
+        mButtonBack.setOnClickListener( new View.OnClickListener( ) {
+            @Override
+            public void onClick( View v ) {
+                SelectChatFragment nextFrag= new SelectChatFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container_top, nextFrag, "selectChatFragment")
+                        .addToBackStack(null)
+                        .commit();
+            }
+        } );
         adapter = new MessageAdapter( getActivity( ), R.layout.item_chat_left, chatMessages );
         listView.setAdapter( adapter );
 
