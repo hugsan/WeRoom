@@ -162,10 +162,15 @@ public class LoginFragment extends SingleFragment {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult( ApiException.class );
-                assert account != null;
-                GoogleConnection.firebaseAuthWithGoogle( account, getActivity( ), firebaseAuth,
-                        getActivity( ), this );
-                logUser( );
+                if (account != null) {
+                    GoogleConnection.firebaseAuthWithGoogle( account, getActivity( ), firebaseAuth,
+                            getActivity( ), this ).addOnCompleteListener(new OnCompleteListener() {
+                        @Override
+                        public void onComplete(@NonNull Task task) {
+                            logUser( );
+                        }
+                    });
+                }
             } catch ( ApiException e ) {
                 // Google Sign In failed
                 Log.w( TAG, "Google sign in failed", e );
@@ -197,7 +202,7 @@ public class LoginFragment extends SingleFragment {
                         changeFragment( new ProfileFragment( ) );
                     }
                 } else {
-                    changeFragment( new ProfileFragment( ) );
+                    changeFragment( new LoginFragment( ) );
                 }
             }
         } );

@@ -1,5 +1,6 @@
 package com.itcom202.weroom.interaction.swipe.views;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -170,6 +171,15 @@ public class CardInfoRoomFragment extends Fragment {
                         ft.commit( );
                     }
                 } );
+            }
+        } );
+
+        Task t2 = ImageController.getProfilePicture(mRoomPosted.getLandlordID());
+        t2.addOnSuccessListener( new OnSuccessListener<byte[]>( ) {
+            @Override
+            public void onSuccess( byte[] bytes ) {
+                Bitmap bmp = PictureConversion.byteArrayToBitmap( bytes );
+                mPhotoLandlord.setImageBitmap( bmp );
             }
         } );
     }

@@ -66,12 +66,12 @@ public class GoogleConnection {
      * @param calledActivity Activity that called the Google intent to log the user into google.
      * @param fragment       Fragment where the method is been used.
      */
-    public static void firebaseAuthWithGoogle( GoogleSignInAccount acct, final Context activity,
+    public static Task firebaseAuthWithGoogle( GoogleSignInAccount acct, final Context activity,
                                                FirebaseAuth firebaseAuth, final Activity calledActivity, final Fragment fragment ) {
         Log.d( "MainACtivity", "firebaseAuthWithGoogle:" + acct.getId( ) );
 
         AuthCredential credential = GoogleAuthProvider.getCredential( acct.getIdToken( ), null );
-        firebaseAuth.signInWithCredential( credential )
+        Task t1 = firebaseAuth.signInWithCredential( credential )
                 .addOnCompleteListener( calledActivity, new OnCompleteListener<AuthResult>( ) {
                     @Override
                     public void onComplete( @NonNull Task<AuthResult> task ) {
@@ -86,6 +86,7 @@ public class GoogleConnection {
                         }
                     }
                 } );
+        return t1;
     }
 
     /**

@@ -2,6 +2,7 @@ package com.itcom202.weroom.framework.cameraandgallery;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 
@@ -19,6 +20,9 @@ public class PictureConversion {
         ByteArrayOutputStream stream = new ByteArrayOutputStream( );
         bmp.compress( Bitmap.CompressFormat.PNG, 100, stream );
         byte[] byteArray = stream.toByteArray( );
+        long lengthbmp = byteArray.length;
+        Log.d("memory" , " "+lengthbmp);
+
         bmp.recycle( );
         return byteArray;
     }
