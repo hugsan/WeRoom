@@ -15,16 +15,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:cardBackgroundColor="#FF5A60"
-            app:cardCornerRadius="7dp"
+            app:cardCornerRadius="5dp"
             app:cardElevation="10dp"
             app:contentPadding="10dp">
 
-            <TextView
-                android:id="@+id/nameChat"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="TextView"
-                android:textAlignment="center" />
+                <ImageButton
+                    android:id="@+id/backbutton_chat"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="#FF5A60"
+                    app:srcCompat="@drawable/ic_arrow_back_white_24dp" />
+
+                <TextView
+                    android:id="@+id/nameChat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:text="TextView"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+
         </android.support.v7.widget.CardView>
     </LinearLayout>
 
@@ -46,14 +56,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="0.1"
         android:orientation="horizontal">
 
         <EditText
             android:id="@+id/msg_type"
             android:layout_width="match_parent"
-            android:layout_height="37dp"
+            android:layout_height="45dp"
             android:layout_weight="2"
             android:background="@drawable/custom_rounded_edittext"
             android:ems="10"
