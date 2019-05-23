@@ -64,13 +64,15 @@ public class SwipeFragment extends Fragment {
             mRightButton.setOnClickListener( new View.OnClickListener( ) {
                 @Override
                 public void onClick( View v ) {
-                    swipeRightAction( );
+                    if (mCurrentAdapter.getItemCount() > 0)
+                        swipeRightAction( );
                 }
             } );
             mLeftButton.setOnClickListener( new View.OnClickListener( ) {
                 @Override
                 public void onClick( View v ) {
-                    swipeLeftAction( );
+                    if (mCurrentAdapter.getItemCount() > 0)
+                        swipeLeftAction( );
                 }
             } );
 
@@ -192,7 +194,7 @@ public class SwipeFragment extends Fragment {
         Log.d( TAG, "RIGHT" );
         //this is when we swipe a room.
 
-        if (mCurrentAdapter.returnTopItemID( )!=null && mCurrentAdapter.returnTopItemID( ).length( ) == 36 ) {
+        if ( mCurrentAdapter.returnTopItemID( ).length( ) == 36 ) {
             RoomPosted room = mCurrentAdapter.returnTopRoom( );
 
             if ( room.getMatch( ).addExternalLikes( mThisProfile.getUserID( ) ) )
@@ -204,7 +206,7 @@ public class SwipeFragment extends Fragment {
                     .document( room.getRoomID( ) )
                     .set( room );
         }//this when we swipe a tenant.
-        else if(mCurrentAdapter.returnTopItemID( )!=null)  {
+        else   {
             mCurrentSelectedRoom.getMatch( ).addLiked( mCurrentAdapter.returnTopItemID( ) );
             db.collection( DataBasePath.ROOMS.getValue( ) )
                     .document( mCurrentSelectedRoom.getRoomID( ) )
@@ -228,11 +230,11 @@ public class SwipeFragment extends Fragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance( );
         Log.d( TAG, "LEFT" );
         //this when we swipe a room.
-        if ( mCurrentAdapter.returnTopItemID( )!=null && mCurrentAdapter.returnTopItemID( ).length( ) == 36 ) {
+        if (  mCurrentAdapter.returnTopItemID( ).length( ) == 36 ) {
             mThisProfile.getMatch( ).addDislike( mCurrentAdapter.returnTopItemID( ) );
             ProfileSingleton.update( mThisProfile );
         }//this when we swipe a tenant.
-        else if(mCurrentAdapter.returnTopItemID( )!=null ) {
+        else {
             mCurrentSelectedRoom.getMatch( ).addDislike( mCurrentAdapter.returnTopItemID( ) );
             db.collection( DataBasePath.ROOMS.getValue( ) )
                     .document( mCurrentSelectedRoom.getRoomID( ) )

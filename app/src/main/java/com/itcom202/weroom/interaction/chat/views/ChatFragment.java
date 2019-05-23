@@ -24,11 +24,13 @@ import com.itcom202.weroom.R;
 import com.itcom202.weroom.account.models.Profile;
 import com.itcom202.weroom.framework.DataBasePath;
 import com.itcom202.weroom.framework.ProfileSingleton;
+import com.itcom202.weroom.interaction.InteractionActivity;
 import com.itcom202.weroom.interaction.chat.controllers.MessageAdapter;
 import com.itcom202.weroom.interaction.chat.models.Message;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Fragment that displays a live chat room for the users.
@@ -64,11 +66,12 @@ public class ChatFragment extends Fragment {
         mButtonBack.setOnClickListener( new View.OnClickListener( ) {
             @Override
             public void onClick( View v ) {
-                SelectChatFragment nextFrag= new SelectChatFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container_top, nextFrag, "selectChatFragment")
-                        .addToBackStack(null)
-                        .commit();
+                ((InteractionActivity) Objects.requireNonNull(getActivity())).changeToChatSelection();
+//                SelectChatFragment nextFrag= new SelectChatFragment();
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.fragment_container_top, nextFrag, "selectChatFragment")
+//                        .addToBackStack(null)
+//                        .commit();
             }
         } );
         adapter = new MessageAdapter( getActivity( ), R.layout.item_chat_left, chatMessages );

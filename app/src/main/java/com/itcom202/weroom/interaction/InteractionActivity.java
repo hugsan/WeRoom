@@ -185,6 +185,18 @@ public class InteractionActivity extends AppCompatActivity {
                 .commit( );
     }
 
+    public void changeToChatSelection(){
+        mAllProfilesFromQuery.removeAll( mNonTenantProfiles );
+        Bundle bundle = new Bundle( );
+        bundle.putParcelableArrayList( SelectChatFragment.KEY_ROOM_LANDLORD, mLandlordsRooms );
+        Fragment fragment = new SelectChatFragment( );
+        fragment.setArguments( bundle );
+        FragmentManager fm = getSupportFragmentManager( );
+        fm.beginTransaction( )
+                .replace( R.id.fragment_container_top, fragment )
+                .commit( );
+    }
+
     /**
      * Adds a room to the list of rooms of the landlord that is share among all the fragment in the package.
      *
@@ -300,14 +312,7 @@ public class InteractionActivity extends AppCompatActivity {
                                 .commit( );
                         break;
                     case R.id.action_chat:
-                        mAllProfilesFromQuery.removeAll( mNonTenantProfiles );
-                        Bundle bundle = new Bundle( );
-                        bundle.putParcelableArrayList( SelectChatFragment.KEY_ROOM_LANDLORD, mLandlordsRooms );
-                        Fragment fragment = new SelectChatFragment( );
-                        fragment.setArguments( bundle );
-                        fm.beginTransaction( )
-                                .replace( R.id.fragment_container_top, fragment )
-                                .commit( );
+                        changeToChatSelection();
                         break;
                 }
                 if ( item != mActiveBottomNavigationViewMenuItem ) {

@@ -10,9 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -55,6 +59,8 @@ public class CardInfoRoomFragment extends Fragment {
     private CheckBox mRoomCommonArea;
     private Profile mLandlord;
     private RoomPosted mRoomPosted;
+    private HorizontalScrollView mScrollView;
+
 
     /**
      * Method that creates a intent to start CardInfoRoomFragment with its corresponding bundle.
@@ -91,6 +97,8 @@ public class CardInfoRoomFragment extends Fragment {
         mRent = v.findViewById( R.id.rent_room_cardinfo );
         mRentPeriod = v.findViewById( R.id.period_room_cardinfo );
         mPhotoLandlord = v.findViewById( R.id.landlord_pb_cardinfo );
+        mScrollView = v.findViewById(R.id.scroll_view);
+
 
         if ( getArguments( ) != null ) {
             mRoomPosted = getArguments( ).getParcelable( KEY_ROOM );
@@ -148,6 +156,9 @@ public class CardInfoRoomFragment extends Fragment {
         mRoomLaundry.setChecked( mRoomPosted.isLaundry( ) );
         mRoomFurnished.setChecked( mRoomPosted.isFurnished( ) );
         mRoomCommonArea.setChecked( mRoomPosted.isComonAreas( ) );
+
+
+
 
 
         Task t1 = ImageController.getRoomPicture( mRoomPosted.getRoomID( ), 0 );
