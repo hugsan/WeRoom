@@ -56,17 +56,20 @@ public class SettingFragment extends Fragment {
                     t1 = user.delete();
                 }
                 mDeleteAccountTask.add(t1);
+
                 Task t2 = db.collection(DataBasePath.USERS.getValue())
                         .document(p.getUserID())
                         .delete();
                 mDeleteAccountTask.add(t2);
+
+                if (p.getRole().equals("Landlord")){
                 for (String s : p.getLandlord().getRoomsID()){
                     Task t = db.collection(DataBasePath.ROOMS.getValue())
                             .document(s)
                             .delete();
                     ImageController.removeAllRoomPictures(s);
                     mDeleteAccountTask.add(t);
-                }
+                }}
 
                 Tasks.whenAllSuccess(mDeleteAccountTask.toArray(new Task[mDeleteAccountTask.size()])).addOnSuccessListener(new OnSuccessListener<List<Object>>() {
                     @Override

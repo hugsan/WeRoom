@@ -77,21 +77,26 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void removeTopItem( ) {
-        if ( p.getRole( ).equals( "Landlord" ) ) {
+        if ( p.getRole( ).equals( "Landlord" )&& mTenantList!=null && mTenantList.size()>0 ) {
+
             mTenantList.remove( 0 );
             notifyDataSetChanged( );
-        } else {
+        } else if(mAllRoomPosted!=null && mAllRoomPosted.size()>0){
             mAllRoomPosted.remove( 0 );
             notifyDataSetChanged( );
         }
     }
 
     public String returnTopItemID( ) {
-        if ( p.getRole( ).equals( "Landlord" ) ) {
+        if ( p.getRole( ).equals( "Landlord" ) && mTenantList!=null && mTenantList.size()>0) {
+
             return mTenantList.get( 0 ).getUserID( );
-        } else {
+        } else if(mAllRoomPosted!=null && mAllRoomPosted.size()>0){
+
             return mAllRoomPosted.get( 0 ).getRoomID( );
         }
+        //FIXME: i dont know what to return here :)))) :'(
+        return null;
     }
 
     public RoomPosted returnTopRoomLandlord( ) {

@@ -44,7 +44,7 @@
     <string name="type_email">Type your email first!</string>
     <string name="enter_passw">Enter your password!</string>
     <string name="empty_field">The field is empty.</string>
-    <string name="not_succ">Not successful</string>
+    <string name="not_succ">Login unsuccessful. Email doesn\'t exist. Go to Sign Up to create an account! </string>
     <string name="error">Error</string>
     <string name="forgot_passw">Forgot password?</string>
     <string name="facebook_disconnected">Facebook account disconnected</string>

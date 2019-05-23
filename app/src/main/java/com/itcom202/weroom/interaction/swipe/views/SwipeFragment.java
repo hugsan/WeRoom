@@ -60,7 +60,7 @@ public class SwipeFragment extends Fragment {
         mRightButton = v.findViewById( R.id.likeButton );
         mLeftButton = v.findViewById( R.id.dislikeButton );
 
-        if ( mCurrentAdapter != null ) {
+
             mRightButton.setOnClickListener( new View.OnClickListener( ) {
                 @Override
                 public void onClick( View v ) {
@@ -73,8 +73,10 @@ public class SwipeFragment extends Fragment {
                     swipeLeftAction( );
                 }
             } );
-        }
-        if ( ProfileSingleton.getInstance( ).getRole( ).equals( "Landlord" ) && getArguments( ) != null ) {
+
+
+
+        if ( ProfileSingleton.getInstance( ).getRole( ).equals( "Landlord" ) && getArguments( ) != null && getArguments().size()>0 ) {
             mTenantProfiles = getArguments( ).getParcelableArrayList( KEY_TENANT_LIST );
             mLandlordsRooms = getArguments( ).getParcelableArrayList( KEY_ROOM_LIST_LANDLORD );
             List<String> rooms = getRoomsStrings( );
@@ -189,8 +191,8 @@ public class SwipeFragment extends Fragment {
 
         Log.d( TAG, "RIGHT" );
         //this is when we swipe a room.
-        if ( mCurrentAdapter.returnTopItemID( ).length( ) == 36 ) {
 
+        if (mCurrentAdapter.returnTopItemID( )!=null && mCurrentAdapter.returnTopItemID( ).length( ) == 36 ) {
             RoomPosted room = mCurrentAdapter.returnTopRoom( );
 
             if ( room.getMatch( ).addExternalLikes( mThisProfile.getUserID( ) ) )
@@ -202,8 +204,7 @@ public class SwipeFragment extends Fragment {
                     .document( room.getRoomID( ) )
                     .set( room );
         }//this when we swipe a tenant.
-        else {
-
+        else if(mCurrentAdapter.returnTopItemID( )!=null)  {
             mCurrentSelectedRoom.getMatch( ).addLiked( mCurrentAdapter.returnTopItemID( ) );
             db.collection( DataBasePath.ROOMS.getValue( ) )
                     .document( mCurrentSelectedRoom.getRoomID( ) )
@@ -227,11 +228,11 @@ public class SwipeFragment extends Fragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance( );
         Log.d( TAG, "LEFT" );
         //this when we swipe a room.
-        if ( mCurrentAdapter.returnTopItemID( ).length( ) == 36 ) {
+        if ( mCurrentAdapter.returnTopItemID( )!=null && mCurrentAdapter.returnTopItemID( ).length( ) == 36 ) {
             mThisProfile.getMatch( ).addDislike( mCurrentAdapter.returnTopItemID( ) );
             ProfileSingleton.update( mThisProfile );
         }//this when we swipe a tenant.
-        else {
+        else if(mCurrentAdapter.returnTopItemID( )!=null ) {
             mCurrentSelectedRoom.getMatch( ).addDislike( mCurrentAdapter.returnTopItemID( ) );
             db.collection( DataBasePath.ROOMS.getValue( ) )
                     .document( mCurrentSelectedRoom.getRoomID( ) )

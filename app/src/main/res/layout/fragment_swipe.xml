@@ -49,6 +49,7 @@
             android:layout_marginTop="525dp"
             android:layout_marginEnd="91dp"
             android:background="@drawable/custom_dislike_button"
+            android:clickable="false"
             android:scaleType="fitCenter"
             android:shadowColor="@color/black"
             android:src="@drawable/ic_check_light_green" />

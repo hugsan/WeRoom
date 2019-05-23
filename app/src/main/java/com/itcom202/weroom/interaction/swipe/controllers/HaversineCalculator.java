@@ -4,7 +4,7 @@ package com.itcom202.weroom.interaction.swipe.controllers;
  * Class that contains unique method to calculate the Haversine distance between to coordinates.
  * read more at: https://en.wikipedia.org/wiki/Haversine_formula
  */
-class HaversineCalculator {
+public class HaversineCalculator {
 
     private static final int EARTH_RADIUS = 6371; // Approx Earth radius in KM
 
@@ -17,7 +17,7 @@ class HaversineCalculator {
      * @param endLong   Point 2 Longitude.
      * @return distance between point 1 and point 2
      */
-    static double distance( double startLat, double startLong,
+   public static double distance( double startLat, double startLong,
                             double endLat, double endLong ) {
 
         double dLat = Math.toRadians( ( endLat - startLat ) );

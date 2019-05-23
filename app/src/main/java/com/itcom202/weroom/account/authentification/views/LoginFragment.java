@@ -136,7 +136,7 @@ public class LoginFragment extends SingleFragment {
                                 @Override
                                 public void onComplete( @NonNull Task task ) {
                                     if ( ! task.isSuccessful( ) ) {
-                                        Toast.makeText( getActivity( ), getString( R.string.not_succ ), Toast.LENGTH_SHORT ).show( );
+                                        Toast.makeText( getActivity( ), getString( R.string.not_succ ), Toast.LENGTH_LONG ).show( );
                                     } else {
                                         logUser( );
                                     }
