@@ -20,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.itcom202.weroom.MainActivity;
+import com.itcom202.weroom.account.models.Match;
+import com.itcom202.weroom.account.models.RoomPosted;
 import com.itcom202.weroom.framework.ProfileSingleton;
 import com.itcom202.weroom.R;
 import com.itcom202.weroom.framework.DataBasePath;
@@ -59,6 +61,9 @@ public class SettingFragment extends Fragment {
                 Task t1 = null;
                 if (user != null) {
                     t1 = user.delete();
+                    if(p.getRole().equals("Tenant")){
+                        deleteChatTenant(p.getUserID());
+                    }
                 }
                 mDeleteAccountTask.add(t1);
 
@@ -73,12 +78,12 @@ public class SettingFragment extends Fragment {
                                 .document(s)
                                 .delete();
                         ImageController.removeAllRoomPictures(s);
+                        deleteChatRoom(s);
                         mDeleteAccountTask.add(t);
+
+
                     }
                 }
-
-
-
 
 
                 Tasks.whenAllSuccess(mDeleteAccountTask.toArray(new Task[mDeleteAccountTask.size()])).addOnSuccessListener(new OnSuccessListener<List<Object>>() {
@@ -100,4 +105,36 @@ public class SettingFragment extends Fragment {
         return v;
     }
 
+    private void deleteChatRoom( String roomID) {
+        DatabaseReference chatRef = FirebaseDatabase.getInstance()
+                .getReference(DataBasePath.CHAT.getValue());
+
+        Profile p = ProfileSingleton.getInstance();
+
+        for ( String s : p.getMatch().getMatch()) {
+            if ( roomID.compareTo( s  ) < 0 )
+                mChatID = roomID + "_" + s;
+            else
+                mChatID = s + "_" + roomID;
+
+            chatRef.child(mChatID).removeValue();
+        }
+    }
+    private void deleteChatTenant(String tenantId){
+        DatabaseReference chatRef = FirebaseDatabase.getInstance()
+                .getReference(DataBasePath.CHAT.getValue());
+        Profile p = ProfileSingleton.getInstance();
+
+
+        for ( String s : p.getMatch().getMatch()) {
+
+            if ( tenantId.compareTo( s  ) < 0 )
+                mChatID = tenantId + "_" + s;
+            else
+                mChatID = s + "_" + tenantId;
+
+            chatRef.child(mChatID).removeValue();
+
+        }
+    }
 }

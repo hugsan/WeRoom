@@ -223,6 +223,7 @@ public class RoomEditFragment extends Fragment {
                         .document( mThisPostedRoom.getRoomID( ) )
                         .delete( );
 
+
                 ( ( InteractionActivity ) Objects.requireNonNull( getActivity( ) ) ).removeLandlordRoom( mThisPostedRoom );
                 ( ( InteractionActivity ) getActivity( ) ).changeToPorifleFragment( );
             }
