@@ -23,9 +23,20 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <RelativeLayout
+        android:id="@+id/swipe_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
+
+        </android.support.v7.widget.RecyclerView>
 
         <ImageButton
             android:id="@+id/dislikeButton"
@@ -36,6 +47,7 @@
             android:layout_marginStart="76dp"
             android:layout_marginTop="525dp"
             android:background="@drawable/custom_dislike_button"
+            android:elevation="10dp"
             android:scaleType="fitCenter"
             android:shadowColor="@color/black"
             android:src="@drawable/ic_close_red" />
@@ -50,28 +62,10 @@
             android:layout_marginEnd="91dp"
             android:background="@drawable/custom_dislike_button"
             android:clickable="false"
+            android:elevation="10dp"
             android:scaleType="fitCenter"
             android:shadowColor="@color/black"
             android:src="@drawable/ic_check_light_green" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/swipe_container"
-        android:layout_width="325dp"
-        android:layout_height="470dp"
-        android:layout_marginTop="50dp"
-        android:layout_centerHorizontal="true"
-        >
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:orientation="vertical">
-
-        </android.support.v7.widget.RecyclerView>
 
     </RelativeLayout>
 

@@ -44,6 +44,10 @@
                             android:background="#FF5A60" />
 
                         <ImageView
+                            android:id="@+id/card_lord_picture"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:srcCompat="@drawable/profile_pic_placeholder" />
                             android:id="@+id/pictureroom2"
                             android:layout_width="92dp"
                             android:layout_height="147dp"
