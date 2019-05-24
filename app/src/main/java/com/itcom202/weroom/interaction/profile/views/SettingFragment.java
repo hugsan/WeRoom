@@ -10,11 +10,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.itcom202.weroom.MainActivity;
 import com.itcom202.weroom.framework.ProfileSingleton;
@@ -35,7 +38,9 @@ public class SettingFragment extends Fragment {
     private final String TAG = "SettingFragment";
     private Button mDeleteAccount;
     private Switch mBatterySafeMode;
+    private String mChatID;
     private List<Task> mDeleteAccountTask = new ArrayList<>();
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_setting, container, false);
 
@@ -52,7 +57,7 @@ public class SettingFragment extends Fragment {
 
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
                 Task t1 = null;
-                if ( user != null ) {
+                if (user != null) {
                     t1 = user.delete();
                 }
                 mDeleteAccountTask.add(t1);
@@ -62,14 +67,19 @@ public class SettingFragment extends Fragment {
                         .delete();
                 mDeleteAccountTask.add(t2);
 
-                if (p.getRole().equals("Landlord")){
-                for (String s : p.getLandlord().getRoomsID()){
-                    Task t = db.collection(DataBasePath.ROOMS.getValue())
-                            .document(s)
-                            .delete();
-                    ImageController.removeAllRoomPictures(s);
-                    mDeleteAccountTask.add(t);
-                }}
+                if (p.getRole().equals("Landlord")) {
+                    for (String s : p.getLandlord().getRoomsID()) {
+                        Task t = db.collection(DataBasePath.ROOMS.getValue())
+                                .document(s)
+                                .delete();
+                        ImageController.removeAllRoomPictures(s);
+                        mDeleteAccountTask.add(t);
+                    }
+                }
+
+
+
+
 
                 Tasks.whenAllSuccess(mDeleteAccountTask.toArray(new Task[mDeleteAccountTask.size()])).addOnSuccessListener(new OnSuccessListener<List<Object>>() {
                     @Override
@@ -81,10 +91,10 @@ public class SettingFragment extends Fragment {
             }
         });
 
-        mBatterySafeMode.setChecked((( InteractionActivity ) Objects.requireNonNull( getActivity( ) ) ).getNotificationOption());
+        mBatterySafeMode.setChecked(((InteractionActivity) Objects.requireNonNull(getActivity())).getNotificationOption());
         mBatterySafeMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                (( InteractionActivity ) Objects.requireNonNull( getActivity( ) ) ).changeNotificationOption(isChecked);
+                ((InteractionActivity) Objects.requireNonNull(getActivity())).changeNotificationOption(isChecked);
             }
         });
         return v;

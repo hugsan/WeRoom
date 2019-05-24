@@ -67,11 +67,6 @@ public class ChatFragment extends Fragment {
             @Override
             public void onClick( View v ) {
                 ((InteractionActivity) Objects.requireNonNull(getActivity())).changeToChatSelection();
-//                SelectChatFragment nextFrag= new SelectChatFragment();
-//                getActivity().getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.fragment_container_top, nextFrag, "selectChatFragment")
-//                        .addToBackStack(null)
-//                        .commit();
             }
         } );
         adapter = new MessageAdapter( getActivity( ), R.layout.item_chat_left, chatMessages );

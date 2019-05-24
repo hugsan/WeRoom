@@ -32,6 +32,8 @@ import com.itcom202.weroom.framework.DataBasePath;
 import com.itcom202.weroom.framework.cameraandgallery.PictureConversion;
 import com.itcom202.weroom.framework.queries.ImageController;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -41,7 +43,7 @@ import java.util.Objects;
 public class CardInfoRoomFragment extends Fragment {
     private static final String KEY_ROOM = "KEY_ROOM";
     private ImageButton mButtonExit;
-    private ImageView mPhoto;
+   // private ImageView mPhoto;
     private ImageView mPhotoLandlord;
     private TextView mLandlordName;
     private TextView mLandlordAge;
@@ -59,7 +61,8 @@ public class CardInfoRoomFragment extends Fragment {
     private CheckBox mRoomCommonArea;
     private Profile mLandlord;
     private RoomPosted mRoomPosted;
-    private HorizontalScrollView mScrollView;
+    private List<Bitmap> mRoomPictures = new ArrayList<>();
+    private ImageView[] mPictures = new ImageView[ 10 ];
 
 
     /**
@@ -81,7 +84,7 @@ public class CardInfoRoomFragment extends Fragment {
     public View onCreateView( @NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState ) {
         View v = inflater.inflate( R.layout.fragment_card_info_room, container, false );
 
-        mPhoto = v.findViewById( R.id.card_lord_picture );
+
         mLandlordName = v.findViewById( R.id.card_lord_name );
         mLandlordAge = v.findViewById( R.id.card_lord_age );
         mLandlordGender = v.findViewById( R.id.card_lord_gender );
@@ -97,12 +100,22 @@ public class CardInfoRoomFragment extends Fragment {
         mRent = v.findViewById( R.id.rent_room_cardinfo );
         mRentPeriod = v.findViewById( R.id.period_room_cardinfo );
         mPhotoLandlord = v.findViewById( R.id.landlord_pb_cardinfo );
-        mScrollView = v.findViewById(R.id.scroll_view);
+
 
 
         if ( getArguments( ) != null ) {
             mRoomPosted = getArguments( ).getParcelable( KEY_ROOM );
+            initializePictures();
         }
+
+        for ( int i = 0 ; i < 10 ; i++ ) {
+            String btnID = "pictureroom" + ( i + 1 );
+            int resID = getResources( ).getIdentifier( btnID, "id", Objects.requireNonNull( getActivity( ) ).getPackageName( ) );
+            mPictures[ i ] = v.findViewById( resID );
+            mPictures[ i ].setVisibility( View.GONE );
+        }
+
+
         mButtonExit = v.findViewById( R.id.button_exit_info_page_lord );
         mButtonExit.setOnClickListener( new View.OnClickListener( ) {
             @Override
@@ -133,6 +146,9 @@ public class CardInfoRoomFragment extends Fragment {
                     }
                 } );
 
+
+
+
         t.addOnCompleteListener( new OnCompleteListener( ) {
             @Override
             public void onComplete( @NonNull Task task ) {
@@ -158,40 +174,72 @@ public class CardInfoRoomFragment extends Fragment {
         mRoomCommonArea.setChecked( mRoomPosted.isComonAreas( ) );
 
 
-
-
-
-        Task t1 = ImageController.getRoomPicture( mRoomPosted.getRoomID( ), 0 );
+        Task t1 = ImageController.getProfilePicture(mRoomPosted.getLandlordID());
         t1.addOnSuccessListener( new OnSuccessListener<byte[]>( ) {
-            @Override
-            public void onSuccess( final byte[] bytes ) {
-                mPhoto.setImageBitmap( PictureConversion.byteArrayToBitmap( bytes ) );
-                mPhoto.setOnClickListener( new View.OnClickListener( ) {
-                    @Override
-                    public void onClick( View v ) {
-                        FragmentTransaction ft = Objects.requireNonNull( getActivity( ) )
-                                .getSupportFragmentManager( ).beginTransaction( );
-                        ft.setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN );
-                        OpenPictureFragment openPic = new OpenPictureFragment( );
-
-                        Bundle bundle = new Bundle( );
-                        bundle.putByteArray( OpenPictureFragment.KEY_PICTURE, bytes );
-                        openPic.setArguments( bundle );
-                        ft.replace( android.R.id.content, openPic );
-                        ft.addToBackStack( null );
-                        ft.commit( );
-                    }
-                } );
-            }
-        } );
-
-        Task t2 = ImageController.getProfilePicture(mRoomPosted.getLandlordID());
-        t2.addOnSuccessListener( new OnSuccessListener<byte[]>( ) {
             @Override
             public void onSuccess( byte[] bytes ) {
                 Bitmap bmp = PictureConversion.byteArrayToBitmap( bytes );
                 mPhotoLandlord.setImageBitmap( bmp );
             }
         } );
+    }
+
+    /**
+     * display pictures in the fragment.
+     *
+     * @param bmp bitmap to be shown in the fragment.
+     */
+
+    private void showPicture( Bitmap bmp ) {
+        int picturePosition = mRoomPictures.size( );
+        if ( picturePosition < 10 ) {
+            mPictures[ picturePosition ].setVisibility( View.VISIBLE );
+            mPictures[ picturePosition ].setScaleType( ImageView.ScaleType.CENTER_CROP );
+            mPictures[ picturePosition ].setImageBitmap( bmp );
+            mRoomPictures.add( bmp );
+
+
+        }
+    }
+
+    /**
+     * Method that creates 10 task to read all possible pictures from the database.
+     * Each task will upload a picture into the corresponding ImageView.
+     */
+    private void initializePictures( ) {
+        Task[] t = ImageController.getAllRoomPicture( mRoomPosted.getRoomID( ) );
+        for ( int i = 0 ; i < 9 ; i++ ) {
+            synchronized ( this ) {
+                final int k = i;
+                t[ i ].addOnSuccessListener( new OnSuccessListener<byte[]>( ) {
+                    @Override
+                    public void onSuccess(final byte[] bytes ) {
+                        Bitmap picture;
+                        picture = PictureConversion.byteArrayToBitmap( bytes );
+                        mPictures[ k ].setImageBitmap( picture );
+                        mPictures[ k ].setVisibility( View.VISIBLE );
+                        showPicture( picture );
+
+                        mPictures[k].setOnClickListener( new View.OnClickListener( ) {
+                            @Override
+                            public void onClick( View v ) {
+                                FragmentTransaction ft = Objects.requireNonNull( getActivity( ) )
+                                        .getSupportFragmentManager( ).beginTransaction( );
+                                ft.setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN );
+                                OpenPictureFragment openPic = new OpenPictureFragment( );
+
+                                Bundle bundle = new Bundle( );
+                                bundle.putByteArray( OpenPictureFragment.KEY_PICTURE, bytes );
+                                openPic.setArguments( bundle );
+                                ft.replace( android.R.id.content, openPic );
+                                ft.addToBackStack( null );
+                                ft.commit( );
+                            }
+                        });
+                    }
+                } );
+            }
+        }
+
     }
 }

@@ -26,20 +26,95 @@
 
 
                 <HorizontalScrollView
-                    android:id="@+id/scroll_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:orientation="vertical" >
+                        android:orientation="horizontal">
+
 
                         <ImageView
-                            android:id="@+id/card_lord_picture"
-                            android:layout_width="match_parent"
-                            android:layout_height="290dp"
-                            app:srcCompat="@drawable/profile_pic_placeholder" />
+                            android:id="@+id/pictureroom1"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FF5A60" />
+
+                        <ImageView
+                            android:id="@+id/pictureroom2"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FF5A60" />
+
+                        <ImageView
+                            android:id="@+id/pictureroom3"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FF5A60" />
+
+                        <ImageView
+                            android:id="@+id/pictureroom4"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FF5A60" />
+
+                        <ImageView
+                            android:id="@+id/pictureroom5"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FF5A60" />
+
+                        <ImageView
+                            android:id="@+id/pictureroom6"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FF5A60" />
+
+                        <ImageView
+                            android:id="@+id/pictureroom7"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FF5A60" />
+
+                        <ImageView
+                            android:id="@+id/pictureroom8"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FF5A60" />
+
+                        <ImageView
+                            android:id="@+id/pictureroom9"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FF5A60" />
+
+                        <ImageView
+                            android:id="@+id/pictureroom10"
+                            android:layout_width="92dp"
+                            android:layout_height="147dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="50dp"
+                            android:background="#FF5A60" />
                     </LinearLayout>
                 </HorizontalScrollView>
 
