@@ -1,4 +1,4 @@
-package com.itcom202.weroom.interaction.swipe.controllers;
+package com.itcom202.weroom.interaction.swipe.controllers.profilefiltering;
 
 /**
  * Class that contains unique method to calculate the Haversine distance between to coordinates.

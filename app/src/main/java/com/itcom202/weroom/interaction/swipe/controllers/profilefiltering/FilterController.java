@@ -1,4 +1,4 @@
-package com.itcom202.weroom.interaction.swipe.controllers;
+package com.itcom202.weroom.interaction.swipe.controllers.profilefiltering;
 
 import com.itcom202.weroom.account.models.LandlordProfile;
 import com.itcom202.weroom.account.models.Profile;

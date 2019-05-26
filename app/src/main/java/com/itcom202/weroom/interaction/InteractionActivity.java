@@ -37,7 +37,7 @@ import com.itcom202.weroom.interaction.chat.views.SelectChatFragment;
 import com.itcom202.weroom.interaction.profile.views.EditRoomsFragment;
 import com.itcom202.weroom.interaction.profile.views.ProfileInfoFragment;
 import com.itcom202.weroom.interaction.profile.views.SettingFragment;
-import com.itcom202.weroom.interaction.swipe.controllers.FilterController;
+import com.itcom202.weroom.interaction.swipe.controllers.profilefiltering.FilterController;
 import com.itcom202.weroom.interaction.swipe.views.SwipeFragment;
 import com.itcom202.weroom.services.NotificationService;
 

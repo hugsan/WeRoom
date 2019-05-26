@@ -5,7 +5,7 @@ import com.itcom202.weroom.account.models.Profile;
 import com.itcom202.weroom.account.models.TenantProfile;
 import com.itcom202.weroom.framework.ProfileSingleton;
 import com.itcom202.weroom.interaction.chat.views.SelectChatFragment;
-import com.itcom202.weroom.interaction.swipe.controllers.HaversineCalculator;
+import com.itcom202.weroom.interaction.swipe.controllers.profilefiltering.HaversineCalculator;
 
 import org.junit.Test;
 
