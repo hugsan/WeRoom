@@ -83,7 +83,7 @@ public class ProfileInfoFragment extends Fragment {
         mShowNation.setText(obj.getDisplayCountry(Locale.ENGLISH));
         mShowGender.setText(p.getGender());
 
-        Task t = ImageController.getProfilePicture(p.getUserID());
+        Task<byte[]> t = ImageController.getProfilePicture(p.getUserID());
 
         t.addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override

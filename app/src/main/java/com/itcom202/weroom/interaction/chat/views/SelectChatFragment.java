@@ -230,7 +230,7 @@ public class SelectChatFragment extends Fragment {
                     }
                 } );
                 mContact = contact;
-                Task t = ImageController.getProfilePicture( mContact );
+                Task<byte[]> t = ImageController.getProfilePicture( mContact );
                 t.addOnSuccessListener( new OnSuccessListener<byte[]>( ) {
                     @Override
                     public void onSuccess( final byte[] bytes ) {
@@ -305,7 +305,7 @@ public class SelectChatFragment extends Fragment {
                                 if ( p != null ) {
                                     mLandlordName.setText( p.getName( ) );
                                     mLandlordAge.setText( String.format( Locale.getDefault( ), "%d", p.getAge( ) ) );
-                                    Task t = ImageController.getProfilePicture( p.getUserID( ) );
+                                    Task<byte[]> t = ImageController.getProfilePicture( p.getUserID( ) );
                                     t.addOnSuccessListener( new OnSuccessListener<byte[]>( ) {
                                         @Override
                                         public void onSuccess( final byte[] bytes ) {

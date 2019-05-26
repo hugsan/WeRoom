@@ -98,24 +98,29 @@ public class SignFragment extends SingleFragment {
                 }else if ( mEmail.getText( ).toString( ).length( ) == 0 || pwd1.length( ) == 0 ) {
                     Toast.makeText( getActivity( ), R.string.empty_fields, Toast.LENGTH_SHORT ).show( );
                 } else if ( ! ( mEmail.getText( ).toString( ).length( ) == 0 ) ) {
-                    mFirebaseAuth.createUserWithEmailAndPassword( mEmail.getText( ).toString( ), mPasswd2.getText( ).toString( ) )
+                    mFirebaseAuth.createUserWithEmailAndPassword( mEmail.getText( ).toString( ),
+                            mPasswd2.getText( ).toString( ) )
                             .addOnCompleteListener( Objects.requireNonNull( getActivity( ) ), new OnCompleteListener<AuthResult>( ) {
                                 @Override
                                 public void onComplete( @NonNull Task<AuthResult> task ) {
                                     if ( task.isSuccessful( ) ) {
-                                        FirebaseUser mUser = FirebaseAuth.getInstance( ).getCurrentUser( );
+                                        FirebaseUser mUser = FirebaseAuth.getInstance( )
+                                                .getCurrentUser( );
                                         Objects.requireNonNull( mUser ).getIdToken( true )
                                                 .addOnCompleteListener( new OnCompleteListener<GetTokenResult>( ) {
                                                     public void onComplete( @NonNull Task<GetTokenResult> task ) {
                                                         if ( task.isSuccessful( ) ) {
                                                             changeFragment( new ProfileFragment( ) );
                                                         } else {
-                                                            Toast.makeText( getActivity( ), R.string.login_process_error, Toast.LENGTH_SHORT ).show( );
+                                                            Toast.makeText( getActivity( ),
+                                                                    R.string.login_process_error,
+                                                                    Toast.LENGTH_SHORT ).show( );
                                                         }
                                                     }
                                                 } );
                                     } else {
-                                        Toast.makeText( getActivity( ), R.string.email_in_use, Toast.LENGTH_SHORT ).show( );
+                                        Toast.makeText( getActivity( ), R.string.email_in_use,
+                                                Toast.LENGTH_SHORT ).show( );
                                     }
                                 }
                             } );

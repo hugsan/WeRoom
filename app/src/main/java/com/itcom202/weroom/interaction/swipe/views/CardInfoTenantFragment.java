@@ -94,7 +94,7 @@ public class CardInfoTenantFragment extends Fragment {
         for (String s : mProfile.getTags())
             mTagView.addTag(s, false);
 
-        Task t = ImageController.getProfilePicture(mProfile.getUserID());
+        Task<byte[]> t = ImageController.getProfilePicture(mProfile.getUserID());
 
         t.addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override

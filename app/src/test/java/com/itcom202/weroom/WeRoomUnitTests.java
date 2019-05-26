@@ -4,7 +4,6 @@ import com.itcom202.weroom.account.models.LandlordProfile;
 import com.itcom202.weroom.account.models.Profile;
 import com.itcom202.weroom.account.models.TenantProfile;
 import com.itcom202.weroom.framework.ProfileSingleton;
-import com.itcom202.weroom.interaction.chat.views.ChatFragment;
 import com.itcom202.weroom.interaction.chat.views.SelectChatFragment;
 import com.itcom202.weroom.interaction.swipe.controllers.HaversineCalculator;
 
@@ -16,9 +15,7 @@ import java.lang.reflect.Method;
 import static org.junit.Assert.*;
 
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * Unit testing for WeRoom application
  */
 public class WeRoomUnitTests {
 
@@ -64,7 +61,7 @@ public class WeRoomUnitTests {
     }
 
     @Test
-    public void right_CreateChatID() {
+    public void right_CreateChatID_One() {
         try {
             Class<?> c = SelectChatFragment.class;
             Object o = c.newInstance();
@@ -72,6 +69,26 @@ public class WeRoomUnitTests {
             Method method = c.getDeclaredMethod("createChatID", String.class, String.class);
             method.setAccessible(true);
             assertEquals(method.invoke(o, "123", "abc"), "123_abc");
+
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void right_CreateChatID_Two() {
+        try {
+            Class<?> c = SelectChatFragment.class;
+            Object o = c.newInstance();
+
+            Method method = c.getDeclaredMethod("createChatID", String.class, String.class);
+            method.setAccessible(true);
+            assertEquals(method.invoke(o, "abc", "123"), "123_abc");
 
         } catch (NoSuchMethodException e) {
             e.printStackTrace();

@@ -120,7 +120,8 @@ public class ChatFragment extends Fragment {
                 .getReference( DataBasePath.CHAT.getValue( ) ).child( mChatID );
         messageRef.addChildEventListener( new ChildEventListener( ) {
             @Override
-            public void onChildAdded( @NonNull DataSnapshot dataSnapshot, @Nullable String s ) {
+            public void onChildAdded( @NonNull DataSnapshot dataSnapshot,
+                                      @Nullable String s ) {
                 Message message = dataSnapshot.getValue( Message.class );
                 chatMessages.add( message );
                 adapter.notifyDataSetChanged( );

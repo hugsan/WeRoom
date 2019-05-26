@@ -10,13 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -171,7 +167,7 @@ public class CardInfoRoomFragment extends Fragment {
         mRoomCommonArea.setChecked(mRoomPosted.isComonAreas());
 
 
-        Task t1 = ImageController.getProfilePicture(mRoomPosted.getLandlordID());
+        Task<byte[]> t1 = ImageController.getProfilePicture(mRoomPosted.getLandlordID());
         t1.addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {

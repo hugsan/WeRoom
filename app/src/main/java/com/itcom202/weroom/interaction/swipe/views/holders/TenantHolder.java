@@ -65,7 +65,7 @@ public class TenantHolder extends RecyclerView.ViewHolder {
         mTenantNationality.setText( l.getDisplayCountry( ) );
         mTenantAge.setText( String.format( Locale.getDefault( ), "%d", mProfile.getAge( ) ) );
 
-        Task t = ImageController.getProfilePicture( mProfile.getUserID( ) );
+        Task<byte[]> t = ImageController.getProfilePicture( mProfile.getUserID( ) );
         t.addOnSuccessListener( new OnSuccessListener<byte[]>( ) {
             @Override
             public void onSuccess( byte[] bytes ) {

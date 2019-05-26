@@ -42,7 +42,7 @@ public class ImageController implements Serializable {
      * @param userID ID of the user we want to get the picture.
      * @return Task related to the query from FirebaseStorage.
      */
-    public static Task getProfilePicture( String userID ) {
+    public static Task<byte[]> getProfilePicture( String userID ) {
 
         StorageReference reference = FirebaseStorage.getInstance( ).getReference( );
         StorageReference downloadRef = reference
@@ -82,7 +82,7 @@ public class ImageController implements Serializable {
      * @param roomNumber number of the picture (from 0 to 9)
      * @return task related to the query that perform the getBytes() to the database.
      */
-    public static Task getRoomPicture( String roomID, int roomNumber ) {
+    public static Task<byte[]>  getRoomPicture( String roomID, int roomNumber ) {
         StorageReference reference = FirebaseStorage.getInstance( ).getReference( );
         StorageReference downloadRef = reference
                 .child( DataBasePath.IMAGE.getValue( ) )

@@ -57,7 +57,7 @@ public class RoomHolder extends RecyclerView.ViewHolder {
         mAddressRoom.setText( room.getCompleteAddress( ) );
         mRentRoom.setText( String.format( Locale.getDefault( ), "%d", room.getRent( ) ) );
         mSizeRoom.setText( String.format( Locale.getDefault( ), "%d", room.getSize( ) ) );
-        Task t = ImageController.getRoomPicture( room.getRoomID( ), 0 );
+        Task<byte[]> t = ImageController.getRoomPicture( room.getRoomID( ), 0 );
         t.addOnSuccessListener( new OnSuccessListener<byte[]>( ) {
             @Override
             public void onSuccess( byte[] bytes ) {

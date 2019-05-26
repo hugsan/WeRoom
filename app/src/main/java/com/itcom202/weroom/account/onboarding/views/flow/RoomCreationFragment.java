@@ -166,7 +166,6 @@ public class RoomCreationFragment extends SingleFragment {
                             layoutMap.setVisibility( View.VISIBLE );
                             mapFragment.updateSite( place.getLatLng( ) );
                         } catch ( Exception e ) {
-                            // Toast.makeText(getContext(), "No map", Toast.LENGTH_SHORT).show();
                             layoutMap.setVisibility( View.GONE );
                         }
                     }

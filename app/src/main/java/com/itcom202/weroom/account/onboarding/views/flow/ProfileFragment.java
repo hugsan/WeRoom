@@ -135,7 +135,8 @@ public class ProfileFragment extends SingleFragment {
                     }
                     createProfile( );
                     if ( mEditable ) {
-                        ( ( InteractionActivity ) Objects.requireNonNull( getActivity( ) ) ).changeToPorifleFragment( );
+                        ( ( InteractionActivity ) Objects.requireNonNull( getActivity( ) ) )
+                                .changeToPorifleFragment( );
                     } else {
                         if ( mRole.getSelectedItemId( ) == 0 ) {
                             changeFragment( new LandlordProfileFragment( ) );
@@ -157,7 +158,8 @@ public class ProfileFragment extends SingleFragment {
                 startActivityForResult( chooseImageIntent, REQUEST_CODE );
             }
         } );
-        if ( getArguments( ) != null && getArguments( ).getBoolean( KEY_IS_EDIT ) )
+        if ( getArguments( ) != null && getArguments( )
+                .getBoolean( KEY_IS_EDIT ) )
             setProfile( ProfileSingleton.getInstance( ) );
         return v;
     }
@@ -261,7 +263,7 @@ public class ProfileFragment extends SingleFragment {
     private void setProfile( Profile p ) {
         mEditable = true;
 
-        Task t = ImageController.getProfilePicture( p.getUserID( ) );
+        Task<byte[]> t = ImageController.getProfilePicture( p.getUserID( ) );
 
         t.addOnSuccessListener( new OnSuccessListener<byte[]>( ) {
             @Override
