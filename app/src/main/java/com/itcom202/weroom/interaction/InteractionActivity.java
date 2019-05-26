@@ -64,6 +64,8 @@ public class InteractionActivity extends AppCompatActivity {
     private Fragment swipingFragment;
     private PopUpExit mExitPopUp = new PopUpExit( );
     private MenuItem mActiveBottomNavigationViewMenuItem;
+    private long nanoStart;
+
 
     public static Intent newIntent( Context myContext ) {
         return new Intent( myContext, InteractionActivity.class );
@@ -88,6 +90,7 @@ public class InteractionActivity extends AppCompatActivity {
         Bundle bundle = new Bundle( );
         ArrayList<RoomPosted> filteredRooms = FilterController.filterRoomsFromTenant( ProfileSingleton.getInstance( ), mAllPostedRooms );
         bundle.putParcelableArrayList( SwipeFragment.KEY_ROOM_LIST_ALL, filteredRooms );
+        bundle.putLong(SwipeFragment.NANO_TIME_START, nanoStart);
 
         FragmentManager fm = getSupportFragmentManager( );
 
@@ -111,6 +114,7 @@ public class InteractionActivity extends AppCompatActivity {
         ArrayList<Profile> filteredTenants = FilterController.filterProfilesFromLandlord( ProfileSingleton.getInstance( ), mAllProfilesFromQuery );
         bundle.putParcelableArrayList( SwipeFragment.KEY_TENANT_LIST, filteredTenants );
         bundle.putParcelableArrayList( SwipeFragment.KEY_ROOM_LIST_LANDLORD, mLandlordsRooms );
+        bundle.putLong(SwipeFragment.NANO_TIME_START, nanoStart);
 
 
         FragmentManager fm = getSupportFragmentManager( );
@@ -325,6 +329,8 @@ public class InteractionActivity extends AppCompatActivity {
     }
 
     private void fetchDataFromDatabaseAndStartSwipeFragment( ) {
+        nanoStart = System.nanoTime();
+        Log.i(TAG, "Start time cards: " + nanoStart);
 
         Profile p = ProfileSingleton.getInstance( );
         if ( p.getRole( ).equals( "Landlord" ) ) {

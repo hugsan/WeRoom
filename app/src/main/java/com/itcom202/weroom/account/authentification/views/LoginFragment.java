@@ -3,6 +3,7 @@ package com.itcom202.weroom.account.authentification.views;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -39,7 +40,10 @@ import com.itcom202.weroom.framework.ProfileSingleton;
 import com.itcom202.weroom.framework.SingleFragment;
 import com.itcom202.weroom.interaction.InteractionActivity;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Fragment that handles the login from the user.
@@ -62,119 +66,130 @@ public class LoginFragment extends SingleFragment {
     private TextView mForgotPassword;
     private Profile mUserProfile;
     private Activity activity;
+    private long nanoStart;
+    private long nanoStartG;
+    private long nanoEnd;
+
 
     @Override
-    public void onCreate( @Nullable Bundle savedInstanceState ) {
-        super.onCreate( savedInstanceState );
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
-    public void onResume( ) {
-        super.onResume( );
-        Objects.requireNonNull( getActivity( ) ).setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT );
+    public void onResume() {
+        super.onResume();
+        Objects.requireNonNull(getActivity()).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     @Nullable
     @Override
-    public View onCreateView( @NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState ) {
-        View v = inflater.inflate( R.layout.login_fragment, container, false );
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.login_fragment, container, false);
 
 
-        mReferSignUp = v.findViewById( R.id.referSignUp );
+        mReferSignUp = v.findViewById(R.id.referSignUp);
         //Create the instances connection with Firebase.
-        firebaseAuth = FirebaseAuth.getInstance( );
-        mLoginEmail = v.findViewById( R.id.emailLogIn );
-        mLoginPasswd = v.findViewById( R.id.passwordLogIn );
-        mButtonLogin = v.findViewById( R.id.buttonLogIn );
-        mForgotPassword = v.findViewById( R.id.forgotPass );
-        mGoogleSign = v.findViewById( R.id.sign_in_google );
+        firebaseAuth = FirebaseAuth.getInstance();
+        mLoginEmail = v.findViewById(R.id.emailLogIn);
+        mLoginPasswd = v.findViewById(R.id.passwordLogIn);
+        mButtonLogin = v.findViewById(R.id.buttonLogIn);
+        mForgotPassword = v.findViewById(R.id.forgotPass);
+        mGoogleSign = v.findViewById(R.id.sign_in_google);
 
-        activity = getActivity( );
-        mGoogleApiClient = GoogleConnection.create( getActivity( ) );
-        mGoogleSign.setOnClickListener( new View.OnClickListener( ) {
+        activity = getActivity();
+        mGoogleApiClient = GoogleConnection.create(getActivity());
+        mGoogleSign.setOnClickListener(new View.OnClickListener() {
             /**
              * Calls google signin activity to identify the user.
              * @param view view from where it is been called.
              */
             @Override
-            public void onClick( View view ) {
-                startActivityForResult( GoogleConnection.signInIntent( mGoogleApiClient ), GoogleConnection.RC_SIGN_IN );
+            public void onClick(View view) {
+                startActivityForResult(GoogleConnection.signInIntent(mGoogleApiClient), GoogleConnection.RC_SIGN_IN);
 
             }
-        } );
+        });
 
-        mForgotPassword.setOnClickListener( new View.OnClickListener( ) {
+        mForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick( View v ) {
-                changeFragment( new ForgotPasswordFragment( ) );
+            public void onClick(View v) {
+                changeFragment(new ForgotPasswordFragment());
             }
-        } );
+        });
 
-        mReferSignUp.setOnClickListener( new View.OnClickListener( ) {
+        mReferSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick( View view ) {
-                changeFragment( new SignFragment( ) );
+            public void onClick(View view) {
+                changeFragment(new SignFragment());
             }
-        } );
+        });
         //Buttons that logs a user in Firebase
-        mButtonLogin.setOnClickListener( new View.OnClickListener( ) {
+        mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick( View view ) {
+            public void onClick(View view) {
 
 
-                if ( mLoginEmail.getText( ).toString( ).length( ) == 0 ) {
-                    mLoginEmail.setError( getString( R.string.type_email ) );
-                    mLoginEmail.requestFocus( );
-                } else if ( mLoginPasswd.getText( ).toString( ).length( ) == 0 ) {
-                    mLoginPasswd.setError( getString( R.string.enter_passw ) );
-                    mLoginPasswd.requestFocus( );
-                } else if ( mLoginEmail.getText( ).toString( ).length( ) == 0 && mLoginPasswd.getText( ).toString( ).length( ) == 0 ) {
-                    Toast.makeText( getActivity( ), getString( R.string.empty_field ), Toast.LENGTH_SHORT ).show( );
-                } else if ( ! ( mLoginEmail.getText( ).toString( ).length( ) == 0 && mLoginPasswd.getText( ).toString( ).length( ) == 0 ) ) {
-                    firebaseAuth.signInWithEmailAndPassword( mLoginEmail.getText( ).toString( ), mLoginPasswd.getText( ).toString( ) )
-                            .addOnCompleteListener( Objects.requireNonNull( getActivity( ) ), new OnCompleteListener<AuthResult>( ) {
+                if (mLoginEmail.getText().toString().length() == 0) {
+                    mLoginEmail.setError(getString(R.string.type_email));
+                    mLoginEmail.requestFocus();
+                } else if (mLoginPasswd.getText().toString().length() == 0) {
+                    mLoginPasswd.setError(getString(R.string.enter_passw));
+                    mLoginPasswd.requestFocus();
+                } else if (mLoginEmail.getText().toString().length() == 0 && mLoginPasswd.getText().toString().length() == 0) {
+                    Toast.makeText(getActivity(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show();
+                } else if (!(mLoginEmail.getText().toString().length() == 0 && mLoginPasswd.getText().toString().length() == 0)) {
+                    nanoStart = System.nanoTime();
+                    Log.i(TAG, "Start time " + nanoStart);
+                    firebaseAuth.signInWithEmailAndPassword(mLoginEmail.getText().toString(), mLoginPasswd.getText().toString())
+                            .addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
                                 @Override
-                                public void onComplete( @NonNull Task task ) {
-                                    if ( ! task.isSuccessful( ) ) {
-                                        Toast.makeText( getActivity( ), getString( R.string.not_succ ), Toast.LENGTH_LONG ).show( );
+                                public void onComplete(@NonNull Task task) {
+                                    if (!task.isSuccessful()) {
+                                        Toast.makeText(getActivity(), getString(R.string.not_succ), Toast.LENGTH_LONG).show();
                                     } else {
-                                        logUser( );
+
+                                        logUser();
                                     }
                                 }
-                            } );
+                            });
                 } else {
-                    Toast.makeText( getActivity( ), getString( R.string.error ), Toast.LENGTH_SHORT ).show( );
+                    Toast.makeText(getActivity(), getString(R.string.error), Toast.LENGTH_SHORT).show();
                 }
             }
-        } );
-        mLoginButtonFb = FaceBookConnection.facebookLoginButtonCreate( v, this, firebaseAuth, getActivity( ) );
+        });
+        mLoginButtonFb = FaceBookConnection.facebookLoginButtonCreate(v, this, firebaseAuth, getActivity());
         return v;
     }
 
     @Override
-    public void onActivityResult( int requestCode, int resultCode, Intent data ) {
-        super.onActivityResult( requestCode, resultCode, data );
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         //Callback for Facebook intent.
-        FaceBookConnection.getCallBackManager( ).onActivityResult( requestCode, resultCode, data );
+        FaceBookConnection.getCallBackManager().onActivityResult(requestCode, resultCode, data);
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if ( requestCode == GoogleConnection.RC_SIGN_IN ) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent( data );
+        if (requestCode == GoogleConnection.RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult( ApiException.class );
+                GoogleSignInAccount account = task.getResult(ApiException.class);
                 if (account != null) {
-                    GoogleConnection.firebaseAuthWithGoogle( account, getActivity( ), firebaseAuth,
-                            getActivity( ), this ).addOnCompleteListener(new OnCompleteListener() {
+                    GoogleConnection.firebaseAuthWithGoogle(account, getActivity(), firebaseAuth,
+                            getActivity(), this).addOnCompleteListener(new OnCompleteListener() {
                         @Override
                         public void onComplete(@NonNull Task task) {
-                            logUser( );
+
+                            nanoStartG = System.nanoTime();
+                            Log.i(TAG, "Start time Google: " + nanoStartG);
+
+                            logUser();
                         }
                     });
                 }
-            } catch ( ApiException e ) {
+            } catch (ApiException e) {
                 // Google Sign In failed
-                Log.w( TAG, "Google sign in failed", e );
-                Toast.makeText( getActivity( ), R.string.google_connection_failed, Toast.LENGTH_SHORT ).show( );
+                Log.w(TAG, "Google sign in failed", e);
+                Toast.makeText(getActivity(), R.string.google_connection_failed, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -186,25 +201,37 @@ public class LoginFragment extends SingleFragment {
      * <p>
      * If the profile from the database exist and is finished it will open InteractionActivity.
      */
-    private void logUser( ) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance( );
-        DocumentReference docRef = db.collection( DataBasePath.USERS.getValue( ) )
-                .document( Objects.requireNonNull( FirebaseAuth.getInstance( ).getUid( ) ) );
-        docRef.get( ).addOnSuccessListener( new OnSuccessListener<DocumentSnapshot>( ) {
+    private void logUser() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection(DataBasePath.USERS.getValue())
+                .document(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()));
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess( DocumentSnapshot documentSnapshot ) {
-                if ( documentSnapshot != null ) {
-                    mUserProfile = documentSnapshot.toObject( Profile.class );
-                    ProfileSingleton.initialize( mUserProfile );
-                    if ( ProfileSingleton.isFinishedProfile( ) ) {
-                        startActivity( InteractionActivity.newIntent( activity ) );
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                nanoEnd = System.nanoTime();
+                Log.i(TAG, "End time: " + nanoEnd);
+                long diff = nanoEnd - nanoStart;
+                long diffG = nanoEnd - nanoStartG;
+                double seconds = (double) diff / 1_000_000_000.0;
+                double secondsG = (double) diffG / 1_000_000_000.0;
+                if (nanoStart == 0)
+                    Log.i(TAG, "Difference Google: " + secondsG);
+                else
+                    Log.i(TAG, "Difference: " + seconds);
+
+                if (documentSnapshot != null) {
+                    mUserProfile = documentSnapshot.toObject(Profile.class);
+                    ProfileSingleton.initialize(mUserProfile);
+                    if (ProfileSingleton.isFinishedProfile()) {
+                        startActivity(InteractionActivity.newIntent(activity));
                     } else {
-                        changeFragment( new ProfileFragment( ) );
+                        changeFragment(new ProfileFragment());
                     }
                 } else {
-                    changeFragment( new LoginFragment( ) );
+                    changeFragment(new LoginFragment());
                 }
             }
-        } );
+        });
     }
+
 }

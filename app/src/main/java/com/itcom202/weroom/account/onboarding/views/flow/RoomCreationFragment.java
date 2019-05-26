@@ -136,7 +136,6 @@ public class RoomCreationFragment extends SingleFragment {
 
         mRoomDescription = v.findViewById( R.id.descriptionField );
 
-
         if ( wifi.isConnected( ) ) {
             mapFragment = new MapFragment( );
             final FragmentTransaction transaction = getChildFragmentManager( ).beginTransaction( );

@@ -91,6 +91,7 @@ public class RoomEditFragment extends Fragment {
     private AutocompleteSupportFragment mAutocompleteFragment;
     private MapFragment mMapFragment;
     private Switch mLazySwipeSwitch;
+    private LinearLayout mLazySwiperLinear;
 
     @Nullable
     @Override
@@ -114,6 +115,7 @@ public class RoomEditFragment extends Fragment {
         mDeleteRoom = v.findViewById( R.id.room_edit_deleteroom );
         layoutMap = v.findViewById( R.id.room_edit_layoutmap );
         mRoomDescription = v.findViewById( R.id.room_edit_descriptionField );
+        mLazySwiperLinear = v.findViewById(R.id.lazyswiperlinear);
 
 
         for ( int i = 0 ; i < 10 ; i++ ) {
@@ -242,9 +244,11 @@ public class RoomEditFragment extends Fragment {
             mThisPostedRoom = getArguments( ).getParcelable( KEY_ROOM );
             initializeRoom( );
             initializePictures( );
+            mLazySwiperLinear.setVisibility(View.VISIBLE);
         } else {
             mEditRoom.setText( R.string.confirm );
             mDeleteRoom.setVisibility( View.GONE );
+            mLazySwiperLinear.setVisibility(View.GONE);
         }
         return v;
     }
