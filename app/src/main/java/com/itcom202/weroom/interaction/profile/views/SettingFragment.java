@@ -61,7 +61,7 @@ public class SettingFragment extends Fragment {
                 Task t1 = null;
                 if (user != null) {
                     t1 = user.delete();
-                    if(p.getRole().equals("Tenant")){
+                    if (p.getRole().equals("Tenant")) {
                         deleteChatTenant(p.getUserID());
                     }
                 }
@@ -80,12 +80,8 @@ public class SettingFragment extends Fragment {
                         ImageController.removeAllRoomPictures(s);
                         deleteChatRoom(s);
                         mDeleteAccountTask.add(t);
-
-
                     }
                 }
-
-
                 Tasks.whenAllSuccess(mDeleteAccountTask.toArray(new Task[mDeleteAccountTask.size()])).addOnSuccessListener(new OnSuccessListener<List<Object>>() {
                     @Override
                     public void onSuccess(List<Object> list) {
@@ -105,14 +101,14 @@ public class SettingFragment extends Fragment {
         return v;
     }
 
-    private void deleteChatRoom( String roomID) {
+    private void deleteChatRoom(String roomID) {
         DatabaseReference chatRef = FirebaseDatabase.getInstance()
                 .getReference(DataBasePath.CHAT.getValue());
 
         Profile p = ProfileSingleton.getInstance();
 
-        for ( String s : p.getMatch().getMatch()) {
-            if ( roomID.compareTo( s  ) < 0 )
+        for (String s : p.getMatch().getMatch()) {
+            if (roomID.compareTo(s) < 0)
                 mChatID = roomID + "_" + s;
             else
                 mChatID = s + "_" + roomID;
@@ -120,15 +116,16 @@ public class SettingFragment extends Fragment {
             chatRef.child(mChatID).removeValue();
         }
     }
-    private void deleteChatTenant(String tenantId){
+
+    private void deleteChatTenant(String tenantId) {
         DatabaseReference chatRef = FirebaseDatabase.getInstance()
                 .getReference(DataBasePath.CHAT.getValue());
         Profile p = ProfileSingleton.getInstance();
 
 
-        for ( String s : p.getMatch().getMatch()) {
+        for (String s : p.getMatch().getMatch()) {
 
-            if ( tenantId.compareTo( s  ) < 0 )
+            if (tenantId.compareTo(s) < 0)
                 mChatID = tenantId + "_" + s;
             else
                 mChatID = s + "_" + tenantId;
