@@ -57,8 +57,8 @@ public class CardInfoRoomFragment extends Fragment {
     private CheckBox mRoomCommonArea;
     private Profile mLandlord;
     private RoomPosted mRoomPosted;
-    private List<Bitmap> mRoomPictures = new ArrayList<>();
-    private ImageView[] mPictures = new ImageView[10];
+    private List<Bitmap> mRoomPictures = new ArrayList<>( );
+    private ImageView[] mPictures = new ImageView[ 10 ];
 
 
     /**
@@ -67,61 +67,61 @@ public class CardInfoRoomFragment extends Fragment {
      * @param room Postedroom used to create the bundle for the intent.
      * @return Intent to start CardInfoRoomFragment with its corresponding Bundle.
      */
-    public static CardInfoRoomFragment newInstance(RoomPosted room) {
-        CardInfoRoomFragment fragment = new CardInfoRoomFragment();
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(KEY_ROOM, room);
-        fragment.setArguments(bundle);
+    public static CardInfoRoomFragment newInstance( RoomPosted room ) {
+        CardInfoRoomFragment fragment = new CardInfoRoomFragment( );
+        Bundle bundle = new Bundle( );
+        bundle.putParcelable( KEY_ROOM, room );
+        fragment.setArguments( bundle );
         return fragment;
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_card_info_room, container, false);
+    public View onCreateView( @NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState ) {
+        View v = inflater.inflate( R.layout.fragment_card_info_room, container, false );
 
 
-        mLandlordName = v.findViewById(R.id.card_lord_name);
-        mLandlordAge = v.findViewById(R.id.card_lord_age);
-        mLandlordGender = v.findViewById(R.id.card_lord_gender);
-        mLandlordNation = v.findViewById(R.id.card_lord_nation);
-        mRoomDescription = v.findViewById(R.id.card_lord_description);
-        mRoomLocation = v.findViewById(R.id.card_lord_address);
-        mRoomInternet = v.findViewById(R.id.card_land_internet);
-        mRoomLaundry = v.findViewById(R.id.card_land_laundry);
-        mRoomFurnished = v.findViewById(R.id.card_land_furnished);
-        mRoomCommonArea = v.findViewById(R.id.card_land_common);
-        mArea = v.findViewById(R.id.area_room_cardinfo);
-        mDeposit = v.findViewById(R.id.deposit_room_cardinfo);
-        mRent = v.findViewById(R.id.rent_room_cardinfo);
-        mRentPeriod = v.findViewById(R.id.period_room_cardinfo);
-        mPhotoLandlord = v.findViewById(R.id.landlord_pb_cardinfo);
+        mLandlordName = v.findViewById( R.id.card_lord_name );
+        mLandlordAge = v.findViewById( R.id.card_lord_age );
+        mLandlordGender = v.findViewById( R.id.card_lord_gender );
+        mLandlordNation = v.findViewById( R.id.card_lord_nation );
+        mRoomDescription = v.findViewById( R.id.card_lord_description );
+        mRoomLocation = v.findViewById( R.id.card_lord_address );
+        mRoomInternet = v.findViewById( R.id.card_land_internet );
+        mRoomLaundry = v.findViewById( R.id.card_land_laundry );
+        mRoomFurnished = v.findViewById( R.id.card_land_furnished );
+        mRoomCommonArea = v.findViewById( R.id.card_land_common );
+        mArea = v.findViewById( R.id.area_room_cardinfo );
+        mDeposit = v.findViewById( R.id.deposit_room_cardinfo );
+        mRent = v.findViewById( R.id.rent_room_cardinfo );
+        mRentPeriod = v.findViewById( R.id.period_room_cardinfo );
+        mPhotoLandlord = v.findViewById( R.id.landlord_pb_cardinfo );
 
 
-        if (getArguments() != null) {
-            mRoomPosted = getArguments().getParcelable(KEY_ROOM);
-            initializePictures();
+        if ( getArguments( ) != null ) {
+            mRoomPosted = getArguments( ).getParcelable( KEY_ROOM );
+            initializePictures( );
         }
 
-        for (int i = 0; i < 10; i++) {
-            String btnID = "pictureroom" + (i + 1);
-            int resID = getResources().getIdentifier(btnID, "id", Objects.requireNonNull(getActivity()).getPackageName());
-            mPictures[i] = v.findViewById(resID);
-            mPictures[i].setVisibility(View.GONE);
+        for ( int i = 0 ; i < 10 ; i++ ) {
+            String btnID = "pictureroom" + ( i + 1 );
+            int resID = getResources( ).getIdentifier( btnID, "id", Objects.requireNonNull( getActivity( ) ).getPackageName( ) );
+            mPictures[ i ] = v.findViewById( resID );
+            mPictures[ i ].setVisibility( View.GONE );
         }
 
 
-        mButtonExit = v.findViewById(R.id.button_exit_info_page_lord);
-        mButtonExit.setOnClickListener(new View.OnClickListener() {
+        mButtonExit = v.findViewById( R.id.button_exit_info_page_lord );
+        mButtonExit.setOnClickListener( new View.OnClickListener( ) {
             @Override
-            public void onClick(View v) {
-                AppCompatActivity activity = (AppCompatActivity) mButtonExit.getContext();
-                activity.getSupportFragmentManager()
-                        .popBackStackImmediate();
+            public void onClick( View v ) {
+                AppCompatActivity activity = ( AppCompatActivity ) mButtonExit.getContext( );
+                activity.getSupportFragmentManager( )
+                        .popBackStackImmediate( );
             }
-        });
+        } );
 
-        updateUI();
+        updateUI( );
 
         return v;
     }
@@ -130,51 +130,51 @@ public class CardInfoRoomFragment extends Fragment {
      * Updates the fields of the fragment with the values found on mRoomPosted and its
      * corresponding landlord.
      */
-    private void updateUI() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Task t = db.collection(DataBasePath.USERS.getValue())
-                .document(mRoomPosted.getLandlordID())
-                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    private void updateUI( ) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance( );
+        Task t = db.collection( DataBasePath.USERS.getValue( ) )
+                .document( mRoomPosted.getLandlordID( ) )
+                .get( ).addOnSuccessListener( new OnSuccessListener<DocumentSnapshot>( ) {
                     @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        mLandlord = documentSnapshot.toObject(Profile.class);
+                    public void onSuccess( DocumentSnapshot documentSnapshot ) {
+                        mLandlord = documentSnapshot.toObject( Profile.class );
                     }
-                });
+                } );
 
 
-        t.addOnCompleteListener(new OnCompleteListener() {
+        t.addOnCompleteListener( new OnCompleteListener( ) {
             @Override
-            public void onComplete(@NonNull Task task) {
-                mLandlordName.setText(mLandlord.getName());
-                mLandlordAge.setText(String.format(Locale.getDefault(), "%d", mLandlord.getAge()));
-                mLandlordGender.setText(mLandlord.getGender());
-                Locale l = new Locale("", mLandlord.getCountry());
-                mLandlordNation.setText(l.getDisplayCountry());
-                mArea.setText(String.format(Locale.getDefault(), "%d", mRoomPosted.getSize()));
-                mRent.setText(String.format(Locale.getDefault(), "%d", mRoomPosted.getRent()));
-                mRentPeriod.setText(String.format(Locale.getDefault(), "%d", mRoomPosted.getPeriodOfRenting()));
-                mDeposit.setText(String.format(Locale.getDefault(), "%d", mRoomPosted.getDeposit()));
+            public void onComplete( @NonNull Task task ) {
+                mLandlordName.setText( mLandlord.getName( ) );
+                mLandlordAge.setText( String.format( Locale.getDefault( ), "%d", mLandlord.getAge( ) ) );
+                mLandlordGender.setText( mLandlord.getGender( ) );
+                Locale l = new Locale( "", mLandlord.getCountry( ) );
+                mLandlordNation.setText( l.getDisplayCountry( ) );
+                mArea.setText( String.format( Locale.getDefault( ), "%d", mRoomPosted.getSize( ) ) );
+                mRent.setText( String.format( Locale.getDefault( ), "%d", mRoomPosted.getRent( ) ) );
+                mRentPeriod.setText( String.format( Locale.getDefault( ), "%d", mRoomPosted.getPeriodOfRenting( ) ) );
+                mDeposit.setText( String.format( Locale.getDefault( ), "%d", mRoomPosted.getDeposit( ) ) );
 
 
             }
-        });
+        } );
 
-        mRoomDescription.setText(mRoomPosted.getDescription());
-        mRoomLocation.setText(mRoomPosted.getCompleteAddress());
-        mRoomInternet.setChecked(mRoomPosted.isLaundry());
-        mRoomLaundry.setChecked(mRoomPosted.isLaundry());
-        mRoomFurnished.setChecked(mRoomPosted.isFurnished());
-        mRoomCommonArea.setChecked(mRoomPosted.isComonAreas());
+        mRoomDescription.setText( mRoomPosted.getDescription( ) );
+        mRoomLocation.setText( mRoomPosted.getCompleteAddress( ) );
+        mRoomInternet.setChecked( mRoomPosted.isLaundry( ) );
+        mRoomLaundry.setChecked( mRoomPosted.isLaundry( ) );
+        mRoomFurnished.setChecked( mRoomPosted.isFurnished( ) );
+        mRoomCommonArea.setChecked( mRoomPosted.isComonAreas( ) );
 
 
-        Task<byte[]> t1 = ImageController.getProfilePicture(mRoomPosted.getLandlordID());
-        t1.addOnSuccessListener(new OnSuccessListener<byte[]>() {
+        Task<byte[]> t1 = ImageController.getProfilePicture( mRoomPosted.getLandlordID( ) );
+        t1.addOnSuccessListener( new OnSuccessListener<byte[]>( ) {
             @Override
-            public void onSuccess(byte[] bytes) {
-                Bitmap bmp = PictureConversion.byteArrayToBitmap(bytes);
-                mPhotoLandlord.setImageBitmap(bmp);
+            public void onSuccess( byte[] bytes ) {
+                Bitmap bmp = PictureConversion.byteArrayToBitmap( bytes );
+                mPhotoLandlord.setImageBitmap( bmp );
             }
-        });
+        } );
     }
 
     /**
@@ -183,13 +183,13 @@ public class CardInfoRoomFragment extends Fragment {
      * @param bmp bitmap to be shown in the fragment.
      */
 
-    private void showPicture(Bitmap bmp) {
-        int picturePosition = mRoomPictures.size();
-        if (picturePosition < 10) {
-            mPictures[picturePosition].setVisibility(View.VISIBLE);
-            mPictures[picturePosition].setScaleType(ImageView.ScaleType.CENTER_CROP);
-            mPictures[picturePosition].setImageBitmap(bmp);
-            mRoomPictures.add(bmp);
+    private void showPicture( Bitmap bmp ) {
+        int picturePosition = mRoomPictures.size( );
+        if ( picturePosition < 10 ) {
+            mPictures[ picturePosition ].setVisibility( View.VISIBLE );
+            mPictures[ picturePosition ].setScaleType( ImageView.ScaleType.CENTER_CROP );
+            mPictures[ picturePosition ].setImageBitmap( bmp );
+            mRoomPictures.add( bmp );
 
 
         }
@@ -199,38 +199,38 @@ public class CardInfoRoomFragment extends Fragment {
      * Method that creates 10 task to read all possible pictures from the database.
      * Each task will upload a picture into the corresponding ImageView.
      */
-    private void initializePictures() {
-        Task[] t = ImageController.getAllRoomPicture(mRoomPosted.getRoomID());
-        for (int i = 0; i < 9; i++) {
-            synchronized (this) {
+    private void initializePictures( ) {
+        Task[] t = ImageController.getAllRoomPicture( mRoomPosted.getRoomID( ) );
+        for ( int i = 0 ; i < 9 ; i++ ) {
+            synchronized ( this ) {
                 final int k = i;
-                t[i].addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                t[ i ].addOnSuccessListener( new OnSuccessListener<byte[]>( ) {
                     @Override
-                    public void onSuccess(final byte[] bytes) {
+                    public void onSuccess( final byte[] bytes ) {
                         Bitmap picture;
-                        picture = PictureConversion.byteArrayToBitmap(bytes);
-                        mPictures[k].setImageBitmap(picture);
-                        mPictures[k].setVisibility(View.VISIBLE);
-                        showPicture(picture);
+                        picture = PictureConversion.byteArrayToBitmap( bytes );
+                        mPictures[ k ].setImageBitmap( picture );
+                        mPictures[ k ].setVisibility( View.VISIBLE );
+                        showPicture( picture );
 
-                        mPictures[k].setOnClickListener(new View.OnClickListener() {
+                        mPictures[ k ].setOnClickListener( new View.OnClickListener( ) {
                             @Override
-                            public void onClick(View v) {
-                                FragmentTransaction ft = Objects.requireNonNull(getActivity())
-                                        .getSupportFragmentManager().beginTransaction();
-                                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                                OpenPictureFragment openPic = new OpenPictureFragment();
+                            public void onClick( View v ) {
+                                FragmentTransaction ft = Objects.requireNonNull( getActivity( ) )
+                                        .getSupportFragmentManager( ).beginTransaction( );
+                                ft.setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN );
+                                OpenPictureFragment openPic = new OpenPictureFragment( );
 
-                                Bundle bundle = new Bundle();
-                                bundle.putByteArray(OpenPictureFragment.KEY_PICTURE, bytes);
-                                openPic.setArguments(bundle);
-                                ft.replace(android.R.id.content, openPic);
-                                ft.addToBackStack(null);
-                                ft.commit();
+                                Bundle bundle = new Bundle( );
+                                bundle.putByteArray( OpenPictureFragment.KEY_PICTURE, bytes );
+                                openPic.setArguments( bundle );
+                                ft.replace( android.R.id.content, openPic );
+                                ft.addToBackStack( null );
+                                ft.commit( );
                             }
-                        });
+                        } );
                     }
-                });
+                } );
             }
         }
 

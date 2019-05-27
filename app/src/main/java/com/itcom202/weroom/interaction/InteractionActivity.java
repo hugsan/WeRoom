@@ -90,7 +90,7 @@ public class InteractionActivity extends AppCompatActivity {
         Bundle bundle = new Bundle( );
         ArrayList<RoomPosted> filteredRooms = FilterController.filterRoomsFromTenant( ProfileSingleton.getInstance( ), mAllPostedRooms );
         bundle.putParcelableArrayList( SwipeFragment.KEY_ROOM_LIST_ALL, filteredRooms );
-        bundle.putLong(SwipeFragment.NANO_TIME_START, nanoStart);
+        bundle.putLong( SwipeFragment.NANO_TIME_START, nanoStart );
 
         FragmentManager fm = getSupportFragmentManager( );
 
@@ -114,7 +114,7 @@ public class InteractionActivity extends AppCompatActivity {
         ArrayList<Profile> filteredTenants = FilterController.filterProfilesFromLandlord( ProfileSingleton.getInstance( ), mAllProfilesFromQuery );
         bundle.putParcelableArrayList( SwipeFragment.KEY_TENANT_LIST, filteredTenants );
         bundle.putParcelableArrayList( SwipeFragment.KEY_ROOM_LIST_LANDLORD, mLandlordsRooms );
-        bundle.putLong(SwipeFragment.NANO_TIME_START, nanoStart);
+        bundle.putLong( SwipeFragment.NANO_TIME_START, nanoStart );
 
 
         FragmentManager fm = getSupportFragmentManager( );
@@ -189,7 +189,7 @@ public class InteractionActivity extends AppCompatActivity {
                 .commit( );
     }
 
-    public void changeToChatSelection(){
+    public void changeToChatSelection( ) {
         mAllProfilesFromQuery.removeAll( mNonTenantProfiles );
         Bundle bundle = new Bundle( );
         bundle.putParcelableArrayList( SelectChatFragment.KEY_ROOM_LANDLORD, mLandlordsRooms );
@@ -316,7 +316,7 @@ public class InteractionActivity extends AppCompatActivity {
                                 .commit( );
                         break;
                     case R.id.action_chat:
-                        changeToChatSelection();
+                        changeToChatSelection( );
                         break;
                 }
                 if ( item != mActiveBottomNavigationViewMenuItem ) {
@@ -329,8 +329,8 @@ public class InteractionActivity extends AppCompatActivity {
     }
 
     private void fetchDataFromDatabaseAndStartSwipeFragment( ) {
-        nanoStart = System.nanoTime();
-        Log.i(TAG, "Start time cards: " + nanoStart);
+        nanoStart = System.nanoTime( );
+        Log.i( TAG, "Start time cards: " + nanoStart );
 
         Profile p = ProfileSingleton.getInstance( );
         if ( p.getRole( ).equals( "Landlord" ) ) {

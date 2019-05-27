@@ -216,7 +216,6 @@ public class BubbleSeekBar extends View {
         mLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                 | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                 | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED;
-        // MIUI禁止了开发者使用TYPE_TOAST，Android 7.1.1 对TYPE_TOAST的使用更严格
         if ( BubbleUtils.isMIUI( ) || Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1 ) {
             mLayoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION;
         } else {
@@ -306,13 +305,9 @@ public class BubbleSeekBar extends View {
                 TextPosition.BELOW_SECTION_MARK ) ? mSectionTextSize : mThumbTextSize;
     }
 
-    /**
-     * Calculate radius of bubble according to the Min and the Max
-     */
     private void calculateRadiusOfBubble( ) {
         mPaint.setTextSize( mBubbleTextSize );
 
-        // 计算滑到两端气泡里文字需要显示的宽度，比较取最大值为气泡的半径
         String text;
         if ( isShowProgressInFloat ) {
             text = float2String( isRtl ? mMax : mMin );
@@ -372,13 +367,13 @@ public class BubbleSeekBar extends View {
     protected void onMeasure( int widthMeasureSpec, int heightMeasureSpec ) {
         super.onMeasure( widthMeasureSpec, heightMeasureSpec );
 
-        int height = mThumbRadiusOnDragging * 2; // 默认高度为拖动时thumb圆的直径
+        int height = mThumbRadiusOnDragging * 2;
         if ( isShowThumbText ) {
             mPaint.setTextSize( mThumbTextSize );
             mPaint.getTextBounds( "j", 0, 1, mRectText ); // j is the highest of all letters and numbers
-            height += mRectText.height( ); // 如果显示实时进度，则原来基础上加上进度文字高度和间隔
+            height += mRectText.height( );
         }
-        if ( isShowSectionText && mSectionTextPosition >= TextPosition.BOTTOM_SIDES ) { // 如果Section值在track之下显示，比较取较大值
+        if ( isShowSectionText && mSectionTextPosition >= TextPosition.BOTTOM_SIDES ) {
             mPaint.setTextSize( mSectionTextSize );
             mPaint.getTextBounds( "j", 0, 1, mRectText );
             height = Math.max( height, mThumbRadiusOnDragging * 2 + mRectText.height( ) );
@@ -442,22 +437,7 @@ public class BubbleSeekBar extends View {
         }
     }
 
-    /**
-     * In fact there two parts of the BubbleSeeBar, they are the BubbleView and the SeekBar.
-     * <p>
-     * The BubbleView is added to Window by the WindowManager, so the only connection between
-     * BubbleView and SeekBar is their origin raw coordinates on the screen.
-     * <p>
-     * It's easy to compute the coordinates(mBubbleCenterRawSolidX, mBubbleCenterRawSolidY) of point
-     * when the Progress equals the Min. Then compute the pixel length increment when the Progress is
-     * changing, the result is mBubbleCenterRawX. At last the WindowManager calls updateViewLayout()
-     * to update the LayoutParameter.x of the BubbleView.
-     * <p>
-     * 气泡BubbleView实际是通过WindowManager动态添加的一个视图，因此与SeekBar唯一的位置联系就是它们在屏幕上的
-     * 绝对坐标。
-     * 先计算进度mProgress为mMin时BubbleView的中心坐标（mBubbleCenterRawSolidX，mBubbleCenterRawSolidY），
-     * 然后根据进度来增量计算横坐标mBubbleCenterRawX，再动态设置LayoutParameter.x，就实现了气泡跟随滑动移动。
-     */
+
     private void locatePositionInWindow( ) {
         getLocationInWindow( mPoint );
 
@@ -905,7 +885,7 @@ public class BubbleSeekBar extends View {
 
         BigDecimal bigDecimal = BigDecimal.valueOf( mThumbCenterX );
         float x_ = bigDecimal.setScale( 1, BigDecimal.ROUND_HALF_UP ).floatValue( );
-        boolean onSection = x_ == x; // 就在section处，不作valueAnim，优化性能
+        boolean onSection = x_ == x;
 
         AnimatorSet animatorSet = new AnimatorSet( );
 
@@ -988,12 +968,7 @@ public class BubbleSeekBar extends View {
         animatorSet.start( );
     }
 
-    /**
-     * Showing the Bubble depends the way that the WindowManager adds a Toast type view to the Window.
-     * <p>
-     * 显示气泡
-     * 原理是利用WindowManager动态添加一个与Toast相同类型的BubbleView，消失时再移除
-     */
+
     private void showBubble( ) {
         if ( mBubbleView == null || mBubbleView.getParent( ) != null ) {
             return;
@@ -1015,14 +990,12 @@ public class BubbleSeekBar extends View {
                 String.valueOf( getProgressFloat( ) ) : String.valueOf( getProgress( ) ) );
     }
 
-    /**
-     * The WindowManager removes the BubbleView from the Window.
-     */
+
     private void hideBubble( ) {
         if ( mBubbleView == null )
             return;
 
-        mBubbleView.setVisibility( GONE ); // 防闪烁
+        mBubbleView.setVisibility( GONE );
         if ( mBubbleView.getParent( ) != null ) {
             mWindowManager.removeViewImmediate( mBubbleView );
         }
@@ -1053,10 +1026,7 @@ public class BubbleSeekBar extends View {
         }
     }
 
-    /**
-     * When BubbleSeekBar's parent view is scrollable, must listener to it's scrolling and call this
-     * method to correct the offsets.
-     */
+
     public void correctOffsetWhenContainerOnScrolling( ) {
         if ( isHideBubble )
             return;

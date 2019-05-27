@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,25 +52,24 @@ public class ChatFragment extends Fragment {
     public View onCreateView( @NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState ) {
         View v = inflater.inflate( R.layout.fragment_chat, container, false );
         if ( getArguments( ) != null ) {
-            mChatID = getArguments().getString(KET_CHAT_ID);
+            mChatID = getArguments( ).getString( KET_CHAT_ID );
         }
         chatMessages = new ArrayList<>( );
 
         listView = v.findViewById( R.id.list_msg );
         btnSend = v.findViewById( R.id.btn_chat_send );
         editText = v.findViewById( R.id.msg_type );
-        mChatName = v.findViewById(R.id.nameChat);
-        mChatName.setText(getArguments().getString(KEY_CHAT_PARTNER));
-        mButtonBack = v.findViewById(R.id.backbutton_chat);
+        mChatName = v.findViewById( R.id.nameChat );
+        mChatName.setText( getArguments( ).getString( KEY_CHAT_PARTNER ) );
+        mButtonBack = v.findViewById( R.id.backbutton_chat );
         mButtonBack.setOnClickListener( new View.OnClickListener( ) {
             @Override
             public void onClick( View v ) {
-                ((InteractionActivity) Objects.requireNonNull(getActivity())).changeToChatSelection();
+                ( ( InteractionActivity ) Objects.requireNonNull( getActivity( ) ) ).changeToChatSelection( );
             }
         } );
         adapter = new MessageAdapter( getActivity( ), R.layout.item_chat_left, chatMessages );
         listView.setAdapter( adapter );
-
 
 
         createSendMessageListener( );
