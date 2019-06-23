@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,7 +108,11 @@ public class CardInfoRoomFragment extends Fragment {
             String btnID = "pictureroom" + ( i + 1 );
             int resID = getResources( ).getIdentifier( btnID, "id", Objects.requireNonNull( getActivity( ) ).getPackageName( ) );
             mPictures[ i ] = v.findViewById( resID );
-            mPictures[ i ].setVisibility( View.GONE );
+            try {
+                mPictures[i].setVisibility(View.GONE);
+            }catch(Exception e){
+                Log.d("blabla", "not 1");
+            }
         }
 
 
@@ -186,11 +191,12 @@ public class CardInfoRoomFragment extends Fragment {
     private void showPicture( Bitmap bmp ) {
         int picturePosition = mRoomPictures.size( );
         if ( picturePosition < 10 ) {
-            mPictures[ picturePosition ].setVisibility( View.VISIBLE );
-            mPictures[ picturePosition ].setScaleType( ImageView.ScaleType.CENTER_CROP );
-            mPictures[ picturePosition ].setImageBitmap( bmp );
-            mRoomPictures.add( bmp );
-
+           try {
+               mPictures[picturePosition].setVisibility(View.VISIBLE);
+               mPictures[picturePosition].setScaleType(ImageView.ScaleType.CENTER_CROP);
+               mPictures[picturePosition].setImageBitmap(bmp);
+               mRoomPictures.add(bmp);
+           }catch(Exception e){Log.d("blabla", "not 2");}
 
         }
     }
@@ -209,7 +215,7 @@ public class CardInfoRoomFragment extends Fragment {
                     public void onSuccess( final byte[] bytes ) {
                         Bitmap picture;
                         picture = PictureConversion.byteArrayToBitmap( bytes );
-                        mPictures[ k ].setImageBitmap( picture );
+                       try{ mPictures[ k ].setImageBitmap( picture );
                         mPictures[ k ].setVisibility( View.VISIBLE );
                         showPicture( picture );
 
@@ -229,6 +235,7 @@ public class CardInfoRoomFragment extends Fragment {
                                 ft.commit( );
                             }
                         } );
+                        }catch(Exception e){Log.d("blabla", "not 3");}
                     }
                 } );
             }
