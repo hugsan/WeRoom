@@ -122,6 +122,16 @@ public class LandlordProfileFragment extends SingleFragment {
                 if ( mTenantMaxAge.getText( ).toString( ).length( ) == 0 ) {
                     mTenantMaxAge.setText( MAX_AGE );
                 }
+
+                if(Integer.parseInt( mTenantMinAge.getText( ).toString( ) )>Integer.parseInt( mTenantMaxAge.getText( ).toString( ) )){
+                    mTenantMaxAge.setError( getString( R.string.wrong_age ) );
+                    mTenantMaxAge.requestFocus( );
+                    mTenantMinAge.setError( getString( R.string.wrong_age ) );
+                    mTenantMinAge.requestFocus( );
+                    noError = false;
+                }
+
+
                 if ( Integer.parseInt( mTenantMaxAge.getText( ).toString( ) ) > 99 ) {
                     mTenantMaxAge.setError( getString( R.string.max_age ) );
                     mTenantMaxAge.requestFocus( );

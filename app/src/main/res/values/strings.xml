@@ -146,6 +146,7 @@
         <item>Working </item>
         <item>Do not care </item>
     </string-array>
+    <string name="wrong_age">Wrong age</string>
 
     <!-- Strings related to add_room_Fragment -->
     <string name="rent_month">Rent pr Month *</string>
